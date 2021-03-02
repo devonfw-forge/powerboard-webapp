@@ -1,0 +1,50 @@
+{
+    "breadCrumb": [
+        {
+            "bu_id": 1,
+            "bu_name":"Capgemini India"
+        },
+        {
+            "bu_id": 2,
+            "bu_name":"Europe BU"
+        },
+        {
+            "bu_id": 3,
+            "bu_name":"Europe CSD AD"
+        },
+        {
+            "bu_id": 4,
+            "bu_name":"ADC Bangalore"
+        },
+        {
+            "bu_id": 2,
+            "bu_name":"Diamler Devops"
+        }
+    ],
+    "businessUnit": [
+        {
+            "id": 4,
+            "name": "ADC Bangalore",
+            "parent_id": 3,
+            "root_parent_id": 1
+        },
+        {
+            "id": 3,
+            "name": "Europe CSD AD",
+            "parent_id": 2,
+            "root_parent_id": 1
+        },
+        {
+            "id": 2,
+            "name": "Europe BU",
+            "parent_id": 1,
+            "root_parent_id": 1
+        },
+        {
+            "id": 1,
+            "name": "Capgemini India",
+            "parent_id": 1,
+            "root_parent_id": 1
+        }
+    ]
+}

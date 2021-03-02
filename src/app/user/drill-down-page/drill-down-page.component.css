@@ -1,0 +1,28 @@
+.style-bold{
+    font-weight: 700;
+  }
+  .card .display-4 .style-bold{
+    position: relative;
+    top: 70%;
+  }
+
+  .brdr{
+    border: 2px solid rgba(230,230,230,0.6);
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* max-width: 300px; */
+    width: 375px;
+    height: 190px;
+    margin: 40px;
+    text-align: center;
+    font-family: arial;
+    cursor: pointer;
+    border-radius: 13%;
+  }
+
+  .card:hover{
+    transform: scale(1.075);
+    transition-duration: 1s;
+
+  }

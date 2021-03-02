@@ -1,0 +1,76 @@
+.codeQuality
+{
+    
+    background-image: url("../../../assets/Grecw.png");
+    height: 219px ;
+    width:  349px;
+    margin: 20px;
+    border-radius: 5%;
+    background-size: cover;
+    margin-left: 55px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; 
+   
+}
+.codeQuality2
+{
+    
+    background-image: url("../../../assets/redcodeQuality .png");
+    height: 219px ;
+    width:  349px;
+    margin: 20px;
+    border-radius: 5%;
+    background-size: cover;
+    margin-left: 55px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; 
+   
+}
+
+.TeamSpirit
+{
+    
+    background-image: url("../../../assets/teamspirit.png");
+    height: 219px ;
+    width:  349px;
+    margin: 20px;
+    border-radius: 5%;
+    background-size: cover;
+    margin-left: 55px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; 
+   
+}
+
+.ClientSatisfaction
+{
+    
+    background-image: url("../../../assets/Clientsatisfaction.png");
+    height: 219px ;
+    width:  349px;
+    margin: 20px;
+    border-radius: 5%;
+    background-size: cover;
+    margin-left: 55px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; 
+   
+}
+.Bugs
+{
+    position: relative;
+    top: 64px;
+    left: 55px;
+}
+.Debt
+{
+    position: relative;
+    top: 92px;
+    left: 55px;
+}
+.TotalCoverage
+{
+    position: relative;
+    top: 56px;
+    left: 185px;
+}
