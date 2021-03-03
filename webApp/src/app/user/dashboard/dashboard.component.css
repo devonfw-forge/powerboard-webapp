@@ -47,9 +47,9 @@
     
     background-image: url("../../../assets/Clientsatisfaction.png");
     height: 219px ;
-    width:  349px;
+    width:  300px;
     margin: 20px;
-    border-radius: 5%;
+    border-radius: 10%;
     background-size: cover;
     margin-left: 55px;
     background-position: center; /* Center the image */
@@ -73,4 +73,26 @@
     position: relative;
     top: 56px;
     left: 185px;
+}
+.Gauge{
+    position: relative;
+    left: -30px;
+    top: 52px;
+}
+.ClientGauge
+{
+    position: relative;
+    left: 10px;
+    top: 52px; 
+}
+.circle
+{
+    height: 80px;
+    width: 80px;
+    border: 3px solid white;
+    border-radius: 50%;
+    top: -95px;
+    left: 240px;
+    position: relative;
+    background-color: white;
 }

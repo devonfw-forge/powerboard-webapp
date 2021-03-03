@@ -1,0 +1,27 @@
+.brdr{
+    border: 3px solid black;
+    height: 219px ;
+    width:  300px;
+    margin: 20px;
+    border-radius: 5%;
+    margin-left: 55px;
+}
+ 
+.internal-brdr{
+    border-bottom: 2px solid black;
+}
+.title{
+    text-align: center;
+}
+.number{
+    text-align: center;
+    color: black;
+}
+.status{
+    margin-bottom: 0%;
+}
+.data-align{
+    padding-left: 4%;
+    margin-bottom: 0%;
+    margin-top: -1%;
+}

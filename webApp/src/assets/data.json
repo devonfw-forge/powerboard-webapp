@@ -1,4 +1,22 @@
 {
+    "dashboard": {
+        "teamId": 1,
+        "teamName": "Diamler Devops",
+        "codeQualityDTO": {
+            "bugs": 3,
+            "debt": 13,
+            "codeCoverage": 85,
+            "status": "PASSED"
+        },
+        "clientStatusDTO": {
+            "clientSatisfactionRating": 8,
+            "sprintNumber": 11
+        },
+        "teamSpiritDTO": {
+            "teamSpiritRating": 9,
+            "sprintNumber": 11
+        }
+    },
     "breadCrumb": [
         {
             "bu_id": 1,
