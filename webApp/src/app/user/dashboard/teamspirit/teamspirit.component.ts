@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts/types/dist/echarts';
+import { TeamSpirit } from 'src/app/shared/modals/teamSpirit.model';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-teamspirit',
@@ -10,61 +12,96 @@ export class TeamspiritComponent implements OnInit {
 
   public chartOption : EChartsOption = {};
  
-  constructor() { }
- 
+  constructor(private service : UserService) { }
+  teamSprit : TeamSpirit;
   ngOnInit(): void {
+    this.teamSprit = this.service.data.dashboard.teamSpiritDTO;
     this.initChart();
   }
  
   initChart() {
-    this.chartOption = {
+    this.chartOption =
+ {
       series: [{
           type: 'gauge',
-          startAngle: 180,
-          endAngle: 0,
+          startAngle: 215,
+          endAngle: -35,
           min: 0,
-          max: 10,
+          max: 1,
           splitNumber: 5,
-           axisLine: {
+          axisLine: {
               lineStyle: {
-                   width: 6,
-                   color: [
-                     [0.33, '#e01304'],
-                     [0.66, '#ffd000'],
-                       [1, '#07ba55']
-                   ]
+                  width: 5,
+                  color: [
+                      [0.33, '#91b1e6'],
+                      [0.66, '#3f83f2'],
+                      [1, '#0d5ad9']
+                  ]
               }
-           },
-         
+          },
           pointer: {
               icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
-              length: '18%',
+              length: '10%',
               width: 15,
-              offsetCenter: [0, '-60%'],
+              offsetCenter: [0, '-50%'],
               itemStyle: {
                   color: 'auto'
               }
           },
           axisTick: {
-              // length: 12,
-              // lineStyle: {
-              //     color: 'auto',
-              //     width: 2
-              // }
-              show: false
-          },
-          splitLine: {
-              length: 10,
+              length: 0,
               lineStyle: {
                   color: 'auto',
-                  width: 3
+                  width: 2
+              }
+          },
+          splitLine: {
+              length: 5,
+              lineStyle: {
+                  color: 'auto',
+                  width: 2
               }
           },
           axisLabel: {
-            distance: 25,
-            color: 'auto',
-            fontSize: 10
-        },
+              color: '#464646',
+              fontSize: 10,
+              distance: -30,
+              formatter: function (value) {
+                  if (value === 1) {
+                      return '10';
+                  }
+                  else if (value === 0.9) {
+                      return '';
+                  }
+                  else if (value === 0.8) {
+                      return '8';
+                  }
+                  else if (value === 0.7) {
+                      return '';
+                  }
+                   else if (value === 0.6) {
+                      return '6';
+                  }
+                  else if (value === 0.5) {
+                      return '';
+                  }
+                  else if (value === 0.4) {
+                      return '4';
+                  }
+                   else if (value === 0.3) {
+                      return '';
+                  }
+                  else if (value === 0.2) {
+                      return '2';
+                  }
+                  else if (value === 0.1) {
+                      return '';
+                  }
+                   else if (value === 0.0) {
+                      return '0';
+                  }
+              }
+          },
           title: {
               offsetCenter: [0, '-20%'],
               fontSize: 15
@@ -74,16 +111,15 @@ export class TeamspiritComponent implements OnInit {
               offsetCenter: [0, '0%'],
               valueAnimation: true,
               formatter: function (value) {
-                  return Math.round(value).toString();
+                  return Math.round(value * 10) + '';
               },
               color: 'auto'
           },
           data: [{
-              value: 7,
-              
+              value: this.teamSprit.teamSpiritRating/10,
+              name: ''
           }]
       }]
   };
-  }
 
-}
+  }}

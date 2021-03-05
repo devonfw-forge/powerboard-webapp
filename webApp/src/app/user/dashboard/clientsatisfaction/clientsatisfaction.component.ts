@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts/types/dist/echarts';
 
+import { ClientStatus } from 'src/app/shared/modals/clientStatus.model';
+import { UserService } from 'src/app/shared/services/user.service';
+
 @Component({
   selector: 'app-clientsatisfaction',
   templateUrl: './clientsatisfaction.component.html',
@@ -11,12 +14,15 @@ export class ClientsatisfactionComponent implements OnInit {
   
   public chartOption : EChartsOption = {};
  
-  constructor() { }
+  constructor(private service : UserService) { }
  
   ngOnInit(): void {
+      
+      this.clientStatus = this.service.data.dashboard.clientStatusDTO;
     this.initChart();
+    
   }
- 
+  clientStatus : ClientStatus;
   initChart() {
     this.chartOption =
  {
@@ -31,9 +37,9 @@ export class ClientsatisfactionComponent implements OnInit {
               lineStyle: {
                   width: 5,
                   color: [
-                      [0.33, '#ff0000'],
-                      [0.66, '#ffa31a'],
-                      [1, '#07ba55']
+                      [0.33, '#91b1e6'],
+                      [0.66, '#3f83f2'],
+                      [1, '#0d5ad9']
                   ]
               }
           },
@@ -114,7 +120,7 @@ export class ClientsatisfactionComponent implements OnInit {
               color: 'auto'
           },
           data: [{
-              value: 0.8,
+              value: this.clientStatus.clientSatisfactionRating/10,
               name: ''
           }]
       }]

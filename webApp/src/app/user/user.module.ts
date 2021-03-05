@@ -11,6 +11,7 @@ import { CodequalityComponent } from './dashboard/codequality/codequality.compon
 import { TeamspiritComponent } from './dashboard/teamspirit/teamspirit.component';
 import { ClientsatisfactionComponent } from './dashboard/clientsatisfaction/clientsatisfaction.component';
 import { BurndownComponent } from './dashboard/burndown/burndown.component';
+import { VelocityComparisonComponent } from './dashboard/velocity-comparison/velocity-comparison.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { BurndownComponent } from './dashboard/burndown/burndown.component';
     TeamspiritComponent,
     ClientsatisfactionComponent,
     BurndownComponent,
+    VelocityComparisonComponent,
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,14 @@
-<p>codequality works!</p>
+<div class="codeQuality" *ngIf="codeQuality.status === 'PASSED'">
+    <span class ="Bugs" *ngIf="codeQuality.bugs < 10"><h2>0{{codeQuality.bugs}}</h2></span>
+    <span class ="Bugs" *ngIf="codeQuality.bugs > 9" ><h2>{{codeQuality.bugs}}</h2></span>
+    <span class ="Debt"><h2>{{codeQuality.debt}}</h2></span>
+    <span class="TotalCoverage"><h4>{{codeQuality.codeCoverage}}%</h4></span>
+</div>
+
+
+<div class="codeQuality2" *ngIf="codeQuality.status != 'PASSED'">
+    <span class ="Bugs" *ngIf="codeQuality.bugs < 10"><h2>0{{codeQuality.bugs}}</h2></span>
+    <span class ="Bugs" *ngIf="codeQuality.bugs > 9" ><h2>{{codeQuality.bugs}}</h2></span>
+    <span class ="Debt"><h2>{{codeQuality.debt}}</h2></span>
+    <span class="TotalCoverage"><h4>{{codeQuality.codeCoverage}}%</h4></span>
+</div>

@@ -12,7 +12,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class BreadcrumbComponent implements OnInit {
 
   path: UserBreadCrumb[];
-  count: number=0;
+  //count: number=0;
 
   constructor(public service: UserService, private route: Router) { }
 
@@ -22,22 +22,20 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   drillingDown(id: number,name: string,i: number){
-    this.count+=1;
-    this.service.data.breadCrumb=this.service.data.breadCrumb.splice(0,id);
-    if(this.count>1){
-      this.service.zoomInFromOutside(id,name);
-    }
-    else{
+    console.log(id);
+    this.service.count=1;
+    this.service.data.user_breadCrumb=this.service.data.user_breadCrumb.splice(0,i+1);
+    //console.log(this.service.data.user_breadCrumb.splice(0,id));
       this.service.zoomInFromOutside(id,name);
     this.route.navigate(['user/1/drill-down']);
-    }
+    
 
   }
 
   home(id: number,name: string,i: number){
-    this.count+=1;
-    this.service.data.breadCrumb=this.service.data.breadCrumb.splice(0,id);
-    if(this.count>1){
+    this.service.count+=1;
+    this.service.data.user_breadCrumb=this.service.data.user_breadCrumb.splice(0,id);
+    if(this.service.count>1){
       this.service.zoomInFromHome(id,name);
     }
     else{
@@ -46,10 +44,11 @@ export class BreadcrumbComponent implements OnInit {
     }
   }
 
-  myDashBoard(){
-    this.count=0;
-    this.service.data.breadCrumb= JSON.parse(sessionStorage.getItem('bu-data')).breadCrumb;
-    this.route.navigate(['user/1/dashboard'])
-  }
+  // myDashBoard(){
+  //   this.service.count=0;
+  //   this.service.data.user_breadCrumb= JSON.parse(sessionStorage.getItem('bu-data')).user_breadCrumb;
+  //   this.service.data.dashboard=JSON.parse(sessionStorage.getItem('bu-data')).dashboard;
+  //   this.route.navigate(['user/1/dashboard'])
+  // }
 
 }

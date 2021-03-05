@@ -1,16 +1,16 @@
 <div class="brdr"
-    [ngStyle]="{'border-color':(burnDown.status === 'Ahead Time' || burnDown.status === 'On Time') ? 'green' : 'red' }">
+    [ngStyle]="{'border-color':(burnDown.burndownStatus === 'Ahead Time' || burnDown.burndownStatus === 'On Time') ? 'green' : 'red' }">
     <div class="internal-brdr">
         <h3 class="title">Burndown</h3>
     </div>
     <div class="mt-2">
         <div
-            [ngStyle]="{'color':(burnDown.status === 'Ahead Time' || burnDown.status === 'On Time') ? 'green' : 'red' }">
-            <h1 class="title status">{{burnDown.status}}</h1>
-            <div *ngIf="burnDown.status != 'On Time'">
-                <div *ngIf="burnDown.status=== 'Behind Time' then content else other_content"> </div>
+            [ngStyle]="{'color':(burnDown.burndownStatus === 'Ahead Time' || burnDown.burndownStatus === 'On Time') ? 'green' : 'red' }">
+            <h1 class="status">{{burnDown.burndownStatus}}</h1>
+            <div *ngIf="burnDown.burndownStatus != 'On Time'">
+                <div *ngIf="burnDown.burndownStatus=== 'Behind Time' then content else other_content"> </div>
                 <ng-template #content>
-                    <h5 class="number">(<span>-</span>{{burnDown.count}})</h5>
+                    <h5 class="number">({{burnDown.count}})</h5>
                 </ng-template>
                 <ng-template #other_content>
                     <h5 class="number">(<span>+</span>{{burnDown.count}})</h5>

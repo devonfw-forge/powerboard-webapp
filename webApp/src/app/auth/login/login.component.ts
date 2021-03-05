@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
 
   }
 
-  login(){
-    this.service.getData();
+  async login(){
+    await this.service.getData();
     this.route.navigate(['user/1']);
   }
 

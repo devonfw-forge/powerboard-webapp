@@ -1,1 +1,47 @@
-<div echarts [options]="chartOption" class="demo-chart" style="height: 250px; width: 500px;"></div>
+<div *ngIf="teamSprit.teamSpiritRating < 6.6 ">
+    <div *ngIf="teamSprit.teamSpiritRating < 3.4 then content else other_content"> </div>
+    <ng-template #content>
+        <div class="TeamSpirit" id="critical" >
+            
+            <div class='Gauge'>
+                <div echarts [options]="chartOption" class="demo-chart" style="height: 170px; width: 170px;"></div>
+            </div>
+            <div class="circle" ><img class="emoji" src="../assets/Images/sademoji.jpg"></div>
+        </div>
+    </ng-template>
+    <ng-template #other_content>
+        <div class="TeamSpirit" id="normal">
+            
+            <div class='Gauge'>
+                <div echarts [options]="chartOption" class="demo-chart" style="height: 170px; width: 170px;"></div>
+            </div>
+            
+            <div class="circle"><img class="emoji" src="../assets/Images/speechless emoji.jpg"></div>
+        </div>
+    </ng-template>
+   
+    
+</div>
+<div  class="TeamSpirit" id="good" *ngIf ="teamSprit.teamSpiritRating > 6.6">
+    
+    <div class='Gauge'>
+        <div echarts [options]="chartOption" class="demo-chart" style="height: 170px; width: 170px;"></div>
+    </div>
+    <div class="circle" *ngIf = "teamSprit.teamSpiritRating > 6.6"><img class="emoji" src="../assets/Images/happy face emoji.png"></div>
+</div>
+<h4 class="title"><u>Team Spirit</u></h4>
+
+
+
+
+
+<!-- <div class="TeamSpirit">
+        
+    <div class="Gauge">
+        <div echarts [options]="chartOption" class="demo-chart" style="height: 170px; width: 170px;"></div>
+    </div>
+    <div class="circle" *ngIf = "teamSprit.teamSpiritRating < 3.4"><img class="emoji" src="../assets/sademoji.jpg"></div>
+    <div class="circle" *ngIf = "teamSprit.teamSpiritRating < 6.7 && teamSprit.teamSpiritRating > 3.3"><img class="emoji" src="../assets/speechless emoji.jpg"></div>
+    <div class="circle" *ngIf = "teamSprit.teamSpiritRating > 6.6"><img class="emoji" src="../assets/happy face emoji.png"></div>
+</div>
+ -->

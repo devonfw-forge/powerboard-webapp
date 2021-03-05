@@ -1,36 +1,21 @@
-
-<div class="row auto">
-
-    <div class="TeamSpirit">
-       
-        <div class="Gauge">
-            <app-teamspirit></app-teamspirit>
-        </div>
-        </div>
+<div class="col-md-12 row auto">
+<div class="col-md-4 auto">
+  <app-teamspirit></app-teamspirit>
+ </div>
     
-    <div class="codeQuality">
-<span class ="Bugs"><h2>00</h2></span>
-<span class ="Debt"><h2>05</h2></span>
-<span class="TotalCoverage"><h4>70%</h4></span>
-</div>
-
-<div class="ClientSatisfaction">
-    <div class='ClientGauge'>
-        <app-clientsatisfaction></app-clientsatisfaction>
+    <div class="col-md-4 auto">
+      <app-codequality></app-codequality>
     </div>
-    <div class="circle"></div>
+
+<div class="col-md-4 auto"> 
+        <app-clientsatisfaction></app-clientsatisfaction>  
 </div>
-<div class="TeamSpirit">
-</div>
-<div class="codeQuality2">
-    <span class ="Bugs"><h2>00</h2></span>
-    <span class ="Debt"><h2>05</h2></span>
-    <span class="TotalCoverage"><h4>70%</h4></span>
+<div class="col-md-4 auto burndown" >
+    <app-burndown></app-burndown>
 </div>
 
-<div class="ClientSatisfaction">
-   
+<div class="col-md-4 auto">
+  <app-velocity-comparison></app-velocity-comparison>
 </div>
 </div>
-<app-teamspirit></app-teamspirit>
-<app-clientsatisfaction></app-clientsatisfaction>
+

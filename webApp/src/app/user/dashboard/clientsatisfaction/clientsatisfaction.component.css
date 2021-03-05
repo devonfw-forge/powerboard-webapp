@@ -1,0 +1,68 @@
+
+.ClientSatisfaction
+{
+    
+    /* background-image: url("../../../../assets/Clientsatisfaction.png"); */
+    background-color: white;
+    height: 219px ;
+    width:  349px;
+    margin: 20px;
+    border: 1px solid black;
+    border-radius: 10%;
+
+   /*  background-size: cover; */
+   
+   /*  background-position: center; /* Center the image */
+   /* background-repeat: no-repeat;  */
+   
+}
+.Gauge{
+    position: relative;
+    left: -30px;
+    top: 52px;
+}
+.ClientGauge
+{
+    position: relative;
+    left: 10px;
+    top: 52px; 
+}
+.circle
+{
+    height: 100px;
+    width: 100px;
+    border: 3px solid white;
+    border-radius: 50%;
+    top: -95px;
+    left: 200px;
+    position: relative;
+    background-color: white;
+}
+.emoji
+{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    margin: 5px;
+}
+#critical
+{
+    border-color: red;
+   
+}
+#normal
+{
+   
+    border-color: orange;
+   
+}
+#good
+{
+    border-color:green;
+}
+.title
+{
+    position: relative;
+    left: 90px;
+    top: -225px;
+}

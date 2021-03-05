@@ -1,17 +1,21 @@
-<div class="pt-4">
-    <div class="row">
+<div class="row auto">
+    <div class="row auto">
         <div *ngFor='let bu of service.buList; let i=index'>
-
-                <div class="card brdr" (click)="zoomIn(bu.id,bu.name)">
+            <div *ngIf='bu.id'>
+                <div class="card brdr auto" (click)="zoomIn(bu.id,bu.name)">
                     <div class="display-4">
-                        <h1 class="style-bold">{{bu.name}}</h1>
+                        <h2 class="style-bold">{{bu.name}}</h2>
                     </div>
-
-
+                </div>
+               </div> 
+               <div *ngIf='bu.teamId'>
+                <div class="card brdr auto" (click)="moveToDashboard(bu.teamId,bu.teamName)">
+                    <div class="display-4">
+                        <h1 class="style-bold">{{bu.teamName}}</h1>
+                    </div>
+ 
+                </div>
             </div>
         </div>
-
     </div>
-
-
 </div>

@@ -6,14 +6,14 @@
             "bugs": 3,
             "debt": 13,
             "codeCoverage": 85,
-            "status": "PASSED"
+            "status": "FAILED"
         },
         "clientStatusDTO": {
-            "clientSatisfactionRating": 8,
+            "clientSatisfactionRating": 6,
             "sprintNumber": 11
         },
         "teamSpiritDTO": {
-            "teamSpiritRating": 9,
+            "teamSpiritRating": 6,
             "sprintNumber": 11
         }
     },
