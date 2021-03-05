@@ -40,6 +40,7 @@ export class UserService {
     this.buList= this.dumpBUData.filter(d => d.parent_id === id && d.id != d.parent_id);
     let l= this.data.user_breadCrumb.length;
     this.data.user_breadCrumb[l]=bu;
+    // console.log(this.data.user.breadCrumb);
     if(this.buList.length===0){
       this.buList=await this.getTeamsName(id);
     }
@@ -61,7 +62,7 @@ export class UserService {
   async otherProjectDashBoard(teamId: number, teamName: string){
 
     const bu: any = {};
-    bu.bu_id=teamId;
+    bu.bu_id=teamId*100;
     bu.bu_name=teamName;
     let l= this.data.user_breadCrumb.length;
     this.data.user_breadCrumb[l]=bu;

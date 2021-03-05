@@ -18,6 +18,7 @@ export class UserComponent implements OnInit {
 
   logOut(){
     console.log("Working ...");
+    this.route.navigate(['/auth/login']);
   }
 
   

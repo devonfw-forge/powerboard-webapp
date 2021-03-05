@@ -27,11 +27,14 @@
    rgb(1, 17, 37));
   border-radius: 5px;
   color: white;
+  }
 
+  .justify-content-center{
+    align-items: center;
+    margin-top: 5%;
   }
 
   .card:hover{
     transform: scale(1.075);
     transition-duration: 1s;
-    
   }

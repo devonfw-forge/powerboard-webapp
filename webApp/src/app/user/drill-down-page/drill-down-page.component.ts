@@ -26,7 +26,7 @@ export class DrillDownPageComponent implements OnInit {
   async moveToDashboard(teamId: number,teamName: string){
     await this.service.otherProjectDashBoard(teamId, teamName);
     this.route.navigate(['user/1/dashboard']);
-    console.log(this.service.count);
+    console.log(this.service.data.user_breadCrumb);
     // this.service.count=0;
   }
 
