@@ -33,15 +33,13 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   home(id: number,name: string,i: number){
-    this.service.count+=1;
+   
+    console.log(id);
+    this.service.count=1;
     this.service.data.user_breadCrumb=this.service.data.user_breadCrumb.splice(0,id);
-    if(this.service.count>1){
-      this.service.zoomInFromHome(id,name);
-    }
-    else{
-      this.service.zoomInFromHome(id,name);
+    //console.log(this.service.data.user_breadCrumb.splice(0,id));
+    this.service.zoomInFromHome(id,name);
     this.route.navigate(['user/1/drill-down']);
-    }
   }
 
   // myDashBoard(){

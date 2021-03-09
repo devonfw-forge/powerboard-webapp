@@ -83,5 +83,6 @@ export class UserService {
   async getTeamDashboard(teamId: number){
     let data= await this.http.get(this.teamDashboard_URL+'/'+ teamId).toPromise();
     this.data.dashboard=data;
+    console.log(this.data);
   }
 }

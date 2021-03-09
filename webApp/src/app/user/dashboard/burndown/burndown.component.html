@@ -10,7 +10,7 @@
             <div *ngIf="burnDown.burndownStatus != 'On Time'">
                 <div *ngIf="burnDown.burndownStatus=== 'Behind Time' then content else other_content"> </div>
                 <ng-template #content>
-                    <h5 class="number">({{burnDown.count}})</h5>
+                    <h5 class="number">(<span>-</span>{{burnDown.count}})</h5>
                 </ng-template>
                 <ng-template #other_content>
                     <h5 class="number">(<span>+</span>{{burnDown.count}})</h5>

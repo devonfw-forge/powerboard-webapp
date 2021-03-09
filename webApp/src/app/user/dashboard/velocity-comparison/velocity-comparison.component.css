@@ -34,7 +34,13 @@
 }
 .data-align{
     padding-left: 4%;
-    margin-bottom: 0%;
-    margin-top: 0%;
-    margin-left: 12%;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 58px;
+}
+h1{
+    color:#0d5ad9;
+}
+.margin-top{
+    margin-top: -2px;
 }

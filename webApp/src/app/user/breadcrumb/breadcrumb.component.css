@@ -2,3 +2,10 @@
     color: blue;
     cursor: pointer;
 }
+.click{
+    color: blue;
+    cursor: pointer;
+}
+.click:hover{
+    text-decoration: underline;
+}
