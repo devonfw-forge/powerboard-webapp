@@ -4,11 +4,11 @@
     
     /* background-image: url("../../../../assets/Clientsatisfaction.png"); */
     background-color: white;
-    height: 219px ;
+    height: 205px ;
     width:  349px;
     margin: 20px;
     border: 1px solid black;
-    border-radius: 10%;
+    border-radius: 5%;
 
    /*  background-size: cover; */
    
@@ -63,6 +63,9 @@
 .title
 {
     position: relative;
-    left: 90px;
-    top: -225px;
+    /* left: 90px; */
+    top: -215px;
+    font-weight: 600;
+    margin-left: 10%;
+    color: #636362;
 }

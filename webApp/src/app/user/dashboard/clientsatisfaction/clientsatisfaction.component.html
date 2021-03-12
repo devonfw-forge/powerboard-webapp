@@ -17,7 +17,7 @@
                 <div echarts [options]="chartOption" class="demo-chart" style="height: 170px; width: 170px;"></div>
             </div>
             
-            <div class="circle"><img class="emoji" src="../../../../assets/Images/yellow.jpeg"></div>
+            <div class="circle"><img class="emoji" src="../../../../assets/Images/orange.png"></div>
         </div>
     </ng-template>
    
@@ -28,9 +28,9 @@
     <div class='ClientGauge'>
         <div echarts [options]="chartOption" class="demo-chart" style="height: 170px; width: 170px;"></div>
     </div>
-    <div class="circle" *ngIf = "clientStatus.clientSatisfactionRating > 6.6"><img class="emoji" src="../../../../assets/Images/green .jpeg"></div>
+    <div class="circle" *ngIf = "clientStatus.clientSatisfactionRating > 6.6"><img class="emoji" src="../../../../assets/Images/green.jpeg"></div>
 </div>
-<h4 class="title"><u>Client Satisfaction</u></h4>
+<h5 class="title">Client Satisfaction</h5>
 
 <!-- <div class="ClientSatisfaction">
     <div class='ClientGauge'>

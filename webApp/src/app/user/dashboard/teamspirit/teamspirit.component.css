@@ -4,11 +4,12 @@
     
     /* background-image: url("../../../../assets/teamspirit.png"); */
     background-color: white;
-    height: 219px ;
+    height: 205px ;
     width:  349px;
     margin: 20px;
     border: 1px solid black;
     border-radius: 5%;
+    margin-top: 25px;
     /* background-size: cover; */
     
    /*  background-position: center; /* Center the image */
@@ -57,6 +58,9 @@
 .title
 {
     position: relative;
-    left: 90px;
-    top: -225px;
+   /*  left: 20px; */
+   margin-left: 10%;
+    top: -215px;
+    font-weight: 600;
+    color: #6b6b6b;
 }

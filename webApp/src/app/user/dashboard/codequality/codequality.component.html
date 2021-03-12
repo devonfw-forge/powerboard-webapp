@@ -4,7 +4,7 @@
     <span class ="Debt"><h2>{{codeQuality.debt}}</h2></span>
     <span class="TotalCoverage"><h4>{{codeQuality.codeCoverage}}%</h4></span>
 </div>
-
+<h5 class="title">Code Quality</h5>
 
 <div class="codeQuality2" *ngIf="codeQuality.status != 'PASSED'">
     <span class ="Bugs" *ngIf="codeQuality.bugs < 10"><h2>0{{codeQuality.bugs}}</h2></span>

@@ -66,6 +66,7 @@ export class UserService {
     bu.bu_name=teamName;
     let l= this.data.user_breadCrumb.length;
     this.data.user_breadCrumb[l]=bu;
+    console.log("teamID : ")
     await this.getTeamDashboard(teamId);
   }
 

@@ -12,6 +12,8 @@ import { TeamspiritComponent } from './dashboard/teamspirit/teamspirit.component
 import { ClientsatisfactionComponent } from './dashboard/clientsatisfaction/clientsatisfaction.component';
 import { BurndownComponent } from './dashboard/burndown/burndown.component';
 import { VelocityComparisonComponent } from './dashboard/velocity-comparison/velocity-comparison.component';
+import { DemoWidgetComponent } from './dashboard/demo-widget/demo-widget.component';
+
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { VelocityComparisonComponent } from './dashboard/velocity-comparison/vel
     ClientsatisfactionComponent,
     BurndownComponent,
     VelocityComparisonComponent,
+    DemoWidgetComponent,
+   
   ],
   imports: [
     CommonModule,

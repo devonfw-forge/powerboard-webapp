@@ -10,11 +10,27 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class DrillDownPageComponent implements OnInit {
 
-
+ 
+  info : string;
+  buList: any;
   constructor(public service: UserService, private route: Router) { }
 
   ngOnInit(): void {
-    
+    /* this.buList=this.service.buList;
+    if(this.buList.status == 0)
+    {
+      this.info = "Off Track"
+    }
+
+    else if(this.buList.status == 1)
+    {
+      this.info = "Potential Risk"
+    }
+    else
+    {
+      this.info = "On Track"
+    } */
+
     console.log("working fine");
   }
 

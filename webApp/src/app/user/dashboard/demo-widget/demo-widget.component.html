@@ -7,23 +7,29 @@
            <h4> Average Velocity :</h4> <h2 class="status"> {{velocity.Avg}}</h2>
         </div> -->
 
-        <div class="Avg">
+        <div class="row Avg mt-2">
+            <div>
             <h2 class="avgvalue">{{velocity.Avg}}</h2>
-            <h4 class="title1">Average Velocity</h4>
+        </div>
+            <h4 class="title2">Average Velocity</h4>
             
         </div>
 
-        <div class="row justify-content-between spacestyle">
-            <div>
+        <!-- <div class="row justify-content-between pl-5 pr-5 pb-2"> -->
+            <div class="row committed mt-1">
+                <div>
                 <h3 class="value-style">{{velocity.Committed}}</h3>
-                <h5 class="ml-2 title2">Committed </h5>
+            </div>
+                <h5 class="tile-style">Committed </h5>
                 
             </div>
-            <div class="pl-2">
+            <div class="row completed mt-1">
+                <div>
                 <h3 class="value-style">{{velocity.Completed}}</h3>
-                <h5 class="title2">Completed</h5>
+            </div>
+                <h5 class="tile-style pl-2">Completed</h5>
                
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 </div>

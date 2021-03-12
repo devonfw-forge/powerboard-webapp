@@ -10,7 +10,43 @@
                </div> 
                <div *ngIf='bu.teamId'>
                 <div class="card brdr auto" (click)="moveToDashboard(bu.teamId,bu.teamName)">
-                    <div class="display-4">
+                   <div class="projectstatus row" *ngIf="bu.status != 1" >
+                      
+                       <span class="dot" *ngIf="bu.status===0" style="background-color: red;"></span>
+                       <span class="protecttitle" *ngIf="bu.status===0">Off Track</span>
+                       <span class="dot" *ngIf="bu.status===2" style="background-color: green;"></span>
+                       <span class="protecttitle" *ngIf="bu.status===2">On Track</span>
+                    </div>
+
+                   <div class="projectstatus2 row" *ngIf="bu.status===1">
+                    
+                    
+                    <span class="dot" style="background-color: orange;"></span>
+                    <span class="protecttitle">Potential Risk</span>
+                </div>
+
+
+                
+
+                    <!-- <div class="status" *ngIf="bu.status===0">
+                        <div class="circle red ">
+
+                        </div>
+
+                    </div>
+                    <div class="status" *ngIf="bu.status===1">
+                        <div class="circle yellow">
+                            
+                        </div>
+
+                    </div>
+                    <div class="status" *ngIf="bu.status===2">
+                        <div class="circle green">
+                            
+                        </div> -->
+
+                    <!-- </div> -->
+                    <div class="display">
                         <h1 class="style-bold">{{bu.teamName}}</h1>
                     </div>
  

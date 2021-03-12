@@ -9,13 +9,28 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./teamspirit.component.css']
 })
 export class TeamspiritComponent implements OnInit {
-
+  
   public chartOption : EChartsOption = {};
  
   constructor(private service : UserService) { }
   teamSprit : TeamSpirit;
+  colour:string;
   ngOnInit(): void {
     this.teamSprit = this.service.data.dashboard.teamSpiritDTO;
+
+    if(this.teamSprit.teamSpiritRating<3.3){
+       
+        this.colour='#c40000';
+    }
+    else if(this.teamSprit.teamSpiritRating>3.3 && this.teamSprit.teamSpiritRating<6.7){
+      
+      this.colour='#e09b3a';
+    }
+    else{
+      
+      this.colour='#2ab02f';
+    }
+
     this.initChart();
   }
  
@@ -33,9 +48,8 @@ export class TeamspiritComponent implements OnInit {
               lineStyle: {
                   width: 5,
                   color: [
-                      [0.33, '#91b1e6'],
-                      [0.66, '#3f83f2'],
-                      [1, '#0d5ad9']
+                     
+                      [1, this.colour]
                   ]
               }
           },

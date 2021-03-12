@@ -1,13 +1,13 @@
 <div class="brdr"
     [ngStyle]="{'border-color':(burnDown.burndownStatus === 'Ahead Time' || burnDown.burndownStatus === 'On Time') ? 'green' : 'red' }">
     <div class="internal-brdr">
-        <h3 class="title">Burndown</h3>
+        <h5 class="title">Burndown</h5>
     </div>
     <div class="mt-2">
-        <div
+        <div class="spacing row"
             [ngStyle]="{'color':(burnDown.burndownStatus === 'Ahead Time' || burnDown.burndownStatus === 'On Time') ? 'green' : 'red' }">
-            <h1 class="status">{{burnDown.burndownStatus}}</h1>
-            <div *ngIf="burnDown.burndownStatus != 'On Time'">
+            <h2 class="status">{{burnDown.burndownStatus}}</h2>
+            <div class="status-mrgn" *ngIf="burnDown.burndownStatus != 'On Time'">
                 <div *ngIf="burnDown.burndownStatus=== 'Behind Time' then content else other_content"> </div>
                 <ng-template #content>
                     <h5 class="number">(<span>-</span>{{burnDown.count}})</h5>
@@ -16,15 +16,20 @@
                     <h5 class="number">(<span>+</span>{{burnDown.count}})</h5>
                 </ng-template>
             </div>
+           
         </div>
-        <div class="pl-5">
-            <div class="row mt-3">
-                <h5>Remaining Days : </h5>
-                <h3 class="data-align">{{burnDown.remainingDays}}</h3>
+        <div class="row justify-content-between mt-2 spacestyle">
+            <div class="label">
+               
+                <h3>{{burnDown.remainingDays}}</h3>
+                <h5>Remaining Days</h5>
+                
             </div>
-            <div class="row mt-1">
-                <h5>Remaining Work : </h5>
-                <h3 class="data-align">{{burnDown.remainingWork}}</h3>
+            <div class="label">
+               
+                <h3>{{burnDown.remainingWork}}</h3>
+                <h5>Remaining Work</h5>
+               
             </div>
         </div>
     </div>
