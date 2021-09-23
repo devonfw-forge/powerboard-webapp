@@ -8,7 +8,7 @@ import {
   PowerboardLoginResponse,
   TeamDetails,
 } from '../login/model/login.model';
-import { TeamDetailResponse } from '../model/general.model';
+import { MultimediaFilesNew, TeamDetailResponse } from '../model/general.model';
 import { GetTeamDetails } from '../project-display/model/pbResponse.model';
 
 @Injectable({
@@ -266,4 +266,17 @@ export class GeneralService {
       return null;
     }
    }
+
+
+   async getAllFilesFromFolder(teamId: string, folderId : string): Promise<MultimediaFilesNew[]> {
+    return await this.http
+      .get<MultimediaFilesNew[]>('http://localhost:3001/v1/multimedia/getAllFilesInFolder/' + teamId + '/' + folderId)
+      .toPromise();
+  }
+
+  async getAllFilesFromTeam(teamId: string): Promise<MultimediaFilesNew[]> {
+    return await this.http
+      .get<MultimediaFilesNew[]>('http://localhost:3001/v1/multimedia/getAllFilesForTeam/' + teamId)
+      .toPromise();
+  }
 }

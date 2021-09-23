@@ -16,6 +16,10 @@
   height: 100px;
   width: 150px;
 }
+.highlight{
+  color : #0070AD;
+  cursor: pointer;
+}
 
 
 

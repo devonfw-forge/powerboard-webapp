@@ -103,3 +103,18 @@ export class VisibleResponse{
     dailyMeeting: boolean;
     teamLinks: boolean;
 }
+
+export class MultimediaFolderResponse{
+    display : MultimediaFilesNew[];
+    root : rootNew[];
+    }
+    
+    export class MultimediaFilesNew{
+        id : string;
+        urlName : string;
+    }
+    export class rootNew{
+        folderId : string;
+        folderName : string; 
+        status : boolean;
+    }
