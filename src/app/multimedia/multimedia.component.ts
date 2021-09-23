@@ -1,8 +1,9 @@
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
-import { Multimedia, MultimediaFiles } from 'src/app/model/general.model';
+import { Multimedia, MultimediaFiles, MultimediaFilesNew, MultimediaFolderResponse } from 'src/app/model/general.model';
 import { environment } from 'src/environments/environment';
+import { GeneralService } from '../service/general.service';
 import { SlideshowService } from '../slideshow/slideshow.service';
 
 
@@ -25,8 +26,8 @@ export class MultimediaComponent implements OnInit {
   teamId: string;
   realItem: string;
   currentFolder : string;
-  multimedia: Multimedia = new Multimedia();
-  multimediaFiles: MultimediaFiles[];
+  multimedia: MultimediaFolderResponse = new MultimediaFolderResponse();
+  multimediaFiles: MultimediaFilesNew[];
   componentReady: boolean;
   tempPath: string;
   is_image: boolean = true;
@@ -36,7 +37,7 @@ export class MultimediaComponent implements OnInit {
   localPrefix = environment.localPrefix;
   interval: number = environment.slideshowInterval;
 
-  constructor(public slideshowService: SlideshowService) { 
+  constructor(public slideshowService: SlideshowService, private generalService : GeneralService) { 
     this.thumbnailData = [];
     this.multimediaFiles = [];
     this.currentFolder = '';
@@ -49,9 +50,18 @@ export class MultimediaComponent implements OnInit {
 
    updateComponent() {
     this.componentReady = false;
+    this.currentFolder = '';
     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id;
     this.multimedia = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.multimedia;
-    if(this.multimedia.rootResponse.length>0){
+    this.multimediaFiles  = this.multimedia.display;
+    this.currentItem = this.multimediaFiles[this.currentIndex].urlName;
+    this.processFiles();
+    for(let folder of this.multimedia.root){
+      if(folder.status == true){
+        this.currentFolder = folder.folderName;
+      }
+    }
+   /*  if(this.multimedia.rootResponse.length>0){
       this.currentItem = this.multimedia.rootResponse[this.currentIndex].fileName;
       this.multimediaFiles = this.multimedia.rootResponse;
       this.currentPath = environment.multimediaPrefix + this.teamId + '/';
@@ -63,19 +73,34 @@ export class MultimediaComponent implements OnInit {
                       + this.multimedia.folderResponse[0].folderName + '/';
       this.currentFolder = this.multimedia.folderResponse[0].folderName;
     }
-    this.processFiles();
+    this.processFiles(); */
   } 
-  getFilesFromFolder(folderId:string,folderName:string){
-    this.currentFolder = folderName
+  async getFilesFromFolder(folderId:string,folderName:string){
+    
     console.log(folderName);
-
+    try{
+      const data = await this.generalService.getAllFilesFromFolder(this.teamId, folderId);
+      this.multimediaFiles = data;
+      this.currentFolder = folderName;
+      this.thumbnailData = [];
+      this.thumbnailIsImage = [];
+      this.currentIndex = 0;
+      this.currentItem = this.multimediaFiles[this.currentIndex].urlName;
+      this.processFiles();
+  
+    }
+    catch(e){
+      console.log(e.error.message);
+    }
   }
+
+  
 
   processFiles(){
   
       for (let file of this.multimediaFiles) {
-        this.tempPath = this.currentPath + file.fileName;
-        const isImage = this.isImage(file.fileName);
+         this.tempPath = file.urlName; 
+        const isImage = this.isImage(file.urlName);
         if (!isImage && !this.slideshowService.isSlideshowRunning) {
           const video_thumbnail = this.tempPath + '#t=5';
           this.thumbnailData.push(video_thumbnail);
@@ -212,7 +237,21 @@ export class MultimediaComponent implements OnInit {
   }
 
 
-  seeAll(){
-    console.log("Select All");
+  async seeAll(){
+    try{
+      const data = await this.generalService.getAllFilesFromTeam(this.teamId);
+      this.multimediaFiles = data;
+      this.currentFolder = "seeAll";
+      this.thumbnailData = [];
+      this.thumbnailIsImage = [];
+      this.currentIndex = 0;
+      this.currentItem = this.multimediaFiles[this.currentIndex].urlName;
+      this.processFiles();
+  
+    }
+    catch(e){
+      console.log(e.error.message);
+    }
   }
+
 }
