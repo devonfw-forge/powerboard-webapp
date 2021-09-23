@@ -111,10 +111,12 @@ export class MultimediaFolderResponse{
     
     export class MultimediaFilesNew{
         id : string;
+        isSelected? : boolean;
         urlName : string;
     }
     export class rootNew{
         folderId : string;
         folderName : string; 
         status : boolean;
+        isSelected? : boolean;
     }

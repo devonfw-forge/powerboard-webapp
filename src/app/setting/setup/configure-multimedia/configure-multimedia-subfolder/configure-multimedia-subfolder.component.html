@@ -42,13 +42,23 @@
     </div>
     <div>
         <div class="row mt-4 ml-2">
-            <div *ngFor="let item of allFiles">
+            <!-- <div *ngFor="let item of allFiles">
               <img
                 class="FileThunmnail"
                 src="../../../../../assets/Images/redcodequality.png"
               />
               <input name="selectAll" type="checkbox" [(ngModel)]="item.isChecked" />
-            </div>
+            </div> -->
+            <div class="row" *ngFor="let item of thumbnailData; let i = index"> 
+                          <div class="d-flex flex-column">
+                              <div *ngIf="thumbnailIsImage[i];then content else other_content">here is ignored</div>
+                              <ng-template #content><img class="thumbnail image" src={{item}} />
+                              </ng-template>
+                              <ng-template #other_content> <video class="thumbnail video" src={{item}}></video>
+                              </ng-template>
+
+                          </div>
+                      </div>
           </div>
     </div>
 

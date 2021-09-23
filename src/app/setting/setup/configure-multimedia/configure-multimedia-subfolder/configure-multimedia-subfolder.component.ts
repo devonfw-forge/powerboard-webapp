@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MultimediaFilesNew } from 'src/app/model/general.model';
+import { GeneralService } from 'src/app/service/general.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { MultimediaFilesChecked } from 'src/app/setting/model/setting.model';
 import { ConfigureMultimediaServiceService } from '../configure-multimedia-service.service';
@@ -13,9 +15,13 @@ export class ConfigureMultimediaSubfolderComponent implements OnInit {
   teamId: string;
   folderId : string;
   selectAll : boolean;
+  thumbnailData: string[];
+  tempPath: string;
+  multimediaFiles: MultimediaFilesNew[];
+  thumbnailIsImage: boolean[] = [];
   checkedFileIds : string[];
   allFiles : MultimediaFilesChecked[] = [];
-  constructor(public configureService: ConfigureMultimediaServiceService, private notifyService : NotificationService) { 
+  constructor(public configureService: ConfigureMultimediaServiceService, private notifyService : NotificationService, private generalService: GeneralService) { 
     this.checkedFileIds = [];
     this.selectAll = false;
   }
@@ -23,6 +29,7 @@ export class ConfigureMultimediaSubfolderComponent implements OnInit {
   ngOnInit(): void {
     this.getDetails();
     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id;
+    this.getFilesFromFolder();
   }
 
   getDetails(){
@@ -133,5 +140,51 @@ public checkArray(){
 }
 public checkSelectAllCheckbox(){
 
+}
+
+async getFilesFromFolder(){
+    
+  try{
+    const data = await this.generalService.getAllFilesFromFolder(this.teamId, this.configureService.selectedSubFolderId);
+    this.multimediaFiles = data;
+    this.thumbnailData = [];
+    this.thumbnailIsImage = [];
+    this.processFiles();
+
+  }
+  catch(e){
+    console.log(e.error.message);
+  }
+}
+
+processFiles(){
+  
+  for (let file of this.multimediaFiles) {
+     this.tempPath = file.urlName; 
+    const isImage = this.isImage(file.urlName);
+    if (!isImage) {
+      const video_thumbnail = this.tempPath + '#t=5';
+      this.thumbnailData.push(video_thumbnail);
+      this.thumbnailIsImage.push(isImage);
+    }
+    else {
+      this.thumbnailData.push(this.tempPath);
+      this.thumbnailIsImage.push(isImage);
+    }
+  }
+}
+
+isImage(url: string) {
+  const images = ["jpg", "jpeg", "gif", "png"];
+  const videos = ["mp4", "3gp", "ogg"];
+
+
+  const extension = url.split(".")[1]
+  console.log(extension);
+  if (images.includes(extension)) {
+    return true;
+  } else if (videos.includes(extension)) {
+    return false;
+  }
 }
 }

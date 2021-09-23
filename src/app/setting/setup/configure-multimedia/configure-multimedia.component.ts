@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Multimedia, TeamDetailResponse } from 'src/app/model/general.model';
+import { Multimedia, MultimediaFolderResponse, TeamDetailResponse } from 'src/app/model/general.model';
 import { SetupService } from '../service/setup.service';
 import { environment } from '../../../../environments/environment';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -13,7 +13,7 @@ import { ConfigureMultimediaServiceService } from './configure-multimedia-servic
 })
 export class ConfigureMultimediaComponent implements OnInit {
   teamId: string;
-  multimedia: any;
+  multimedia: MultimediaFolderResponse = new MultimediaFolderResponse();
   isMasterSel: boolean = false;
   folderAddedInSlideshow: string[] = [];
   filesAddedInSlideshow: string[] = [];
@@ -72,29 +72,25 @@ export class ConfigureMultimediaComponent implements OnInit {
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.multimedia;
 
-    this.multimedia.folderResponse.map((obj) => {
+    this.multimedia.root.map((obj) => {
       obj.isSelected = false;
     });
-    this.multimedia.rootResponse.map((obj) => {
+    this.multimedia.display.map((obj) => {
       obj.isSelected = false;
     });
     this.multimediagallery = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.multimedia;
     // this.multimediagallery=this.multimedia_mock.commonResponse;
-    for (let file of this.multimedia.rootResponse) {
-      this.tempPath =
-        // environment.multimediaPrefix + this.teamId + '/' + file.fileName;
-        /* 'assets/uploads/multimedia/' + this.teamId + '/' + file.fileName; */
-
-        environment.localPrefix + this.teamId + '/' + file.fileName;
-      const isImage = this.isImage(file.fileName);
+    for (let file of this.multimedia.display) {
+      this.tempPath = file.urlName;
+      const isImage = this.isImage(file.urlName);
 
       if (!isImage) {
         const video_thumbnail = this.tempPath + '#t=5';
-        file.fileName = video_thumbnail;
+        file.urlName = video_thumbnail;
       } else {
-        file.fileName = this.tempPath;
+        file.urlName = this.tempPath;
       }
     }
   }
@@ -160,15 +156,15 @@ export class ConfigureMultimediaComponent implements OnInit {
   }
 
   addOrRemoveFromFolderList(i: number) {
-    this.multimedia.folderResponse[i].isSelected = !this.multimedia
-      .folderResponse[i].isSelected;
-    if (this.multimedia.folderResponse[i].isSelected) {
+    this.multimedia.root[i].isSelected = !this.multimedia
+      .root[i].isSelected;
+    if (this.multimedia.root[i].isSelected) {
       this.folderAddedInSlideshow.push(
-        this.multimedia.folderResponse[i].folderId
+        this.multimedia.root[i].folderId
       );
     } else {
       const index = this.folderAddedInSlideshow.indexOf(
-        this.multimedia.folderResponse[i].folderId
+        this.multimedia.root[i].folderId
       );
       if (index > -1) {
         this.folderAddedInSlideshow.splice(index, 1);
@@ -177,14 +173,14 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.checkMasterSel();
   }
   addOrRemoveFromFileList(i: number) {
-    this.multimedia.rootResponse[i].isSelected = !this.multimedia.rootResponse[
+    this.multimedia.display[i].isSelected = !this.multimedia.display[
       i
     ].isSelected;
-    if (this.multimedia.rootResponse[i].isSelected) {
-      this.filesAddedInSlideshow.push(this.multimedia.rootResponse[i].fileId);
+    if (this.multimedia.display[i].isSelected) {
+      this.filesAddedInSlideshow.push(this.multimedia.display[i].id);
     } else {
       const index = this.filesAddedInSlideshow.indexOf(
-        this.multimedia.rootResponse[i].fileId
+        this.multimedia.display[i].id
       );
       if (index > -1) {
         this.filesAddedInSlideshow.splice(index, 1);
@@ -196,8 +192,8 @@ export class ConfigureMultimediaComponent implements OnInit {
     let l1 =
       this.folderAddedInSlideshow.length + this.filesAddedInSlideshow.length;
     let l2 =
-      this.multimedia.rootResponse.length +
-      this.multimedia.folderResponse.length;
+      this.multimedia.display.length +
+      this.multimedia.root.length;
     if (l1 === l2) {
       this.isMasterSel = true;
     } else {
@@ -215,7 +211,7 @@ export class ConfigureMultimediaComponent implements OnInit {
 
   checkUncheckAll() {
     this.isMasterSel = !this.isMasterSel;
-    this.multimedia.folderResponse.map((obj) => {
+    this.multimedia.root.map((obj) => {
       obj.isSelected = this.isMasterSel;
       if (this.isMasterSel) {
         this.folderAddedInSlideshow.indexOf(obj.folderId) === -1
@@ -224,11 +220,11 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     });
 
-    this.multimedia.rootResponse.map((obj) => {
+    this.multimedia.display.map((obj) => {
       obj.isSelected = this.isMasterSel;
       if (this.isMasterSel) {
-        this.filesAddedInSlideshow.indexOf(obj.fileId) === -1
-          ? this.filesAddedInSlideshow.push(obj.fileId)
+        this.filesAddedInSlideshow.indexOf(obj.id) === -1
+          ? this.filesAddedInSlideshow.push(obj.id)
           : console.log('This item already exists');
       }
     });
