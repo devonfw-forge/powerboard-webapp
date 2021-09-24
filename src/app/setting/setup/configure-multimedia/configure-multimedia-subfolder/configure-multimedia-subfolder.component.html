@@ -49,14 +49,14 @@
               />
               <input name="selectAll" type="checkbox" [(ngModel)]="item.isChecked" />
             </div> -->
-            <div class="row" *ngFor="let item of thumbnailData; let i = index"> 
+            <div class="row" *ngFor="let item of multimediaSubFolderFiles; let i = index"> 
                           <div class="d-flex flex-column">
-                              <div *ngIf="thumbnailIsImage[i];then content else other_content">here is ignored</div>
-                              <ng-template #content><img class="thumbnail image" src={{item}} />
+                              <div *ngIf="item.isImage; then content else other_content">here is ignored</div>
+                              <ng-template #content><img class="thumbnail image" src={{item.urlName}} />
                               </ng-template>
-                              <ng-template #other_content> <video class="thumbnail video" src={{item}}></video>
+                              <ng-template #other_content> <video class="thumbnail video" src={{item.urlName}}></video>
                               </ng-template>
-
+                              <input name="selectAll" type="checkbox" (click)="printArray()" [(ngModel)]="item.isSelected"/>
                           </div>
                       </div>
           </div>

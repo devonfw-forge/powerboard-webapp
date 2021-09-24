@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DeleteResponse } from '../../model/setting.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +33,15 @@ export class ConfigureMultimediaServiceService {
 
   }
   
-  async deleteFilesInSubFolder(fileIds: string[]):Promise<any>{
+  async deleteFilesInSubFolder(teamId : string , deleteResponse : DeleteResponse):Promise<any>{
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: deleteResponse,
+    };
+    
     return await this.http.delete<any>(
-      'http://localhost:3001/v1/multimedia/deleteFiles/' + fileIds).toPromise();
+      'http://localhost:3001/v1/multimedia/deleteFilesAndFolders/' + teamId , options).toPromise();
   }
 }

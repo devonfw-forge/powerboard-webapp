@@ -59,6 +59,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.configureService.viewSubFolder = false;
     this.updateComponent();
   }
 

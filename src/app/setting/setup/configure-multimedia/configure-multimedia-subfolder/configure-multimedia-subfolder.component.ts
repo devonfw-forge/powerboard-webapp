@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MultimediaFilesNew } from 'src/app/model/general.model';
 import { GeneralService } from 'src/app/service/general.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { MultimediaFilesChecked } from 'src/app/setting/model/setting.model';
+import { DeleteResponse, MultimediaSubFolderFiles } from 'src/app/setting/model/setting.model';
+
 import { ConfigureMultimediaServiceService } from '../configure-multimedia-service.service';
 
 @Component({
@@ -20,42 +21,21 @@ export class ConfigureMultimediaSubfolderComponent implements OnInit {
   multimediaFiles: MultimediaFilesNew[];
   thumbnailIsImage: boolean[] = [];
   checkedFileIds : string[];
-  allFiles : MultimediaFilesChecked[] = [];
+  deleteFilesFromsubFolder : DeleteResponse = new DeleteResponse();
+  multimediaSubFolderFiles : MultimediaSubFolderFiles[];
   constructor(public configureService: ConfigureMultimediaServiceService, private notifyService : NotificationService, private generalService: GeneralService) { 
     this.checkedFileIds = [];
     this.selectAll = false;
+    this.multimediaSubFolderFiles = [];
   }
 
   ngOnInit(): void {
-    this.getDetails();
+    
     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id;
     this.getFilesFromFolder();
   }
 
-  getDetails(){
-    console.log("I am here");
-    this.allFiles.push({
-      fileId : 'id1',
-      fileName : 'File 1',
-      isChecked : false
-    });
-    this.allFiles.push({
-      fileId : 'id2',
-      fileName : 'File 2',
-      isChecked : false
-    });
-    this.allFiles.push({
-      fileId : 'id3',
-      fileName : 'File 3',
-      isChecked : false
-    });
-    this.allFiles.push({
-      fileId : 'id4',
-      fileName : 'File 4',
-      isChecked : false
-    });
-    console.log(this.configureService.selectedSubFolderId);
-  }
+  
 
   back(){
     this.configureService.viewSubFolder=false;
@@ -101,54 +81,58 @@ export class ConfigureMultimediaSubfolderComponent implements OnInit {
  }
 
  public deleteCheckedFiles(){
-   this.checkArray();
-  /* try{
-    this.configureService.deleteFilesInSubFolder(this.checkedFileIds);
+   this.checkDeleteArray();
+  try{
+    this.configureService.deleteFilesInSubFolder(this.teamId, this.deleteFilesFromsubFolder);
     this.notifyService.showSuccess("", "File deleted Successfully");
   }
   catch(e){
     console.log(e.error.message);
     this.notifyService.showError("", e.error.message);
-  } */
+  } 
  
  }
 public  selectAllItems(){
   if(!this.selectAll){
     
-    for(let file of this.allFiles){
-      file.isChecked = true;
+    for(let file of this.multimediaSubFolderFiles){
+      file.isSelected = true;
     }
 
   }
   else{
-    for(let file of this.allFiles){
-      file.isChecked = false;
+    for(let file of this.multimediaSubFolderFiles){
+      file.isSelected = false;
     }
   }
   
 }
 
-public checkArray(){
-  
-  this.checkedFileIds = [];
-  for(let file of this.allFiles){
-    if(file.isChecked == true){
-      this.checkedFileIds.push(file.fileId);
+public checkDeleteArray(){
+  this.deleteFilesFromsubFolder = new DeleteResponse();
+  this.deleteFilesFromsubFolder.foldersId = null;
+  this.deleteFilesFromsubFolder.subFolderId = this.configureService.selectedSubFolderId;
+  this.deleteFilesFromsubFolder.filesId = [];
+ 
+  for(let file of this.multimediaSubFolderFiles){
+    if(file.isSelected == true){
+      this.deleteFilesFromsubFolder.filesId.push(file.id);
     }
   }
-  console.log(this.checkedFileIds);
+  console.log(this.deleteFilesFromsubFolder);
 }
-public checkSelectAllCheckbox(){
 
+public printArray(){
+console.log(this.multimediaSubFolderFiles);
 }
+
 
 async getFilesFromFolder(){
     
   try{
     const data = await this.generalService.getAllFilesFromFolder(this.teamId, this.configureService.selectedSubFolderId);
     this.multimediaFiles = data;
-    this.thumbnailData = [];
-    this.thumbnailIsImage = [];
+    this.multimediaSubFolderFiles = this.multimediaFiles;
     this.processFiles();
 
   }
@@ -158,18 +142,14 @@ async getFilesFromFolder(){
 }
 
 processFiles(){
-  
-  for (let file of this.multimediaFiles) {
-     this.tempPath = file.urlName; 
-    const isImage = this.isImage(file.urlName);
-    if (!isImage) {
-      const video_thumbnail = this.tempPath + '#t=5';
-      this.thumbnailData.push(video_thumbnail);
-      this.thumbnailIsImage.push(isImage);
+  for(let file of this.multimediaSubFolderFiles){
+    file.isSelected = false;
+    if(this.isImage(file.urlName)){
+      file.isImage = true;
     }
-    else {
-      this.thumbnailData.push(this.tempPath);
-      this.thumbnailIsImage.push(isImage);
+    else{
+      file.isImage = false;
+      file.urlName = file.urlName + '#t=5';
     }
   }
 }

@@ -120,3 +120,4 @@ export class MultimediaFolderResponse{
         status : boolean;
         isSelected? : boolean;
     }
+
