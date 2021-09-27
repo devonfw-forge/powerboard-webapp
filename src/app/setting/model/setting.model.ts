@@ -113,13 +113,6 @@ linkName: string;
 linkType : string;
 }
 
-export class MultimediaSubFolderFiles{
-id: string;
-urlName : string;
-isSelected? : boolean;
-isImage? : boolean
-}
-
 export class DeleteResponse {
   subFolderId: string;
   foldersId: string[];//null when in sub folder

@@ -99,6 +99,7 @@ export class MultimediaFolderResponse{
         id : string;
         isSelected? : boolean;
         urlName : string;
+        isImage? : boolean;
     }
     export class rootNew{
         folderId : string;

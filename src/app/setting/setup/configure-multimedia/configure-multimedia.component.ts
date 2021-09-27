@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MultimediaFolderResponse, rootNew, TeamDetailResponse } from 'src/app/model/general.model';
-import { SetupService } from '../service/setup.service';
 import { environment } from '../../../../environments/environment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { Router } from '@angular/router';
@@ -31,7 +30,6 @@ export class ConfigureMultimediaComponent implements OnInit {
   constructor(
     public configureService: ConfigureMultimediaServiceService,
     private route: Router,
-    private setupService: SetupService,
     private notifyService: NotificationService
   ) {}
 
@@ -92,7 +90,7 @@ export class ConfigureMultimediaComponent implements OnInit {
      console.log(this.multimediagallery);
     const file = (event.target as HTMLInputElement).files[0];
     try {
-      const data = await this.setupService.addFilesToTeam(this.teamId, file);
+      const data = await this.configureService.addFilesToTeam(this.teamId, file);
       console.log(data);
       let newFile = {
         fileId: data.id,
@@ -237,7 +235,8 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.newSubFolder.isSelected = false;
       this.multimedia.root.push(this.newSubFolder);
      this.updateLocalStorage();
-
+     this.newFolderName = '';
+      this.updateComponent();
     }
     catch(e){
       console.log(e.error.message);

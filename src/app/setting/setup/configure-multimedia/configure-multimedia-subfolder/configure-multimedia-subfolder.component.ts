@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MultimediaFilesNew, rootNew } from 'src/app/model/general.model';
 import { GeneralService } from 'src/app/service/general.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { DeleteResponse, MultimediaSubFolderFiles } from 'src/app/setting/model/setting.model';
+import { DeleteResponse } from 'src/app/setting/model/setting.model';
 
 import { ConfigureMultimediaServiceService } from '../configure-multimedia-service.service';
 
@@ -19,11 +19,11 @@ export class ConfigureMultimediaSubfolderComponent implements OnInit {
   selectAll : boolean;
   thumbnailData: string[];
   tempPath: string;
-  multimediaFiles: MultimediaFilesNew[];
+ /*  multimediaFiles: MultimediaFilesNew[]; */
   thumbnailIsImage: boolean[] = [];
   checkedFileIds : string[];
   deleteFilesFromsubFolder : DeleteResponse = new DeleteResponse();
-  multimediaSubFolderFiles : MultimediaSubFolderFiles[];
+  multimediaSubFolderFiles : MultimediaFilesNew[];
   constructor(public configureService: ConfigureMultimediaServiceService, private notifyService : NotificationService, private generalService: GeneralService) { 
     this.checkedFileIds = [];
     this.selectAll = false;
@@ -49,14 +49,12 @@ export class ConfigureMultimediaSubfolderComponent implements OnInit {
      const data = await this.configureService.addFileInSubFolder(this.folderId, this.teamId,file);
      console.log(data);
      let newFile = {
-       fileId : data.id,
-       fileName : data.fileName
+       id : data.id,
+       urlName : data.fileName,
+       isSelected : false,
+       isImage : this.isImage(data.fileName)
      }
-     /* this.multimediagallery.push(newFile);
-     this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
-     this.teamDetail.powerboardResponse.multimedia = this.multimediagallery;
-     localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetail));
-     this.updateComponent(); */
+     this.multimediaSubFolderFiles.push(newFile);
      this.notifyService.showSuccess("","File Added Successfully");
     }
     catch(e){
@@ -86,12 +84,19 @@ export class ConfigureMultimediaSubfolderComponent implements OnInit {
   try{
     this.configureService.deleteFilesInSubFolder(this.teamId, this.deleteFilesFromsubFolder);
     this.notifyService.showSuccess("", "File deleted Successfully");
+    this.removeIds();
   }
   catch(e){
     console.log(e.error.message);
     this.notifyService.showError("", e.error.message);
   } 
  
+ }
+
+ removeIds(){
+  for(let file of this.deleteFilesFromsubFolder.filesId){
+    this.multimediaSubFolderFiles = this.multimediaSubFolderFiles.filter(subFile => subFile.id!= file);
+  }
  }
 public  selectAllItems(){
   if(!this.selectAll){
@@ -132,8 +137,7 @@ async getFilesFromFolder(){
     
   try{
     const data = await this.generalService.getAllFilesFromFolder(this.teamId, this.configureService.selectedSubFolderId);
-    this.multimediaFiles = data;
-    this.multimediaSubFolderFiles = this.multimediaFiles;
+    this.multimediaSubFolderFiles = data;
     this.processFiles();
 
   }

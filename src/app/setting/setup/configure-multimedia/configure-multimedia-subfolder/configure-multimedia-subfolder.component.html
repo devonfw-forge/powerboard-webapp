@@ -13,7 +13,7 @@
     <div class="col-md-7 text-right">
       <span class="btn btn-primary btn-file">
         <span style="font-size: 16px"> + Add Files </span>
-        <input type="file" />
+        <input type="file" (change)="uploadFile($event)" />
       </span>
     </div>
     <div class="col-md-2 text-right" style="padding-top: 10px">

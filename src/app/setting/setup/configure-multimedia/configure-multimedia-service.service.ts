@@ -17,16 +17,21 @@ export class ConfigureMultimediaServiceService {
 
   }
 
-  addFileInRoot(){
 
+  async addFilesToTeam(teamId, file:File):Promise<any>{
+    // Headers
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return await this.http
+    .post<any>('http://localhost:3001/v1/multimedia/uploadFile/' + teamId, formData).toPromise();
   }
   
 
 
-   async addFolderToTeam(teamId: string, folderName :string):Promise<any>{
+   async addFolderToTeam(teamId: string, name :string):Promise<any>{
     // Headers
     return await this.http
-    .post<any>('http://localhost:3001/v1/multimedia/addFolder/' + teamId+ '/' + folderName,{}).toPromise();
+    .post<any>('http://localhost:3001/v1/multimedia/addFolder/' + teamId, {name}).toPromise();
   }
  
 
@@ -38,9 +43,7 @@ export class ConfigureMultimediaServiceService {
     return await this.http
     .post<any>('http://localhost:3001/v1/multimedia/uploadFileToFolder/' + folderId + '/' + teamId, formData).toPromise();
   }
-  deleteItemsInRoot(){
-
-  }
+  
   
   async deleteFilesInSubFolder(teamId : string , deleteResponse : DeleteResponse):Promise<any>{
     const options = {
@@ -52,5 +55,9 @@ export class ConfigureMultimediaServiceService {
     
     return await this.http.delete<any>(
       'http://localhost:3001/v1/multimedia/deleteFilesAndFolders/' + teamId , options).toPromise();
+  }
+
+  async AddToSlideShow(folderId: string, fileId : string ){
+    
   }
 }
