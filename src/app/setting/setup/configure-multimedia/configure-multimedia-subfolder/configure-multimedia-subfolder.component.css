@@ -41,3 +41,22 @@
       height: 100px;
       width: 150px;
   }
+  .thumbnail {
+
+    /* padding: 10px; */
+    /* margin: 15px; */
+    margin: 22px;
+    border: 2px solid black;
+    cursor: pointer;
+  
+  }
+  
+  .image{
+    height: 100px;
+    width: 150px;
+  }
+  .video{
+    object-fit: initial;
+    height: 100px;
+    width: 150px;
+  }

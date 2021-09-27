@@ -1,7 +1,7 @@
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
-import { Multimedia, MultimediaFiles, MultimediaFilesNew, MultimediaFolderResponse } from 'src/app/model/general.model';
+import { MultimediaFilesNew, MultimediaFolderResponse } from 'src/app/model/general.model';
 import { environment } from 'src/environments/environment';
 import { GeneralService } from '../service/general.service';
 import { SlideshowService } from '../slideshow/slideshow.service';
