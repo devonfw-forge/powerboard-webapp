@@ -13,6 +13,7 @@ import { DeleteResponse } from '../../model/setting.model';
 })
 export class ConfigureMultimediaComponent implements OnInit {
   teamId: string;
+  fileAndFolderIds : string[];
   deleteFiles_Folders : DeleteResponse = new DeleteResponse();
   newSubFolder : rootNew = new rootNew();
   multimedia: MultimediaFolderResponse = new MultimediaFolderResponse();
@@ -21,7 +22,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   filesAddedInSlideshow: string[] = [];
   newFolderName: string = '';
   componentReady: boolean;
-  multimediagallery: any;
+  /* multimediagallery: any; */
   tempPath: string;
   teamDetail: TeamDetailResponse = new TeamDetailResponse();
   multimediaPrefix = environment.multimediaPrefix;
@@ -31,7 +32,8 @@ export class ConfigureMultimediaComponent implements OnInit {
     public configureService: ConfigureMultimediaServiceService,
     private route: Router,
     private notifyService: NotificationService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.configureService.viewSubFolder = false;
@@ -54,9 +56,9 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.multimedia.display.map((obj) => {
       obj.isSelected = false;
     });
-    this.multimediagallery = JSON.parse(
+    /* this.multimediagallery = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
-    ).powerboardResponse.multimedia;
+    ).powerboardResponse.multimedia; */
     // this.multimediagallery=this.multimedia_mock.commonResponse;
     for (let file of this.multimedia.display) {
       this.tempPath = file.urlName;
@@ -87,18 +89,21 @@ export class ConfigureMultimediaComponent implements OnInit {
 
 
   async uploadFile(event) {
-     console.log(this.multimediagallery);
+     /* console.log(this.multimediagallery); */
     const file = (event.target as HTMLInputElement).files[0];
     try {
       const data = await this.configureService.addFilesToTeam(this.teamId, file);
       console.log(data);
       let newFile = {
-        fileId: data.id,
-        fileName: data.fileName,
+        id: data.id,
+        urlName: data.fileName,
+        isSelected : false,
+        isImage : this.isImage(data.fileName)
       };
-      this.multimediagallery.rootResponse.push(newFile);
+      /* this.multimediagallery.display[0].push(newFile); */
+      this.multimedia.display.push(newFile);
       this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
-      this.teamDetail.powerboardResponse.multimedia = this.multimediagallery;
+      this.teamDetail.powerboardResponse.multimedia = this.multimedia;
       localStorage.setItem(
         'TeamDetailsResponse',
         JSON.stringify(this.teamDetail)
@@ -269,4 +274,28 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.filesAddedInSlideshow = [];
     }
   }
+ async addToSlideShow(){
+
+  this.fileAndFolderIds = [];
+  for(let file of this.multimedia.display){
+    if(file.isSelected){
+      this.fileAndFolderIds.push(file.id);
+    }
+  }
+  for(let folder of this.multimedia.root){
+    if(folder.isSelected){
+      this.fileAndFolderIds.push(folder.folderId);
+    }
+  }
+  console.log(this.fileAndFolderIds);
+  try{
+    const data = await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
+    this.notifyService.showSuccess("", "File & folders aded to slide show Successfully");
+  }
+  catch(e){
+    console.log(e.error.message);
+    this.notifyService.showError("", e.error.message);
+  } 
+ 
+}
 }

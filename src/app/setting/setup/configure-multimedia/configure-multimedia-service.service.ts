@@ -57,7 +57,11 @@ export class ConfigureMultimediaServiceService {
       'http://localhost:3001/v1/multimedia/deleteFilesAndFolders/' + teamId , options).toPromise();
   }
 
-  async AddToSlideShow(folderId: string, fileId : string ){
-    
+
+  async addToSlideshow(teamId: string,  fileAndFolderIds : string[]):Promise<any>{
+    // Headers
+    return await this.http
+    .post<any>('http://localhost:3001/v1/multimedia/addToSlideshow/' + teamId, {fileAndFolderIds}).toPromise();
   }
+  
 }
