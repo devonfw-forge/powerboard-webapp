@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MultimediaFilesNew } from 'src/app/model/general.model';
+import { MultimediaFilesNew, rootNew } from 'src/app/model/general.model';
 import { GeneralService } from 'src/app/service/general.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { DeleteResponse, MultimediaSubFolderFiles } from 'src/app/setting/model/setting.model';
@@ -14,6 +14,7 @@ import { ConfigureMultimediaServiceService } from '../configure-multimedia-servi
 })
 export class ConfigureMultimediaSubfolderComponent implements OnInit {
   teamId: string;
+
   folderId : string;
   selectAll : boolean;
   thumbnailData: string[];

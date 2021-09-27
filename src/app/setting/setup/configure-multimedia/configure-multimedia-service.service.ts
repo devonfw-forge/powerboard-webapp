@@ -22,6 +22,15 @@ export class ConfigureMultimediaServiceService {
   }
   
 
+
+   async addFolderToTeam(teamId: string, folderName :string):Promise<any>{
+    // Headers
+    return await this.http
+    .post<any>('http://localhost:3001/v1/multimedia/addFolder/' + teamId+ '/' + folderName,{}).toPromise();
+  }
+ 
+
+
   async addFileInSubFolder(folderId, teamId, file:File):Promise<any>{
     // Headers
     const formData = new FormData();

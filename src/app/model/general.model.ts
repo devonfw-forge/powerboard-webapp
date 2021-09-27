@@ -9,22 +9,8 @@ export class PowerboardResponse{
     teamLinks: LinkResponse[];
     privileges : string[];
     videos? : VideoResponse[];
-    multimedia : Multimedia;
+    multimedia : MultimediaFolderResponse;
  
-}
-
-export class Multimedia{
-    rootResponse : MultimediaFiles[];
-    folderResponse : FolderResponse[];
-}
-export class MultimediaFiles{
-    fileId : string;
-    fileName : string;
-}
-export class FolderResponse{
-    folderId : string;
-    folderName : string;
-    fileResponse? : MultimediaFiles[];
 }
 
  export class TeamDetailResponse{
