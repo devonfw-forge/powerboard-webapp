@@ -100,13 +100,14 @@ export class ConfigureMultimediaSubfolderComponent implements OnInit {
  }
 public  selectAllItems(){
   if(!this.selectAll){
-    
+    this.selectAll = true;
     for(let file of this.multimediaSubFolderFiles){
       file.isSelected = true;
     }
 
   }
   else{
+    this.selectAll = false;
     for(let file of this.multimediaSubFolderFiles){
       file.isSelected = false;
     }
@@ -128,7 +129,25 @@ public checkDeleteArray(){
   console.log(this.deleteFilesFromsubFolder);
 }
 
-public printArray(){
+public printArray(index : number){
+  if(this.multimediaSubFolderFiles[index].isSelected){
+    this.multimediaSubFolderFiles[index].isSelected = false;
+  }
+  else{
+    this.multimediaSubFolderFiles[index].isSelected = true;
+  }
+  let count  = 0;
+  for(let file of this.multimediaSubFolderFiles){
+    if(file.isSelected){
+      count++;
+    }
+  }
+  if(count == this.multimediaSubFolderFiles.length){
+    this.selectAll = true;
+  }
+  else{
+    this.selectAll = false;
+  }
 console.log(this.multimediaSubFolderFiles);
 }
 
