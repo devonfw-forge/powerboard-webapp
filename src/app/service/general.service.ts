@@ -259,8 +259,7 @@ export class GeneralService {
 
   public getLogoPath(){
     if(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo){
-      return environment.logoPrefix + JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id + '/'
-       +JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
+      return JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
     }
     else{
       return null;

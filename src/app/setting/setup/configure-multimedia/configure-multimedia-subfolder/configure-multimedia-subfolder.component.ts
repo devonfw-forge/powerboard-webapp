@@ -183,8 +183,8 @@ isImage(url: string) {
   const videos = ["mp4", "3gp", "ogg"];
 
 
-  const extension = url.split(".")[1]
-  console.log(extension);
+  const tempextension = url.split(".");
+    const  extension = tempextension[tempextension.length-1];
   if (images.includes(extension)) {
     return true;
   } else if (videos.includes(extension)) {

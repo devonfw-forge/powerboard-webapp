@@ -108,3 +108,7 @@ export class MultimediaFolderResponse{
         isSelected? : boolean;
     }
 
+
+    export class SlideshowFiles{
+        fileURL : string
+    }

@@ -1,7 +1,7 @@
 <div class="container ml-5 mr-5 mt-3" *ngIf="!configureService.viewSubFolder">
   <div class="row">
     <div class="col-md-4">
-      <div class="row float-right selectCheckbox">
+      <div class="row float-right sel">
         <input class="checkbox pr-2" id='selectAll'
           type="checkbox"
           [checked]='isMasterSel'
@@ -29,8 +29,11 @@
           </span>
         </div>
         <div class="col-md-3 mt-2">
+          <span class="material-icons-outlined">
+            library_add
+            </span>
           <span class="action-button" (click)="addToSlideShow()" style="font-size: 16px">
-            + SlideShow
+            Add To SlideShow
           </span>
           
         </div>

@@ -21,12 +21,12 @@ export class MyProjectsComponent implements OnInit {
 myTeams : TeamDetails[] = [];
 userId : string;
 
-localLoader : boolean;
+/* localLoader : boolean; */
 logoPrefix = environment.logoPrefix;
 UserIdTeamIdDetails : GetTeamDetails = new GetTeamDetails();
 teamDetails : TeamDetailResponse = new TeamDetailResponse();
   constructor(private teamDetailsService : TeamDetailsService, private router:Router, public generalService : GeneralService, public slideShowService : SlideshowService ) { 
-    this.localLoader = false;
+    /* this.localLoader = false; */
     
   }
 
@@ -42,10 +42,10 @@ async getTeamDetails(teamId:string){
   try{
     this.UserIdTeamIdDetails.teamId = teamId;
     this.UserIdTeamIdDetails.userId = this.userId;
-    this.localLoader = true;
+    /* this.localLoader = true; */
     const data = await this.teamDetailsService.getTeamDetails(this.UserIdTeamIdDetails);
     this.teamDetails.powerboardResponse = data;
-    this.localLoader = false;
+    /* this.localLoader = false; */
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetails));
     this.teamDetailsService.setTeamDetailPermissions();
     this.generalService.showNavBarIcons = true;
@@ -54,13 +54,13 @@ async getTeamDetails(teamId:string){
     this.generalService.storeLastLoggedIn();
   }
   catch(e){
-    this.localLoader = false;
+    /* this.localLoader = false; */
     console.log(e.error.message);
   }
 }
 
-public getLogoPath(teamId : string, logo : string): string{
+/* public getLogoPath(teamId : string, logo : string): string{
   return environment.logoPrefix + teamId + '/' + logo;
  }
-
+ */
 }
