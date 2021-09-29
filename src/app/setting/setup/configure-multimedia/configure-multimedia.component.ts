@@ -56,6 +56,7 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.multimedia.root.map((obj) => {
       obj.isSelected = false;
     });
+    this.checkStatus = false;
     if(this.multimedia.root.length>0){
       for(let folder of this.multimedia.root){
         if(folder.status == true){
@@ -118,7 +119,21 @@ export class ConfigureMultimediaComponent implements OnInit {
         isImage : this.isImage(data.fileName)
       };
       /* this.multimediagallery.display[0].push(newFile); */
+      this.checkStatus = false;
+      for(let folder of this.multimedia.root){
+        if(folder.status){
+          this.checkStatus = true;
+        }
+      }
+      if(this.checkStatus){
+        this.multimedia.display = [];
+        for(let folder of this.multimedia.root){
+            folder.status = false;
+        }
+      }
+      
       this.multimedia.display.push(newFile);
+      
       this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
       this.teamDetail.powerboardResponse.multimedia = this.multimedia;
       localStorage.setItem(
@@ -307,7 +322,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   console.log(this.fileAndFolderIds);
   try{
     const data = await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
-    this.notifyService.showSuccess("", "File & folders aded to slide show Successfully");
+    this.notifyService.showSuccess("", "Files & folders added to slide show successfully");
     for(let file of this.multimedia.display){
       if(file.isSelected){
        file.inSlideShow = true;

@@ -57,7 +57,7 @@
           folder </span
         ><span class="pr-1" (click)="viewSubFolder(album.folderId, album.folderName)">
           {{ album.folderName | titlecase }}</span>
-          <div>
+          <div *ngIf="multimedia.root[i].inSlideShow">
             <span class="material-icons-outlined slideshowgreyicon" >
               slideshow
               </span>

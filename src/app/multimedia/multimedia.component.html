@@ -6,6 +6,14 @@
               <div style="margin-top: 30px;">
                   <a *ngIf="currentFolder == 'seeAll'" (click)="seeAll()" style="color: #0070AD; font-size: 16px; font-weight: 500; font: ubuntu;cursor: pointer;">See All</a>
                   <a *ngIf="currentFolder !== 'seeAll'" (click)="seeAll()" style="color: #2b0a3d; font-size: 16px; font-weight: 500; font: ubuntu;cursor: pointer;">See All</a>
+                  <div style="margin-top: 5px;">
+                    <span class="material-icons-outlined mat-icon">
+                        folder
+                    </span>
+                     <span *ngIf="currentFolder !== 'Home'"  style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"  (click)="showHomeFiles()"> Home</span>
+                     <span *ngIf="currentFolder == 'Home'"  style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; "  (click)="showHomeFiles()"> Home</span>
+                  
+                  </div>
                   <div *ngIf="multimedia.root.length>0">
                       <div style="margin-top: 5px;" *ngFor="let folder of multimedia.root" >
                           <span class="material-icons-outlined mat-icon">

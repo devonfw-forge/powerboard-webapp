@@ -20,6 +20,7 @@ export class MultimediaComponent implements OnInit {
   currentItem: string;
   api: VgApiService;
   thumbnailData: string[];
+  checkStatus :  boolean;
   //multimediaData: string[];
   thumbnailIsImage: boolean[] = [];
   intervalID: any;
@@ -43,6 +44,7 @@ export class MultimediaComponent implements OnInit {
     this.currentFolder = '';
     this.currentIndex = 0;
     this.currentPath = '';
+  
   }
   async ngOnInit() {
     await this.updateComponent(); 
@@ -55,12 +57,16 @@ export class MultimediaComponent implements OnInit {
     this.multimedia = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.multimedia;
     this.multimediaFiles  = this.multimedia.display;
     this.currentItem = this.multimediaFiles[this.currentIndex].urlName;
-    this.processFiles();
+   
     for(let folder of this.multimedia.root){
       if(folder.status == true){
         this.currentFolder = folder.folderName;
       }
     }
+    if(this.currentFolder == ''){
+      this.currentFolder = 'Home';
+    }
+    this.processFiles();
    /*  if(this.multimedia.rootResponse.length>0){
       this.currentItem = this.multimedia.rootResponse[this.currentIndex].fileName;
       this.multimediaFiles = this.multimedia.rootResponse;
@@ -75,6 +81,23 @@ export class MultimediaComponent implements OnInit {
     }
     this.processFiles(); */
   } 
+  showHomeFiles(){
+    this.multimediaFiles = [];
+    this.checkStatus = false;
+    for(let folder of this.multimedia.root){
+      if(folder.status){
+       this.checkStatus = true;
+      }
+    }
+    if(this.checkStatus){
+      this.multimediaFiles  = [];
+    }
+    else{
+      this.multimediaFiles = this.multimedia.display;
+    }
+    this.currentFolder = 'Home';
+    this.processFiles();
+  }
   async getFilesFromFolder(folderId:string,folderName:string){
     
     console.log(folderName);
