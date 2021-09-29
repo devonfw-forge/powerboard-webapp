@@ -19,8 +19,8 @@
                           <span class="material-icons-outlined mat-icon">
                               folder
                           </span>
-                           <span *ngIf="folder.folderName !== currentFolder" style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"  (click)="getFilesFromFolder(folder.folderId,folder.folderName)"> {{folder.folderName}}</span>
-                           <span *ngIf="folder.folderName == currentFolder" style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; "  (click)="getFilesFromFolder(folder.folderId,folder.folderName)"> {{folder.folderName}}</span>
+                           <span *ngIf="folder.folderName !== currentFolder" style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"  (click)="getFilesFromFolder(folder.folderId,folder.folderName)"> {{folder.folderName | titlecase}}</span>
+                           <span *ngIf="folder.folderName == currentFolder" style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; "  (click)="getFilesFromFolder(folder.folderId,folder.folderName)"> {{folder.folderName | titlecase}}</span>
                       </div>
                   </div>
               </div>
