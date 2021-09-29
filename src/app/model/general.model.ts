@@ -100,15 +100,18 @@ export class MultimediaFolderResponse{
         isSelected? : boolean;
         urlName : string;
         isImage? : boolean;
+        inSlideShow? : boolean;
     }
     export class rootNew{
         folderId : string;
         folderName : string; 
         status : boolean;
         isSelected? : boolean;
+        inSlideShow? : boolean;
     }
 
 
     export class SlideshowFiles{
         fileURL : string
+
     }

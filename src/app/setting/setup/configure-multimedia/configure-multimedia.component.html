@@ -1,8 +1,9 @@
-<div class="container ml-5 mr-5 mt-3" *ngIf="!configureService.viewSubFolder">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="row float-right sel">
-        <input class="checkbox pr-2" id='selectAll'
+<div class="container" *ngIf="!configureService.viewSubFolder">
+  <div class="m-5">
+  <div class="row mb-2">
+    <div class="col-md-2">
+      <div class="row sel" style="margin-top: 8px;color: #0070AD;margin-left: 18px;">
+        <input class="checkbox pr-2" style="margin-top: 7px; margin-right: 4px; " id='selectAll'
           type="checkbox"
           [checked]='isMasterSel'
           (click)="checkUncheckAll()"
@@ -10,14 +11,14 @@
         <label for="selectAll">Select All</label>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="row">
         <div class="col-md-3 mt-2">
           <span
             class="action-button"
             data-toggle="modal"
             data-target=".bd-example-modal-sm"
-            style="font-size: 16px"
+            style="font-size: 16px; float: right"
           >
             + New Folder
           </span>
@@ -28,8 +29,8 @@
             <input type="file" (change)="uploadFile($event)" />
           </span>
         </div>
-        <div class="col-md-3 mt-2">
-          <span class="material-icons-outlined">
+        <div class="col-md-4 mt-2">
+          <span class="material-icons-outlined slideshowicon">
             library_add
             </span>
           <span class="action-button" (click)="addToSlideShow()" style="font-size: 16px">
@@ -44,20 +45,27 @@
     </div>
   </div>
   <div
-    class="pl-1 pt-1"
+    class="pt-1" style="padding-left: 30px; margin-right: 2px;"
     *ngFor="let album of multimedia.root; index as i"
   >
     <div class="text-left">
-      <div class="icon" >
+      <div class="icon row" >
         <span
           class="material-icons-outlined mat-icon pr-1"
           (click)="viewSubFolder(album.folderId, album.folderName)"
         >
           folder </span
         ><span class="pr-1" (click)="viewSubFolder(album.folderId, album.folderName)">
-          {{ album.folderName | titlecase }}</span
-        ><input class="checkbox"
+          {{ album.folderName | titlecase }}</span>
+          <div>
+            <span class="material-icons-outlined slideshowgreyicon" >
+              slideshow
+              </span>
+            </div>
+          <input class="checkbox"
           type="checkbox"
+          style="margin-top: 7px;
+          margin-left: 3px;"
           [checked]='multimedia.root[i].isSelected'
           (click)="addOrRemoveFromFolderList(i)"
         />
@@ -74,7 +82,7 @@
           <img
             id="bigImage"
             src="{{ file.urlName }}"
-            style="width: 85%; height: auto"
+            style="width: 150px; height: 100px"
           />
           <!-- <span
               class="material-icons mat-icon"
@@ -84,11 +92,11 @@
             </span> -->
           <div class="row">
             <div class="col-md-6 float-left">
-              <!-- <div *ngIf="multimedia.rootResponse[i].inSlideshow"> -->
-              <span class="material-icons-outlined">
+              <div *ngIf="multimedia.display[i].inSlideShow">
+              <span class="material-icons-outlined slideshowgreyicon" >
                 slideshow
                 </span>
-              <!-- </div> -->
+              </div>
             </div>
             <div class="col-md-6 float-right">
               <input class="checkbox"
@@ -103,10 +111,11 @@
     </div>
   </div>
 </div>
-
+</div>
 <div *ngIf="configureService.viewSubFolder">
   <app-configure-multimedia-subfolder></app-configure-multimedia-subfolder>
 </div>
+
 
 <!-- Add folder Modal -->
 
