@@ -82,16 +82,29 @@ export class SlideshowMultimediaComponent implements OnInit {
   automateSlideshow(){
     this.intervalID = setInterval(()=> {
       console.log(this.counter);
-      this.currentItem = this.slideshowFiles[this.counter].fileURL;
-      this.counter++;
-      if(this.counter == this.slideshowFiles.length){
-        setTimeout(() => {
+      if(this.counter == 1 && this.slideshowFiles.length == 1){
+        if (this.slideshowService.isSlideshowRunning) {
+          this.slideshowService.moveSlideshowNextComponent();
+        }
+      }
+      
+      
+      
+      if(this.counter >= this.slideshowFiles.length && this.counter!= 1){
+        /* setTimeout(() => { */
           if (this.slideshowService.isSlideshowRunning) {
             this.slideshowService.moveSlideshowNextComponent();
           }
-        }, this.interval);
+      /*   }, this.interval); */
       }
+      this.currentItem = this.slideshowFiles[this.counter].fileURL;
+      this.counter++;
+      console.log(this.counter);
+
+       
+          
     },this.interval);
+    
   }
 
 }

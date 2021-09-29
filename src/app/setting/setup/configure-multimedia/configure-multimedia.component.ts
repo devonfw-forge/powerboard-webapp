@@ -14,6 +14,7 @@ import { DeleteResponse } from '../../model/setting.model';
 export class ConfigureMultimediaComponent implements OnInit {
   teamId: string;
   fileAndFolderIds : string[];
+  checkStatus : boolean;
   deleteFiles_Folders : DeleteResponse = new DeleteResponse();
   newSubFolder : rootNew = new rootNew();
   multimedia: MultimediaFolderResponse = new MultimediaFolderResponse();
@@ -33,10 +34,12 @@ export class ConfigureMultimediaComponent implements OnInit {
     private route: Router,
     private notifyService: NotificationService
   ) {
+    this.checkStatus = false;
   }
 
   ngOnInit(): void {
     this.configureService.viewSubFolder = false;
+    this.checkStatus = false;
     this.updateComponent();
   }
 
@@ -53,24 +56,38 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.multimedia.root.map((obj) => {
       obj.isSelected = false;
     });
-    this.multimedia.display.map((obj) => {
-      obj.isSelected = false;
-    });
+    if(this.multimedia.root.length>0){
+      for(let folder of this.multimedia.root){
+        if(folder.status == true){
+          this.checkStatus = true;
+        }
+      }
+    }
+    if(!this.checkStatus){
+      this.multimedia.display.map((obj) => {
+        obj.isSelected = false;
+      });
+      for (let file of this.multimedia.display) {
+        this.tempPath = file.urlName;
+        const isImage = this.isImage(file.urlName);
+  
+        if (!isImage) {
+          const video_thumbnail = this.tempPath + '#t=5';
+          file.urlName = video_thumbnail;
+        } else {
+          file.urlName = this.tempPath;
+        }
+      }
+    }
+    else{
+      this.multimedia.display = [];
+    }
+   
     /* this.multimediagallery = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.multimedia; */
     // this.multimediagallery=this.multimedia_mock.commonResponse;
-    for (let file of this.multimedia.display) {
-      this.tempPath = file.urlName;
-      const isImage = this.isImage(file.urlName);
-
-      if (!isImage) {
-        const video_thumbnail = this.tempPath + '#t=5';
-        file.urlName = video_thumbnail;
-      } else {
-        file.urlName = this.tempPath;
-      }
-    }
+    
   }
 
   isImage(url: string) {
@@ -291,6 +308,19 @@ export class ConfigureMultimediaComponent implements OnInit {
   try{
     const data = await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
     this.notifyService.showSuccess("", "File & folders aded to slide show Successfully");
+    for(let file of this.multimedia.display){
+      if(file.isSelected){
+       file.inSlideShow = true;
+       file.isSelected = false;
+      }
+    }
+    for(let folder of this.multimedia.root){
+      if(folder.isSelected){
+        folder.inSlideShow = true;
+        folder.isSelected = false;
+      }
+    }
+    this.isMasterSel = false;
   }
   catch(e){
     console.log(e.error.message);
