@@ -112,6 +112,7 @@ export class MultimediaFolderResponse{
 
 
     export class SlideshowFiles{
-        fileURL : string
+        fileURL : string;
+        isImage? : boolean;
 
     }

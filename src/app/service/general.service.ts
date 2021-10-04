@@ -259,6 +259,13 @@ export class GeneralService {
 
   public getLogoPath(){
     if(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo){
+      const path = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
+      const tempextension = path.split(".");
+    const  extension = tempextension[tempextension.length-1];
+    const Logo = ["null", "undefined", null, undefined];
+    if(extension.includes(Logo)){
+      return null;
+    }
       return JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
     }
     else{

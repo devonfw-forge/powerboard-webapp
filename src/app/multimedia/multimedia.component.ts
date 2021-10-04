@@ -93,6 +93,7 @@ export class MultimediaComponent implements OnInit {
       this.multimediaFiles  = [];
     }
     else{
+      this.multimediaFiles  = [];
       this.multimediaFiles = this.multimedia.display;
     }
     this.currentFolder = 'Home';

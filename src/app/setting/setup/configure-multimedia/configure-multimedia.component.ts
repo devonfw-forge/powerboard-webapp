@@ -271,6 +271,9 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.newSubFolder.status = false;
       this.newSubFolder.isSelected = false;
       this.multimedia.root.push(this.newSubFolder);
+      this.multimedia.root.sort(function(a, b) {
+        return a.folderName.localeCompare(b.folderName);
+     });
      this.updateLocalStorage();
      this.newFolderName = '';
       this.updateComponent();
@@ -328,11 +331,17 @@ export class ConfigureMultimediaComponent implements OnInit {
        file.inSlideShow = true;
        file.isSelected = false;
       }
+      else{
+        file.inSlideShow = false;
+      }
     }
     for(let folder of this.multimedia.root){
       if(folder.isSelected){
         folder.inSlideShow = true;
         folder.isSelected = false;
+      }
+      else{
+        folder.inSlideShow = false;
       }
     }
     this.isMasterSel = false;

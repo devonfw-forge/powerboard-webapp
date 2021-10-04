@@ -68,7 +68,7 @@
         </span> <span class="text-style" style="color:#0070AD; font-weight: bold;"> Back </span></a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="padding-left: 75px; font-size: 22px;">
         <li class="nav-item active">
-          <a class="nav-link"><b style="margin-left: 5px; cursor: default;">{{getTeamName()}}</b><img class="Logo_nav" src="{{generalService.getLogoPath()}}"></a>
+          <a class="nav-link"><b style="margin-left: 5px; cursor: default;">{{getTeamName()}}</b><img class="Logo_nav" *ngIf="generalService.getLogoPath()!= null" src="{{generalService.getLogoPath()}}"></a>
           
         </li>
         <li style="margin-left: 130px;" *ngIf="generalService.isDashboardVisible">

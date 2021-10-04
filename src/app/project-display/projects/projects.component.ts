@@ -50,6 +50,7 @@ export class ProjectsComponent implements OnInit {
     else {
       this.ADC_Center = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.My_Center.centerName;
       this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
+    console.log(this.ADCTeams);
     }
   }
 
