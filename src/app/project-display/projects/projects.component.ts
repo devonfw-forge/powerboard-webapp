@@ -23,18 +23,23 @@ export class ProjectsComponent implements OnInit {
   ADCList: ADCListDetails[] = [];
   updatedCenter: ADCDetails;
   ADC_Center: string;
+  newAdCenter : ADCDetails;
 /*   localLoader : boolean; */
   userId: string;
   teamDetails: TeamDetailResponse = new TeamDetailResponse();
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   constructor(private teamDetailsService: TeamDetailsService, private router: Router, public generalService: GeneralService) {
     this.ADC_Center = "Select center";
+    this.newAdCenter = new ADCDetails();
     /* this.localLoader = false; */
   }
 
   ngOnInit(): void {
 
     this.userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
+
+
+
     this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
     console.log(this.ADCTeams);
 
