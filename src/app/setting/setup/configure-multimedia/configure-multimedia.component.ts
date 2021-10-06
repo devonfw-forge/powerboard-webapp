@@ -568,8 +568,8 @@ export class ConfigureMultimediaComponent implements OnInit {
 
 
 
-  async deleteFile() {
-    this.checkIds();
+  async deleteFilesAndFolders() {
+    this.getDeleteIds();
     try{
       await this.configureService.deleteFilesInSubFolder(this.teamId, this.deleteFiles_Folders);
       this.notifyService.showSuccess("", "File deleted Successfully");
@@ -585,6 +585,9 @@ export class ConfigureMultimediaComponent implements OnInit {
  removeIds(){
   for(let file of this.deleteFiles_Folders.filesId){
     this.multimedia.display = this. multimedia.display.filter(displayFile => displayFile.id!= file);
+  }
+  for(let file of this.deleteFiles_Folders.filesId){
+    this.multimediaFiles = this. multimediaFiles.filter(multifile => multifile.id!= file);
   }
   for(let folder of this.deleteFiles_Folders.foldersId){
     this.multimedia.root = this. multimedia.root.filter(rootFolder => rootFolder.folderId!= folder);

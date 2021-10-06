@@ -38,7 +38,7 @@
           </span> 
         </div>
         <div class="col-md-2 mt-2 float-center">
-          <span class="material-icons mat-icon" (click)="getDeleteIds()"> delete_outline </span>
+          <span class="material-icons mat-icon" (click)="deleteFilesAndFolders()"> delete_outline </span>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@
     </div>
     <div class="col-md-9" > 
       <div *ngIf="multimediaFiles.length != 0">
-        <div class="col-md-12">
+        <div class="col-md-12" style="padding-top: 12px;">
           <div class="row">
             <div
               class="col-md-4 mb-3"
