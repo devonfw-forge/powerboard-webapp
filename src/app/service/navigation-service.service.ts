@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { GeneralService } from './general.service';
 import { PowerboardLoginResponse } from '../login/model/login.model';
+import { ADCListDetails } from '../project-display/my-projects/model/team.model';
+import { TeamDetailsService } from '../project-display/service/team-details.service';
 
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
@@ -13,6 +15,7 @@ export class NavigationService {
   constructor(
     private router: Router,
     private location: Location,
+    private teamDetailService : TeamDetailsService,
     private generalService: GeneralService
   ) {
     this.history = [];

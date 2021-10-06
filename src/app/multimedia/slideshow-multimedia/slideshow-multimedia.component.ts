@@ -19,9 +19,11 @@ export class SlideshowMultimediaComponent implements OnInit {
   counter: number = 0;
   interval: number = environment.slideshowInterval;
   slideshowFiles : SlideshowFiles[]=[];
+  slideshowTempFiles : SlideshowFiles[]=[];
 
   constructor(public slideshowService: SlideshowService, private generalService : GeneralService) { 
     this.slideshowFiles = [];
+    this.slideshowTempFiles = [];
     this.counter = 0;
   }
   async ngOnInit() {
@@ -31,16 +33,29 @@ export class SlideshowMultimediaComponent implements OnInit {
    async updateComponent() {
      try{
     this.componentReady = false;
+    this.slideshowTempFiles = [];
+    this.slideshowFiles = [];
     this.counter = 0;
     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id;
     const data = await this.generalService.getSlideshowFiles(this.teamId);
-    this.slideshowFiles = data;
-    if(this.slideshowFiles.length > 0){
-      this.slideshowFiles = this.slideshowFiles.filter(file =>this.isImage(file.fileURL) == true);
-    console.log(this.slideshowFiles);
-    this.currentItem = this.slideshowFiles[this.counter].fileURL;
+    this.slideshowTempFiles = data;
+    if(this.slideshowTempFiles.length > 0){
+     /*  this.slideshowFiles = this.slideshowFiles.filter(file =>this.isImage(file.fileURL) == true); */
+    for(let file of this.slideshowTempFiles){
+      if(this.isImage(file.fileURL)){
+        this.slideshowFiles.push(file);
+      }
+    }
+    for(let file of this.slideshowTempFiles){
+      if(!this.isImage(file.fileURL)){
+        this.slideshowFiles.push(file);
+      }
+    }
+     console.log(this.slideshowFiles);
+     this.slideshowControl();
+    /* this.currentItem = this.slideshowFiles[this.counter].fileURL;
     this.counter++;
-    this.automateSlideshow();
+    this.automateSlideshow(); */
     }
     else{
       this.slideshowService.moveSlideshowNextComponent();
@@ -107,4 +122,21 @@ export class SlideshowMultimediaComponent implements OnInit {
     
   }
 
+  public slideshowControl(){
+    if(this.counter >= this.slideshowFiles.length){
+      
+        if (this.slideshowService.isSlideshowRunning) {
+          this.slideshowService.moveSlideshowNextComponent();
+        }
+    }
+    if(this.isImage(this.slideshowFiles[this.counter].fileURL)){
+      this.currentItem = this.slideshowFiles[this.counter].fileURL;
+      this.counter++;
+      setTimeout(this.slideshowControl.bind(this), this.interval);
+    }
+    else{
+      this.currentItem = this.slideshowFiles[this.counter].fileURL;
+      this.counter++;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PowerboardLoginResponse, TeamDetails } from 'src/app/login/model/login.model';
 import { TeamDetailResponse } from 'src/app/model/general.model';
 import { GetTeamDetails } from 'src/app/project-display/model/pbResponse.model';
 import { ADCListDetails } from 'src/app/project-display/my-projects/model/team.model';
@@ -22,12 +23,16 @@ import { AddTeamComponent } from './add-team/add-team.component';
 })
 export class ViewAllTeamsComponent implements OnInit {
 allTeams : TeamsResponse[] = [];
+private powerboardLoginResponse: PowerboardLoginResponse;
 UserIdTeamIdDetails : GetTeamDetails = new GetTeamDetails();
 teamDetails : TeamDetailResponse = new TeamDetailResponse();
 userId : string;
 addedTeam : any;
 ADCList: ADCListDetails[] = [];
 deleteId: string;
+ADCTeams: TeamDetails[] = [];
+newTeam : TeamDetails;
+ADC_Center: string;
 @ViewChild(AddTeamComponent) child;
   constructor(private settingService : SettingService, private router : Router, public generalService : GeneralService, private teamDetailsService: TeamDetailsService, private visibilityService : VisibilityService, private notifyService : NotificationService, private teamService : TeamService) { }
 
@@ -56,6 +61,14 @@ public storeDeleteId(teamId : string){
     const data = await this.teamService.deleteTeam(this.deleteId);
     this.notifyService.showSuccess("team deleted successfully", "");
     console.log(data);
+
+   
+  this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
+this.ADCTeams = this.ADCTeams.filter(team => team.teamId != this.deleteId);
+this.powerboardLoginResponse = new PowerboardLoginResponse();
+this.powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
+this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = this.ADCTeams;
+ localStorage.setItem('PowerboardDashboard', JSON.stringify(this.powerboardLoginResponse));
     this.getAllTeams();
    
   }
@@ -105,7 +118,20 @@ async getTeamDetails(teamId:string){
    adCenter : this.centerIdToname(data.ad_center)
  }
  this.allTeams.push(this.addedTeam);
- console.log(data);
+ this.ADC_Center = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.My_Center.centerId;
+if(this.ADC_Center == data.ad_center){
+  this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
+this.newTeam = new TeamDetails();
+this.newTeam.teamId = data.id;
+this.newTeam.teamName = data.name;
+this.newTeam.teamLogo = data.logo;
+this.ADCTeams.push(this.newTeam);
+this.powerboardLoginResponse = new PowerboardLoginResponse();
+this.powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
+this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = this.ADCTeams;
+ localStorage.setItem('PowerboardDashboard', JSON.stringify(this.powerboardLoginResponse));
+}
+console.log(data);
 }
 
 centerIdToname(id: string){
