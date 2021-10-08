@@ -31,7 +31,6 @@ import { ViewAllTeamMembersComponent } from './setup/view-all-team-members/view-
 import { AddMemberComponent } from './setup/view-all-team-members/add-member/add-member.component';
 import { EditTeamMemberComponent } from './setup/view-all-team-members/edit-team-member/edit-team-member.component';
 import { ViewTeamComponent } from './team/view-team/view-team.component';
-import { ConfigureMultimediaSubfolderComponent } from './setup/configure-multimedia/configure-multimedia-subfolder/configure-multimedia-subfolder.component';
 
 const routes: Routes = [{
   path: '',
@@ -88,7 +87,6 @@ const routes: Routes = [{
     ADcenterFilterPipe,
     ConfigureMultimediaComponent,
     EditTeamMemberComponent,
-    ConfigureMultimediaSubfolderComponent
 
 
   ],
