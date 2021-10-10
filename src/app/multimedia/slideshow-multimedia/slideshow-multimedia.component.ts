@@ -1,3 +1,4 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { MultimediaFolderResponse, MultimediaFilesNew, SlideshowFiles } from 'src/app/model/general.model';
@@ -16,15 +17,20 @@ export class SlideshowMultimediaComponent implements OnInit {
   teamId : string;
   intervalID: any;  
   componentReady: boolean;
-  counter: number = 0;
+  currentIndex: number = 0;
   interval: number = environment.slideshowInterval;
   slideshowFiles : SlideshowFiles[]=[];
   slideshowTempFiles : SlideshowFiles[]=[];
+  api: VgApiService;
+  is_image : boolean;
+  is_video : boolean
 
-  constructor(public slideshowService: SlideshowService, private generalService : GeneralService) { 
+  constructor(public slideshowService: SlideshowService, private generalService : GeneralService,  private changeDetector: ChangeDetectorRef) { 
     this.slideshowFiles = [];
     this.slideshowTempFiles = [];
-    this.counter = 0;
+    this.currentIndex = 0;
+    this.is_image = false;
+    this.is_video = false;
   }
   async ngOnInit() {
     await this.updateComponent(); 
@@ -35,7 +41,7 @@ export class SlideshowMultimediaComponent implements OnInit {
     this.componentReady = false;
     this.slideshowTempFiles = [];
     this.slideshowFiles = [];
-    this.counter = 0;
+    this.currentIndex = 0;
     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id;
     const data = await this.generalService.getSlideshowFiles(this.teamId);
     this.slideshowTempFiles = data;
@@ -69,7 +75,7 @@ export class SlideshowMultimediaComponent implements OnInit {
     } */
     }
     catch(e){
-      console.log(e.error.message);
+      console.log(e);
     }
   } 
   
@@ -96,8 +102,8 @@ export class SlideshowMultimediaComponent implements OnInit {
 
   automateSlideshow(){
     this.intervalID = setInterval(()=> {
-      console.log(this.counter);
-      if(this.counter == 1 && this.slideshowFiles.length == 1){
+      console.log(this.currentIndex);
+      if(this.currentIndex == 1 && this.slideshowFiles.length == 1){
         if (this.slideshowService.isSlideshowRunning) {
           this.slideshowService.moveSlideshowNextComponent();
         }
@@ -105,16 +111,16 @@ export class SlideshowMultimediaComponent implements OnInit {
       
       
       
-      if(this.counter >= this.slideshowFiles.length && this.counter!= 1){
+      if(this.currentIndex >= this.slideshowFiles.length && this.currentIndex!= 1){
         /* setTimeout(() => { */
           if (this.slideshowService.isSlideshowRunning) {
             this.slideshowService.moveSlideshowNextComponent();
           }
       /*   }, this.interval); */
       }
-      this.currentItem = this.slideshowFiles[this.counter].fileURL;
-      this.counter++;
-      console.log(this.counter);
+      this.currentItem = this.slideshowFiles[this.currentIndex].fileURL;
+      this.currentIndex++;
+      console.log(this.currentIndex);
 
        
           
@@ -123,20 +129,121 @@ export class SlideshowMultimediaComponent implements OnInit {
   }
 
   public slideshowControl(){
-    if(this.counter >= this.slideshowFiles.length){
+    if(this.isImage(this.slideshowFiles[this.currentIndex].fileURL)){
+      this.is_image = true;
+      this.is_video = false;
       
+      this.currentItem = this.slideshowFiles[this.currentIndex].fileURL;
+      this.currentIndex++;
+      if(this.currentIndex >= this.slideshowFiles.length){
+        console.log("reached end");
+        setTimeout(()=>{
+          console.log("move to next component");
+          if (this.slideshowService.isSlideshowRunning) {
+            this.slideshowService.moveSlideshowNextComponent();
+          }
+        },this.interval);
+
+      }
+      else{
+        setTimeout(this.slideshowControl.bind(this), this.interval);
+      }
+      
+    }
+    else{
+      this.is_image = false;
+      this.is_video = true;
+      if(this.currentIndex <= this.slideshowFiles.length){
+        this.currentItem = this.slideshowFiles[this.currentIndex].fileURL;
+      }
+      else{
         if (this.slideshowService.isSlideshowRunning) {
           this.slideshowService.moveSlideshowNextComponent();
         }
-    }
-    if(this.isImage(this.slideshowFiles[this.counter].fileURL)){
-      this.currentItem = this.slideshowFiles[this.counter].fileURL;
-      this.counter++;
-      setTimeout(this.slideshowControl.bind(this), this.interval);
-    }
-    else{
-      this.currentItem = this.slideshowFiles[this.counter].fileURL;
-      this.counter++;
+      }
+     /*  if (this.api) {
+        if(this.api.state === 'playing'){
+          setTimeout(this.slideshowControl.bind(this), this.interval);
+        }
+        
+      }
+      else{
+        this.currentItem = this.slideshowFiles[this.currentIndex].fileURL;
+        this.currentIndex++;
+        setTimeout(this.slideshowControl.bind(this), this.interval);
+      } */
     }
   }
+
+
+  //videos to slideshow
+  /* onPlayerReady(api: VgApiService) {
+    console.log("api value");
+    console.log(api);
+    this.api = api;
+
+    if (this.componentReady) {
+      this.api.volume = 0;
+    }
+
+
+  } */
+
+
+
+
+  onPlayerReady(api: VgApiService) {
+    this.api = api;
+
+    if (this.componentReady) {
+      this.api.volume = 0;
+    }
+
+    this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe({
+      next: this.playVideo.bind(this),
+      error: (reason) => {
+        console.error('Error while loading video metadata?');
+        // console.log(reason);
+      }
+    });
+    this.api.getDefaultMedia().subscriptions.ended.subscribe({
+      next: this.nextVideo.bind(this),
+      error: (reason) => {
+        console.error('Error when loaded video metadata?');
+        // console.log(reason);
+      }
+    });
+  }
+
+
+
+  nextVideo() {
+    this.currentIndex++;
+    if (this.currentIndex === this.slideshowFiles.length) {
+      if (this.slideshowService.isSlideshowRunning) {
+        this.slideshowService.moveSlideshowNextComponent();
+      }
+    }
+    else{
+      this.currentItem = this.slideshowFiles[this.currentIndex].fileURL;
+    }
+    this.changeDetector.detectChanges();
+  }
+
+  playVideo() {
+    this.api.play();
+  }
+
+
+
+
+  onTap() {
+    if (this.api.state === 'playing') {
+      this.api.pause();
+
+    } else {
+      this.api.play();
+    }
+  }
+
 }
