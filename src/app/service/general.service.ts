@@ -259,8 +259,14 @@ export class GeneralService {
 
   public getLogoPath(){
     if(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo){
-      return environment.logoPrefix + JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id + '/'
-       +JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
+      const path = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
+      const tempextension = path.split(".");
+    const  extension = tempextension[tempextension.length-1];
+    const Logo = ["null", "undefined", null, undefined];
+    if(extension.includes(Logo)){
+      return null;
+    }
+      return JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
     }
     else{
       return null;
@@ -279,4 +285,7 @@ export class GeneralService {
       .get<MultimediaFilesNew[]>('http://localhost:3001/v1/multimedia/getAllFilesForTeam/' + teamId)
       .toPromise();
   }
+  async getSlideshowFiles(teamId: string) : Promise<any>{
+    return await this.http.get<any>('http://localhost:3001/v1/multimedia/slideshow/' + teamId).toPromise();
+    }
 }

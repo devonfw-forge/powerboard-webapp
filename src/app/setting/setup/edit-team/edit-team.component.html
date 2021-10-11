@@ -11,7 +11,7 @@
             <td>
               <div class="row" style="padding-left: 30px">
                 <div>
-                  <b>{{ team.adCenter }}</b>
+                  {{ team.adCenter }}
                 </div>
               </div>
             </td>
@@ -19,15 +19,10 @@
           <tr>
             <th>Team Name</th>
             <td>
-              <div class="row">
-                <div class="form-group input-field">
-                  <input
-                    class="form-control"
-                    placeholder="{{ team.teamName }}"
-                    formControlName="teamName"
-                  />
+              <div class="row" style="padding-left: 30px">
+                <div>
+                  {{ team.teamName }}
                 </div>
-                <!-- <div>{{team.teamName}}</div> -->
               </div>
             </td>
           </tr>

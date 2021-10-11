@@ -23,16 +23,23 @@ export class ProjectsComponent implements OnInit {
   ADCList: ADCListDetails[] = [];
   updatedCenter: ADCDetails;
   ADC_Center: string;
+  newAdCenter : ADCDetails;
+/*   localLoader : boolean; */
   userId: string;
   teamDetails: TeamDetailResponse = new TeamDetailResponse();
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   constructor(private teamDetailsService: TeamDetailsService, private router: Router, public generalService: GeneralService) {
     this.ADC_Center = "Select center";
+    this.newAdCenter = new ADCDetails();
+    /* this.localLoader = false; */
   }
 
   ngOnInit(): void {
 
     this.userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
+
+
+
     this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
     console.log(this.ADCTeams);
 
@@ -48,6 +55,7 @@ export class ProjectsComponent implements OnInit {
     else {
       this.ADC_Center = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.My_Center.centerName;
       this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
+    console.log(this.ADCTeams);
     }
   }
 
@@ -56,11 +64,12 @@ export class ProjectsComponent implements OnInit {
       console.log(adcenter);
       
       this.updatedCenter=adcenter;
-  
+     /*  this.localLoader = true; */
       this.ADC_Center = adcenter.centerName;
       const data = await this.teamDetailsService.getTeamsInADCenter(adcenter.centerId);
       console.log(data);
       this.ADCTeams = data;
+      /* this.localLoader = false; */
       this.updateTeamsInADC(this.ADCTeams);
 
     }
@@ -96,16 +105,17 @@ export class ProjectsComponent implements OnInit {
       this.generalService.storeLastLoggedIn();
     }
     catch (e) {
+     /*  this.localLoader = false; */
       console.log(e);
     }
     console.log(teamId);
 
   }
 
- public getLogoPath(teamId : string, logo : string): string{
+/*  public getLogoPath(teamId : string, logo : string): string{
    let path =  environment.logoPrefix + teamId + '/' + logo;
    return path;
-  }
+  } */
 
 
 }

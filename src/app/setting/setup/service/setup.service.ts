@@ -25,7 +25,7 @@ export class SetupService {
   async addLogoToTeam(teamId, file:File):Promise<any>{
     // Headers
     const formData = new FormData();
-    formData.append('file', file, file.name);
+    formData.append('logo', file, file.name);
     return await this.http
     .post<any>('http://localhost:3001/v1/teams/uploadLogo/' + teamId, formData).toPromise();
   }

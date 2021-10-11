@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class DashboardComponent implements OnInit {
   sprintDetails: SprintDetailResponse = new SprintDetailResponse();
   teamStatus: number;
+  intervalID: any; 
   interval= environment.slideshowInterval;
   constructor(public slideshowService: SlideshowService) { }
 
@@ -21,7 +22,7 @@ export class DashboardComponent implements OnInit {
   }
   ngAfterViewInit(){
     if(this.slideshowService.isSlideshowRunning){
-      setTimeout(()=>{
+     this.intervalID = setTimeout(()=>{
         if(this.slideshowService.isSlideshowRunning){
           this.slideshowService.moveSlideshowNextComponent();
         }
@@ -29,6 +30,10 @@ export class DashboardComponent implements OnInit {
     }
    
   }
-
+  ngOnDestroy() {
+    if (this.intervalID) {
+      clearInterval(this.intervalID);
+    }
+  }
 
 }

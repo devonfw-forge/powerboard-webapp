@@ -35,7 +35,7 @@ export class AddTeamComponent implements OnInit {
     this.ADCList = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.ADC_List;
   }
 
-  async addTeam(addTeamForm : NgForm){
+  /* async addTeam(addTeamForm : NgForm){
      
   
    this.team.ad_center.id = this.centerId; 
@@ -53,7 +53,7 @@ export class AddTeamComponent implements OnInit {
     this.notifyService.showError("", e.error.message);
    
   }   
-   }
+   } */
 
 
    keyPressed() {
@@ -98,15 +98,12 @@ export class AddTeamComponent implements OnInit {
       var image = <HTMLImageElement>document.getElementById('output');
       image.src = "../../../../../assets/layoutAssets/logo/uploadLogo.PNG";
       this.form.reset();
+      this.team = new TeamInfo();
+      this.centerName = 'Select Center';
+      this.centerId = '';
       return data;
     } catch (e) {
       console.log(e);
     }
   }
-
-
-
-
-
-  
 }
