@@ -122,7 +122,7 @@ export class GeneralService {
     this.showNavBarIcons = false;
     this.setLoginComplete(false);
     this.checkVisibility();
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/']);
   }
 
   checkVisibility() {

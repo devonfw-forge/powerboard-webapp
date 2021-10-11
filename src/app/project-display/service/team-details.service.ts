@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomeResponse, TeamDetails } from 'src/app/login/model/login.model';
 import { PowerboardResponse, TeamDetailResponse } from 'src/app/model/general.model';
 import { GeneralService } from 'src/app/service/general.service';
@@ -11,9 +12,11 @@ import { ProjectTeamDetail } from '../my-projects/model/team.model';
   providedIn: 'root'
 })
 export class TeamDetailsService {
- 
+  userId : string;
 private teamDetailPermissions : string[] = [];
-  constructor(private http: HttpClient, private generalService : GeneralService) { 
+UserIdTeamIdDetails : GetTeamDetails = new GetTeamDetails();
+teamDetails : TeamDetailResponse = new TeamDetailResponse();
+  constructor(private http: HttpClient, private generalService : GeneralService, private router:Router) { 
     
   }
   
@@ -58,4 +61,28 @@ private teamDetailPermissions : string[] = [];
     this.teamDetailPermissions = [];
   }
 
+
+
+
+  public async processTeamDetails(teamId:string){
+    this.userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
+    try{
+      this.UserIdTeamIdDetails.teamId = teamId;
+      this.UserIdTeamIdDetails.userId = this.userId;
+      /* this.localLoader = true; */
+      const data = await this.getTeamDetails(this.UserIdTeamIdDetails);
+      this.teamDetails.powerboardResponse = data;
+      /* this.localLoader = false; */
+      localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetails));
+      this.setTeamDetailPermissions();
+      this.generalService.showNavBarIcons = true;
+      this.generalService.checkVisibility();
+      this.router.navigateByUrl('/dashboard');
+      this.generalService.storeLastLoggedIn();
+    }
+    catch(e){
+      /* this.localLoader = false; */
+      console.log(e.error.message);
+    }
+  }
 }

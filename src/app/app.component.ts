@@ -6,8 +6,9 @@ import { Location } from '@angular/common';
 import { GeneralService } from './service/general.service';
 import { SlideshowService } from './slideshow/slideshow.service';
 import { TeamDetailsService } from './project-display/service/team-details.service';
-import { NavigationService } from './service/navigation-service.service';
+
 import { GlobalLoaderService } from './service/global-loader.service';
+import { NavigationService } from './service/navigation.service';
 
 
 @Component({

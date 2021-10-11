@@ -67,7 +67,7 @@ describe('TeamService', () => {
   })  */
 
 
-  it('view all team members should throw error for null ', async () => {
+  /* it('view all team members should throw error for null ', async () => {
     let result;
   service.viewTeamMembersOfTeam(null).then((data) => {
   result = data;
@@ -79,11 +79,11 @@ describe('TeamService', () => {
         status : 500,
         statusText : "Something went wrong, Please try again in some moment"
       });
-  }) 
+  })  */
 
 
 
-  it('change team member role should get error for null', ()=>{
+  /* it('change team member role should get error for null', ()=>{
     let result;
     service.updateAccessRole(null).then((data) =>{
       result = data;
@@ -95,7 +95,7 @@ describe('TeamService', () => {
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
     });
-  });
+  }); */
 
   it('should add and delete team member', async () =>{
     let result;

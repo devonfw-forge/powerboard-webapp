@@ -89,13 +89,13 @@ describe('ProjectsComponent', () => {
     expect(component).toBeTruthy();
   });
   
-  it('get team in adc should throw error on passing null',() =>{
+ /*  it('get team in adc should throw error on passing null',() =>{
     component.getTeamsInADC(null, null).then((data) =>{
 
     }).catch((e) => {
       expect(e.error.message).toEqual('Invalid param id. Number expected');
     })
-  })
+  }) */
 
 
   it('get team details should run',() =>{
@@ -105,10 +105,10 @@ describe('ProjectsComponent', () => {
   })
 
 
-  it('get teams in adc are updating', () =>{
+  /* it('get teams in adc are updating', () =>{
     component.getTeamsInADC('98755bf7-ada7-495c-8019-8d7ab62d488e', 'ADCenter Mumbai').then((data) =>{
       let powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
       expect(powerboardLoginResponse.loginResponse.Teams_In_ADC).toEqual(component.ADCTeams);
     })
-  })
+  }) */
 });

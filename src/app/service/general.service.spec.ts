@@ -55,7 +55,7 @@ describe('GeneralService', () => {
     expect(service.getPermissions().length).toEqual(0);
     expect(service.showNavBarIcons).toEqual(false);
     expect(service.getLoginComplete()).toEqual(false);
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 
 
