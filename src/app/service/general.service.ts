@@ -209,7 +209,7 @@ export class GeneralService {
       this.showNavBarIcons = true;
       this.checkVisibility();
 
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigate(['/dashboard']);
     } else {
       this.router.navigate(['/projects']);
     }

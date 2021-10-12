@@ -9,10 +9,10 @@ export class TeamService {
 
   constructor(private http: HttpClient) { }
 
-  async addTeam(team : TeamInfo):Promise<any>{
+  /* async addTeam(team : TeamInfo):Promise<any>{
     return await this.http.post<any>(
       'http://localhost:3001/v1/teams/team/addTeam',team ).toPromise();
-  }
+  } */
 
   async addTeamWithLogo(formData : FormData):Promise<any>{
     return await this.http.post<any>(

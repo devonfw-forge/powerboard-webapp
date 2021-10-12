@@ -14,11 +14,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ViewAllTeamsComponent } from './team/view-all-teams/view-all-teams.component';
 
 
-import { GuestComponent } from './guest/guest.component';
-import { AddGuestComponent } from './guest/add-guest/add-guest.component';
 
-import { ConfigureTeamSpiritComponent } from './setup/configure-team-spirit/configure-team-spirit.component';
-import { ViewAllGuestsComponent } from './guest/view-all-guests/view-all-guests.component';
 import { EditTeamComponent } from './setup/edit-team/edit-team.component';
 import { RemoveUnderscorePipe } from './model/setting.model';
 import { ShortUrlPipe } from './setup/configure-team-links/pipes/short-url.pipe';
@@ -73,10 +69,6 @@ const routes: Routes = [{
     AddTeamComponent,
     ViewAllTeamsComponent,
     ViewAllTeamMembersComponent,
-    GuestComponent,
-    AddGuestComponent,
-    ConfigureTeamSpiritComponent,
-    ViewAllGuestsComponent,
     ViewTeamComponent,
     EditTeamComponent,
     RemoveUnderscorePipe,
