@@ -16,7 +16,7 @@ import {  PowerboardLoginResponse } from './model/login.model';
 
 import { LoginService } from './service/login.service';
 import { NotificationService } from '../service/notification.service';
-import { GlobalLoaderService } from '../service/global-loader.service';
+
 
 @Component({
   selector: 'app-login',
@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private teamDetailsService : TeamDetailsService,
     private generalService: GeneralService,
-    public globalLoader :GlobalLoaderService,
     private notificationService : NotificationService,
     private changeDetector: ChangeDetectorRef
   ) {
@@ -90,7 +89,7 @@ export class LoginComponent implements OnInit {
     } catch (e) {
      /*  this.localLoader = false; */
       console.log(e);
-      this.globalLoader.stopLoader();
+      
 
       window.alert(e.error.message);
       this.router.navigateByUrl('/');
