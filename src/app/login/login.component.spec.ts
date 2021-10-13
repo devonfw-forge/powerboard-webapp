@@ -67,6 +67,8 @@ describe('LoginComponent', () => {
     })
     
   })
-});
 
-
+  /* it('should login for guest users',async () =>{
+   await component.GuestLogin()
+    }) */
+})
