@@ -42,7 +42,6 @@ ADC_Center: string;
  async getAllTeams(){
   try{
     const data = await this.teamService.viewAllTeams();
-    console.log(data);
     this.allTeams = data;
    
   }
@@ -94,7 +93,7 @@ async getTeamDetails(teamId:string){
     this.teamDetailsService.setTeamDetailPermissions();
     this.generalService.showNavBarIcons = true;
     this.generalService.checkVisibility();
-    this.router.navigateByUrl('/viewTeam');
+    this.router.navigate(['/viewTeam']);
   }
   catch(e){
     console.log(e.error.message);

@@ -34,18 +34,15 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
       role: ['',[Validators.required]],
       team:['',[Validators.required]]
     });
-
-    console.log(this.settingService.roles);
-    console.log(this.generalService.getPermissions());
   }
-  keyPressed() {
+ /*  keyPressed() {
     this.authError = false;
   }
 
   
   getAuthError() {
     return this.authError;
-  }
+  } */
 
   async addMember(){
     this.teamMember.team.id=  this.teamId;
