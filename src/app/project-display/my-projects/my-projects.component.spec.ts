@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GeneralService } from 'src/app/service/general.service';
 import { TeamDetailsService } from '../service/team-details.service';
-
+import checkData from 'src/app/checkData.json'; 
 import { MyProjectsComponent } from './my-projects.component';
+import { SlideshowService } from 'src/app/slideshow/slideshow.service';
 class MockRouter{
   navigateByUrl(url : string){
     return url ;
@@ -14,6 +15,7 @@ class MockRouter{
 describe('MyProjectsComponent', () => {
   let component: MyProjectsComponent;
    let router;
+   let slideshowService : SlideshowService;
   let fixture: ComponentFixture<MyProjectsComponent>;
   let teamDetailsServiceSpy: jasmine.SpyObj<TeamDetailsService>;
   let generalServiceSpy: jasmine.SpyObj<GeneralService>;
@@ -82,25 +84,25 @@ describe('MyProjectsComponent', () => {
       
       imports :[RouterTestingModule, HttpClientModule],
       declarations: [ MyProjectsComponent ],
-      providers : [{provide  : TeamDetailsService, useValue : teamDetailsServiceSpy},{provide : Router, useClass : MockRouter},{provide  : GeneralService, useValue : generalServiceSpy}]
+      providers : [{provide  : TeamDetailsService, useValue : teamDetailsServiceSpy},{provide : Router, useClass : MockRouter},{provide  : GeneralService, useValue : generalServiceSpy}, {provide : SlideshowService, useValue : slideshowService}]
       
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    localStorage.setItem('PowerboardDashboard', JSON.stringify(loginResponse));
+    localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
     fixture = TestBed.createComponent(MyProjectsComponent);
     component = fixture.componentInstance;
-    
+    slideshowService = TestBed.inject(SlideshowService);
     fixture.detectChanges();
   });
 
-  /* it('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
-  }); */
+  });
 
- /*  it('get team details should throw error on passing team Id as null',() =>{
+  it('get team details should throw error on passing team Id as null',() =>{
     component.getTeamDetails(null).then((data) =>{
 
     }).catch((e) => {
@@ -112,5 +114,5 @@ describe('MyProjectsComponent', () => {
     component.getTeamDetails('46455bf7-ada7-495c-8019-8d7ab76d488e').then((data) => {
       expect(generalServiceSpy.showNavBarIcons).toEqual(true);
     })
-  }) */
+  })
 });
