@@ -76,7 +76,7 @@ export class EditTeamComponent implements OnInit {
 
     this.ADCList = JSON.parse(
       localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.ADC_List;
+    ).loginResponse.homeResponse.ADC_List;
     console.log(this.ADCList);
 
     this.form.controls['teamName'].setValue(this.team.teamName);

@@ -7,6 +7,7 @@ import { GeneralService } from 'src/app/service/general.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { SetupService } from '../service/setup.service';
 import checkData from 'src/app/checkData.json'; 
+import teamDetailsResponse from 'src/app/teamDetailsResponse.json';
 import { EditTeamComponent } from './edit-team.component';
 
 describe('EditTeamComponent', () => {
@@ -28,6 +29,7 @@ describe('EditTeamComponent', () => {
 
   beforeEach(() => {
     localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+    localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
     fixture = TestBed.createComponent(EditTeamComponent);
     component = fixture.componentInstance;
     generalService = TestBed.inject(GeneralService);

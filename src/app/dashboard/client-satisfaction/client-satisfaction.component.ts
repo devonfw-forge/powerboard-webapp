@@ -83,7 +83,7 @@ export class ClientSatisfactionComponent implements OnInit {
               fontSize: 10,
               distance: -30,
               formatter: function (value) {
-                if (value === 1) {
+                /* if (value === 1) {
                   return '10';
                 } else if (value === 0.9) {
                   return '9';
@@ -105,7 +105,8 @@ export class ClientSatisfactionComponent implements OnInit {
                   return '1';
                 } else if (value === 0.0) {
                   return '0';
-                }
+                } */
+                return '' + value * 10; 
               },
             },
             title: {

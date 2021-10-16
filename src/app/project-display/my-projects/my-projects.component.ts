@@ -20,7 +20,6 @@ export class MyProjectsComponent implements OnInit {
 
   constructor(
     private teamDetailsService: TeamDetailsService,
-    private router: Router,
     public generalService: GeneralService,
     public slideShowService: SlideshowService
   ) {}

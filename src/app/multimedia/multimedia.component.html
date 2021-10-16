@@ -1,4 +1,4 @@
-<div style="width: 100%; justify-content: center;" *ngIf="!slideshowService.isSlideshowRunning">
+<div style="width: 100%; justify-content: center;">
     <div class="col-md-11  row" style="margin-left: 5%;">
         <div style=" height: 83vh; width:20%;">
             <div style="margin:10px; margin-left: 35px;">
@@ -118,12 +118,3 @@
   </div>
   
   
-  <!-- Slideshow Implementation -->
-  <div class=" text-center" [ngClass]="{'slideshow-bg': slideshowService.isSlideshowRunning}">
-    <div class=" slide-image-viewer" *ngIf="is_image && slideshowService.isSlideshowRunning">
-      <div>
-  
-        <img class="shadow slideshow-image" [src]="realItem" alt="" />
-      </div>
-    </div>
-  </div>

@@ -12,10 +12,6 @@ export class SetupComponent implements OnInit {
     this.router.navigate(['editTeam'], {relativeTo:this.route});
   }
   
-
-
-  
-
   public showTeamLink(){
     this.router.navigate(['configure-links'], {relativeTo:this.route});
   }
@@ -24,8 +20,6 @@ export class SetupComponent implements OnInit {
     
     this.router.navigate(['configure-multimedia'], {relativeTo:this.route});
   }
-
-  
 
   public showViewTeamMember(){
     this.router.navigate(['view-members'], {relativeTo:this.route});
