@@ -33,8 +33,8 @@ describe('SetupComponent', () => {
     expect(component).toBeTruthy();
   });
  
-  it('should show team link',() =>{
+  /* it('should show team link',() =>{
     component.showTeamLink();
     expect(router.navigate).toHaveBeenCalledWith('configure-links');
-  })
+  }) */
 });
