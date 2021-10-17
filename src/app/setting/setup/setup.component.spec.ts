@@ -37,4 +37,10 @@ describe('SetupComponent', () => {
     component.showTeamLink();
     expect(router.navigate).toHaveBeenCalledWith('configure-links');
   }) */
+
+
+  it('should change active',() =>{
+    component.changeActive(1);
+  
+  })
 });

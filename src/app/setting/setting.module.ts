@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SetupComponent } from './setup/setup.component';
 import { ConfigureTeamLinksComponent } from './setup/configure-team-links/configure-team-links.component';
-import { ConfigureLogoComponent } from './setup/configure-logo/configure-logo.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { NgxElectronModule } from 'ngx-electron';
 import { TeamComponent } from './team/team.component';
@@ -64,7 +63,6 @@ const routes: Routes = [{
     SetupComponent,
 
     ConfigureTeamLinksComponent,
-    ConfigureLogoComponent,
     TeamComponent,
     AddTeamComponent,
     ViewAllTeamsComponent,
