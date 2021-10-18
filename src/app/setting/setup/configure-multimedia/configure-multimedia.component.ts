@@ -508,14 +508,6 @@ export class ConfigureMultimediaComponent implements OnInit {
     console.log(this.deleteFiles_Folders);
   }
 
-
-
-
-
-
-
-
-
   async deleteFilesAndFolders() {
     this.getDeleteIds();
     try{
@@ -547,18 +539,6 @@ export class ConfigureMultimediaComponent implements OnInit {
   this.teamDetail.powerboardResponse.multimedia = this.multimedia;
   localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetail));
  }
-
-
-
-
-
-
-
-
-
-
-
-
   
   close() {
     this.newFolderName = '';
@@ -594,7 +574,39 @@ export class ConfigureMultimediaComponent implements OnInit {
 
   
  async addToSlideShow(){
+  this.checkSlideshowFilesAndFolders();
+  try{
+    const data = await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
+  /*   this.notifyService.showSuccess("", "Files & folders added to slide show successfully"); */
+    for(let file of this.multimedia.display){
+      if(file.isSelected){
+       file.inSlideShow = true;
+       file.isSelected = false;
+      }
+      else{
+        file.inSlideShow = false;
+      }
+    }
+    for(let folder of this.multimedia.root){
+      if(folder.isSelected){
+        folder.inSlideShow = true;
+        folder.isSelected = false;
+      }
+      else{
+        folder.inSlideShow = false;
+      }
+    }
+    this.isMasterSel = false;
+  }
+  catch(e){
+    console.log(e.error.message);
+   /*  this.notifyService.showError("", e.error.message); */
+  } 
+ 
+}
 
+
+public checkSlideshowFilesAndFolders(){
   this.fileAndFolderIds = [];
   
   if(this.homeFile.isSelected){
@@ -625,33 +637,5 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
   }
   console.log(this.fileAndFolderIds);
-  try{
-    const data = await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
-  /*   this.notifyService.showSuccess("", "Files & folders added to slide show successfully"); */
-    for(let file of this.multimedia.display){
-      if(file.isSelected){
-       file.inSlideShow = true;
-       file.isSelected = false;
-      }
-      else{
-        file.inSlideShow = false;
-      }
-    }
-    for(let folder of this.multimedia.root){
-      if(folder.isSelected){
-        folder.inSlideShow = true;
-        folder.isSelected = false;
-      }
-      else{
-        folder.inSlideShow = false;
-      }
-    }
-    this.isMasterSel = false;
-  }
-  catch(e){
-    console.log(e.error.message);
-   /*  this.notifyService.showError("", e.error.message); */
-  } 
- 
 }
 }

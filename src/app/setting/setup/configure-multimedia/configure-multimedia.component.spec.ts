@@ -87,4 +87,65 @@ describe('ConfigureMultimediaComponent', () => {
       }
     }
   })
+
+  it('should check if home file is selected', () =>{
+    component.homeFile.isSelected = true;
+    component.checkHomeIsSelected();
+    expect(component.homeFile.isSelected).toEqual(false);
+   component.currentFolder = component.homeFile.folderName;
+   component.checkHomeIsSelected();
+   if(component.multimediaFiles.length > 0){
+     for(let file of component.multimediaFiles){
+      expect(file.isSelected).toEqual(true);
+     }
+   }
+   component.homeFile.isSelected = false;
+   if(component.multimedia.root.length > 0){
+    component.currentFolder = component.multimedia.root[0].folderName;
+    component.checkHomeIsSelected();
+    if(component.multimediaFiles.length > 0){
+      for(let file of component.multimediaFiles){
+       expect(file.isSelected).toEqual(false);
+      }
+    }
+   }
+  })
+
+  /* it('should check file selection',() =>{
+    if(component.multimedia.root.length > 0){
+      component.currentFolder = component.multimedia.root[0].folderName;
+      component.checkFilesSelection(1);
+      expect(component.homeFile.isSelected).toEqual(false);
+
+    }
+  }) */
+it('should check slidehow files and folders', () =>{
+  component.homeFile.isSelected = true;
+  for(let file of component.multimedia.root){
+    file.status = false;
+  }
+  component.checkSlideshowFilesAndFolders();
+  expect(component.fileAndFolderIds).toBeTruthy();
+})
+  
+
+it('should test check slideshow files and folders',() =>{
+  component.homeFile.isSelected = false;
+  component.currentFolder = component.homeFile.folderName;
+  component.checkSlideshowFilesAndFolders();
+  expect(component.fileAndFolderIds).toBeTruthy();
+})
+
+it('should check add to slideshow',() =>{
+  if(component.multimedia.display.length > 0){
+    component.multimedia.display[0].isSelected  = true;
+  }
+  if(component.multimedia.root.length > 0){
+    component.multimedia.root[0].isSelected  = true;
+  }
+ component.addToSlideShow().then(() =>{
+  expect(component.isMasterSel).toEqual(false);
+ })
+  expect(component.isMasterSel).toEqual(false);
+})
 });

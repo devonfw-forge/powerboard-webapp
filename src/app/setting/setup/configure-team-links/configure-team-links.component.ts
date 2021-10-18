@@ -9,6 +9,7 @@ import { TeamLinksDetails } from '../../model/setting.model';
 import { SetupService } from '../service/setup.service';
 import { AddLinksComponent } from './add-links/add-links.component';
 
+
 @Component({
   selector: 'app-configure-team-links',
   templateUrl: './configure-team-links.component.html',

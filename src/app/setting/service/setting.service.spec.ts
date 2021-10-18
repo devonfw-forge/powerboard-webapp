@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TeamDetailResponse } from 'src/app/model/general.model';
-import teamDetailsResponse from 'src/app/teamDetailsResponse.json'; 
+import teamDetailsResponse from 'src/app/teamDetailsResponse.json';
 import { SettingService } from './setting.service';
 
 describe('SettingService', () => {
