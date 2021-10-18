@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationService } from 'src/app/service/notification.service';
 import { UpdateRoles } from '../../model/setting.model';
-
+import teamDetailsResponse from '/src/app/teamDetailsResponse.json';
 import { ViewAllTeamMembersComponent } from './view-all-team-members.component';
 
 describe('ViewAllTeamMembersComponent', () => {
@@ -26,16 +26,16 @@ describe('ViewAllTeamMembersComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewAllTeamMembersComponent);
-    // localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamResponse));
+    localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  /* it('should create', () => {
+   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
- 
+ /*
   it('delete team member should give error for null data', () =>{
     component.deleteMember().catch((e)=>{
       expect(e).toEqual('Something went wrong, Please try again in some moment');

@@ -93,7 +93,8 @@ const routes: Routes = [{
   exports: [
     ReactiveFormsModule,
     FormsModule,
-    SettingComponent
+    SettingComponent,
+    ShortUrlPipe
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

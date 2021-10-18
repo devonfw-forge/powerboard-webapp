@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MultimediaFilesNew, MultimediaFolderResponse, rootNew, TeamDetailResponse } from 'src/app/model/general.model';
 import { environment } from '../../../../environments/environment';
-import { NotificationService } from 'src/app/service/notification.service';
-import { Router } from '@angular/router';
+/* import { NotificationService } from 'src/app/service/notification.service'; */
 import { ConfigureMultimediaServiceService } from './configure-multimedia-service.service';
 import { DeleteResponse } from '../../model/setting.model';
 import { GeneralService } from 'src/app/service/general.service';
@@ -35,8 +34,7 @@ export class ConfigureMultimediaComponent implements OnInit {
 
   constructor(
     public configureService: ConfigureMultimediaServiceService,
-    private route: Router,
-    private notifyService: NotificationService,
+    /* private notifyService: NotificationService, */
     private generalService: GeneralService
   ) {
     this.checkStatus = false;
@@ -242,10 +240,10 @@ export class ConfigureMultimediaComponent implements OnInit {
     
       
       this.updateComponent();
-      this.notifyService.showSuccess('', 'File Added Successfully');
+     /*  this.notifyService.showSuccess('', 'File Added Successfully'); */
     } catch (e) {
       console.log(e.error.message);
-      this.notifyService.showError('', e.error.message);
+     /*  this.notifyService.showError('', e.error.message); */
     }
   }
   SelectAndDeselectAll(){
@@ -522,12 +520,12 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.getDeleteIds();
     try{
       await this.configureService.deleteFilesInSubFolder(this.teamId, this.deleteFiles_Folders);
-      this.notifyService.showSuccess("", "File deleted Successfully");
+    /*   this.notifyService.showSuccess("", "File deleted Successfully"); */
       this.removeIds();
     }
     catch(e){
       console.log(e.error.message);
-      this.notifyService.showError("", e.error.message);
+     /*  this.notifyService.showError("", e.error.message); */
     } 
    
     console.log('delete');
@@ -629,7 +627,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   console.log(this.fileAndFolderIds);
   try{
     const data = await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
-    this.notifyService.showSuccess("", "Files & folders added to slide show successfully");
+  /*   this.notifyService.showSuccess("", "Files & folders added to slide show successfully"); */
     for(let file of this.multimedia.display){
       if(file.isSelected){
        file.inSlideShow = true;
@@ -652,7 +650,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   }
   catch(e){
     console.log(e.error.message);
-    this.notifyService.showError("", e.error.message);
+   /*  this.notifyService.showError("", e.error.message); */
   } 
  
 }
