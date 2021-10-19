@@ -5,7 +5,7 @@ import { PowerboardResponse, TeamDetailResponse } from 'src/app/model/general.mo
 import { GeneralService } from 'src/app/service/general.service';
 import { GetTeamDetails } from '../model/pbResponse.model';
 import { ProjectTeamDetail } from '../my-projects/model/team.model';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +19,12 @@ private teamDetailPermissions : string[] = [];
   
   async getTeamDetails(userIdTeamIdDetails : GetTeamDetails):Promise<PowerboardResponse>{
     return await this.http.post<PowerboardResponse>(
-      'http://localhost:3001/v1/teams/powerboard/team', userIdTeamIdDetails ).toPromise();
+      environment.globalEndPoint + environment.getTeamDetailsEndPoint, userIdTeamIdDetails ).toPromise();
   }
 
   async getTeamsInADCenter(centerId : string):Promise<ProjectTeamDetail[]>{
     return await this.http.get<ProjectTeamDetail[]>(
-      'http://localhost:3001/v1/teams/center/' + centerId ).toPromise();
+      environment.globalEndPoint + environment.getTeamsCenterEndPoint  + centerId ).toPromise();
   }
 
 /* new call */

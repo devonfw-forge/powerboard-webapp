@@ -244,14 +244,14 @@ export class GeneralService {
   /* new end point call */
   async getProjectDetails(userId: string): Promise<HomeResponse> {
     return await this.http
-      .get<HomeResponse>('http://localhost:3001/v1/auth/home/' + userId)
+      .get<HomeResponse>(environment.globalEndPoint + environment.getProjectDetailsEndpoint + userId)
       .toPromise();
   }
 
   async sendLastLoggedIn() {
     await this.http
       .put<any>(
-        'http://localhost:3001/v1/user/team/loggedProject',
+        environment.globalEndPoint + environment.lastLoggedEndPoint,
         this.userIdTeamIdDetails
       )
       .toPromise();
@@ -276,16 +276,16 @@ export class GeneralService {
 
    async getAllFilesFromFolder(teamId: string, folderId : string): Promise<MultimediaFilesNew[]> {
     return await this.http
-      .get<MultimediaFilesNew[]>('http://localhost:3001/v1/multimedia/getAllFilesInFolder/' + teamId + '/' + folderId)
+      .get<MultimediaFilesNew[]>(environment.globalEndPoint + environment.FilesFromFolderEndpoint + teamId + '/' + folderId)
       .toPromise();
   }
 
   async getAllFilesFromTeam(teamId: string): Promise<MultimediaFilesNew[]> {
     return await this.http
-      .get<MultimediaFilesNew[]>('http://localhost:3001/v1/multimedia/getAllFilesForTeam/' + teamId)
+      .get<MultimediaFilesNew[]>(environment.globalEndPoint + environment.FilesForTeamEndpoint + teamId)
       .toPromise();
   }
   async getSlideshowFiles(teamId: string) : Promise<any>{
-    return await this.http.get<any>('http://localhost:3001/v1/multimedia/slideshow/' + teamId).toPromise();
+    return await this.http.get<any>(environment.globalEndPoint + environment.getSlideshowFilesEndpoint + teamId).toPromise();
     }
 }
