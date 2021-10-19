@@ -30,7 +30,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
 
 
   constructor( private setupService: SetupService,
-    private ref: ChangeDetectorRef, private electronService : ElectronService, private notifyService : NotificationService) 
+    private ref: ChangeDetectorRef, private electronService : ElectronService, public notifyService : NotificationService) 
     {
       this.usefullLinks=[];
        if (electronService.isElectronApp) {

@@ -44,7 +44,7 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
     return this.authError;
   } */
 
-  async addMember(){
+  /* async addMember(){
     this.teamMember.team.id=  this.teamId;
     this.memberGroup.controls.team.setValue(this.teamMember.team);
 
@@ -60,7 +60,7 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
     this.error=true;
     return false;
   }
-  }
+  } */
 
   
   async addTeamMember(){

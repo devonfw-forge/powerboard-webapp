@@ -100,34 +100,6 @@ export class SlideshowMultimediaComponent implements OnInit {
     }
   }
 
-  automateSlideshow(){
-    this.intervalID = setInterval(()=> {
-      console.log(this.currentIndex);
-      if(this.currentIndex == 1 && this.slideshowFiles.length == 1){
-        if (this.slideshowService.isSlideshowRunning) {
-          this.slideshowService.moveSlideshowNextComponent();
-        }
-      }
-      
-      
-      
-      if(this.currentIndex >= this.slideshowFiles.length && this.currentIndex!= 1){
-        /* setTimeout(() => { */
-          if (this.slideshowService.isSlideshowRunning) {
-            this.slideshowService.moveSlideshowNextComponent();
-          }
-      /*   }, this.interval); */
-      }
-      this.currentItem = this.slideshowFiles[this.currentIndex].fileURL;
-      this.currentIndex++;
-      console.log(this.currentIndex);
-
-       
-          
-    },this.interval);
-    
-  }
-
   public slideshowControl(){
     if(this.isImage(this.slideshowFiles[this.currentIndex].fileURL)){
       this.is_image = true;
@@ -233,9 +205,6 @@ export class SlideshowMultimediaComponent implements OnInit {
   playVideo() {
     this.api.play();
   }
-
-
-
 
   onTap() {
     if (this.api.state === 'playing') {
