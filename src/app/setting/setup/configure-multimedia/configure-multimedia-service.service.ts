@@ -14,10 +14,6 @@ export class ConfigureMultimediaServiceService {
 
   constructor(private http: HttpClient) { }
 
-  addFolder(){
-
-  }
-
 
   async addFilesToTeam(teamId, file:File):Promise<any>{
     // Headers

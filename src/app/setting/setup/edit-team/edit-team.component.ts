@@ -73,11 +73,15 @@ export class EditTeamComponent implements OnInit {
       this.isLogo = false;
     
     }
+if(JSON.parse(
+  localStorage.getItem('PowerboardDashboard')
+).loginResponse.homeResponse){
 
-    this.ADCList = JSON.parse(
-      localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.ADC_List;
-    console.log(this.ADCList);
+  this.ADCList = JSON.parse(
+    localStorage.getItem('PowerboardDashboard')
+  ).loginResponse.homeResponse.ADC_List;
+  console.log(this.ADCList);
+}
 
     this.form.controls['teamName'].setValue(this.team.teamName);
     this.form.controls['teamCode'].setValue(this.team.teamCode);

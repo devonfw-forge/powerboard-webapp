@@ -14,15 +14,6 @@ export class SetupService {
 
 
  
-
-  /* async addVideosToTeam(teamId, file:File):Promise<any>{
-    // Headers
-    const formData = new FormData();
-    formData.append('file', file, file.name);
-    return await this.http
-    .post<any>('http://localhost:3001/v1/videos/uploadVideo/' + teamId, formData).toPromise();
-  } */
-
   async addLogoToTeam(teamId, file:File):Promise<any>{
     // Headers
     const formData = new FormData();
@@ -37,13 +28,6 @@ export class SetupService {
       environment.globalEndPoint + environment.deleteLogoEndPoint + teamId).toPromise();
   }
 
-
-
-  
- /*  async sendDetailsTeamSpirit(teamSpiritDetails :ConfigureTeamSpirit ):Promise<any>{
-    return await this.http.put<any>(
-      'http://localhost:3001/v1/team-spirit/updateTeam/' + teamSpiritDetails.Name, teamSpiritDetails).toPromise();
-  } */
 
   async updateTeam(formData: UpdateTeam, teamId : string):Promise<any>{
     return await this.http.put<any>(

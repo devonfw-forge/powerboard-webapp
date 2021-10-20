@@ -34,20 +34,17 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
       role: ['',[Validators.required]],
       team:['',[Validators.required]]
     });
-
-    console.log(this.settingService.roles);
-    console.log(this.generalService.getPermissions());
   }
-  keyPressed() {
+ /*  keyPressed() {
     this.authError = false;
   }
 
   
   getAuthError() {
     return this.authError;
-  }
+  } */
 
-  async addMember(){
+  /* async addMember(){
     this.teamMember.team.id=  this.teamId;
     this.memberGroup.controls.team.setValue(this.teamMember.team);
 
@@ -63,7 +60,7 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
     this.error=true;
     return false;
   }
-  }
+  } */
 
   
   async addTeamMember(){

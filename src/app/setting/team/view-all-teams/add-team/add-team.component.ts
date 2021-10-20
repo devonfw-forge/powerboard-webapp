@@ -12,7 +12,7 @@ import { TeamService } from '../../service/team.service';
   styleUrls: ['./add-team.component.css']
 })
 export class AddTeamComponent implements OnInit {
-  private authError: boolean;
+ 
   centerId :string;
   team:TeamInfo = new TeamInfo();
   ADCList: ADCListDetails[] = [];
@@ -56,13 +56,7 @@ export class AddTeamComponent implements OnInit {
    } */
 
 
-   keyPressed() {
-    this.authError = false;
-  }
-  
-  getAuthError() {
-    return this.authError;
-  }
+   
 
   public updateCenter(centerId , centerName){
     this.centerName = centerName;

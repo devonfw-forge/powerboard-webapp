@@ -17,15 +17,13 @@ import { TeamDetailsService } from '../service/team-details.service';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  UserIdTeamIdDetails: GetTeamDetails = new GetTeamDetails();
+
   ADCTeams: TeamDetails[] = [];
-  logoPrefix = environment.logoPrefix;
   ADCList: ADCListDetails[] = [];
   updatedCenter: ADCDetails;
   ADC_Center: string;
   newAdCenter : ADCDetails;
-/*   localLoader : boolean; */
-  userId: string;
+
   teamDetails: TeamDetailResponse = new TeamDetailResponse();
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   constructor(private teamDetailsService: TeamDetailsService, private router: Router, public generalService: GeneralService) {
@@ -36,10 +34,7 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
-
-
-
+    
     this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
     console.log(this.ADCTeams);
 
@@ -64,12 +59,11 @@ export class ProjectsComponent implements OnInit {
       console.log(adcenter);
       
       this.updatedCenter=adcenter;
-     /*  this.localLoader = true; */
+    
       this.ADC_Center = adcenter.centerName;
       const data = await this.teamDetailsService.getTeamsInADCenter(adcenter.centerId);
       console.log(data);
       this.ADCTeams = data;
-      /* this.localLoader = false; */
       this.updateTeamsInADC(this.ADCTeams);
 
     }
@@ -91,31 +85,13 @@ export class ProjectsComponent implements OnInit {
 
   }
 
-  async getTeamDetails(teamId: string) {
-    try {
-      this.UserIdTeamIdDetails.teamId = teamId;
-      this.UserIdTeamIdDetails.userId = this.userId
-      const data = await this.teamDetailsService.getTeamDetails(this.UserIdTeamIdDetails);
-      this.teamDetails.powerboardResponse = data;
-      localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetails));
-      this.router.navigate(['/dashboard']);
-      this.teamDetailsService.setTeamDetailPermissions();
-      this.generalService.showNavBarIcons = true;
-      this.generalService.checkVisibility();
-      this.generalService.storeLastLoggedIn();
-    }
-    catch (e) {
-     /*  this.localLoader = false; */
-      console.log(e);
-    }
-    console.log(teamId);
+  async getTeamDetails(teamId:string){
 
+    try{
+      await this.teamDetailsService.processTeamDetails(teamId); 
+    }
+    catch(e){
+      console.log(e.error.message);
+    }
   }
-
-/*  public getLogoPath(teamId : string, logo : string): string{
-   let path =  environment.logoPrefix + teamId + '/' + logo;
-   return path;
-  } */
-
-
 }

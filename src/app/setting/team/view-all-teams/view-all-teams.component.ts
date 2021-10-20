@@ -9,8 +9,6 @@ import { TeamDetailsService } from 'src/app/project-display/service/team-details
 import { GeneralService } from 'src/app/service/general.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TeamsResponse } from '../../model/setting.model';
-import { SettingService } from '../../service/setting.service';
-import { VisibilityService } from '../../service/visibility.service';
 
 import { TeamService } from '../service/team.service';
 import { AddTeamComponent } from './add-team/add-team.component';
@@ -34,7 +32,7 @@ ADCTeams: TeamDetails[] = [];
 newTeam : TeamDetails;
 ADC_Center: string;
 @ViewChild(AddTeamComponent) child;
-  constructor(private settingService : SettingService, private router : Router, public generalService : GeneralService, private teamDetailsService: TeamDetailsService, private visibilityService : VisibilityService, private notifyService : NotificationService, private teamService : TeamService) { }
+  constructor( private router : Router, public generalService : GeneralService, private teamDetailsService: TeamDetailsService,  private notifyService : NotificationService, private teamService : TeamService) { }
 
   ngOnInit(): void {
     this.getAllTeams();
@@ -44,7 +42,6 @@ ADC_Center: string;
  async getAllTeams(){
   try{
     const data = await this.teamService.viewAllTeams();
-    console.log(data);
     this.allTeams = data;
    
   }
@@ -81,9 +78,6 @@ this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = this.ADCT
 
  public viewTeam(teamId : string){
  this.getTeamDetails(teamId);
- this.visibilityService.showCurrentTeamMenu = true;
- this.visibilityService.showGuestMenu = false;
- this.visibilityService.showTeamMenu = false;
  
  }
 
@@ -99,7 +93,7 @@ async getTeamDetails(teamId:string){
     this.teamDetailsService.setTeamDetailPermissions();
     this.generalService.showNavBarIcons = true;
     this.generalService.checkVisibility();
-    this.router.navigateByUrl('/viewTeam');
+    this.router.navigate(['/viewTeam']);
   }
   catch(e){
     console.log(e.error.message);

@@ -12,7 +12,7 @@ export class TeamService {
 
   /* async addTeam(team : TeamInfo):Promise<any>{
     return await this.http.post<any>(
-      environment.globalEndPoint + environment.addTeamEndPoint,team ).toPromise();
+      'http://localhost:3001/v1/teams/team/addTeam',team ).toPromise();
   } */
 
   async addTeamWithLogo(formData : FormData):Promise<any>{

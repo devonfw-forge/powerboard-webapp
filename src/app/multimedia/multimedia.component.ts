@@ -4,7 +4,7 @@ import { VgApiService } from '@videogular/ngx-videogular/core';
 import { MultimediaFilesNew, MultimediaFolderResponse } from 'src/app/model/general.model';
 import { environment } from 'src/environments/environment';
 import { GeneralService } from '../service/general.service';
-import { SlideshowService } from '../slideshow/slideshow.service';
+
 
 
 
@@ -15,7 +15,7 @@ import { SlideshowService } from '../slideshow/slideshow.service';
 })
 export class MultimediaComponent implements OnInit {
   @ViewChild('widgetsContent') widgetsContent: ElementRef;
-  currentPath : string;
+/*   currentPath : string; */
   currentIndex = 0;
   currentItem: string;
   api: VgApiService;
@@ -34,16 +34,17 @@ export class MultimediaComponent implements OnInit {
   is_image: boolean = true;
   is_video: boolean = false;
   counter: number = 0;
-  multimediaPrefix = environment.multimediaPrefix;
-  localPrefix = environment.localPrefix;
+ /*  multimediaPrefix = environment.multimediaPrefix;
+  localPrefix = environment.localPrefix; */
   interval: number = environment.slideshowInterval;
 
-  constructor(public slideshowService: SlideshowService, private generalService : GeneralService) { 
+  constructor(private generalService : GeneralService) { 
     this.thumbnailData = [];
     this.multimediaFiles = [];
     this.currentFolder = '';
     this.currentIndex = 0;
-    this.currentPath = '';
+    this.multimedia = new MultimediaFolderResponse();
+    /* this.currentPath = ''; */
   
   }
   async ngOnInit() {
@@ -97,7 +98,10 @@ export class MultimediaComponent implements OnInit {
       this.multimediaFiles = this.multimedia.display;
     }
     this.currentFolder = 'Home';
-    this.processFiles();
+    if(this.multimediaFiles.length > 0){
+      this.processFiles();
+    }
+    
   }
   async getFilesFromFolder(folderId:string,folderName:string){
     
@@ -126,7 +130,7 @@ export class MultimediaComponent implements OnInit {
       for (let file of this.multimediaFiles) {
          this.tempPath = file.urlName; 
         const isImage = this.isImage(file.urlName);
-        if (!isImage && !this.slideshowService.isSlideshowRunning) {
+        if (!isImage) {
           const video_thumbnail = this.tempPath + '#t=5';
           this.thumbnailData.push(video_thumbnail);
           this.thumbnailIsImage.push(isImage);
@@ -158,7 +162,7 @@ export class MultimediaComponent implements OnInit {
     this.currentIndex = index;
     this.currentItem = item;
 
-    if (this.counter != this.thumbnailData.length - 1 && this.slideshowService.isSlideshowRunning) {
+    /* if (this.counter != this.thumbnailData.length - 1 && this.slideshowService.isSlideshowRunning) {
       console.log(this.counter + "-> on click before +1");
       this.counter = this.counter + 1;
       console.log(this.counter + "-> on click after +1");
@@ -176,19 +180,19 @@ export class MultimediaComponent implements OnInit {
           this.slideshowService.moveSlideshowNextComponent();
         }
       }, this.interval);
-    }
+    } */
 
 
   }
 
-  automatePlaylist(interval: number) {
+  /* automatePlaylist(interval: number) {
     if (this.counter === 0) {
       this.onClickPlaylistItem(this.thumbnailData[this.counter], this.counter);
     }
     else {
       this.intervalID = setInterval(() => this.onClickPlaylistItem(this.thumbnailData[this.counter], this.counter), interval);
     }
-  }
+  } */
 
   isImage(url: string) {
     const images = ["jpg", "jpeg", "gif", "png"];
