@@ -1,0 +1,7 @@
+.dropdown {
+  height: 35px;
+}
+
+input::value {
+  color: #2b0a3d;
+}

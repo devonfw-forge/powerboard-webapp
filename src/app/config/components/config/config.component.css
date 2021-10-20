@@ -1,0 +1,62 @@
+.btn {
+  padding: 10px;
+  height: 49px;
+  width: auto;
+  border: none;
+  outline: none;
+  color: black;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 15px;
+  margin-bottom: 1px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.settingMenu {
+  text-align: center;
+  width: 100%;
+
+  display: inline-block;
+  height: 60px;
+}
+hr {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+}
+
+.sideMenu {
+  height: 200px;
+}
+.sideContainer {
+  height: 200px;
+}
+
+#wrapper {
+  width: 85%;
+  margin: 0 auto;
+  height: 72vh;
+  display: flex;
+  box-shadow: 0px 0px 12.0119px rgba(0, 0, 0, 0.102);
+}
+#side-menu {
+  height: 100%;
+  background: #f1f8fc;
+  width: 16%;
+  border: 2px solid #f1f8fc;
+  text-align: center;
+}
+#side-container {
+  overflow: auto;
+  height: 100%;
+  width: 84%;
+  border: 2px solid #f1f8fc;
+  border-left: 0;
+  border-left: 0px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0px 0px 12.0119px rgba(0, 0, 0, 0.102);
+}

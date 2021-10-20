@@ -450,7 +450,6 @@ body {
 .logo {
   height: 31.36px;
   width: 128px;
-  cursor: default;
 }
 .fa-2x {
   font-size: 20px;
@@ -527,13 +526,13 @@ a {
   position: absolute;
   display: none;
   height: 50px;
-  left: 42.5%;
+  left: 37.5%;
   text-align: center;
   padding-top: 7px;
   top: 0px;
-  border: none;
+  border: 1px solid #0070ad;
   z-index: 1000000000;
-  background: transparent;
+  background: #f4f8fb;
 }
 .hoverMenu:hover {
   display: block;
@@ -543,7 +542,26 @@ a {
   display: block;
   transition: 1s;
 }
-
+.material-icons-slideshow {
+  border: 2px solid black;
+  border-radius: 50%;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  padding: 2px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga";
+}
 .stopbutton {
   background-color: white;
   width: 157px;
@@ -560,104 +578,75 @@ a {
   border: none;
 }
 
-/*Hover Menu */
+/*   dot loader */
+.loader {
+  position: relative;
+  width: 10px;
+  height: 10px;
 
-.menuStyle {
-  text-align: left;
-  margin-left: -15px;
-}
-.stopStyle {
-  justify-content: flex-end;
-}
+  border-radius: 5px;
 
-/* Hover menu ends */
-
-.backgorund-container {
+  background-color: #0070ad;
+  color: #0070ad;
+  animation: dotFlashing 1s infinite linear alternate;
+  animation-delay: 0.5s;
   position: absolute;
-  left: 0;
-  z-index: -1;
+  top: 50%;
+  left: 50%;
+  right: 60%;
+  bottom: 50%;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
   top: 0;
-  height: 100vh;
+}
+
+.loader::before {
+  left: -15px;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 5px;
+  background-color: #0070ad;
+  color: #0070ad;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.loader::after {
+  left: 15px;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 5px;
+  background-color: #0070ad;
+  color: #0070ad;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+.blur-background {
+  background: transparent;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 100%;
   width: 100%;
-  background-color: #f4f8fb;
+  backdrop-filter: blur(1px);
 }
-.info {
-  position: absolute;
-  top: 5px;
-  left: 83%;
-}
-.escape-info {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-}
-
-
-/* logout modal */
-.text-weight{
-  font-weight: 500;
-}
-
-.margin{
-  padding-left: 6%;
-} 
-
-.icon{
-  color: #0070AD;
-  cursor: pointer;
-}
-
-/* .mat-icon{
-  color: #0070AD;
-  font-size: inherit;
-  vertical-align: middle;
-  padding-bottom: 3px;
-} */
-
-.spacing{
-  max-width: 75%;
-}
-
- .modal-header{
-   border-bottom: none;
-   padding-bottom: 0%;
- }
- .modal-body{
-   padding: 2rem;
-   padding-top: 1%;
- }
-
- .btn-basic{
-  border: 2px solid grey;
-  Width :125px;  
-  border-radius: 30px;
-}
-
-.btn-custom {
-  background-color: white;
-  color: grey;
-  cursor: pointer;
-}
-
-
- .btn-cg-m{
-  
-  color: #0070AD;
-  border-color:  #0070AD;
-
+@keyframes dotFlashing {
+  0% {
+    background-color: #0070ad;
   }
-
-  .btn-cg-m:hover{
-    background-color: #0070AD;
-    color: white;
-  } 
-  .title{
-    color: #525151;
+  50%,
+  100% {
+    background-color: #ebe6ff;
   }
-  .Logo_nav{
-    height: 30px;
-    width: fit-content;
-    cursor: default; 
-    align-self: center;
-    margin-left: 10px;
- }
+}

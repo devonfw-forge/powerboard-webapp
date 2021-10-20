@@ -1,0 +1,82 @@
+.row-text {
+  color: #2b0a3d;
+  text-align: initial;
+}
+
+.alignment {
+  text-align: initial;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.text-weight {
+  font-weight: 500;
+}
+
+.margin-mail {
+  padding-left: 8%;
+}
+
+.margin-role {
+  padding-left: 2%;
+}
+
+.margin-access {
+  padding-right: 0%;
+}
+
+.margin-delete {
+  padding-left: 1%;
+}
+
+.icon {
+  color: #0070ad;
+  cursor: pointer;
+}
+
+.mat-icon {
+  color: #0070ad;
+  font-size: inherit;
+  vertical-align: middle;
+  padding-bottom: 3px;
+}
+
+.spacing {
+  max-width: 80%;
+}
+
+.btn-basic {
+  border: 2px solid grey;
+  width: 125px;
+  border-radius: 30px;
+}
+
+.btn-custom {
+  background-color: white;
+  color: grey;
+  cursor: pointer;
+}
+
+.btn-cg {
+  color: #0070ad;
+  border-color: #0070ad;
+}
+
+.btn-cg:hover {
+  background-color: #0070ad;
+  color: white;
+}
+
+.modal-header {
+  border-bottom: none;
+  padding-bottom: 0%;
+}
+.modal-body {
+  padding: 2rem;
+  padding-top: 1%;
+}
+.title {
+  color: #525151;
+}

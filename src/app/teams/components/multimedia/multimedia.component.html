@@ -1,0 +1,108 @@
+<div class="bg">
+  <div *ngIf="multimedia && multimedia.length > 0">
+    <div class="main-container row">
+      <div class="col-md-2 arrow left" (click)="previousItem()">
+        <span
+          class="material-icons-outlined mat-icon"
+          [ngClass]="{ disabled: currentIndex === 0 }"
+        >
+          arrow_back_ios
+        </span>
+      </div>
+      <div class="display-container col-md-8 mt-4">
+        <div class="text-center">
+          <div *ngIf="is_video">
+            <vg-player
+              *ngIf="currentItem"
+              (onPlayerReady)="onPlayerReady($event)"
+              (tap)="onTap()"
+            >
+              <vg-buffering></vg-buffering>
+
+              <vg-controls>
+                <vg-play-pause></vg-play-pause>
+                <vg-playback-button></vg-playback-button>
+
+                <vg-time-display
+                  vgProperty="current"
+                  vgFormat="mm:ss"
+                ></vg-time-display>
+
+                <vg-scrub-bar>
+                  <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                  <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                </vg-scrub-bar>
+
+                <vg-time-display
+                  vgProperty="total"
+                  vgFormat="mm:ss"
+                ></vg-time-display>
+
+                <vg-mute></vg-mute>
+                <vg-volume></vg-volume>
+
+                <vg-fullscreen></vg-fullscreen>
+              </vg-controls>
+
+              <video
+                #media
+                [vgMedia]="media"
+                [src]="realItem"
+                id="singleVideo"
+                autoplay="true"
+                crossorigin
+              ></video>
+            </vg-player>
+          </div>
+
+          <div class="image-viewer" *ngIf="is_image">
+            <div>
+              <img [src]="realItem" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 arrow right" (click)="nextItem()">
+        <span
+          class="material-icons-outlined mat-icon"
+          [ngClass]="{ disabled: currentIndex === multimediaData.length - 1 }"
+        >
+          arrow_forward_ios
+        </span>
+      </div>
+
+      <div class="gallery-container mt-1 ml-5 mr-5">
+        <div class="row scroll">
+          <div
+            class="col-md-2"
+            *ngFor="let item of thumbnailData; let i = index"
+            (click)="onClickPlaylistItem(item, i)"
+          >
+            <div class="d-flex flex-column">
+              <div>
+                <img
+                  class="thumbnailVideo"
+                  [ngClass]="{
+                    selected: i === currentIndex
+                  }"
+                  src="{{ item }}"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #emptyVideos>
+      <div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0">
+        <div class="errorMsg">
+          No media has been uploaded. Please contact support
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #loadingVideos>
+      <div class="loadingMsg"></div>
+    </ng-template>
+  </div>
+</div>

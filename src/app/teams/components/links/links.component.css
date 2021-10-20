@@ -1,0 +1,71 @@
+.bg-height {
+  height: calc(90vh - 50px);
+}
+
+.skypeButton {
+  border: none;
+  border-radius: 5vh;
+  box-shadow: 0px 1px 4px 0em rgba(0, 169, 232, 0.6);
+}
+
+.skypeButton:hover {
+  box-shadow: 1px 2px 5px 0em rgba(0, 169, 232, 0.6);
+}
+
+#icon {
+  margin-left: 1.25vh;
+  margin-right: 1.25vh;
+  height: 6.5vh;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 22px;
+
+  letter-spacing: 0.25px;
+
+  color: #2b0a3d;
+}
+
+.spinner {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  z-index: 1000;
+  opacity: 0.8;
+}
+
+.inner-container {
+  overflow: hidden;
+
+  margin-left: -2%;
+}
+.inner-container ul {
+  /* margin-left: 20vh; */
+  margin-top: 5vh;
+  list-style: none;
+  height: 15%;
+}
+.inner-container li {
+  list-style: none;
+  display: inline;
+}
+
+.spacing-2 {
+  margin-left: 25px;
+}
+
+a {
+  color: #12abdb;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 0.25px;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+
+#frame {
+  margin-left: 5%;
+  margin-right: 5%;
+  background: white;
+}

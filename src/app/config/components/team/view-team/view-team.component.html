@@ -1,0 +1,95 @@
+<!-- <div>
+<div class="col-md-8">
+<div class="row">
+    <div class="col-md-4">Team Name :</div>
+    <div class="col-md-8">
+    {{team.teamName}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">Team Code :</div>
+    <div class="col-md-8">
+        <div *ngIf="!isEdit">{{team.teamCode}}</div>
+        <input  *ngIf="isEdit" placeholder = "{{team.teamCode}}" [(ngModel)]="team.teamCode"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">Project Key :</div>
+    <div class="col-md-8">
+        <div  *ngIf="!isEdit">{{team.projectKey}}</div>
+        <input  *ngIf="isEdit" placeholder = "{{team.projectKey}}" [(ngModel)]="team.projectKey"/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">AD Center :</div>
+    <div class="col-md-8">
+        <div  *ngIf="!isEdit">{{team.adCenter}}</div>
+        <div   *ngIf="isEdit" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             {{team.adCenter}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div *ngFor="let list of ADCList">
+              <a class="dropdown-item" (click) = "changeADCenter(list.centerName)" *ngIf="list.centerName!=team.adCenter">{{list.centerName}}</a>
+              </div>
+             
+            </div>
+          </div>
+    </div>
+</div>
+</div>
+
+<div  *ngFor="let permission of generalService.getPermissions()">
+    <div *ngIf="generalService.updateTeam == permission">
+        <input  *ngIf="!isEdit"
+        type="submit"
+        value="Edit Team"
+        class="button solid"
+        (click)="showEdit()"
+        />
+    </div>
+  </div>
+
+
+
+<input  *ngIf="isEdit"
+type="submit"
+value="Save Team"
+class="button solid"
+
+(click)="updateTeamInfo()"
+/>
+<input  *ngIf="isEdit"
+type="submit"
+value="Cancel"
+class="button solid"
+(click)="closeEdit()"
+/>
+
+</div>
+<div>
+    <div  *ngFor="let permission of generalService.getPermissions()">
+        <div *ngIf="generalService.viewTeamMembers == permission">
+            <h2>Team Members</h2>
+    <app-view-all-team-members></app-view-all-team-members>
+        </div>
+      </div>
+   
+</div>
+<div>
+    <div  *ngFor="let permission of generalService.getPermissions()">
+        <div *ngIf="generalService.addTeamMember == permission">
+            <input
+            type="submit"
+            value="Add Member"
+            class="btn solid"
+            
+            />
+            <div>
+                <app-add-team-member></app-add-team-member>
+            </div>
+        </div>
+      </div>
+   
+</div> -->
