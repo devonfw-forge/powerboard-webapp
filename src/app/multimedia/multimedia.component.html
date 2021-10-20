@@ -2,10 +2,10 @@
     <div class="col-md-11  row" style="margin-left: 5%;">
         <div style=" height: 83vh; width:20%;">
             <div style="margin:10px; margin-left: 35px;">
-                <div style="color: #0070AD; font-size: 25px; font-weight: 400; font: ubuntu;">Multimdedia</div>
+                <div style="color: #0070AD; font-size: 25px; font-weight: 400;">Multimdedia</div>
                 <div style="margin-top: 30px;">
-                    <a *ngIf="currentFolder == 'seeAll'" (click)="seeAll()" style="color: #0070AD; font-size: 16px; font-weight: 500; font: ubuntu;cursor: pointer;">See All</a>
-                    <a *ngIf="currentFolder !== 'seeAll'" (click)="seeAll()" style="color: #2b0a3d; font-size: 16px; font-weight: 500; font: ubuntu;cursor: pointer;">See All</a>
+                    <a *ngIf="currentFolder == 'seeAll'" (click)="seeAll()" style="color: #0070AD;  font-size: 16px; font-weight: 500; cursor: pointer;">See All</a>
+                    <a *ngIf="currentFolder !== 'seeAll'" (click)="seeAll()" style="color: #2b0a3d;  font-size: 16px; font-weight: 500; cursor: pointer;">See All</a>
                     <div style="margin-top: 5px;">
                       <span class="material-icons-outlined mat-icon">
                           folder
@@ -91,7 +91,7 @@
                             <div class="d-flex flex-row" >
                                 <div *ngIf="thumbnailIsImage[i];then content else other_content">here is ignored</div>
                                 <ng-template #content><img class="thumbnail image" [ngClass]="{
-                                    'selected': i===currentIndex}" src={{item}} />
+                                    'selected': i===currentIndex}" alt="image thumbnail" src={{item}} />
                                 </ng-template>
                                 <ng-template #other_content> <video class="thumbnail video" [ngClass]="{
                                     'selected': i===currentIndex}" src={{item}}></video>

@@ -50,15 +50,6 @@ export class NavigationService {
     } else {
       console.log('reached end');
       return false; //reached end of the navigation
-      const result = window.confirm('Are you sure you want to leave');
-      if (result) {
-        this.history = [];
-        this.generalService.logout();
-      } else {
-        console.log(this.history);
-        this.history.push(this.currentLocation);
-        console.log(this.history);
-      }
     }
     return true; //array is there to go back
   }
