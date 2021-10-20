@@ -13,7 +13,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ViewAllTeamsComponent } from './team/view-all-teams/view-all-teams.component';
 
 
-
 import { EditTeamComponent } from './setup/edit-team/edit-team.component';
 import { RemoveUnderscorePipe } from './model/setting.model';
 import { ShortUrlPipe } from './setup/configure-team-links/pipes/short-url.pipe';

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LinkResponse, LinksCategory } from 'src/app/model/general.model';
+import { environment } from 'src/environments/environment';
 import { ConfigureTeamSpirit, DailyMeetingLinksDetails, TeamLinksDetails, UpdateTeam } from '../../model/setting.model';
 
 @Injectable({
@@ -18,37 +19,30 @@ export class SetupService {
     const formData = new FormData();
     formData.append('logo', file, file.name);
     return await this.http
-    .post<any>('http://localhost:3001/v1/teams/uploadLogo/' + teamId, formData).toPromise();
+    .post<any>(environment.globalEndPoint + environment.uploadLogoEndPoint + teamId, formData).toPromise();
   }
 
 
   async deleteLogo(teamId:string):Promise<any>{
     return await this.http.delete<any>(
-      'http://localhost:3001/v1/teams/deleteLogo/' + teamId).toPromise();
+      environment.globalEndPoint + environment.deleteLogoEndPoint + teamId).toPromise();
   }
 
 
-
-  
-  /* async sendDetailsTeamSpirit(teamSpiritDetails :ConfigureTeamSpirit ):Promise<any>{
-    return await this.http.put<any>(
-      'http://localhost:3001/v1/team-spirit/updateTeam/' + teamSpiritDetails.Name, teamSpiritDetails).toPromise();
-  } */
-
   async updateTeam(formData: UpdateTeam, teamId : string):Promise<any>{
     return await this.http.put<any>(
-      'http://localhost:3001/v1/teams/team/update/'+ teamId, formData ).toPromise();
+      environment.globalEndPoint + environment.updateTeamEndPoint+ teamId, formData ).toPromise();
   }
 
 
   
   async deleteLink(teamLinkId:string):Promise<any>{
     return await this.http.delete<any>(
-      'http://localhost:3001/v1/team-links/delete/' + teamLinkId).toPromise();
+      environment.globalEndPoint + environment.deleteLinkEndPoint + teamLinkId).toPromise();
   }
 
   async getLinkTypes(): Promise<any>{
-    return await this.http.get<any>('http://localhost:3001/v1/team-links/getLinksCategory').toPromise();
+    return await this.http.get<any>(environment.globalEndPoint + environment.getLinksCategoryEndPoint).toPromise();
   }
 
 
@@ -62,9 +56,8 @@ export class SetupService {
       'http://localhost:3001/v1/videos/delete/' + videoId).toPromise();
   } */
 
-
   async addLink(addLinkForm: LinksCategory){
-    return await this.http.post('http://localhost:3001/v1/team-links/teamId/create', addLinkForm).toPromise();
+    return await this.http.post(environment.globalEndPoint + environment.addLinkEndPoint, addLinkForm).toPromise();
   }
 
 

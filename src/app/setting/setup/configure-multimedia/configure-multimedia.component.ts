@@ -511,8 +511,8 @@ export class ConfigureMultimediaComponent implements OnInit {
   async deleteFilesAndFolders() {
     this.getDeleteIds();
     try{
-      await this.configureService.deleteFilesInSubFolder(this.teamId, this.deleteFiles_Folders);
-    /*   this.notifyService.showSuccess("", "File deleted Successfully"); */
+      await this.configureService.deleteFilesAndFolders(this.teamId, this.deleteFiles_Folders);
+      /* this.notifyService.showSuccess("", "File deleted Successfully"); */
       this.removeIds();
     }
     catch(e){
