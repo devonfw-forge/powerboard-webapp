@@ -32,7 +32,7 @@
 
         <tr *ngFor="let member of teamMembers">
 
-          <th id="User_Name"cclass="row-text alignment text-weight">{{member.userName | titlecase}}</th>
+          <th id="User_Name" class="row-text alignment text-weight">{{member.userName | titlecase}}</th>
           <td class="row-text alignment margin-mail"> {{member.email}} </td>
           <td class="row-text alignment margin-role">
             <div *ngFor="let role of settingService.roles">
