@@ -10,6 +10,7 @@ import { GetTeamDetails } from '../../../model/pbResponse.model';
 
 import { TeamDetailsService } from '../../../services/team-details.service';
 import { ProjectTeamDetail } from '../../../model/team.model';
+import { TeamDetails } from 'src/app/auth/model/auth.model';
 
 @Component({
   selector: 'app-my-projects',
@@ -17,45 +18,24 @@ import { ProjectTeamDetail } from '../../../model/team.model';
   styleUrls: ['./my-projects.component.css'],
 })
 export class MyProjectsComponent implements OnInit {
-  myTeams: ProjectTeamDetail[] = [];
-  userId: string;
-  UserIdTeamIdDetails: GetTeamDetails = new GetTeamDetails();
-  teamDetails: TeamDetailResponse = new TeamDetailResponse();
+  myTeams: TeamDetails[] = [];
+
   constructor(
     private teamDetailsService: TeamDetailsService,
-    private router: Router,
     public generalService: GeneralService,
     public slideShowService: SlideshowService
   ) {}
 
   ngOnInit(): void {
-    this.userId = JSON.parse(
-      localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.userId;
     this.myTeams = JSON.parse(
       localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.My_Team;
+    ).loginResponse.homeResponse.My_Team;
     console.log(this.myTeams);
   }
 
   async getTeamDetails(teamId: string) {
     try {
-      this.UserIdTeamIdDetails.teamId = teamId;
-      this.UserIdTeamIdDetails.userId = this.userId;
-      const data = await this.teamDetailsService.getTeamDetails(
-        this.UserIdTeamIdDetails
-      );
-      this.teamDetails.powerboardResponse = data;
-      localStorage.setItem(
-        'TeamDetailsResponse',
-        JSON.stringify(this.teamDetails)
-      );
-      this.teamDetailsService.setTeamDetailPermissions();
-      this.generalService.showNavBarIcons = true;
-      this.generalService.checkVisibility();
-      this.slideShowService.startSlideShow();
-      this.router.navigateByUrl('/dashboard');
-      this.generalService.storeLastLoggedIn();
+      await this.teamDetailsService.processTeamDetails(teamId);
     } catch (e) {
       console.log(e.error.message);
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PowerboardLoginResponse } from 'src/app/auth/model/auth.model';
+import { ADCDetails, PowerboardLoginResponse, TeamDetails } from 'src/app/auth/model/auth.model';
 import {
   PowerboardResponse,
   TeamDetailResponse,
@@ -17,100 +17,80 @@ import { TeamDetailsService } from '../../../services/team-details.service';
   styleUrls: ['./projects.component.css'],
 })
 export class ProjectsComponent implements OnInit {
-  UserIdTeamIdDetails: GetTeamDetails = new GetTeamDetails();
-  ADCTeams: ProjectTeamDetail[] = [];
+  ADCTeams: TeamDetails[] = [];
   ADCList: ADCListDetails[] = [];
+  updatedCenter: ADCDetails;
   ADC_Center: string;
-  userId: string;
+  newAdCenter : ADCDetails;
+
   teamDetails: TeamDetailResponse = new TeamDetailResponse();
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
-  constructor(
-    private teamDetailsService: TeamDetailsService,
-    private router: Router,
-    public generalService: GeneralService
-  ) {
-    this.ADC_Center = 'Select center';
+  constructor(private teamDetailsService: TeamDetailsService, private router: Router, public generalService: GeneralService) {
+    this.ADC_Center = "Select center";
+    this.newAdCenter = new ADCDetails();
+    /* this.localLoader = false; */
   }
 
   ngOnInit(): void {
-    this.userId = JSON.parse(
-      localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.userId;
-    this.ADCTeams = JSON.parse(
-      localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.Teams_In_ADC;
+
+    
+    this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
     console.log(this.ADCTeams);
 
-    this.ADCList = JSON.parse(
-      localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.ADC_List;
+    this.ADCList = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.ADC_List;
     console.log(this.ADCList);
-
-    /* if((JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.Teams_In_ADC).length == 0){
-    this.getTeamsInADC(this.ADCList[1].centerId, this.ADCList[1].centerName);
-    this.ADC_Center = this.ADCList[1].centerName;
-}  */
-    if (
-      JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse
-        .My_Team.length == 0
-    ) {
-      this.getTeamsInADC(this.ADCList[1].centerId, this.ADCList[1].centerName);
+    console.log((JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC).length);
+    if ((JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC).length == 0) {
+     console.log(this.ADCList[1]);
+      this.getTeamsInADC(this.ADCList[1]);
       this.ADC_Center = this.ADCList[1].centerName;
-    } else {
-      this.ADC_Center = JSON.parse(
-        localStorage.getItem('PowerboardDashboard')
-      ).loginResponse.My_Center.centerName;
-      this.ADCTeams = JSON.parse(
-        localStorage.getItem('PowerboardDashboard')
-      ).loginResponse.Teams_In_ADC;
+    }
+
+    else {
+      this.ADC_Center = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.My_Center.centerName;
+      this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
+    console.log(this.ADCTeams);
     }
   }
 
-  async getTeamsInADC(centerId: string, centerName: string) {
+  async getTeamsInADC(adcenter: ADCDetails) {
     try {
-      this.ADC_Center = centerName;
-      const data = await this.teamDetailsService.getTeamsInADCenter(centerId);
+      console.log(adcenter);
+      
+      this.updatedCenter=adcenter;
+    
+      this.ADC_Center = adcenter.centerName;
+      const data = await this.teamDetailsService.getTeamsInADCenter(adcenter.centerId);
       console.log(data);
       this.ADCTeams = data;
       this.updateTeamsInADC(this.ADCTeams);
-    } catch (e) {
-      console.log(e);
+
     }
+    catch (e) {
+
+      console.log(e);
+
+    }
+
   }
 
   public updateTeamsInADC(teamsInADC: ProjectTeamDetail[]) {
-    this.powerboardLoginResponse = JSON.parse(
-      localStorage.getItem('PowerboardDashboard')
-    );
-    this.powerboardLoginResponse.loginResponse.Teams_In_ADC = [];
-    this.powerboardLoginResponse.loginResponse.Teams_In_ADC = teamsInADC;
+    this.powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
+    this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = [];
+    this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = teamsInADC;
+    this.powerboardLoginResponse.loginResponse.homeResponse.My_Center = this.updatedCenter;
 
-    localStorage.setItem(
-      'PowerboardDashboard',
-      JSON.stringify(this.powerboardLoginResponse)
-    );
+    localStorage.setItem('PowerboardDashboard', JSON.stringify(this.powerboardLoginResponse));
+
   }
 
-  async getTeamDetails(teamId: string) {
-    try {
-      this.UserIdTeamIdDetails.teamId = teamId;
-      this.UserIdTeamIdDetails.userId = this.userId;
-      const data = await this.teamDetailsService.getTeamDetails(
-        this.UserIdTeamIdDetails
-      );
-      this.teamDetails.powerboardResponse = data;
-      localStorage.setItem(
-        'TeamDetailsResponse',
-        JSON.stringify(this.teamDetails)
-      );
-      this.router.navigate(['/dashboard']);
-      this.teamDetailsService.setTeamDetailPermissions();
-      this.generalService.showNavBarIcons = true;
-      this.generalService.checkVisibility();
-      this.generalService.storeLastLoggedIn();
-    } catch (e) {
-      console.log(e);
+  async getTeamDetails(teamId:string){
+
+    try{
+      await this.teamDetailsService.processTeamDetails(teamId); 
     }
-    console.log(teamId);
+    catch(e){
+      console.log(e.error.message);
+    }
   }
 }

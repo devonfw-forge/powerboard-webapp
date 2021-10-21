@@ -13,70 +13,61 @@ import {
   providedIn: 'root',
 })
 export class TeamService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  async addTeam(team: TeamInfo): Promise<any> {
-    return await this.http
-      .post<any>(environment.restPathRoot + 'v1/teams/team/addTeam', team)
-      .toPromise();
+  /* async addTeam(team : TeamInfo):Promise<any>{
+    return await this.http.post<any>(
+      'http://localhost:3001/v1/teams/team/addTeam',team ).toPromise();
+  } */
+
+  async addTeamWithLogo(formData : FormData):Promise<any>{
+    return await this.http.post<any>(
+      environment.globalEndPoint + environment.addTeamEndPoint, formData).toPromise();
   }
+  
 
-  async addTeamWithLogo(formData: FormData): Promise<any> {
-    return await this.http
-      .post<any>(environment.restPathRoot + 'v1/teams/team/addTeam', formData)
-      .toPromise();
-  }
-
-  async deleteTeam(teamId: string): Promise<any> {
+  async deleteTeam(teamId : string):Promise<any>{
     const requestOptions: Object = {
+      
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text',
-    };
-    return await this.http
-      .delete<any>(
-        environment.restPathRoot + 'v1/teams/team/delete/' + teamId,
-        requestOptions
-      )
-      .toPromise();
+      responseType: 'text' 
+   }
+    return await this.http.delete<any>(
+      environment.globalEndPoint + environment.deleteTeamEndPoint+ teamId, requestOptions).toPromise();
   }
 
-  async viewAllTeams(): Promise<TeamsResponse[]> {
-    return await this.http
-      .get<TeamsResponse[]>(environment.restPathRoot + 'v1/teams/team/viewAllTeams')
-      .toPromise();
+  async viewAllTeams():Promise<TeamsResponse[]>{
+    return await this.http.get<TeamsResponse[]>(
+      environment.globalEndPoint + environment.viewAllTeamsEndPoint).toPromise();
   }
 
-  async addTeamMember(teamMember: TeamMemberDetails): Promise<any> {
+
+
+
+  async addTeamMember(teamMember : TeamMemberDetails):Promise<any>{
     const requestOptions: Object = {
+      
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text',
-    };
-    return await this.http
-      .post<any>(
-        environment.restPathRoot + 'v1/auth/register',
-        teamMember,
-        requestOptions
-      )
-      .toPromise();
+      responseType: 'text' 
+   }
+    return await this.http.post<any>(
+      environment.globalEndPoint + environment.addTeamMemberEndPoint, teamMember, requestOptions
+        
+   ).toPromise();
   }
 
-  async viewTeamMembersOfTeam(teamId: string): Promise<any> {
-    return await this.http
-      .get<any>(environment.restPathRoot + 'v1/user/viewAllMemberOfTeam/' + teamId)
-      .toPromise();
+  async viewTeamMembersOfTeam(teamId : string):Promise<any>{
+    return await this.http.get<any>(
+      environment.globalEndPoint + environment.viewAllMembersOfTeamEndPoint + teamId).toPromise();
   }
 
-  async deleteTeamMember(userteamId: string): Promise<any> {
-    return await this.http
-      .delete<any>(
-        environment.restPathRoot + 'v1/user/delete/userTeam/' + userteamId
-      )
-      .toPromise();
-  }
+   async deleteTeamMember(userteamId : string):Promise<any>{
+    return await this.http.delete<any>(
+      environment.globalEndPoint + environment.deleteTeamMemberEndPoint + userteamId).toPromise();
+  } 
 
-  async updateAccessRole(updateRole: UpdateRoles): Promise<any> {
-    return await this.http
-      .put<any>(environment.restPathRoot + 'v1/user/update/userRole', updateRole)
-      .toPromise();
+  async updateAccessRole(updateRole : UpdateRoles):Promise<any>{
+    return await this.http.put<any>(
+      environment.globalEndPoint + environment.updateUserRoleEndPoint,updateRole).toPromise();
   }
 }

@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { rm } from 'fs';
 import { environment } from '../../../environments/environment';
 import {
+  HomeResponse,
   PowerboardLoginResponse,
   TeamDetails,
 } from '../../auth/model/auth.model';
-import { TeamDetailResponse } from '../../shared/model/general.model';
+import { MultimediaFilesNew, TeamDetailResponse } from '../../shared/model/general.model';
 import { GetTeamDetails } from '../../teams/model/pbResponse.model';
 
 @Injectable({
@@ -22,8 +23,6 @@ export class GeneralService {
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   private permissions: string[] = [];
   public configureButton: string = 'team_configuration';
-  // public teamLinkView : string = 'view_team_links';
-  // public meetingLinkView : string = 'view_meeting_links';
   public viewLinks: string = 'view_links';
   public addTeam: string = 'register_team';
   public viewTeams: string = 'view_all_team';
@@ -36,6 +35,7 @@ export class GeneralService {
   public addGuest: string = 'add_guest_user';
   public teamConfiguration: string = 'team_configuration';
   public addTeamAdmin: string = 'add_team_admin';
+  
 
   private loginComplete: boolean;
 
@@ -47,8 +47,9 @@ export class GeneralService {
   isMultimediaVisible: boolean;
   isSettingsVisible: boolean;
   isLogoutVisible: boolean;
-  isSettingFlag: boolean;
-  isLinksFlag: boolean;
+  isGuestLogin: boolean;
+  /* isSettingFlag: boolean;
+  isLinksFlag: boolean; */
 
   public showNavBarIcons: boolean;
 
@@ -61,7 +62,7 @@ export class GeneralService {
     this.isLinksVisible = false;
     this.isSettingsVisible = false;
     this.isSlideshowVisible = false;
-
+    this.isGuestLogin = false;
     this.loginComplete = false;
     this.showNavBarIcons = false;
 
@@ -117,31 +118,28 @@ export class GeneralService {
     localStorage.removeItem('TeamDetailsResponse');
     localStorage.removeItem('currentTeam');
     this.setPermissions([]);
+    this.setisGuestLogin(false);
     this.showNavBarIcons = false;
     this.setLoginComplete(false);
     this.checkVisibility();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   checkVisibility() {
     if (this.getLoginComplete()) {
       this.isHomeVisible = true;
       this.isLogoutVisible = true;
-      this.isSettingFlag = false;
+     /*  this.isSettingFlag = false; */
+     this.isSettingsVisible = false;
       if (this.getPermissions()) {
         for (let permission of this.getPermissions()) {
           if (this.configureButton == permission) {
-            this.isSettingFlag = true;
+            /* this.isSettingFlag = true; */
+            this.isSettingsVisible =true;
           }
         }
-        if (this.isSettingFlag) {
-          this.isSettingsVisible = true;
-        } else {
-          this.isSettingsVisible = false;
-        }
-      } else {
-        this.isSettingsVisible = false;
-      }
+        
+      } 
     } else {
       this.isHomeVisible = false;
       this.isLogoutVisible = false;
@@ -152,34 +150,29 @@ export class GeneralService {
       this.isLinksVisible = false;
       this.isSlideshowVisible = false;
     }
+
+
     if (this.showNavBarIcons && this.getLoginComplete()) {
       this.isDashboardVisible = true;
       this.isMultimediaVisible = true;
-      this.isSettingFlag = false;
-      this.isLinksFlag = false;
+      /* this.isSettingFlag = false;
+      this.isLinksFlag = false; */
+      this.isSettingsVisible =false;
+      this.isLinksVisible = false;
+      this.isSlideshowVisible = false;
       if (this.getPermissions()) {
         for (let permission of this.getPermissions()) {
           if (this.configureButton == permission) {
-            this.isSettingFlag = true;
+           /*  this.isSettingFlag = true; */
+           this.isSettingsVisible = true;
           }
           if (this.viewLinks == permission) {
-            this.isLinksFlag = true;
+            /* this.isLinksFlag = true; */
+            this.isLinksVisible = true;
           }
         }
-        if (this.isSettingFlag) {
-          this.isSettingsVisible = true;
-        } else {
-          this.isSettingsVisible = false;
-        }
-        if (this.isLinksFlag) {
-          this.isLinksVisible = true;
-        } else {
-          this.isLinksVisible = false;
-        }
-      } else {
-        this.isLinksVisible = false;
-        this.isSettingsVisible = false;
-      }
+        
+      } 
     } else {
       this.isDashboardVisible = false;
       this.isMultimediaVisible = false;
@@ -197,6 +190,14 @@ export class GeneralService {
     this.loginComplete = value;
   }
 
+  public getisGuestLogin(): boolean {
+    return this.isGuestLogin;
+  }
+
+  public setisGuestLogin(value: boolean) {
+    this.isGuestLogin = value;
+  }
+
   public checkLastLoggedIn() {
     if (this.powerboardLoginResponse.loginResponse.powerboardResponse) {
       this.teamDetails.powerboardResponse = this.powerboardLoginResponse.loginResponse.powerboardResponse;
@@ -208,7 +209,7 @@ export class GeneralService {
       this.showNavBarIcons = true;
       this.checkVisibility();
 
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigate(['/dashboard']);
     } else {
       this.router.navigate(['/projects']);
     }
@@ -220,7 +221,7 @@ export class GeneralService {
     ).loginResponse.userId;
     this.teamsAssociatedWithUser = JSON.parse(
       localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.My_Team;
+    ).loginResponse.homeResponse.My_Team;
     this.lastCheckedInProjectId = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.team_id;
@@ -240,12 +241,51 @@ export class GeneralService {
     // this.sendLastLoggedIn();
   }
 
+  /* new end point call */
+  async getProjectDetails(userId: string): Promise<HomeResponse> {
+    return await this.http
+      .get<HomeResponse>(environment.globalEndPoint + environment.getProjectDetailsEndpoint + userId)
+      .toPromise();
+  }
+
   async sendLastLoggedIn() {
     await this.http
       .put<any>(
-        environment.restPathRoot + 'v1/user/team/loggedProject',
+        environment.globalEndPoint + environment.lastLoggedEndPoint,
         this.userIdTeamIdDetails
       )
       .toPromise();
   }
+
+  public getLogoPath(){
+    if(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo){
+      const path = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
+      const tempextension = path.split(".");
+    const  extension = tempextension[tempextension.length-1];
+    const Logo = ["null", "undefined", null, undefined];
+    if(extension.includes(Logo)){
+      return null;
+    }
+      return JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
+    }
+    else{
+      return null;
+    }
+   }
+
+
+   async getAllFilesFromFolder(teamId: string, folderId : string): Promise<MultimediaFilesNew[]> {
+    return await this.http
+      .get<MultimediaFilesNew[]>(environment.globalEndPoint + environment.FilesFromFolderEndpoint + teamId + '/' + folderId)
+      .toPromise();
+  }
+
+  async getAllFilesFromTeam(teamId: string): Promise<MultimediaFilesNew[]> {
+    return await this.http
+      .get<MultimediaFilesNew[]>(environment.globalEndPoint + environment.FilesForTeamEndpoint + teamId)
+      .toPromise();
+  }
+  async getSlideshowFiles(teamId: string) : Promise<any>{
+    return await this.http.get<any>(environment.globalEndPoint + environment.getSlideshowFilesEndpoint + teamId).toPromise();
+    }
 }

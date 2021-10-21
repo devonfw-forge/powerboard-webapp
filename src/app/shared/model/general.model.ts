@@ -1,104 +1,118 @@
-export class PowerboardResponse {
+export class PowerboardResponse{
   team_id: string;
   team_name: string;
   center: string;
   team_code: string;
   logo: string;
   dashboard: Dashboard = new Dashboard();
-  images?: ImageResponse[];
+  images? : ImageResponse[];
   teamLinks: LinkResponse[];
-  privileges: string[];
-  videos?: VideoResponse[];
-  multimedia: Multimedia[];
+  privileges : string[];
+  videos? : VideoResponse[];
+  multimedia : MultimediaFolderResponse;
+
 }
 
-export class Multimedia {
-  fileId: string;
-  fileName: string;
+export class TeamDetailResponse{
+   powerboardResponse : PowerboardResponse = new PowerboardResponse(); 
+ 
+ 
 }
 
-export class TeamDetailResponse {
-  powerboardResponse: PowerboardResponse = new PowerboardResponse();
-}
-
-export class Dashboard {
-  teamId: string;
-  teamStatus: number;
+export class Dashboard{
+  teamId:string;
+  teamStatus:number;
   sprintWorkUnit: string;
-  codeQuality: CodeQualityResponse = new CodeQualityResponse();
-  clientStatus: ClientStatusResponse = new ClientStatusResponse();
-  teamSpirit: TeamSpiritResponse = new TeamSpiritResponse();
-  burndown: BurndownResponse = new BurndownResponse();
-  sprintDetail: SprintDetailResponse = new SprintDetailResponse();
-  velocity: VelocityResponse = new VelocityResponse();
+  codeQuality:CodeQualityResponse = new CodeQualityResponse();
+  clientStatus:ClientStatusResponse = new ClientStatusResponse();
+  teamSpirit:TeamSpiritResponse = new TeamSpiritResponse();
+  burndown:BurndownResponse = new BurndownResponse();
+  sprintDetail:SprintDetailResponse = new SprintDetailResponse();
+  velocity:VelocityResponse = new VelocityResponse();
 }
-export class CodeQualityResponse {
-  bugs: number;
+export class CodeQualityResponse{
+  bugs:number;
   codeSmells: number;
-  codeCoverage: number;
+  codeCoverage:number
   status: string;
 }
-export class ClientStatusResponse {
+export class ClientStatusResponse{
   clientSatisfactionRating: number;
   sprintNumber: number;
 }
-export class TeamSpiritResponse {
+export class TeamSpiritResponse{
   teamSpiritRating: number;
   sprintNumber: number;
 }
-export class BurndownResponse {
+export class BurndownResponse{
   workUnit: string;
   remainingDays: number;
   remainingWork: number;
   count: number;
   burndownStatus: string;
 }
-export class SprintDetailResponse {
+export class SprintDetailResponse{
   Sprint_current_day: number;
   sprint_number: number;
   Sprint_days: number;
 }
-export class VelocityResponse {
+export class VelocityResponse{
   Avg: number;
   Committed: number;
   Completed: number;
 }
 
-// export class MeetingLinkResponse{
-//  type: string;
-//   title:string;
-//   links: string;
-//   dailyMeetingId:string;
-// }
-// export class TeamLinkResponse{
-//     teamLinkId: string;
-//     title: string;
-//     links: string;
-// }
-
-export class LinkResponse {
+export class LinkResponse{
   teamLinkId: string;
   linkName: string;
   linkType: string;
   links: string;
+
 }
 
 export class LinksCategory {
   linkId: string;
   linkTitle: string;
 }
-export class ImageResponse {
+export class ImageResponse{
   ImageId: string;
   ImagePath: string;
 }
-export class VideoResponse {
+export class VideoResponse{
   videoId: string;
   videoPath: string;
 }
-export class VisibleResponse {
+export class VisibleResponse{
   teamId: string;
   image: boolean;
   video: boolean;
   dailyMeeting: boolean;
   teamLinks: boolean;
 }
+
+export class MultimediaFolderResponse{
+  display : MultimediaFilesNew[];
+  root : rootNew[];
+  }
+  
+  export class MultimediaFilesNew{
+      id : string;
+      isSelected? : boolean;
+      urlName : string;
+      isImage? : boolean;
+      inSlideShow? : boolean;
+  }
+  export class rootNew{
+      folderId : string;
+      folderName : string; 
+      status : boolean;
+      isSelected? : boolean;
+      inSlideShow? : boolean;
+  }
+
+
+  export class SlideshowFiles{
+      fileURL : string;
+      isImage? : boolean;
+
+  }

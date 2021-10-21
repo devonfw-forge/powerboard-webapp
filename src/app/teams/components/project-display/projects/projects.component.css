@@ -1,6 +1,6 @@
 .card {
   width: 30%;
-  height: 110px;
+  height: 150px;
   margin: 15px;
   position: relative;
   padding: 1rem;
@@ -28,7 +28,6 @@
 .protecttitle {
   padding-right: 10px;
   margin-left: 5px;
-  font-family: Ubuntu;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -37,15 +36,6 @@
 }
 
 #title {
-  /* position: absolute;
-width: 140px;
-height: 25px;
-left: 121px;
-top: 96px; */
-
-  /* H3/22 */
-
-  /* font-family: Ubuntu; */
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
@@ -61,20 +51,12 @@ top: 96px; */
 }
 
 h3 {
-  /* position: absolute;
-    width: 140px;
-    height: 25px;
-    left: 121px;
-    top: 96px; */
-
-  /* H3/22 */
-
-  /* font-family: Ubuntu; */
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
   line-height: 25px;
   display: flex;
+  margin-bottom: 0px;
   align-items: center;
   text-align: center;
   letter-spacing: 0.25px;
@@ -108,4 +90,11 @@ hr {
 }
 .dropdown-menu {
   cursor: pointer;
+}
+
+.Logo{
+  height: 60%;
+  width: fit-content;
+  cursor: default; 
+  align-self: center;
 }

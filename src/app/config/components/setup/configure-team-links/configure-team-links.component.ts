@@ -20,41 +20,50 @@ export class ConfigureTeamLinksComponent implements OnInit {
   isElectronRunning: boolean;
   url: FormControl;
   usefullLinks: LinkResponse[];
-  selectedLinkId: string;
+  selectedLinkId:string;
+  addedLink : any;
+  teamDetail : TeamDetailResponse = new TeamDetailResponse();
   @ViewChild(AddLinksComponent) child;
 
-  constructor(
-    private setupService: SetupService,
-    private ref: ChangeDetectorRef,
-    private electronService: ElectronService,
-    private notifyService: NotificationService,
-    private configService: ConfigService
-  ) {
-    this.usefullLinks = [];
-    if (electronService.isElectronApp) {
-      // Do electron stuff
-      this.isElectronRunning = true;
-    } else {
-      // Do other web stuff
-      this.isElectronRunning = false;
-    }
-  }
+
+
+
+  constructor( private setupService: SetupService,
+    private ref: ChangeDetectorRef, private electronService : ElectronService, public notifyService : NotificationService) 
+    {
+      this.usefullLinks=[];
+       if (electronService.isElectronApp) {
+       
+        this.isElectronRunning = true;
+      } else {
+       
+        this.isElectronRunning = false;
+      } 
+     }
 
   ngOnInit(): void {
-    this.getLinks();
+     this.getLinks();
   }
 
-  public getLinks() {
-    this.usefullLinks = JSON.parse(
-      localStorage.getItem('TeamDetailsResponse')
-    ).powerboardResponse.teamLinks;
+
+  public getLinks(){
+    
+    this.usefullLinks = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks;
+  
+   if(this.usefullLinks.length > 0){
     console.log(this.usefullLinks);
+   }
+   else{
+     this.notifyService.showInfo("" ,"No links are available")
+   }
+   
   }
 
-  openLink(link: LinkResponse) {
-    if (link.linkType === 'meeting_link') {
+  openLink(link: LinkResponse){
+    if(link.linkType==='meeting_link'){
       this.openMeetingLink(link.links);
-    } else if (link.linkType === 'web_link') {
+    }
+    else if(link.linkType==='web_link'){
       this.openTeamLink(link.links);
     }
   }
@@ -63,56 +72,71 @@ export class ConfigureTeamLinksComponent implements OnInit {
     if (!this.isElectronRunning) {
       window.open(meetingLink, '_blank');
     } else {
-      let myWindow = window.open(meetingLink, '_system');
+      let myWindow =  window.open(meetingLink, '_system');
       setTimeout(() => {
         myWindow.close();
-      }, 5000);
+    }, 5000);
     }
   }
 
   openTeamLink(link: string) {
     console.log(link);
     if (!this.isElectronRunning) {
-      let myWindow = window.open(link, 'myWindow', 'width=1000,height=1000');
-    } else {
+      let myWindow = window.open(link, "myWindow", "width=1000,height=1000");
+    }
+    else {
       this.src = link;
       this.webview.setAttribute('src', link);
       this.ref.detectChanges();
     }
   }
 
-  saveSeletedLink(id: string) {
-    this.selectedLinkId = id;
+  saveSeletedLink(id: string){
+    this.selectedLinkId=id; 
   }
 
-  async deleteLink() {
-    try {
+  async deleteLink(){
+    try{
+      console.log(this.selectedLinkId);
       const data = await this.setupService.deleteLink(this.selectedLinkId);
-      this.notifyService.showSuccess('Team Link deleted successfully !!', '');
+      this.notifyService.showSuccess("Team Link deleted successfully !!", "")
       console.log(data);
-      this.configService.getTeamDetails();
-      for (let link of this.configService.teamDetails.powerboardResponse
-        .teamLinks) {
-        if (link.teamLinkId == this.selectedLinkId) {
-          this.configService.teamDetails.powerboardResponse.teamLinks = this.configService.teamDetails.powerboardResponse.teamLinks.filter(
-            (item) => item !== link
-          );
-        }
-      }
-      this.configService.setTeamDetails();
-      this.getLinks();
-    } catch (e) {
+       this.usefullLinks = this.usefullLinks.filter(link => link.teamLinkId != this.selectedLinkId);
+        this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+        this.teamDetail.powerboardResponse.teamLinks = this.usefullLinks;
+        localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetail));
+    }
+    catch(e){
       console.log(e.error.message);
-      this.notifyService.showError('', e.error.message);
+      this.notifyService.showError("", e.error.message);
+     
     }
   }
 
-  addLink() {
-    this.child.onSubmit();
+   async addLink(){
+   
+    const data = await this.child.onSubmit();
+   
+    this.addedLink = {
+      linkName : data.linkName,
+      teamLinkId : data.id,
+      linkType : data.linkType.title,
+      links : data.link
+
+      
+    }
+    
+    this.usefullLinks.push(this.addedLink);
+    console.log(this.usefullLinks);
+    this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+    this.teamDetail.powerboardResponse.teamLinks = this.usefullLinks;
+    localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetail));
+    
   }
 
-  close() {
-    this.child.selectedLinkType = 'select Type';
+  close(){
+    this.child.selectedLinkType="select Type";
     this.child.memberGroup.reset();
   }
+
 }

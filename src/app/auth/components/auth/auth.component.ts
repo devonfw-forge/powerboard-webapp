@@ -13,6 +13,8 @@ import { GeneralService } from '../../../shared/services/general.service';
 import { PowerboardLoginResponse } from '../../model/auth.model';
 
 import { AuthService } from '../../services/auth.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-auth',
@@ -24,17 +26,23 @@ export class AuthComponent implements OnInit {
   fieldTextType: boolean = false;
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   loginForm: FormGroup;
-  teamDetails: TeamDetailResponse = new TeamDetailResponse();
+  multimediaPrefix = environment.multimediaPrefix;
+  imagePath : string;
+  /* localLoader : boolean; */
+  teamDetails : TeamDetailResponse = new TeamDetailResponse();
 
   constructor(
     private fb: FormBuilder,
     private loginService: AuthService,
     private router: Router,
-    private teamDetailsService: TeamDetailsService,
+    private teamDetailsService : TeamDetailsService,
     private generalService: GeneralService,
+    private notificationService : NotificationService,
     private changeDetector: ChangeDetectorRef
   ) {
     this.authError = null;
+    /* this.localLoader = false; */
+    this.imagePath = this.multimediaPrefix + "multimedia/46455bf7-ada7-495c-8019-8d7ab76d490e/Screenshot(3)2fd7e5fd-5340-47b3-b704-f18596a38656.png"
   }
 
   ngOnInit(): void {
@@ -46,11 +54,13 @@ export class AuthComponent implements OnInit {
 
   async login() {
     try {
+    /*  this.localLoader = true; */
       const data = await this.loginService.Login(
         this.loginForm.controls.id.value,
         this.loginForm.controls.password.value
       );
       this.powerboardLoginResponse = data;
+     /*  this.localLoader = false; */
       this.generalService.setPermissions(
         this.powerboardLoginResponse.loginResponse.privileges
       );
@@ -62,18 +72,22 @@ export class AuthComponent implements OnInit {
       this.generalService.setLoginComplete(true);
 
       this.changeDetector.detectChanges();
-      this.generalService.setpowerboardLoginResponse(
-        this.powerboardLoginResponse
-      );
+      this.generalService.setpowerboardLoginResponse(this.powerboardLoginResponse);
+    
       if (this.powerboardLoginResponse.loginResponse.isPasswordChanged) {
+        
         this.generalService.checkLastLoggedIn();
       } else {
         this.router.navigateByUrl('/resetpassword');
       }
       this.teamDetailsService.setTeamDetailPermissions();
       this.generalService.checkVisibility();
+      
+      this.notificationService.showSuccess("", "Login Successful");
     } catch (e) {
+     /*  this.localLoader = false; */
       console.log(e);
+      
 
       window.alert(e.error.message);
       this.router.navigateByUrl('/');
@@ -91,21 +105,26 @@ export class AuthComponent implements OnInit {
     return this.authError;
   }
 
-  async GuestLogin() {
+  async GuestLogin(){
+
     try {
-      const data = await this.loginService.guestLogin();
-      this.powerboardLoginResponse = data;
+      const data:any = await this.loginService.guestLogin();
+ 
+      this.powerboardLoginResponse.loginResponse.homeResponse = data.homeResponse;
+      this.generalService.setisGuestLogin(true);
       this.generalService.setPermissions(
-        this.powerboardLoginResponse.loginResponse.privileges
+        
+        null
       );
       localStorage.setItem(
         'PowerboardDashboard',
         JSON.stringify(this.powerboardLoginResponse)
       );
-
+     
       this.generalService.setLoginComplete(true);
       this.changeDetector.detectChanges();
       this.router.navigate(['/projects']);
+  
     } catch (e) {
       console.log(e);
       window.alert(e.error.message);

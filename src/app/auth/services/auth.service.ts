@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { promise } from 'protractor';
 import { environment } from '../../../environments/environment';
 import {
+  HomeResponse,
   PasswordResetForm,
   PowerboardLoginResponse,
 } from '../model/auth.model';
@@ -11,35 +12,37 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) 
+  {
+   }
 
-  public async Login(
-    userName: string,
-    password: string
-  ): Promise<PowerboardLoginResponse> {
-    return await this.http
-      .post<PowerboardLoginResponse>(environment.restPathRoot + 'v1/auth/login', {
-        username: userName, //'raj11',
-        password: password, //'password'
-      })
-      .toPromise();
-  }
-
-  public async resetPassword(resetPassword: PasswordResetForm): Promise<any> {
-    return await this.http
-      .put<any>(environment.restPathRoot + 'v1/auth/change-password', resetPassword)
-      .toPromise();
-  }
-
-  public async guestLogin(): Promise<PowerboardLoginResponse> {
+   public async Login(userName: string, password: string): Promise<PowerboardLoginResponse> {
     return await this.http
       .post<PowerboardLoginResponse>(
-        environment.restPathRoot + 'v1/auth/login/guest',
+        environment.globalEndPoint + environment.loginEndPoint,
         {
-          username: 'guest',
-          password: 'guest',
+          username: userName,     
+          password: password            
+
         }
-      )
-      .toPromise();
+      ).toPromise();
+      
+  }
+
+  public async resetPassword(resetPassword : PasswordResetForm): Promise<any>{
+       return await this.http.put<any>(environment.globalEndPoint + environment.resetPasswordEndPonit, resetPassword).toPromise();
+  }
+
+  public async guestLogin(): Promise<HomeResponse> {
+    return await this.http
+      .post<HomeResponse>(
+        environment.globalEndPoint + environment.guestLoginEndPoint,
+        {
+          username: "guest",  
+          password: "guest"              
+
+        }
+      ).toPromise();
+      
   }
 }

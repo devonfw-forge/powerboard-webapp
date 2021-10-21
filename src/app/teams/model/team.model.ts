@@ -1,9 +1,14 @@
-export interface ProjectTeamDetail {
-  teamId: string;
-  teamName: String;
-  teamStatus?: number;
+export interface ProjectTeamDetail
+{
+teamId: string;
+teamName : String;
+
+teamStatus? : number;
+
 }
-export interface ADCListDetails {
-  centerId: string;
-  centerName: string;
+export interface ADCListDetails
+{
+centerId : string;
+centerName : string;
+
 }

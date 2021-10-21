@@ -9,19 +9,19 @@ import { BurndownResponse } from 'src/app/shared/model/general.model';
 export class BurndownComponent implements OnInit {
   burnDown: BurndownResponse = new BurndownResponse();
   unit: string;
-  constructor() {}
-
+  constructor() {
+   }
+  
   ngOnInit(): void {
-    this.burnDown = JSON.parse(
-      localStorage.getItem('TeamDetailsResponse')
-    ).powerboardResponse.dashboard.burndown;
-
-    if (this.burnDown?.remainingWork > 1) {
-      this.unit = this.burnDown.workUnit + 's';
-    } else {
-      this.unit = this.burnDown?.workUnit;
-    }
+    
+    this.burnDown = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.burndown; 
+   if (this.burnDown?.remainingWork > 1) {
+     this.unit = this.burnDown.workUnit + 's';
+   } else {
+     this.unit = this.burnDown?.workUnit;
+   }
+    
   }
-
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+  }
 }

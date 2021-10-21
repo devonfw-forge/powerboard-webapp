@@ -82,30 +82,9 @@ export class TeamSpiritComponent implements OnInit {
             fontSize: 10,
             distance: -30,
             formatter: function (value) {
-              if (value === 1) {
-                return '10';
-              } else if (value === 0.9) {
-                return '';
-              } else if (value === 0.8) {
-                return '8';
-              } else if (value === 0.7) {
-                return '';
-              } else if (value === 0.6) {
-                return '6';
-              } else if (value === 0.5) {
-                return '';
-              } else if (value === 0.4) {
-                return '4';
-              } else if (value === 0.3) {
-                return '';
-              } else if (value === 0.2) {
-                return '2';
-              } else if (value === 0.1) {
-                return '';
-              } else if (value === 0.0) {
-                return '0';
-              }
-            },
+              return '' + value * 10; 
+            }, 
+           
           },
           title: {
             offsetCenter: [0, '-20%'],

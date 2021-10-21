@@ -5,8 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SetupComponent } from './components/setup/setup.component';
 import { ConfigureTeamLinksComponent } from './components/setup/configure-team-links/configure-team-links.component';
-import { ConfigureImagesComponent } from './components/setup/configure-images/configure-images.component';
-import { ConfigureVideosComponent } from './components/setup/configure-videos/configure-videos.component';
+
 import { ConfigureLogoComponent } from './components/setup/configure-logo/configure-logo.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { NgxElectronModule } from 'ngx-electron';
@@ -17,11 +16,8 @@ import { RouterModule } from '@angular/router';
 import { ViewAllTeamsComponent } from './components/team/view-all-teams/view-all-teams.component';
 
 import { ViewAllTeamMembersComponent } from './components/team/view-all-team-members/view-all-team-members.component';
-import { GuestComponent } from './components/guest/guest.component';
-import { AddGuestComponent } from './components/guest/add-guest/add-guest.component';
 
-import { ConfigureTeamSpiritComponent } from './components/setup/configure-team-spirit/configure-team-spirit.component';
-import { ViewAllGuestsComponent } from './components/guest/view-all-guests/view-all-guests.component';
+
 import { EditTeamComponent } from './components/setup/edit-team/edit-team.component';
 import { RemoveUnderscorePipe } from './model/config.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,18 +40,14 @@ import { EditTeamMemberComponent } from './components/team/view-all-team-members
     SetupComponent,
 
     ConfigureTeamLinksComponent,
-    ConfigureImagesComponent,
-    ConfigureVideosComponent,
+  
     ConfigureLogoComponent,
     TeamComponent,
     AddTeamComponent,
     ViewTeamComponent,
     ViewAllTeamsComponent,
     ViewAllTeamMembersComponent,
-    GuestComponent,
-    AddGuestComponent,
-    ConfigureTeamSpiritComponent,
-    ViewAllGuestsComponent,
+    
     EditTeamComponent,
     RemoveUnderscorePipe,
     AddMemberComponent,

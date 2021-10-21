@@ -8,16 +8,13 @@ import { ResetPasswordComponent } from './auth/components/reset-password/reset-p
 import { MultimediaComponent } from './teams/components/multimedia/multimedia.component';
 
 import { ProjectDisplayComponent } from './teams/components/project-display/project-display.component';
-import { AddGuestComponent } from './config/components/guest/add-guest/add-guest.component';
-import { GuestComponent } from './config/components/guest/guest.component';
-import { ViewAllGuestsComponent } from './config/components/guest/view-all-guests/view-all-guests.component';
+
 
 import { ConfigComponent } from './config/components/config/config.component';
-import { ConfigureImagesComponent } from './config/components/setup/configure-images/configure-images.component';
+
 import { ConfigureLogoComponent } from './config/components/setup/configure-logo/configure-logo.component';
 import { ConfigureTeamLinksComponent } from './config/components/setup/configure-team-links/configure-team-links.component';
-import { ConfigureTeamSpiritComponent } from './config/components/setup/configure-team-spirit/configure-team-spirit.component';
-import { ConfigureVideosComponent } from './config/components/setup/configure-videos/configure-videos.component';
+
 import { SetupComponent } from './config/components/setup/setup.component';
 import { TeamComponent } from './config/components/team/team.component';
 import { ViewAllTeamMembersComponent } from './config/components/team/view-all-team-members/view-all-team-members.component';
@@ -36,10 +33,8 @@ const routes: Routes = [
   { path: 'setup', component: SetupComponent },
   { path: 'configure-logo', component: ConfigureLogoComponent },
 
-  { path: 'configure-team-links', component: ConfigureTeamLinksComponent },
-  { path: 'configure-images', component: ConfigureImagesComponent },
-  { path: 'configure-videos', component: ConfigureVideosComponent },
-
+  
+  
   { path: 'slideshow', component: SlideshowComponent },
   { path: 'config', component: ConfigComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
@@ -50,10 +45,8 @@ const routes: Routes = [
   { path: 'viewAllTeams', component: ViewAllTeamsComponent },
 
   { path: 'viewAllTeamMembers', component: ViewAllTeamMembersComponent },
-  { path: 'guest', component: GuestComponent },
-  { path: 'addGuest', component: AddGuestComponent },
-  { path: 'viewAllGuests', component: ViewAllGuestsComponent },
-  { path: 'sendToTeamSpirit', component: ConfigureTeamSpiritComponent },
+  
+ 
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 

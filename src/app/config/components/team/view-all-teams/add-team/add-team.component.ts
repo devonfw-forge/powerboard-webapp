@@ -12,64 +12,58 @@ import { TeamService } from '../../../../services/team.service';
   styleUrls: ['./add-team.component.css'],
 })
 export class AddTeamComponent implements OnInit {
-  private authError: boolean;
-  centerId: string;
-  team: TeamInfo = new TeamInfo();
+  centerId :string;
+  team:TeamInfo = new TeamInfo();
   ADCList: ADCListDetails[] = [];
-  centerName: string = 'Select Center';
+  centerName : string = 'Select Center';
 
   form: FormGroup;
 
-  constructor(
-    private configService: ConfigService,
-    private notifyService: NotificationService,
-    private teamService: TeamService,
-    public fb: FormBuilder
-  ) {
+  constructor(private settingService : ConfigService, private notifyService : NotificationService, private teamService : TeamService,public fb: FormBuilder) {
     this.form = this.fb.group({
-      teamName: ['', [Validators.required]],
-      projectKey: ['', [Validators.required]],
-      teamCode: ['', [Validators.required]],
+      teamName: ['',  [Validators.required]],
+      projectKey: ['',  [Validators.required]],
+      teamCode: ['',  [Validators.required]],
       logo: [null],
-      ad_center: ['', [Validators.required]],
+      ad_center: ['',  [Validators.required]]
     });
-  }
+   }
 
   ngOnInit(): void {
-    this.ADCList = JSON.parse(
-      localStorage.getItem('PowerboardDashboard')
-    ).loginResponse.ADC_List;
+
+    this.ADCList = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.ADC_List;
   }
 
-  async addTeam(addTeamForm: NgForm) {
-    this.team.ad_center.id = this.centerId;
-
+  /* async addTeam(addTeamForm : NgForm){
+     
+  
+   this.team.ad_center.id = this.centerId; 
+   
     console.log(this.team);
-    try {
-      const data = await this.teamService.addTeam(this.team);
-      this.notifyService.showSuccess('Team added successfully', '');
-      addTeamForm.reset();
-      console.log(data);
-    } catch (e) {
-      console.log(e.error.message);
-      this.notifyService.showError('', e.error.message);
-    }
+   try{
+    const data = await this.teamService.addTeam(this.team);
+    this.notifyService.showSuccess("Team added successfully", "");
+    addTeamForm.reset();
+    console.log(data);
+    
   }
+  catch(e){
+    console.log(e.error.message);
+    this.notifyService.showError("", e.error.message);
+   
+  }   
+   } */
 
-  keyPressed() {
-    this.authError = false;
-  }
 
-  getAuthError() {
-    return this.authError;
-  }
+   
 
-  public updateCenter(centerId, centerName) {
+  public updateCenter(centerId , centerName){
     this.centerName = centerName;
     this.team.ad_center.id = centerId;
-    this.centerId = centerId;
-    this.form.controls['ad_center'].setValue(centerId);
+  this.centerId = centerId;
+  this.form.controls['ad_center'].setValue(centerId);
   }
+
 
   uploadFile(event) {
     const file = (event.target as HTMLInputElement).files[0];
@@ -77,9 +71,9 @@ export class AddTeamComponent implements OnInit {
       logo: file,
     });
     this.form.get('logo').updateValueAndValidity();
-
+ 
     var image = <HTMLImageElement>document.getElementById('output');
-    image.src = URL.createObjectURL(event.target.files[0]);
+  image.src = URL.createObjectURL(event.target.files[0]);
   }
 
   async addTeamWithLogo() {
@@ -90,11 +84,17 @@ export class AddTeamComponent implements OnInit {
     formData.append('teamCode', this.form.get('teamCode').value);
     formData.append('logo', this.form.get('logo').value);
     try {
-      const data = await this.teamService.addTeamWithLogo(formData);
+      const data = await this.teamService.addTeamWithLogo(
+        formData
+      );
       console.log(data);
       var image = <HTMLImageElement>document.getElementById('output');
-      image.src = '../../../../../assets/layoutAssets/logo/uploadLogo.PNG';
+      image.src = "../../../../../assets/layoutAssets/logo/uploadLogo.PNG";
       this.form.reset();
+      this.team = new TeamInfo();
+      this.centerName = 'Select Center';
+      this.centerId = '';
+      return data;
     } catch (e) {
       console.log(e);
     }
