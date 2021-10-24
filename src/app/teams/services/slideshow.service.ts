@@ -4,15 +4,16 @@ import { ElectronService } from 'ngx-electron';
 import { GeneralService } from 'src/app/shared/services/general.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SlideshowService {
+
   isSlideshowRunning : boolean;
   isElectronRunning: boolean;
   slideshowIndex:number;
   lastCheckPoint:string;
   slideshowArray: string[] = [];
-    constructor(private generalService: GeneralService, private router: Router,public location : Location, private electronService: ElectronService) { 
+    constructor(private generalService: GeneralService, private router: Router, private electronService: ElectronService) { 
       this.isSlideshowRunning =false;
     this.slideshowIndex = 0;
     this.lastCheckPoint= "/dashboard";
@@ -93,5 +94,5 @@ export class SlideshowService {
     /* public registerCheckPoint(){
       this.lastCheckPoint= this.location.path();
     } */
-
-}
+  
+  }

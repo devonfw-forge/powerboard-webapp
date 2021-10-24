@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from 'src/app/shared/services/general.service';
-import { VisibilityService } from '../../services/visibility.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-team',
@@ -8,29 +7,11 @@ import { VisibilityService } from '../../services/visibility.service';
   styleUrls: ['./team.component.css'],
 })
 export class TeamComponent implements OnInit {
-  constructor(
-    public generalService: GeneralService,
-    public visibilityService: VisibilityService
-  ) {}
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {}
-
-  public showAddTeam() {
-    this.visibilityService.hideAll();
-    this.visibilityService.showAddTeamForm();
+  ngOnInit(): void {
+    this.router.navigate(['viewAllTeams'], {relativeTo:this.route});
+    
   }
 
-  public displayViewAllTeams() {
-    this.visibilityService.hideAll();
-    this.visibilityService.displayViewAllTeams();
-  }
-
-  public changeActive(index: number) {
-    let list = document.querySelectorAll('.list');
-    let j = 0;
-    while (j < list.length) {
-      list[j++].className = 'list';
-    }
-    list[index - 1].className = 'list active';
-  }
 }

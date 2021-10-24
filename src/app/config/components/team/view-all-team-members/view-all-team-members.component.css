@@ -1,55 +1,56 @@
-.row-text {
-  color: #2b0a3d;
+.row-text{
+  color: #2B0A3D;
   text-align: initial;
 }
 
-.alignment {
+.alignment{
   text-align: initial;
 }
 
-.link {
+.link{
   cursor: pointer;
 }
 
-.text-weight {
+.text-weight{
   font-weight: 500;
 }
 
-.margin-mail {
+.margin-mail{
   padding-left: 8%;
 }
 
-.margin-role {
+.margin-role{
   padding-left: 2%;
 }
 
-.margin-access {
+.margin-access{
   padding-right: 0%;
 }
 
-.margin-delete {
+.margin-delete{
   padding-left: 1%;
 }
 
-.icon {
-  color: #0070ad;
+.icon{
+  color: #0070AD;
   cursor: pointer;
 }
 
-.mat-icon {
-  color: #0070ad;
+
+.mat-icon{
+  color: #0070AD;
   font-size: inherit;
   vertical-align: middle;
   padding-bottom: 3px;
 }
 
-.spacing {
+.spacing{
   max-width: 80%;
 }
 
-.btn-basic {
+.btn-basic{
   border: 2px solid grey;
-  width: 125px;
+  Width :125px;  
   border-radius: 30px;
 }
 
@@ -59,24 +60,27 @@
   cursor: pointer;
 }
 
-.btn-cg {
-  color: #0070ad;
-  border-color: #0070ad;
-}
 
-.btn-cg:hover {
-  background-color: #0070ad;
-  color: white;
-}
+.btn-cg{
+  
+  color: #0070AD;
+  border-color:  #0070AD;
 
-.modal-header {
-  border-bottom: none;
-  padding-bottom: 0%;
-}
-.modal-body {
-  padding: 2rem;
-  padding-top: 1%;
-}
-.title {
-  color: #525151;
-}
+  }
+
+  .btn-cg:hover{
+    background-color: #0070AD;
+    color: white;
+  }
+
+  .modal-header{
+    border-bottom: none;
+    padding-bottom: 0%;
+  }
+  .modal-body{
+    padding: 2rem;
+    padding-top: 1%;
+  }
+  .title{
+    color: #525151;
+  }

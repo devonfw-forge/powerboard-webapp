@@ -46,7 +46,12 @@ uploadFileToFolderEndPoint : "multimedia/uploadFileToFolder/",
 deleteFilesAndFoldersEndPoint : "multimedia/deleteFilesAndFolders/",
 addToSlideshowEndPoint : "multimedia/addToSlideshow/",
 viewAllUserRolesEndPoint : "user/viewAllUserRoles",
-  slideshowInterval: 3000
+
+guestUserName : "guest",
+guestPassword : "guest",
+
+  slideshowInterval: 3000,
+
 };
 
 /*

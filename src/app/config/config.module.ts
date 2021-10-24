@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { SetupComponent } from './components/setup/setup.component';
 import { ConfigureTeamLinksComponent } from './components/setup/configure-team-links/configure-team-links.component';
 
-import { ConfigureLogoComponent } from './components/setup/configure-logo/configure-logo.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { NgxElectronModule } from 'ngx-electron';
 import { TeamComponent } from './components/team/team.component';
@@ -38,16 +37,12 @@ import { EditTeamMemberComponent } from './components/team/view-all-team-members
   declarations: [
     ConfigComponent,
     SetupComponent,
-
     ConfigureTeamLinksComponent,
-  
-    ConfigureLogoComponent,
     TeamComponent,
     AddTeamComponent,
     ViewTeamComponent,
     ViewAllTeamsComponent,
-    ViewAllTeamMembersComponent,
-    
+    ViewAllTeamMembersComponent, 
     EditTeamComponent,
     RemoveUnderscorePipe,
     AddMemberComponent,

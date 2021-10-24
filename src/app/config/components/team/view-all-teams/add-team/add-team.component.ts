@@ -34,25 +34,6 @@ export class AddTeamComponent implements OnInit {
     this.ADCList = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.ADC_List;
   }
 
-  /* async addTeam(addTeamForm : NgForm){
-     
-  
-   this.team.ad_center.id = this.centerId; 
-   
-    console.log(this.team);
-   try{
-    const data = await this.teamService.addTeam(this.team);
-    this.notifyService.showSuccess("Team added successfully", "");
-    addTeamForm.reset();
-    console.log(data);
-    
-  }
-  catch(e){
-    console.log(e.error.message);
-    this.notifyService.showError("", e.error.message);
-   
-  }   
-   } */
 
 
    

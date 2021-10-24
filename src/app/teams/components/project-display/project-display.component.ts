@@ -10,27 +10,30 @@ import { TeamDetailsService } from '../../services/team-details.service';
 export class ProjectDisplayComponent implements OnInit {
   isMyProjects: boolean;
 
-  constructor(
-    private generalService: GeneralService,
-    private teamDetailService: TeamDetailsService
-  ) {
-    /* this.isMyProjects = false; */
+  constructor(private generalService: GeneralService, private teamDetailService: TeamDetailsService) {
+
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.generalService.isSettingsVisible=false;
+
     this.generalService.showNavBarIcons = false;
 
     localStorage.removeItem('TeamDetailsResponse');
     this.teamDetailService.setTeamDetailPermissions();
     this.teamDetailService.setPermissionsOfTeamDetails([]);
-    if (
-      JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse
-        .My_Team.length == 0
-    ) {
+
+
+    if ((JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.My_Team).length == 0) {
       this.isMyProjects = false;
-    } else {
+
+    }
+    else {
       this.isMyProjects = true;
     }
+
+
     this.generalService.checkVisibility();
+
   }
 }

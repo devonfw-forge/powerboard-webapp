@@ -3,8 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ResetPasswordComponent } from './reset-password.component';
 
-import { ResetPasswordComponent } from './components/reset-password.component';
+
 class MockRouter {
   navigateByUrl(url: string) {
     return url;

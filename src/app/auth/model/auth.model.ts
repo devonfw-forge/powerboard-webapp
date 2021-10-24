@@ -1,8 +1,11 @@
 import { PowerboardResponse } from 'src/app/shared/model/general.model';
 
+
 export class PowerboardLoginResponse
 {
 loginResponse : LoginResponse = new LoginResponse();
+
+
 }
 export class LoginResponse
 {

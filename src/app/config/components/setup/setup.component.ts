@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from 'src/app/shared/services/general.service';
-import { VisibilityService } from '../../services/visibility.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-setup',
@@ -8,63 +7,37 @@ import { VisibilityService } from '../../services/visibility.service';
   styleUrls: ['./setup.component.css'],
 })
 export class SetupComponent implements OnInit {
-  constructor(
-    public generalService: GeneralService,
-    public visibilityService: VisibilityService
-  ) {}
+  constructor(  private router : Router, private route : ActivatedRoute) { }
 
-  ngOnInit(): void {}
-  public showLogo() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowLogo();
+  ngOnInit(): void {
+    console.log("reached setup .................................");
+    this.router.navigate(['editTeam'], {relativeTo:this.route});
+  }
+  
+  public showTeamLink(){
+    this.router.navigate(['configure-links'], {relativeTo:this.route});
   }
 
-  public showMeetingLink() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowMeetingLink();
+  public showMultimedia(){
+    
+    this.router.navigate(['configure-multimedia'], {relativeTo:this.route});
   }
 
-  public showTeamLink() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowTeamLink();
+  public showViewTeamMember(){
+    this.router.navigate(['view-members'], {relativeTo:this.route});
   }
 
-  public showMultimedia() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowMultimedia();
-  }
-
-  public showVideos() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowVideo();
-  }
-
-  public showSendToTeamSpirit() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowSendToTeamSpirit();
-  }
-
-  public showAddTeamMember() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowAddTeamMember();
-  }
-
-  public showViewTeamMember() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowViewTeamMember();
-  }
-
-  public changeActive(index: number) {
+  public changeActive(index:number){
     let list = document.querySelectorAll('.list');
-    let j = 0;
-    while (j < list.length) {
+    let j=0;
+    while(j<list.length){
       list[j++].className = 'list';
     }
-    list[index - 1].className = 'list active';
+    list[index-1].className = 'list active';
   }
 
-  public showEditTeam() {
-    this.visibilityService.hideAll();
-    this.visibilityService.ShowEditTeam();
+  public showEditTeam(){
+    this.router.navigate(['editTeam'], {relativeTo:this.route});
   }
+
 }

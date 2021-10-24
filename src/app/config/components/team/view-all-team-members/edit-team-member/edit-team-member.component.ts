@@ -26,24 +26,24 @@ export class EditTeamMemberComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  getCurrentTeamMember(member) {
+  getCurrentTeamMember(member){
     this.currentMember = member;
-
+ 
     this.updateRoleOfMember.teamId = this.currentMember.teamId;
     this.updateRoleOfMember.userId = this.currentMember.userId;
-    for (let role of this.configService.roles) {
-      if (role.roleId == this.currentMember.roleId) {
+    for(let role of this.configService.roles){
+      if(role.roleId == this.currentMember.roleId){
         this.roleName = role.roleName;
       }
     }
   }
-  updateRole(roleId: string, roleName: string) {
+  updateRole(roleId : string, roleName : string){
     this.roleName = roleName;
     this.updateRoleOfMember.roleId = roleId;
   }
-
-  public async editTeamMember() {
-    if (this.currentMember.roleId != this.updateRoleOfMember.roleId) {
+ 
+  public async editTeamMember(){
+    if(this.currentMember.roleId != this.updateRoleOfMember.roleId){
       return await this.teamService.updateAccessRole(this.updateRoleOfMember);
     }
   }

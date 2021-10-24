@@ -2,19 +2,28 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
+
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TeamDetailResponse } from '../../../shared/model/general.model';
-import { TeamDetailsService } from '../../../teams/services/team-details.service';
-import { GeneralService } from '../../../shared/services/general.service';
-import { PowerboardLoginResponse } from '../../model/auth.model';
-
-import { AuthService } from '../../services/auth.service';
+import { TeamDetailResponse } from 'src/app/shared/model/general.model';
+import { GeneralService } from 'src/app/shared/services/general.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { TeamDetailsService } from 'src/app/teams/services/team-details.service';
 import { environment } from 'src/environments/environment';
+import { PowerboardLoginResponse } from '../../model/auth.model';
+import { AuthService } from '../../services/auth.service';
+
+// import { TeamDetailResponse } from '../model/general.model';
+// import { TeamDetailsService } from '../project-display/service/team-details.service';
+// import { GeneralService } from '../service/general.service';
+// import {environment} from '../../environments/environment'
+// import {  PowerboardLoginResponse } from './model/login.model';
+
+// import { LoginService } from './service/login.service';
+// import { NotificationService } from '../service/notification.service';
+
 
 @Component({
   selector: 'app-auth',
@@ -33,7 +42,7 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private loginService: AuthService,
+    private authService: AuthService,
     private router: Router,
     private teamDetailsService : TeamDetailsService,
     private generalService: GeneralService,
@@ -55,7 +64,7 @@ export class AuthComponent implements OnInit {
   async login() {
     try {
     /*  this.localLoader = true; */
-      const data = await this.loginService.Login(
+      const data = await this.authService.Login(
         this.loginForm.controls.id.value,
         this.loginForm.controls.password.value
       );
@@ -108,7 +117,7 @@ export class AuthComponent implements OnInit {
   async GuestLogin(){
 
     try {
-      const data:any = await this.loginService.guestLogin();
+      const data:any = await this.authService.guestLogin();
  
       this.powerboardLoginResponse.loginResponse.homeResponse = data.homeResponse;
       this.generalService.setisGuestLogin(true);

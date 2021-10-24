@@ -8,17 +8,16 @@ import { ViewTeamComponent } from './view-team.component';
 describe('ViewTeamComponent', () => {
   let component: ViewTeamComponent;
   let fixture: ComponentFixture<ViewTeamComponent>;
-  let notificationService: NotificationService;
+  let notificationService : NotificationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule],
-
-      declarations: [ViewTeamComponent],
-      providers: [
-        { provide: NotificationService, useValue: notificationService },
-      ],
-    }).compileComponents();
+      imports :[RouterTestingModule, HttpClientModule],
+      
+      declarations: [ ViewTeamComponent ],
+      providers : [{provide : NotificationService, useValue : notificationService}]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {

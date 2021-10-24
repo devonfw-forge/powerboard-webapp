@@ -4,17 +4,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ElectronService, NgxElectronModule } from 'ngx-electron';
 
 import { SlideshowComponent } from './slideshow.component';
-
 describe('SlideshowComponent', () => {
   let component: SlideshowComponent;
   let fixture: ComponentFixture<SlideshowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule, NgxElectronModule],
+      imports :[RouterTestingModule, HttpClientModule, NgxElectronModule],
       providers: [ElectronService],
-      declarations: [SlideshowComponent],
-    }).compileComponents();
+      declarations: [ SlideshowComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {

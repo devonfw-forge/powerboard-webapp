@@ -1,9 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ElectronService } from 'ngx-electron';
-import { interval } from 'rxjs/internal/observable/interval';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { GeneralService } from '../../../shared/services/general.service';
 import { SlideshowService } from '../../services/slideshow.service';
 
 @Component({
@@ -12,12 +9,14 @@ import { SlideshowService } from '../../services/slideshow.service';
   styleUrls: ['./slideshow.component.css'],
 })
 export class SlideshowComponent implements OnInit {
-  constructor(public electronService: ElectronService,
-    public router: Router, public slideShowService : SlideshowService) 
-    {
-     }
-
-  ngOnInit(): void {
-    this.router.navigateByUrl(this.slideShowService.slideshowArray[this.slideShowService.slideshowIndex]);
-  }
+    constructor(public electronService: ElectronService,
+      public router: Router, public slideShowService : SlideshowService) 
+      {
+  
+    
+       }
+  
+    ngOnInit(): void {
+      this.router.navigateByUrl(this.slideShowService.slideshowArray[this.slideShowService.slideshowIndex]);
+    }
 }

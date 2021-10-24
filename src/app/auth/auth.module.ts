@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthComponent } from './components/auth/auth.component';
+// import { AuthComponent } from './components/auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RouterModule } from '@angular/router';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [AuthComponent, ResetPasswordComponent],

@@ -1,3 +1,4 @@
+   
 import {
   NgModule,
   NO_ERRORS_SCHEMA,
@@ -31,6 +32,7 @@ import {
   TeamSpiritResponse,
   VelocityResponse,
 } from '../shared/model/general.model';
+import { SlideshowMultimediaComponent } from './components/slideshow/slideshow-multimedia/slideshow-multimedia.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -45,6 +47,7 @@ import {
     ProjectsComponent,
     MyProjectsComponent,
     ProjectDisplayComponent,
+    SlideshowMultimediaComponent,
   ],
   providers: [
     Dashboard,
