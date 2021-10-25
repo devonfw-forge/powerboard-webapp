@@ -27,12 +27,12 @@ import {
   ClientStatusResponse,
   CodeQualityResponse,
   Dashboard,
-  PowerboardResponse,
   SprintDetailResponse,
   TeamSpiritResponse,
   VelocityResponse,
 } from '../shared/model/general.model';
 import { SlideshowMultimediaComponent } from './components/slideshow/slideshow-multimedia/slideshow-multimedia.component';
+
 @NgModule({
   declarations: [
     DashboardComponent,

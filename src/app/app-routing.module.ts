@@ -23,6 +23,7 @@ import { ConfigureTeamLinksComponent } from './config/components/setup/configure
 import { ConfigureMultimediaComponent } from './config/components/setup/configure-multimedia/configure-multimedia.component';
 import { AuthComponent } from './auth/components/auth/auth.component';
 import { SlideshowMultimediaComponent } from './teams/components/slideshow/slideshow-multimedia/slideshow-multimedia.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: 'projects', component: ProjectDisplayComponent },
@@ -30,44 +31,26 @@ const routes: Routes = [
 
   { path: 'links', component: LinksComponent },
   { path: 'multimedia', component: MultimediaComponent },
-/* 
-  { path: 'setup', component: SetupComponent }, */
 
   
   
   { path: 'slideshow', component: SlideshowComponent },
   { path: 'slideshow-multimedia', component: SlideshowMultimediaComponent},
-  { path: 'config', component: ConfigComponent 
-      , children : [
-        { path : 'setup', component : SetupComponent,
-          children : [
-            { path: 'editTeam' , component: EditTeamComponent },
-            { path: 'configure-links' , component: ConfigureTeamLinksComponent },
-            { path: 'configure-multimedia' , component: ConfigureMultimediaComponent },
-            { path: 'view-members' , component: ViewAllTeamMembersComponent },
-          ]
-      },
-      { path: 'team', component: TeamComponent ,
-        children :[
-          { path: 'viewAllTeams', component: ViewAllTeamsComponent },
-        ]
-      },
-      ]},
+ 
+  {path:'config', loadChildren: () => import('./config/config.module').then(m=> m.ConfigModule)},
+
   { path: 'resetpassword', component: ResetPasswordComponent },
-  { path: 'login', component: AuthComponent },
-  { path: 'addTeam', component: AddTeamComponent },
+  { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)  },
   
   { path: 'viewTeam', component: ViewTeamComponent },
   
-  /* { path: 'editTeam' , component: EditTeamComponent }, */
-  { path: 'viewAllTeamMembers', component: ViewAllTeamMembersComponent },
   
  
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), NgxEchartsModule],
+  imports: [RouterModule.forRoot(routes, {useHash: true }), NgxEchartsModule, BrowserAnimationsModule,],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
