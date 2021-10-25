@@ -11,7 +11,7 @@ import { NgxElectronModule } from 'ngx-electron';
 import { TeamComponent } from './components/team/team.component';
 
 import { ViewTeamComponent } from './components/team/view-team/view-team.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ViewAllTeamsComponent } from './components/team/view-all-teams/view-all-teams.component';
 
 import { ViewAllTeamMembersComponent } from './components/team/view-all-team-members/view-all-team-members.component';
@@ -19,7 +19,6 @@ import { ViewAllTeamMembersComponent } from './components/team/view-all-team-mem
 
 import { EditTeamComponent } from './components/setup/edit-team/edit-team.component';
 import { RemoveUnderscorePipe } from './model/config.model';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddMemberComponent } from './components/team/view-all-team-members/add-member/add-member.component';
 import { ShortUrlPipe } from './pipes/short-url.pipe';
 import { LinkTypeFilterPipe } from './pipes/link-type-filter.pipe';
@@ -32,6 +31,30 @@ import { EditTeamMemberComponent } from './components/team/view-all-team-members
 /* import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; */
 
 /* import { FileDropModule } from 'ngx-file-drop'; */
+
+const routes: Routes = [{
+  path: '',
+  component: ConfigComponent,
+  children: [
+    {
+      path: 'team', component: TeamComponent,
+      children: [
+        { path: '', redirectTo: 'viewAllTeams', pathMatch: 'full' },
+        { path: 'viewAllTeams', component: ViewAllTeamsComponent },
+      ]
+    },
+    {
+      path: 'setup', component: SetupComponent,
+      children: [
+        { path: '', redirectTo: 'editTeam', pathMatch: 'full' },
+        { path: 'editTeam', component: EditTeamComponent },
+        { path: 'configure-multimedia', component: ConfigureMultimediaComponent,},
+        { path: 'configure-links', component: ConfigureTeamLinksComponent },
+        { path: 'view-members', component: ViewAllTeamMembersComponent },
+      ]
+    }
+  ]
+},]
 
 @NgModule({
   declarations: [
@@ -56,12 +79,13 @@ import { EditTeamMemberComponent } from './components/team/view-all-team-members
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     FormsModule,
     HttpClientModule,
     NgxFileDropModule,
     NgxElectronModule,
-    BrowserAnimationsModule,
-    RouterModule,
+    
+    RouterModule.forChild(routes)
   ],
   exports: [ReactiveFormsModule, FormsModule, ConfigComponent],
   schemas: [NO_ERRORS_SCHEMA],

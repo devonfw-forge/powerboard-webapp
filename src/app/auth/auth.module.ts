@@ -4,9 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { AuthComponent } from './components/auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './components/auth/auth.component';
 
+const routes: Routes = [
+  { path: '', component: AuthComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent }
+];
 @NgModule({
   declarations: [AuthComponent, ResetPasswordComponent],
   imports: [
@@ -15,6 +19,8 @@ import { AuthComponent } from './components/auth/auth.component';
     FormsModule,
     RouterModule,
     HttpClientModule,
+
+    RouterModule.forChild(routes)
   ],
   exports: [
     AuthComponent,
