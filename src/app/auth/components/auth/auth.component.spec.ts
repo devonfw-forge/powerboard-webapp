@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { verify } from 'crypto';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { GeneralService } from '../../../shared/services/general.service';
 
 import { AuthComponent } from './auth.component';
@@ -11,22 +12,18 @@ import { AuthComponent } from './auth.component';
 describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
-  let generalService: GeneralService;
+  let generalService : GeneralService;
+  let notificationService : NotificationService;
   let router;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-      ],
-      declarations: [AuthComponent],
-      providers: [
-        { provide: GeneralService, useValue: generalService },
-        { provide: Router, useValue: router },
-      ],
-    }).compileComponents();
+      imports :[RouterTestingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
+      declarations: [ AuthComponent ],
+       providers:[{provide : GeneralService, useValue : generalService},
+      {provide : Router, useValue : router},
+      {provide : NotificationService, useValue : notificationService} ] 
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
@@ -34,6 +31,7 @@ describe('AuthComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     generalService = TestBed.inject(GeneralService);
+    notificationService = TestBed.inject(NotificationService);
   });
 
   it('should create', () => {
@@ -41,30 +39,35 @@ describe('AuthComponent', () => {
   });
 
   it('should return auth error value', () => {
-    expect(component.getAuthError()).toEqual(null);
+   expect(component.getAuthError()).toEqual(null);
   });
 
   it('should make auth error value to false', () => {
     component.keyPressed();
     expect(component.getAuthError()).toEqual(false);
-  });
-  it('should get login complete', () => {
-    component.loginForm.controls.id.setValue('raj11');
-    component.loginForm.controls.password.setValue('password');
-    component.login().then((data) => {
+   });
+   it('should get login complete', () =>{
+     component.loginForm.controls.id.setValue("raj11");
+     component.loginForm.controls.password.setValue("password");
+     component.login().then((data) =>{
       expect(generalService.getLoginComplete()).toEqual(true);
-    });
-  });
+     })
+     
+   })
 
-  it('should get error for login with null values', () => {
-    component.loginForm.controls.id.setValue('raj11');
-    component.loginForm.controls.password.setValue('password');
-    component
-      .login()
-      .then((data) => {})
-      .catch((e) => {
-        expect(router.navigate).toHaveBeenCalledWith(['/']);
-        expect(window.alert()).toHaveBeenCalled();
-      });
-  });
-});
+   it('should get error for login with null values', () =>{
+    component.loginForm.controls.id.setValue("raj11");
+     component.loginForm.controls.password.setValue("password");
+    component.login().then((data) =>{
+     
+    }).catch((e) =>{
+      expect(router.navigate).toHaveBeenCalledWith(['/']);
+      expect(window.alert()).toHaveBeenCalled();
+    })
+    
+  })
+
+  /* it('should login for guest users',async () =>{
+   await component.GuestLogin()
+    }) */
+})

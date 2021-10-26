@@ -29,6 +29,7 @@ export class ConfigService {
 
 
     constructor(private http: HttpClient) { 
+      this.roles = [];
       this.getRoles().then(
         (data)=>{
           if(data){

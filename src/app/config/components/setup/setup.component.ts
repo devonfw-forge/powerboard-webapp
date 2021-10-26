@@ -7,8 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./setup.component.css'],
 })
 export class SetupComponent implements OnInit {
-  constructor(  private router : Router, private route : ActivatedRoute) { }
-
+  constructor(private route:ActivatedRoute,private router:Router) { }
+                
   ngOnInit(): void {
     console.log("reached setup .................................");
     this.router.navigate(['editTeam'], {relativeTo:this.route});
