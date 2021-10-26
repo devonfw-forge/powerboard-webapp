@@ -16,7 +16,7 @@ export class SlideshowService {
     constructor(private generalService: GeneralService, private router: Router, private electronService: ElectronService) { 
       this.isSlideshowRunning =false;
     this.slideshowIndex = 0;
-    this.lastCheckPoint= "/dashboard";
+    this.lastCheckPoint= "teams/dashboard";
   
     if (electronService.isElectronApp) {
       // Do electron stuff
@@ -55,17 +55,17 @@ export class SlideshowService {
     public checkSlideshowArray(){
       this.slideshowIndex = 0;
       this.slideshowArray = [];
-      this.slideshowArray.push("/dashboard");
+      this.slideshowArray.push("teams/dashboard");
       if(this.generalService.isLinksVisible && this.isElectronRunning){
   
-        this.slideshowArray.push("/links");
+        this.slideshowArray.push("teams/links");
       }
-      this.slideshowArray.push("/slideshow-multimedia");
+      this.slideshowArray.push("teams/slideshow-multimedia");
       console.log(this.slideshowArray);
   
   
       if(this.isSlideshowRunning){
-        this.router.navigateByUrl("/slideshow");
+        this.router.navigateByUrl("teams/slideshow");
       }
     }
   

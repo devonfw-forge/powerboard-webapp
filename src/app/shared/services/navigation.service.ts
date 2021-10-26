@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { PowerboardLoginResponse } from 'src/app/auth/model/auth.model';
+import { SlideshowService } from 'src/app/teams/services/slideshow.service';
 import { GeneralService } from './general.service';
 
 @Injectable({
@@ -13,12 +14,15 @@ export class NavigationService {
   currentLocation: string;
   constructor(
     private router: Router,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private slideshowService: SlideshowService
   ) {
     this.history = [];
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.history.push(event.urlAfterRedirects);
+      if(!this.slideshowService.isSlideshowRunning){
+        if (event instanceof NavigationEnd) {
+          this.history.push(event.urlAfterRedirects);
+        }
       }
     });
     this.lastLocation = '';
@@ -33,16 +37,16 @@ export class NavigationService {
       console.log(this.history);
       this.lastLocation = this.history.pop();
       console.log(this.lastLocation);
-      if (this.lastLocation.includes('/setting')) {
+      if (this.lastLocation.includes('/config')) {
         while (
-          this.lastLocation.includes('/setting') ||
+          this.lastLocation.includes('/config') ||
           this.lastLocation.includes('/viewTeam')
         ) {
           console.log(this.history);
           this.lastLocation = this.history.pop();
         }
       }
-      if (this.lastLocation.includes('/projects')) {
+      if (this.lastLocation.includes('teams/projects')) {
         this.moveToHome();
       } else {
         this.router.navigateByUrl('/' + this.lastLocation);
@@ -80,11 +84,10 @@ export class NavigationService {
       console.log(data);
     }
     this.generalService.showNavBarIcons = false;
-    this.router.navigate(['/projects']);
+    this.router.navigate(['teams/projects']);
   }
 
   pushCurrentLocation(){
     this.history.push(this.currentLocation);
   }
-
 }

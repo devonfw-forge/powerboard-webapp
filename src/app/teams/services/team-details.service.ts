@@ -77,7 +77,7 @@ export class TeamDetailsService {
         this.setTeamDetailPermissions();
         this.generalService.showNavBarIcons = true;
         this.generalService.checkVisibility();
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('teams/dashboard');
         this.generalService.storeLastLoggedIn();
       }
       catch(e){

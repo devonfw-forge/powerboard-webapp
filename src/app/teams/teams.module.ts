@@ -32,7 +32,17 @@ import {
   VelocityResponse,
 } from '../shared/model/general.model';
 import { SlideshowMultimediaComponent } from './components/slideshow/slideshow-multimedia/slideshow-multimedia.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  { path: '', component: ProjectDisplayComponent },
+  { path: 'projects', component: ProjectDisplayComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'links', component: LinksComponent },
+  { path: 'multimedia', component: MultimediaComponent },
+  { path: 'slideshow', component: SlideshowComponent },
+  { path: 'slideshow-multimedia', component: SlideshowMultimediaComponent}
+];
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -65,6 +75,8 @@ import { SlideshowMultimediaComponent } from './components/slideshow/slideshow-m
     VgCoreModule,
     VgControlsModule,
     VgBufferingModule,
+    RouterModule,
+    RouterModule.forChild(routes) 
   ],
   exports: [
     DashboardComponent,

@@ -74,7 +74,7 @@
         <li style="margin-left: 130px;" *ngIf="generalService.isDashboardVisible">
           <div class="button" >
   
-            <button class="btn btn-outline btn-cg" id="dashboard" (click)="highlight('dashboard')" [routerLink]="['/dashboard']">
+            <button class="btn btn-outline btn-cg" id="dashboard" (click)="highlight('dashboard')" [routerLink]="['teams/dashboard']">
               Dashboard
             </button>
           </div>
@@ -83,7 +83,7 @@
         <li *ngIf="generalService.isLinksVisible">
           <div class="button">
   
-            <button class="btn btn-outline btn-cg" id="links" (click)="highlight('links')"  [routerLink]="['/links']">
+            <button class="btn btn-outline btn-cg" id="links" (click)="highlight('links')"  [routerLink]="['teams/links']">
               Links
             </button>
           </div>
@@ -92,7 +92,7 @@
         <li>
           <div class="button">
   
-            <button class="btn btn-outline btn-cg" id="multimedia" (click)="highlight('multimedia')" [routerLink]="['/multimedia']">
+            <button class="btn btn-outline btn-cg" id="multimedia" (click)="highlight('multimedia')" [routerLink]="['teams/multimedia']">
               Multimedia
             </button>
           </div>
