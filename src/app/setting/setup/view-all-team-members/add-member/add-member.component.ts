@@ -59,6 +59,8 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
   else{
     this.error=true;
     return false;
+    this.updateTeam.teamId = this.team.teamId;
+    this.updateTeam.teamName = this.form.get('teamName').value;
   }
   } */
 
@@ -67,8 +69,12 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
     
     try{
       console.log("teamMemberDetails");
+      this.teamMember.team.id = this.teamId;
+      this.teamMember.username = this.memberGroup.get('username').value
+      this.teamMember.email = this.memberGroup.get('email').value
+      this.teamMember.role = this.memberGroup.get('role').value
       console.log(this.teamMember);
-      const data = await this.teamService.addTeamMember(this.memberGroup.value);
+      const data = await this.teamService.addTeamMember(this.teamMember);
       this.notifyService.showSuccess("Team member added successfully","");
       this.memberGroup.reset();
       this.roleName="Select Role";
