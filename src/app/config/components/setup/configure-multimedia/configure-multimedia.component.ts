@@ -596,6 +596,7 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
     this.isMasterSel = false;
+    this.updateLocalStorage();
   }
   catch(e){
     console.log(e.error.message);

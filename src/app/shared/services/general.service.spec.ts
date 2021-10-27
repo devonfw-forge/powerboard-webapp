@@ -96,7 +96,7 @@ describe('GeneralService', () => {
     let loginResponse = new PowerboardLoginResponse();
     service.setpowerboardLoginResponse(loginResponse);
     service.checkLastLoggedIn();
-    expect(router.navigate).toHaveBeenCalledWith(['/projects']);
+    expect(router.navigate).toHaveBeenCalledWith(['teams/projects']);
   });
 
   it('getProject details should throw erorr for empty data', () =>{

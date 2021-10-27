@@ -34,12 +34,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
      this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id; 
      await this.teamService.viewTeamMembersOfTeam(this.teamId).then(
     (data)=>{
-      if(data){
-        this.teamMembers = data;
-      }
-      else{
-        this.teamMembers = [];
-      }
+      this.teamMembers = data;
     },
     (reason)=>{
       console.log("error viewing team members", reason);
@@ -55,10 +50,10 @@ export class ViewAllTeamMembersComponent implements OnInit {
   async deleteMember(){
   await this.teamService.deleteTeamMember(this.deleteId).then(
     (data)=>{
-      if(data){
+      
         console.log(data);
         this.notifyService.showSuccess("team member deleted successfully !!", "");
-      }
+      
       this.viewAllMembers();
     },
     (reason)=>{
@@ -73,7 +68,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
   
    
   async addMember(){
-    const result=await this.child.addMember();
+    const result=await this.child.addTeamMember();
     console.log(result);
     if(result){
       await this.viewAllMembers();

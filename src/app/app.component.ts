@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.navigate(['login']);
+    this.router.navigate(['auth/login']);
     
   }
 
@@ -116,7 +116,7 @@ export class AppComponent implements OnInit {
   }
 
   public checkLocation() {
-    if (this.location.path() == "/dashboard") {
+    if (this.location.path().includes("/dashboard") ) {
       this.highlight('dashboard');
     }
     else {
@@ -128,7 +128,7 @@ export class AppComponent implements OnInit {
       }
     }
     
-    if(this.location.path() == "/links"){
+    if(this.location.path().includes("/links") ){
       this.highlight('links')
     }
     else{
@@ -142,7 +142,7 @@ export class AppComponent implements OnInit {
         }
       }
     }
-    if(this.location.path() == "/multimedia"){
+    if(this.location.path().includes("/multimedia")){
       this.highlight('multimedia')
     }
     else{

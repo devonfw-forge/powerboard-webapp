@@ -65,8 +65,8 @@ export class AuthComponent implements OnInit {
     try {
     /*  this.localLoader = true; */
       const data = await this.authService.Login(
-        this.loginForm.controls.id.value,
-        this.loginForm.controls.password.value
+        this.loginForm.controls['id'].value,
+        this.loginForm.controls['password'].value
       );
       this.powerboardLoginResponse = data;
      /*  this.localLoader = false; */
@@ -87,7 +87,7 @@ export class AuthComponent implements OnInit {
         
         this.generalService.checkLastLoggedIn();
       } else {
-        this.router.navigateByUrl('/resetpassword');
+        this.router.navigateByUrl('auth/resetpassword');
       }
       this.teamDetailsService.setTeamDetailPermissions();
       this.generalService.checkVisibility();
@@ -132,7 +132,7 @@ export class AuthComponent implements OnInit {
      
       this.generalService.setLoginComplete(true);
       this.changeDetector.detectChanges();
-      this.router.navigate(['/projects']);
+      this.router.navigate(['teams/projects']);
   
     } catch (e) {
       console.log(e);

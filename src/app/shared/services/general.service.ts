@@ -209,9 +209,9 @@ export class GeneralService {
       this.showNavBarIcons = true;
       this.checkVisibility();
 
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['teams/dashboard']);
     } else {
-      this.router.navigate(['/projects']);
+      this.router.navigate(['teams/projects']);
     }
   }
 

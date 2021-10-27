@@ -39,6 +39,8 @@ describe('AuthComponent', () => {
         store = {};
     });
   });
+  
+  // let router;
   beforeEach(async () => {
      
     await TestBed.configureTestingModule({
@@ -76,8 +78,8 @@ describe('AuthComponent', () => {
     expect(component.getAuthError()).toEqual(false);
    });
    it('should get login complete', () =>{
-     component.loginForm.controls.id.setValue("raj11");
-     component.loginForm.controls.password.setValue("password");
+     component.loginForm.controls['id'].setValue("raj11");
+     component.loginForm.controls['password'].setValue("password");
      component.login().then((data) =>{
       expect(generalService.getLoginComplete()).toEqual(true);
      })
@@ -85,8 +87,8 @@ describe('AuthComponent', () => {
    })
 
    it('should get error for login with null values', () =>{
-    component.loginForm.controls.id.setValue("raj11");
-     component.loginForm.controls.password.setValue("password");
+    component.loginForm.controls['id'].setValue("raj11");
+     component.loginForm.controls['password'].setValue("password");
     component.login().then((data) =>{
      
     }).catch((e) =>{
