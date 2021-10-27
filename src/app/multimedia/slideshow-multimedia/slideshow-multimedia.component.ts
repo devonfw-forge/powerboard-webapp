@@ -4,7 +4,8 @@ import { VgApiService } from '@videogular/ngx-videogular/core';
 import { MultimediaFolderResponse, MultimediaFilesNew, SlideshowFiles } from 'src/app/model/general.model';
 import { GeneralService } from 'src/app/service/general.service';
 import { SlideshowService } from 'src/app/slideshow/slideshow.service';
-import { environment } from 'src/environments/environment';
+import { UrlPathConstants } from 'src/app/UrlPaths';
+
 
 @Component({
   selector: 'app-slideshow-multimedia',
@@ -18,7 +19,7 @@ export class SlideshowMultimediaComponent implements OnInit {
   intervalID: any;  
   componentReady: boolean;
   currentIndex: number = 0;
-  interval: number = environment.slideshowInterval;
+  interval: number = UrlPathConstants.slideshowInterval;
   slideshowFiles : SlideshowFiles[]=[];
   slideshowTempFiles : SlideshowFiles[]=[];
   api: VgApiService;

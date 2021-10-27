@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   fieldTextType: boolean = false;
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   loginForm: FormGroup;
-  multimediaPrefix = environment.multimediaPrefix;
+
   imagePath : string;
   /* localLoader : boolean; */
   teamDetails : TeamDetailResponse = new TeamDetailResponse();
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.authError = null;
     /* this.localLoader = false; */
-    this.imagePath = this.multimediaPrefix + "multimedia/46455bf7-ada7-495c-8019-8d7ab76d490e/Screenshot(3)2fd7e5fd-5340-47b3-b704-f18596a38656.png"
+    this.imagePath = ""
   }
 
   ngOnInit(): void {

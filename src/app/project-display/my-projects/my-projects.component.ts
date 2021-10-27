@@ -5,7 +5,6 @@ import { TeamDetails } from 'src/app/login/model/login.model';
 import { TeamDetailResponse } from 'src/app/model/general.model';
 import { GeneralService } from 'src/app/service/general.service';
 import { SlideshowService } from 'src/app/slideshow/slideshow.service';
-import { environment } from 'src/environments/environment';
 import { GetTeamDetails } from '../model/pbResponse.model';
 
 import { TeamDetailsService } from '../service/team-details.service';

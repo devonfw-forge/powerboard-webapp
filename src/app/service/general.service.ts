@@ -10,6 +10,7 @@ import {
 } from '../login/model/login.model';
 import { MultimediaFilesNew, TeamDetailResponse } from '../model/general.model';
 import { GetTeamDetails } from '../project-display/model/pbResponse.model';
+import { UrlPathConstants } from '../UrlPaths';
 
 @Injectable({
   providedIn: 'root',
@@ -244,14 +245,14 @@ export class GeneralService {
   /* new end point call */
   async getProjectDetails(userId: string): Promise<HomeResponse> {
     return await this.http
-      .get<HomeResponse>(environment.globalEndPoint + environment.getProjectDetailsEndpoint + userId)
+      .get<HomeResponse>(environment.globalEndPoint + UrlPathConstants.getProjectDetailsEndpoint + userId)
       .toPromise();
   }
 
   async sendLastLoggedIn() {
     await this.http
       .put<any>(
-        environment.globalEndPoint + environment.lastLoggedEndPoint,
+        environment.globalEndPoint + UrlPathConstants.lastLoggedEndPoint,
         this.userIdTeamIdDetails
       )
       .toPromise();
@@ -276,16 +277,16 @@ export class GeneralService {
 
    async getAllFilesFromFolder(teamId: string, folderId : string): Promise<MultimediaFilesNew[]> {
     return await this.http
-      .get<MultimediaFilesNew[]>(environment.globalEndPoint + environment.FilesFromFolderEndpoint + teamId + '/' + folderId)
+      .get<MultimediaFilesNew[]>(environment.globalEndPoint + UrlPathConstants.FilesFromFolderEndpoint + teamId + '/' + folderId)
       .toPromise();
   }
 
   async getAllFilesFromTeam(teamId: string): Promise<MultimediaFilesNew[]> {
     return await this.http
-      .get<MultimediaFilesNew[]>(environment.globalEndPoint + environment.FilesForTeamEndpoint + teamId)
+      .get<MultimediaFilesNew[]>(environment.globalEndPoint + UrlPathConstants.FilesForTeamEndpoint + teamId)
       .toPromise();
   }
   async getSlideshowFiles(teamId: string) : Promise<any>{
-    return await this.http.get<any>(environment.globalEndPoint + environment.getSlideshowFilesEndpoint + teamId).toPromise();
+    return await this.http.get<any>(environment.globalEndPoint + UrlPathConstants.getSlideshowFilesEndpoint + teamId).toPromise();
     }
 }

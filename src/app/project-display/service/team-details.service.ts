@@ -7,6 +7,7 @@ import { GeneralService } from 'src/app/service/general.service';
 import { GetTeamDetails } from '../model/pbResponse.model';
 import { ProjectTeamDetail } from '../my-projects/model/team.model';
 import { environment } from 'src/environments/environment';
+import { UrlPathConstants } from 'src/app/UrlPaths';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,12 @@ teamDetails : TeamDetailResponse = new TeamDetailResponse();
   
   async getTeamDetails(userIdTeamIdDetails : GetTeamDetails):Promise<PowerboardResponse>{
     return await this.http.post<PowerboardResponse>(
-      environment.globalEndPoint + environment.getTeamDetailsEndPoint, userIdTeamIdDetails ).toPromise();
+      environment.globalEndPoint + UrlPathConstants.getTeamDetailsEndPoint, userIdTeamIdDetails ).toPromise();
   }
 
   async getTeamsInADCenter(centerId : string):Promise<ProjectTeamDetail[]>{
     return await this.http.get<ProjectTeamDetail[]>(
-      environment.globalEndPoint + environment.getTeamsCenterEndPoint  + centerId ).toPromise();
+      environment.globalEndPoint + UrlPathConstants.getTeamsCenterEndPoint  + centerId ).toPromise();
   }
 
 /* new call */

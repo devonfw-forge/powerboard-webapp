@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SprintDetailResponse } from '../model/general.model';
 import { SlideshowService } from '../slideshow/slideshow.service';
-import { environment } from 'src/environments/environment';
+
+import { UrlPathConstants } from '../UrlPaths';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ export class DashboardComponent implements OnInit {
   sprintDetails: SprintDetailResponse = new SprintDetailResponse();
   teamStatus: number;
   intervalID: any; 
-  interval= environment.slideshowInterval;
+  interval= UrlPathConstants.slideshowInterval;
   constructor(public slideshowService: SlideshowService) { }
 
   ngOnInit(): void {
