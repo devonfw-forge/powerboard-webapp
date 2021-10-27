@@ -19,6 +19,7 @@ describe('AddMemberComponent', () => {
   let generalService : GeneralService;
   let toastrService : ToastrService;
   let teamService : TeamService;
+  let spy :any;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -36,6 +37,8 @@ describe('AddMemberComponent', () => {
     generalService = TestBed.inject(GeneralService);
     teamService = TestBed.inject(TeamService); */
     toastrService = TestBed.inject(ToastrService); 
+    teamService = TestBed.inject(TeamService); 
+    notificationService = TestBed.inject(NotificationService); 
     fixture = TestBed.createComponent(AddMemberComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -46,12 +49,32 @@ describe('AddMemberComponent', () => {
   });
 
   it('should add team member', () =>{
+    let response : any = "team member added successfully";
+    let checkResult : any = true;
+    spy = spyOn(teamService, 'addTeamMember').and.returnValue(response);
     component.memberGroup.controls.username.setValue(null)
     component.memberGroup.controls.email.setValue(null);
     component.memberGroup.controls.role.setValue(null);
     component.memberGroup.controls.team.setValue(null);
-    let result =component.addTeamMember();
-   
+    component.addTeamMember();
+    expect(teamService.addTeamMember).toHaveBeenCalled();
+  })
+
+
+  it('should throw error for add team member', () =>{
+    let reason : any = {
+      error : {
+        message : "error adding team members"
+      }
+    }
+    let checkResult : any = true;
+    spy = spyOn(teamService, 'addTeamMember').and.throwError(reason);
+    component.memberGroup.controls.username.setValue(null)
+    component.memberGroup.controls.email.setValue(null);
+    component.memberGroup.controls.role.setValue(null);
+    component.memberGroup.controls.team.setValue(null);
+    component.addTeamMember();
+    expect(teamService.addTeamMember).toHaveBeenCalled();
   })
 
   it('should update role', () =>{

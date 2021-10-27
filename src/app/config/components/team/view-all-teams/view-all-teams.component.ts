@@ -55,18 +55,17 @@ public storeDeleteId(teamId : string){
  async deleteTeam(){
   try{
     const data = await this.teamService.deleteTeam(this.deleteId);
-    this.notifyService.showSuccess("team deleted successfully", "");
-    console.log(data);
-
    
+    
   this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
 this.ADCTeams = this.ADCTeams.filter(team => team.teamId != this.deleteId);
 this.powerboardLoginResponse = new PowerboardLoginResponse();
 this.powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
 this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = this.ADCTeams;
  localStorage.setItem('PowerboardDashboard', JSON.stringify(this.powerboardLoginResponse));
+ this.notifyService.showSuccess("team deleted successfully", "");
     this.getAllTeams();
-   
+    console.log(data);
   }
   catch(e){
     console.log(e.error.message);
@@ -90,7 +89,7 @@ async getTeamDetails(teamId:string){
     this.teamDetails.powerboardResponse = data;
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetails));
     this.teamDetailsService.setTeamDetailPermissions();
-    this.generalService.showNavBarIcons = true;
+    this.generalService.setShowNavbarIconsAsTrue();
     this.generalService.checkVisibility();
     this.router.navigate(['/viewTeam']);
   }

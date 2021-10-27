@@ -288,4 +288,16 @@ export class GeneralService {
   async getSlideshowFiles(teamId: string) : Promise<any>{
     return await this.http.get<any>(environment.globalEndPoint + environment.getSlideshowFilesEndpoint + teamId).toPromise();
     }
+
+    public IsShowNavBarIcons(){
+      return this.showNavBarIcons;
+    }
+
+    public setShowNavbarIconsAsTrue(){
+      this.showNavBarIcons = true;
+    }
+
+    public setShowNavbarIconsAsFalse(){
+      this.showNavBarIcons = false;
+    }
 }

@@ -8,7 +8,6 @@ import { SetupService } from 'src/app/config/services/setup.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { EditTeamComponent } from './edit-team.component';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { TeamsResponse } from 'src/app/config/model/config.model';
 
 describe('EditTeamComponent', () => {
@@ -16,6 +15,8 @@ describe('EditTeamComponent', () => {
   let fixture: ComponentFixture<EditTeamComponent>;
   let generalService : GeneralService;
   let setupService : SetupService;
+  let spy :any;
+  let spy2 :any;
   let notificationService : NotificationService;
   
 
@@ -29,12 +30,13 @@ describe('EditTeamComponent', () => {
   });
 
   beforeEach(() => {
+    
     localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     fixture = TestBed.createComponent(EditTeamComponent);
     component = fixture.componentInstance;
-    generalService = TestBed.inject(GeneralService);
     setupService = TestBed.inject(SetupService);
+    generalService = TestBed.inject(GeneralService);
     notificationService = TestBed.inject(NotificationService);
     fixture.detectChanges();
   });
@@ -48,7 +50,7 @@ describe('EditTeamComponent', () => {
     expect(component.team.adCenter).toEqual("SampleCenter");
   })
 
-  it('should delete logo', () =>{
+  /* it('should delete logo', () =>{
     let teamDetails : TeamsResponse = {
       teamId: null,
       teamName: null,
@@ -60,8 +62,37 @@ describe('EditTeamComponent', () => {
     component.setDeleteLogo().catch(e =>{
       expect(e).toBeTruthy();
     })
+  }) */
+
+
+  /* it('should call set delete Logo', () =>{
+   
+    let teamDetails : TeamsResponse = {
+      teamId: "testDetelelogo",
+      teamName: "testteamNsme",
+      teamCode: "testteamcode",
+      projectKey : "testprojectkey",
+      adCenter: "testadCenter"
+    }
+    component.team = teamDetails;
+    spy = spyOn(setupService, 'deleteLogo');
+    spy2 = spyOn(notificationService, 'showSuccess');
+    component.setDeleteLogo();
+    expect(setupService.deleteLogo).toHaveBeenCalled();
+    expect(component.isLogo).toEqual(false);
   })
 
+  it('should throw error for set delete logo', () =>{
+    let response :any ={
+      error : {
+        message : "error deleting logo"
+      }
+    }
+    spy = spyOn(setupService, 'deleteLogo').and.throwError(response);
+    spy2 = spyOn(notificationService, 'showError');
+    component.setDeleteLogo();
+    expect(setupService.deleteLogo).toHaveBeenCalled();
+  }) */
 
   it('should update team details', () =>{
     component.form.controls['teamName'].setValue(null);

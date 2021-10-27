@@ -16,7 +16,10 @@ export class ConfigComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.generalService.showNavBarIcons){
+    this.checkNextRoute();
+  }
+  checkNextRoute(){
+    if(this.generalService.IsShowNavBarIcons()){
       console.log("call setup");
       this.router.navigate(['setup'], {relativeTo:this.route});
     }else{

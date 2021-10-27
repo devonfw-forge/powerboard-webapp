@@ -12,6 +12,8 @@ describe('AddLinksComponent', () => {
   let component: AddLinksComponent;
   let fixture: ComponentFixture<AddLinksComponent>;
   let notifyService : NotificationService;
+  let setupService : SetupService;
+  let spy :any;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[HttpClientTestingModule],
@@ -22,6 +24,7 @@ describe('AddLinksComponent', () => {
   });
 
   beforeEach(() => {
+    setupService = TestBed.inject(SetupService);
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
     fixture = TestBed.createComponent(AddLinksComponent);
     component = fixture.componentInstance;
@@ -47,23 +50,33 @@ describe('AddLinksComponent', () => {
 
 
   it('should submit data on adding link', () =>{
-    component.addLink = null;
-    component.onSubmit().catch(e =>{
-      expect(e).toBeTruthy();
-    })
-    expect(component.error).toEqual(false);
+    let response :any ={
+      error : {
+        message : "error adding link"
+      }
+    }
+    spy = spyOn(setupService, 'addLink').and.throwError(response);
+    component.addLink.controls.linkName.setValue("TestingLink");
+    component.addLink.controls.linkType.setValue("Meeting_Link");
+    component.addLink.controls.links.setValue("www.TestingLink.com");
+    component.addLink.controls.teamId.setValue("TestingTeamId");
+    component.onSubmit();
+    expect(setupService.addLink).toHaveBeenCalled();
      })
 
      it('should submit data', () =>{
-       component.addLink.controls.linkName.setValue("");
-       component.addLink.controls.linkType.setValue("");
-       component.addLink.controls.links.setValue("");
-       component.addLink.controls.teamId.setValue("");
+       let response: any = "newLink"
+      spy = spyOn(setupService, 'addLink').and.returnValue(response);
+       component.addLink.controls.linkName.setValue("TestingLink");
+       component.addLink.controls.linkType.setValue("Meeting_Link");
+       component.addLink.controls.links.setValue("www.TestingLink.com");
+       component.addLink.controls.teamId.setValue("TestingTeamId");
        component.onSubmit();
-       expect(component.error).toEqual(true);
+       expect(component.error).toEqual(false);
      })
 
 
+  
      it('should update link',() =>{
        let link : LinksCategory = {
         linkId: "12233",

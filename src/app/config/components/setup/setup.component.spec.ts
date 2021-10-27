@@ -9,9 +9,9 @@ describe('SetupComponent', () => {
   let component: SetupComponent;
   let fixture: ComponentFixture<SetupComponent>;
   let route: ActivatedRoute; 
-  /* let router = {
+  let router = {
     navigate: jasmine.createSpy('navigate')
-  } */
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -33,14 +33,27 @@ describe('SetupComponent', () => {
     expect(component).toBeTruthy();
   });
  
-  /* it('should show team link',() =>{
+  it('should show team link',() =>{
     component.showTeamLink();
-    expect(router.navigate).toHaveBeenCalledWith('configure-links');
-  }) */
+    expect(router.navigate).toBeTruthy();
+  })
 
+  it('should show multimedia',() =>{
+    component.showMultimedia();
+    expect(router.navigate).toBeTruthy();
+  })
+
+  it('should show view team member',() =>{
+    component.showViewTeamMember();
+    expect(router.navigate).toBeTruthy();
+  })
+
+  it('should show edit team',() =>{
+    component.showEditTeam();
+    expect(router.navigate).toBeTruthy();
+  })
 
   it('should change active',() =>{
     component.changeActive(1);
-  
   })
 });

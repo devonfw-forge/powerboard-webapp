@@ -43,20 +43,15 @@ export class AddLinksComponent implements OnInit {
     console.log(this.addLink.value);
     try{
     const data= await this.setupService.addLink(this.addLink.value);
+    this.receiveAddedLink =  data;
+    this.addLink.reset();
+    this.error=false;
+    this.selectedLinkType='select Type';
     this.notifyService.showSuccess("Link added successfully","");
-
-
-    this.receiveAddedLink = await data;
     /* this.addedLink.teamLinkId = this.receiveAddedLink.id;
     this.addedLink.linkName = this.receiveAddedLink.linkName;
     this.addedLink.linkType = this.receiveAddedLink.linkType.title;
     this.addedLink.links = this.receiveAddedLink.link; */
-    
-
-
-    this.addLink.reset();
-    this.error=false;
-    this.selectedLinkType='select Type';
     console.log(data);
     return this.receiveAddedLink;
   }
