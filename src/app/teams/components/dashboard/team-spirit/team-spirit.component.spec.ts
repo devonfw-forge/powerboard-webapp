@@ -10,7 +10,21 @@ import { TeamSpiritComponent } from './team-spirit.component';
 describe('TeamSpiritComponent', () => {
   let component: TeamSpiritComponent;
   let fixture: ComponentFixture<TeamSpiritComponent>;
- 
+  let teamDetailsResponse : any = 
+  {
+    powerboardResponse: {
+        dashboard: {
+            clientStatus: {
+                clientSatisfactionRating: 5,
+                sprintNumber: 10
+            },
+            teamSpirit: {
+                teamSpiritRating: 5
+            }
+        }
+    }
+   
+}
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,7 +35,22 @@ describe('TeamSpiritComponent', () => {
   });
 
   beforeEach(() => {
-    localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
+
+    var store = {};
+
+    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+      return store[key];
+    });
+    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+      return store[key] = value + '';
+    });
+    spyOn(localStorage, 'clear').and.callFake(function () {
+        store = {};
+    });
+  
+    localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
+
+    
     fixture = TestBed.createComponent(TeamSpiritComponent);
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     component = fixture.componentInstance;
@@ -50,6 +79,14 @@ describe('TeamSpiritComponent', () => {
     let teamDetails = TeamDetailsResponse;
     teamDetails.powerboardResponse.dashboard.teamSpirit.teamSpiritRating = 3;
  localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
+expect(component).toBeTruthy();
+
+})
+
+it('should check all conditions for mid value of team spirit rating', () =>{
+  let teamDetails = teamDetailsResponse;
+  teamDetails.powerboardResponse.dashboard.teamSpirit.teamSpiritRating = 5;
+localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
 expect(component).toBeTruthy();
 
 })
