@@ -2,8 +2,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { VelocityResponse } from 'src/app/shared/model/general.model';
-
-import TeamDetailsResponse from 'src/app/TeamDetailsResponse.json';
 import { TeamSpiritComponent } from './team-spirit.component';
 
 
@@ -49,10 +47,7 @@ describe('TeamSpiritComponent', () => {
     });
   
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
-
-    
     fixture = TestBed.createComponent(TeamSpiritComponent);
-    localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -76,7 +71,7 @@ describe('TeamSpiritComponent', () => {
  */
 
    it('should check all conditions for lower team spirit rating', () =>{
-    let teamDetails = TeamDetailsResponse;
+    let teamDetails = teamDetailsResponse;
     teamDetails.powerboardResponse.dashboard.teamSpirit.teamSpiritRating = 3;
  localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
 expect(component).toBeTruthy();
@@ -92,7 +87,7 @@ expect(component).toBeTruthy();
 })
 
 it('should check all conditions for higher team spirit rating', () =>{
- let teamDetails = TeamDetailsResponse;
+ let teamDetails = teamDetailsResponse;
  teamDetails.powerboardResponse.dashboard.teamSpirit.teamSpiritRating = 9;
 localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
 expect(component).toBeTruthy();
