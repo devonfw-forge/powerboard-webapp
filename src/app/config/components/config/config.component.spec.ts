@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GeneralService } from 'src/app/shared/services/general.service';
 
@@ -11,9 +12,10 @@ describe('ConfigComponent', () => {
   let fixture: ComponentFixture<ConfigComponent>;
   let generalService : GeneralService;
   let spy :any;
-  let router = {
+  /* let router = {
     navigate: jasmine.createSpy('navigate')
-  }
+  } */
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -25,6 +27,7 @@ describe('ConfigComponent', () => {
   });
 
   beforeEach(() => {
+    router = TestBed.inject(Router);
     generalService = TestBed.inject(GeneralService);
     fixture = TestBed.createComponent(ConfigComponent);
     component = fixture.componentInstance;
@@ -32,17 +35,20 @@ describe('ConfigComponent', () => {
   });
 
   it('should create', () => {
+    spyOn(router,'navigate');
     spy = spyOn(generalService, 'IsShowNavBarIcons').and.returnValue(true);
     expect(component).toBeTruthy();
   });
 
 it('should navigate to team',() =>{
+  spyOn(router,'navigate');
   spy = spyOn(generalService, 'IsShowNavBarIcons').and.returnValue(false);
   component.checkNextRoute();
   expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();
 })
 
 it('should navigate to setup',() =>{
+  spyOn(router,'navigate').and.returnValue(null);
   spy = spyOn(generalService, 'IsShowNavBarIcons').and.returnValue(true);
   component.checkNextRoute();
   expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();

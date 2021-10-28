@@ -86,6 +86,7 @@ describe('ViewAllTeamsComponent', () => {
         message : "error deleting team members"
       }
     }
+    
     spy = spyOn(teamService, 'deleteTeam').and.throwError(reason);
     component.deleteTeam();
     expect(teamService.deleteTeam).toHaveBeenCalled();

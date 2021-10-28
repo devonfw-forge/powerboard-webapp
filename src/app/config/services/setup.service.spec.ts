@@ -38,6 +38,7 @@ describe('SetupService', () => {
       result = data;
     }).catch(error => {
       result = error;
+      expect(error.statusText).toEqual("Something went wrong, Please try again in some moment");
     })
     let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/uploadLogo/null");
     req.flush("500 Internal Server Error",{
