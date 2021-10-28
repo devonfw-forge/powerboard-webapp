@@ -43,7 +43,10 @@ export class SlideshowMultimediaComponent implements OnInit {
     this.slideshowFiles = [];
     this.currentIndex = 0;
     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id;
+    console.log(this.teamId)
     const data = await this.generalService.getSlideshowFiles(this.teamId);
+    console.log('Slide show data coming');
+    console.log(data);
     this.slideshowTempFiles = data;
     if(this.slideshowTempFiles.length > 0){
      /*  this.slideshowFiles = this.slideshowFiles.filter(file =>this.isImage(file.fileURL) == true); */
@@ -82,7 +85,6 @@ export class SlideshowMultimediaComponent implements OnInit {
   isImage(url: string) {
     const images = ["jpg", "jpeg", "gif", "png"];
     const videos = ["mp4", "3gp", "ogg"];
-
 
     const tempextension = url.split(".");
     const  extension = tempextension[tempextension.length-1];
