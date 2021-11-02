@@ -88,8 +88,11 @@ describe('MyProjectsComponent', () => {
   });
 
   it('get team details should run',() =>{
+    let result:any;
     spyOn(teamDetailsService, 'processTeamDetails').and.throwError("error getting details");
-    component.getTeamDetails('sampleTeamId');
+    component.getTeamDetails('sampleTeamId').catch(error=>{
+      result = error;
+    });
     expect(teamDetailsService.processTeamDetails).toHaveBeenCalled();
   });
 });

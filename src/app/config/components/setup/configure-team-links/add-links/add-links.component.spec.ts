@@ -29,6 +29,9 @@ describe('AddLinksComponent', () => {
     fixture = TestBed.createComponent(AddLinksComponent);
     component = fixture.componentInstance;
     notifyService = TestBed.inject(NotificationService);
+    const spyObj = jasmine.createSpyObj('notifyService',['showError','showSuccess']);
+    spyObj.showError.and.callThrough();
+    spyObj.showSuccess.and.callFake((data)=>{return data});
     fixture.detectChanges();
   });
 
@@ -55,22 +58,25 @@ describe('AddLinksComponent', () => {
         message : "error adding link"
       }
     }
+    let result : any;
     spy = spyOn(setupService, 'addLink').and.throwError(response);
-    component.addLink.controls.linkName.setValue("TestingLink");
-    component.addLink.controls.linkType.setValue("Meeting_Link");
-    component.addLink.controls.links.setValue("www.TestingLink.com");
-    component.addLink.controls.teamId.setValue("TestingTeamId");
-    component.onSubmit();
+    component.addLink.controls['linkName'].setValue("TestingLink");
+       component.addLink.controls['linkType'].setValue("Meeting_Link");
+       component.addLink.controls['links'].setValue("www.TestingLink.com");
+       component.addLink.controls['teamId'].setValue("TestingTeamId");
+    component.onSubmit().catch((error)=>{
+      result = error;
+    });
     expect(setupService.addLink).toHaveBeenCalled();
      })
 
      it('should submit data', () =>{
        let response: any = "newLink"
       spy = spyOn(setupService, 'addLink').and.returnValue(response);
-       component.addLink.controls.linkName.setValue("TestingLink");
-       component.addLink.controls.linkType.setValue("Meeting_Link");
-       component.addLink.controls.links.setValue("www.TestingLink.com");
-       component.addLink.controls.teamId.setValue("TestingTeamId");
+       component.addLink.controls['linkName'].setValue("TestingLink");
+       component.addLink.controls['linkType'].setValue("Meeting_Link");
+       component.addLink.controls['links'].setValue("www.TestingLink.com");
+       component.addLink.controls['teamId'].setValue("TestingTeamId");
        component.onSubmit();
        expect(component.error).toEqual(false);
      })
@@ -83,6 +89,6 @@ describe('AddLinksComponent', () => {
         linkTitle: "Meeting_Link"
        }
        component.updateLinkType(link);
-       expect(component.addLink.controls.linkType.value).toEqual(link.linkId);
+       expect(component.addLink.controls['linkType'].value).toEqual(link.linkId);
      })
 });

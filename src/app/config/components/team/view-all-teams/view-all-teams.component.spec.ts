@@ -36,6 +36,20 @@ describe('ViewAllTeamsComponent', () => {
   });
 
   beforeEach(() => {
+    var store = {};
+
+    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+      return store[key];
+    });
+    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+      return store[key] = value + '';
+    });
+    spyOn(localStorage, 'clear').and.callFake(function () {
+        store = {};
+    });
+
+
+
     teamService = TestBed.inject(TeamService);
     teamDetailService = TestBed.inject(TeamDetailsService);
     generalService = TestBed.inject(GeneralService);
@@ -43,7 +57,8 @@ describe('ViewAllTeamsComponent', () => {
     localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
     fixture = TestBed.createComponent(ViewAllTeamsComponent);
     component = fixture.componentInstance;
-    httpTestingController = TestBed.inject(HttpTestingController);
+    spyOn(component, 'addTeam').and.callThrough();
+        httpTestingController = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
 
@@ -59,8 +74,11 @@ describe('ViewAllTeamsComponent', () => {
   })
 
   it('get all teams should throw error', () =>{
+    let result:any;
     spy = spyOn(teamService, 'viewAllTeams').and.throwError("error getting team");
-    component.getAllTeams();
+    component.getAllTeams().catch(error=>{
+      result = error;
+    });
     expect(teamService.viewAllTeams).toHaveBeenCalled();
   })
 
@@ -86,9 +104,16 @@ describe('ViewAllTeamsComponent', () => {
         message : "error deleting team members"
       }
     }
-    
+    let result:any;
+    const spyObj = jasmine.createSpyObj('notificationService',['showError']);
+    spyObj.showError.and.callFake((data)=>{
+      return data;
+    });
     spy = spyOn(teamService, 'deleteTeam').and.throwError(reason);
-    component.deleteTeam();
+    component.deleteTeam().catch((error)=>{
+      result = error;
+    });
+
     expect(teamService.deleteTeam).toHaveBeenCalled();
   })
 

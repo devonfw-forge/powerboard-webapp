@@ -28,9 +28,14 @@ describe('ViewAllTeamMembersComponent', () => {
   beforeEach(() => {
     teamService = TestBed.inject(TeamService);
     notificationService = TestBed.inject(NotificationService);
+
+    const spyObj = jasmine.createSpyObj('notificationService',['showError','showSuccess']);
+    spyObj.showError.and.callFake((data)=>{return data});
+    spyObj.showSuccess.and.callFake((data)=>{return data});
     fixture = TestBed.createComponent(ViewAllTeamMembersComponent);
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
     component = fixture.componentInstance;
+    spyOn(component,'addMember').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -46,9 +51,12 @@ describe('ViewAllTeamMembersComponent', () => {
         message : "error viewing team members"
       }
     }
+    let result:any;
     spy = spyOn(teamService, 'viewTeamMembersOfTeam').and.throwError(reason);
     /* spy2 = spyOn(notificationService, 'showError'); */
-    component.viewAllMembers()
+    component.viewAllMembers().catch(error=>{
+      result = error;
+    })
      expect(teamService.viewTeamMembersOfTeam).toHaveBeenCalled();
      /* expect(notificationService.showError).toHaveBeenCalled(); */
     
@@ -89,7 +97,4 @@ describe('ViewAllTeamMembersComponent', () => {
 }) */
 
 
-it('should det current team member', () =>{
-
-})
 });

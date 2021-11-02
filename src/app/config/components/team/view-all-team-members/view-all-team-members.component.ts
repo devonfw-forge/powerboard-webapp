@@ -48,20 +48,16 @@ export class ViewAllTeamMembersComponent implements OnInit {
   }
    
   async deleteMember(){
-  await this.teamService.deleteTeamMember(this.deleteId).then(
-    (data)=>{
-      
-        console.log(data);
-        this.notifyService.showSuccess("team member deleted successfully !!", "");
-      
+    try{
+      const data = await this.teamService.deleteTeamMember(this.deleteId);
+      console.log(data);
+      this.notifyService.showSuccess("team member deleted successfully !!", "");
       this.viewAllMembers();
-    },
-    (reason)=>{
+    }
+    catch(reason){
       console.log("error deleting team member", reason);
       this.notifyService.showError("", reason.error.message);
     }
-  )
-   
   }
   
   

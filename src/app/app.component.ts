@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
 
 
   getTeamName() {
-    if (this.generalService.showNavBarIcons) {
+    if (this.generalService.IsShowNavBarIcons()) {
       if (localStorage.getItem('TeamDetailsResponse') != null) {
         return this.teamName = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_name;
       }
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
   }
 
   highlight(btnName: string) {
-    if (this.generalService.showNavBarIcons) {
+    if (this.generalService.IsShowNavBarIcons()) {
       let dashboard = document.getElementById('dashboard');
       let multimedia = document.getElementById('multimedia');
       if (btnName == 'dashboard') {
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
         multimedia.style.backgroundColor = "#FEFEFE";
         multimedia.style.border = "2px solid #0070AD";
 
-        if (this.generalService.isLinksVisible) {
+        if (this.generalService.getIsLinksVisible()) {
           let links = document.getElementById('links');
           links.style.color = "#0070AD";
           links.style.backgroundColor = "#FEFEFE";
@@ -88,7 +88,7 @@ export class AppComponent implements OnInit {
         multimedia.style.backgroundColor = "#FEFEFE";
         multimedia.style.border = "2px solid #0070AD";
 
-        if (this.generalService.isLinksVisible) {
+        if (this.generalService.getIsLinksVisible()) {
           let links = document.getElementById('links');
           links.style.color = "white";
           links.style.backgroundColor = "#0070AD";
@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
         multimedia.style.backgroundColor = "#0070AD";
         multimedia.style.border = "none";
 
-        if (this.generalService.isLinksVisible) {
+        if (this.generalService.getIsLinksVisible()) {
           let links = document.getElementById('links');
           links.style.color = "#0070AD";
           links.style.backgroundColor = "#FEFEFE";

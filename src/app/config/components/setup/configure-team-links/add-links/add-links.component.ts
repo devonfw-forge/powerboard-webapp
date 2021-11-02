@@ -70,6 +70,6 @@ else{
     const type=link.linkTitle.split('_');
     const outcome= type[0]+' ' +type[1];
     this.selectedLinkType=outcome;
-    this.addLink.controls.linkType.setValue(link.linkId);
+    this.addLink.controls['linkType'].setValue(link.linkId);
   }
 }

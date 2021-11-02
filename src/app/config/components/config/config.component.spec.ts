@@ -37,11 +37,12 @@ describe('ConfigComponent', () => {
   it('should create', () => {
     spyOn(router,'navigate');
     spy = spyOn(generalService, 'IsShowNavBarIcons').and.returnValue(true);
+    spyOn(component,'checkNextRoute').and.callFake(()=>{});
     expect(component).toBeTruthy();
   });
 
 it('should navigate to team',() =>{
-  spyOn(router,'navigate');
+  spyOn(router,'navigate').and.returnValue(null);
   spy = spyOn(generalService, 'IsShowNavBarIcons').and.returnValue(false);
   component.checkNextRoute();
   expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();
