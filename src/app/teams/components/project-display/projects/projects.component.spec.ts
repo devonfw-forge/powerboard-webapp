@@ -26,14 +26,14 @@ describe('ProjectsComponent', () => {
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d489e",
                 "teamName": "Team B",
-                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d489e/logo_B2dd2f2b41-3f0f-44dc-9598-05acc1569771.png",
+                "teamLogo": "TeamlogoB",
                 "myRole": "team_member",
                 "teamStatus": 3
             },
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d490e",
                 "teamName": "Team C",
-                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d490e/logo_Cba48ed82-f863-455e-b87e-141ac186f992.png",
+                "teamLogo": "TeamLogoC",
                 "myRole": "team_admin",
                 "teamStatus": 3
             }
@@ -42,19 +42,19 @@ describe('ProjectsComponent', () => {
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d488e",
                 "teamName": "Team A",
-                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d488e/logo_Aa4aa8e7a-85d6-4b75-8f93-6a11dee9b13c.png",
+                "teamLogo": "TeamLogoA",
                 "teamStatus": 3
             },
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d489e",
                 "teamName": "Team B",
-                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d489e/logo_B2dd2f2b41-3f0f-44dc-9598-05acc1569771.png",
+                "teamLogo": "TeamLogoB",
                 "teamStatus": 3
             },
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d490e",
                 "teamName": "Team C",
-                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d490e/logo_Cba48ed82-f863-455e-b87e-141ac186f992.png",
+                "teamLogo": "TeamLogoC",
                 "teamStatus": 3
             }
         ],
@@ -113,6 +113,7 @@ let powerboardDashboardNew : any = {
       providers : [{provide  : TeamDetailsService, useValue : teamDetailsService},{provide  : GeneralService, useValue : generalService}]
     })
     .compileComponents();
+    teamDetailsService = TestBed.inject(TeamDetailsService);
   });
 
   beforeEach(() => {
@@ -128,7 +129,7 @@ let powerboardDashboardNew : any = {
       store = {};
   });
   localStorage.setItem("PowerboardDashboard",JSON.stringify(powerboardDashboard));
-  teamDetailsService = TestBed.inject(TeamDetailsService);
+  
   generalService = TestBed.inject(GeneralService);
    
     fixture = TestBed.createComponent(ProjectsComponent);
@@ -181,7 +182,7 @@ let powerboardDashboardNew : any = {
     expect(spynew.getTeamsInADCenter).toHaveBeenCalled();
   })  */
 
-  /* it('get team in adc should  run',() =>{
+  it('get team in adc should  run',() =>{
     let request : ADCDetails ={
       centerId : null,
       centerName : null
@@ -197,7 +198,7 @@ let powerboardDashboardNew : any = {
     spyOn(teamDetailsService,'processTeamDetails').and.returnValue(null);
     component.getTeamDetails('sample mock id');
     expect(teamDetailsService.processTeamDetails).toHaveBeenCalled();
-  })  */
+  }) 
   // it('get team details should catch error',() =>{
   //   let response : any ={
   //     error : {
