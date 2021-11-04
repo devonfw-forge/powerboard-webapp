@@ -2,25 +2,42 @@
     <div class="col-md-11  row" style="margin-left: 5%;">
         <div style=" height: 83vh; width:20%;">
             <div style="margin:10px; margin-left: 35px;">
-                <div style="color: #0070AD; font-size: 25px; font-weight: 400;">Multimdedia</div>
+                <div style="color: #0070AD; font-size: 25px; font-weight: 400;">Multimedia</div>
                 <div style="margin-top: 30px;">
                     <a *ngIf="currentFolder == 'seeAll'" (click)="seeAll()" style="color: #0070AD;  font-size: 16px; font-weight: 500; cursor: pointer;">See All</a>
                     <a *ngIf="currentFolder !== 'seeAll'" (click)="seeAll()" style="color: #2b0a3d;  font-size: 16px; font-weight: 500; cursor: pointer;">See All</a>
-                    <div style="margin-top: 5px;">
+
+
+                    <div class="unhighlightedTextArea" *ngIf="currentFolder !== 'Home'">
                       <span class="material-icons-outlined mat-icon">
                           folder
                       </span>
-                       <span *ngIf="currentFolder !== 'Home'"  style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"  (click)="showHomeFiles()"> Home</span>
-                       <span *ngIf="currentFolder == 'Home'"  style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; "  (click)="showHomeFiles()"> Home</span>
-                    
+                       <span  (click)="showHomeFiles()"> Home</span>
                     </div>
+                    <div *ngIf="currentFolder == 'Home'" class="highlightTextArea">
+                        <span class="material-icons-outlined white-mat-icon">
+                            folder
+                        </span>
+                         <span   (click)="showHomeFiles()"> Home</span>
+                      </div>
+
+
+
+
                     <div *ngIf="multimedia.root.length>0">
                         <div style="margin-top: 5px;" *ngFor="let folder of multimedia.root" >
-                            <span class="material-icons-outlined mat-icon">
-                                folder
-                            </span>
-                             <span *ngIf="folder.folderName !== currentFolder" style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"  (click)="getFilesFromFolder(folder.folderId,folder.folderName)"> {{folder.folderName | titlecase}}</span>
-                             <span *ngIf="folder.folderName == currentFolder" style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; "  (click)="getFilesFromFolder(folder.folderId,folder.folderName)"> {{folder.folderName | titlecase}}</span>
+                            <div (click)="getFilesFromFolder(folder.folderId,folder.folderName)" class="unhighlightedTextArea" *ngIf="folder.folderName !== currentFolder">
+                                <span class="material-icons-outlined mat-icon">
+                                    folder
+                                </span>
+                                 <span> {{folder.folderName | titlecase}}</span>
+                              </div>
+                              <div *ngIf="folder.folderName == currentFolder" class="highlightTextArea" (click)="getFilesFromFolder(folder.folderId,folder.folderName)">
+                                  <span class="material-icons-outlined white-mat-icon" >
+                                      folder
+                                  </span>
+                                   <span> {{folder.folderName | titlecase}}</span>
+                                </div>
                         </div>
                     </div>
                 </div>
