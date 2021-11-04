@@ -16,10 +16,23 @@ class MockRouter{
 }
 describe('MyProjectsComponent', () => {
   let component: MyProjectsComponent;
-  
   let fixture: ComponentFixture<MyProjectsComponent>;
-
-
+  let teamDetailsService : TeamDetailsService;
+  let PowerboardDashboard :any = {
+    loginResponse: {
+      homeResponse: {     
+        My_Team: [
+          {
+            teamId: "mockTeamId",
+            teamName: "Team Mock",
+            teamLogo: "mock logo",
+            myRole: "mock role",
+            teamStatus: 3
+          }
+        ]
+      }
+    }
+  }
   beforeEach(async () => {
     
     await TestBed.configureTestingModule({
@@ -33,13 +46,31 @@ describe('MyProjectsComponent', () => {
   });
 
   beforeEach(() => {
-    localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+    var store = {};
+
+  spyOn(localStorage, 'getItem').and.callFake(function (key) {
+    return store[key];
+  });
+  spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+    return store[key] = value + '';
+  });
+  spyOn(localStorage, 'clear').and.callFake(function () {
+      store = {};
+  });
+  localStorage.setItem("PowerboardDashboard",JSON.stringify(PowerboardDashboard));
+
+
+    teamDetailsService = TestBed.inject(TeamDetailsService);
     fixture = TestBed.createComponent(MyProjectsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
+    
+    
+    expect(JSON.parse(localStorage.getItem('PowerboardDashboard'))).toEqual(PowerboardDashboard);
+    
     expect(component).toBeTruthy();
   });
 
@@ -51,9 +82,17 @@ describe('MyProjectsComponent', () => {
   }) */
 
   it('get team details should run',() =>{
-    let generalService = TestBed.inject(GeneralService)
-    component.getTeamDetails('46455bf7-ada7-495c-8019-8d7ab76d488e').then((data) => {
-      expect(generalService.showNavBarIcons).toEqual(true);
-    })
-  })
+    spyOn(teamDetailsService, 'processTeamDetails').and.returnValue(null);
+    component.getTeamDetails('sampleTeamId');
+    expect(teamDetailsService.processTeamDetails).toHaveBeenCalled();
+  });
+
+  it('get team details should run',() =>{
+    let result:any;
+    spyOn(teamDetailsService, 'processTeamDetails').and.throwError("error getting details");
+    component.getTeamDetails('sampleTeamId').catch(error=>{
+      result = error;
+    });
+    expect(teamDetailsService.processTeamDetails).toHaveBeenCalled();
+  });
 });

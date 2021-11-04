@@ -23,16 +23,18 @@ describe('EditTeamMemberComponent', () => {
         ConfigService,
         {provide : TeamService, useValue : teamService} ] 
     })
-    .compileComponents();
+    .compileComponents()
+    .then(() => {
+      generalService = TestBed.inject(GeneralService);
+        teamService = TestBed.inject(TeamService);
+    });
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditTeamMemberComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    generalService = TestBed.inject(GeneralService);
-  /*   configService = TestBed.inject(ConfigService); */
-    teamService = TestBed.inject(TeamService);
+  
   });
 
   it('should create', () => {

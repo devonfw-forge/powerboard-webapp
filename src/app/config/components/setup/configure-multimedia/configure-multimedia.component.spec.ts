@@ -20,6 +20,18 @@ describe('ConfigureMultimediaComponent', () => {
   });
 
   beforeEach(() => {
+    var store = {};
+
+    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+      return store[key];
+    });
+    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+      return store[key] = value + '';
+    });
+    spyOn(localStorage, 'clear').and.callFake(function () {
+        store = {};
+    });
+
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     fixture = TestBed.createComponent(ConfigureMultimediaComponent);
     component = fixture.componentInstance;
@@ -142,5 +154,58 @@ it('should check add to slideshow',() =>{
   expect(component.isMasterSel).toEqual(false);
  })
   expect(component.isMasterSel).toEqual(false);
+})
+
+/* it('should check file selection', () =>{
+  component.homeFile.isSelected = false;
+  for(var i = 0; i < component.multimediaFiles.length; i++){
+    if(i%2 == 0){
+      component.multimediaFiles[i].isSelected = true;
+    }
+    else{
+      component.multimediaFiles[i].isSelected = false;
+    }
+  }
+  for(var i = 0; i < component.multimedia.root.length; i++){
+    if(i%2 == 0){
+      component.multimedia.root[i].isSelected = true;
+    }
+    else{
+      component.multimedia.root[i].isSelected = false;
+    }
+  }
+component.currentFolder = "mockCurrentFolder";
+component.checkFilesSelection(1);
+expect(component.homeFile.isSelected).toEqual(false);
+}) */
+
+it('should check File Selection multimedia Files', () =>{
+  component.updateComponent();
+  for(var i = 0; i < component.multimediaFiles.length; i++){
+    if(i%2 == 0){
+      component.multimediaFiles[i].isSelected = true;
+    }
+    else{
+      component.multimediaFiles[i].isSelected = false;
+    }
+  }
+  for(var i = 0; i < component.multimediaFiles.length; i++){
+    if(component.multimediaFiles[i].isSelected){
+      component.checkFilesSelection(i);
+      expect(component.multimediaFiles[i].isSelected).toEqual(false);
+    }
+    else{
+      if(component.currentFolder == component.homeFile.folderName){
+        component.currentFolder = "mockCurrentFolder";
+        component.checkFilesSelection[i];
+        expect(component.multimediaFiles[i].isSelected).toEqual(true);
+      }
+      else{
+        component.currentFolder = component.homeFile.folderName;
+        component.checkFilesSelection[i];
+        expect(component.multimediaFiles[i].isSelected).toEqual(true);
+      }
+    }
+  }
 })
 });

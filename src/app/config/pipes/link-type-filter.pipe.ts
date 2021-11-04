@@ -11,5 +11,6 @@ export class LinkTypeFilterPipe implements PipeTransform {
 
       return result;
     }
+      return linkType;
   }
 }

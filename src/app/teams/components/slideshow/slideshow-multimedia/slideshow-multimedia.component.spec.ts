@@ -63,7 +63,7 @@ expect(component.isImage("testing.png")).toEqual(true);
 expect(component.isImage("testing.mp4")).toEqual(false);
   })
 
-it('should update slide show multimedia component', () =>{
+/* it('should update slide show multimedia component', () =>{
 const slideShowfiles:any=['bannerd8a32383-b767-44e7-b48c-d15fbecc9a49.jpg'];
 const powerboardResponse:any={
   powerboardResponse:{
@@ -76,7 +76,7 @@ jasmine.createSpy('getSlideshowFiles').and.returnValue(slideShowfiles)
 spyOn(component,'isImage').and.returnValue(true);
 expect(component.updateComponent).toBeTruthy();
 //expect(component.isImage).toHaveBeenCalled();
-  })
+  }) */
 
 describe('slideshowControl()',()=>{
     const currentIndex=0;

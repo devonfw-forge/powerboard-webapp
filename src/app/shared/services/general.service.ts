@@ -300,4 +300,7 @@ export class GeneralService {
     public setShowNavbarIconsAsFalse(){
       this.showNavBarIcons = false;
     }
+    public getIsLinksVisible(){
+      return this.isLinksVisible;
+    }
 }

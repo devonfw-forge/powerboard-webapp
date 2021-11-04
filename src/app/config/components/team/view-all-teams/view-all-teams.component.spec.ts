@@ -32,18 +32,34 @@ describe('ViewAllTeamsComponent', () => {
       declarations: [ ViewAllTeamsComponent ],
       providers : [{provide : NotificationService, useValue : notificationService}, {provide : Router, useValue : router}]
     })
-    .compileComponents();
+    .compileComponents()
+    .then(() => {
+      teamService = TestBed.inject(TeamService);
+      teamDetailService = TestBed.inject(TeamDetailsService);
+      generalService = TestBed.inject(GeneralService);
+      notificationService = TestBed.inject(NotificationService);
+    });
   });
 
   beforeEach(() => {
-    teamService = TestBed.inject(TeamService);
-    teamDetailService = TestBed.inject(TeamDetailsService);
-    generalService = TestBed.inject(GeneralService);
-    notificationService = TestBed.inject(NotificationService);
+    var store = {};
+
+    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+      return store[key];
+    });
+    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+      return store[key] = value + '';
+    });
+    spyOn(localStorage, 'clear').and.callFake(function () {
+        store = {};
+    });
+
+
     localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
     fixture = TestBed.createComponent(ViewAllTeamsComponent);
     component = fixture.componentInstance;
-    httpTestingController = TestBed.inject(HttpTestingController);
+    spyOn(component, 'addTeam').and.callThrough();
+        httpTestingController = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
 
@@ -59,8 +75,15 @@ describe('ViewAllTeamsComponent', () => {
   })
 
   it('get all teams should throw error', () =>{
-    spy = spyOn(teamService, 'viewAllTeams').and.throwError("error getting team");
-    component.getAllTeams();
+    let reason : any = {
+      error : {
+        message : "error getting all teams"
+      }
+    }
+    spy = spyOn(teamService, 'viewAllTeams').and.throwError(reason);
+    component.getAllTeams().catch(error=>{
+     let result = error;
+    });
     expect(teamService.viewAllTeams).toHaveBeenCalled();
   })
 
@@ -86,8 +109,16 @@ describe('ViewAllTeamsComponent', () => {
         message : "error deleting team members"
       }
     }
+    let result:any;
+    const spyObj = jasmine.createSpyObj('notificationService',['showError']);
+    spyObj.showError.and.callFake((data)=>{
+      return data;
+    });
     spy = spyOn(teamService, 'deleteTeam').and.throwError(reason);
-    component.deleteTeam();
+    component.deleteTeam().catch((error)=>{
+      result = error;
+    });
+
     expect(teamService.deleteTeam).toHaveBeenCalled();
   })
 

@@ -92,7 +92,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "codeCoverage": true,
-            "codeCoverageExclude": ["src/assets", "src/app/auth/model","src/app/config/model","src/app/teams/model"],
+            "codeCoverageExclude":["src/app/auth/model/auth.model.ts", "src/app/config/model/config.model.ts", "src/app/mocks/auth.service.mock.ts","src/app/mocks/general.service.mock.ts", "src/app/shared/model/general.model.ts"],
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
             "scripts": []

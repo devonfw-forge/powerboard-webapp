@@ -5,7 +5,7 @@
         "project_key": "P12343",
         "center": "ADCenter Bangalore",
         "team_code": "10012345",
-        "logo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d488e/logo_Aa4aa8e7a-85d6-4b75-8f93-6a11dee9b13c.png",
+        "logo": "sample_logo",
         "dashboard": {
             "teamId": "46455bf7-ada7-495c-8019-8d7ab76d488e",
             "codeQuality": {
@@ -13,13 +13,6 @@
                 "codeSmells": 13,
                 "codeCoverage": 85,
                 "status": "PASSED"
-            },
-            "clientStatus": {
-                "clientSatisfactionRating": 8,
-                "sprintNumber": 10
-            },
-            "teamSpirit": {
-                "teamSpiritRating": 8
             },
             "sprintDetail": {
                 "Sprint_current_day": 22,

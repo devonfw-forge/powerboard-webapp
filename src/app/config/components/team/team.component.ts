@@ -10,8 +10,11 @@ export class TeamComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.router.navigate(['viewAllTeams'], {relativeTo:this.route});
+    this.checkRoute();
     
+  }
+  checkRoute(){
+    this.router.navigate(['viewAllTeams'], {relativeTo:this.route});
   }
 
 }
