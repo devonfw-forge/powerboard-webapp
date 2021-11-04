@@ -41,7 +41,7 @@ describe('SlideshowMultimediaComponent', () => {
     .compileComponents().then(() => {
       fixture = TestBed.createComponent(SlideshowMultimediaComponent);
       component = fixture.componentInstance;
-      generalService = TestBed.inject(GeneralService);
+     // generalService = TestBed.inject(GeneralService);
       slideShowService=TestBed.inject(SlideshowService);
       fixture.detectChanges();
     });;
@@ -72,7 +72,7 @@ const powerboardResponse:any={
 }
 spyOn(localStorage,'getItem').and.returnValue(powerboardResponse);
 generalService = TestBed.inject(GeneralService);
-spyOn(generalService,'getSlideshowFiles').and.returnValue(slideShowfiles)
+jasmine.createSpy('getSlideshowFiles').and.returnValue(slideShowfiles)
 spyOn(component,'isImage').and.returnValue(true);
 expect(component.updateComponent).toBeTruthy();
 //expect(component.isImage).toHaveBeenCalled();
