@@ -1,9 +1,11 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GeneralService } from 'src/app/shared/services/general.service';
+import { SetupComponent } from '../setup/setup.component';
+import { TeamComponent } from '../team/team.component';
 
 import { ConfigComponent } from './config.component';
 
@@ -16,10 +18,21 @@ describe('ConfigComponent', () => {
     navigate: jasmine.createSpy('navigate')
   } */
   let router: Router;
-
+  const routes: Routes = [{
+    path: '',
+    component: ConfigComponent,
+    children: [
+      {
+        path: 'team', component: TeamComponent,
+      },
+      {
+        path: 'setup', component: SetupComponent,
+      }
+    ]
+  },]
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports :[RouterTestingModule, HttpClientTestingModule],
+      imports :[RouterTestingModule.withRoutes(routes), HttpClientTestingModule],
       declarations: [ ConfigComponent ],
       providers: [{provide : GeneralService, usevalue : generalService}]
     })

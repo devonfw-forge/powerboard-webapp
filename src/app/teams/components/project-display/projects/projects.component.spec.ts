@@ -182,7 +182,7 @@ let powerboardDashboardNew : any = {
     expect(spynew.getTeamsInADCenter).toHaveBeenCalled();
   })  */
 
-  it('get team in adc should  run',() =>{
+  /* it('get team in adc should  run',() =>{
     let request : ADCDetails ={
       centerId : null,
       centerName : null
@@ -198,7 +198,7 @@ let powerboardDashboardNew : any = {
     spyOn(teamDetailsService,'processTeamDetails').and.returnValue(null);
     component.getTeamDetails('sample mock id');
     expect(teamDetailsService.processTeamDetails).toHaveBeenCalled();
-  }) 
+  })  */
   // it('get team details should catch error',() =>{
   //   let response : any ={
   //     error : {

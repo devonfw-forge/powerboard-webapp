@@ -20,14 +20,17 @@ describe('SetupComponent', () => {
       declarations: [ SetupComponent ],
       providers: []
     })
-    .compileComponents();
+    .compileComponents()
+    .then(() => {
+      router = TestBed.inject(Router);
+      route = TestBed.inject(ActivatedRoute);
+    });
   });
  
   beforeEach(() => {
-    router = TestBed.inject(Router);
+    
     fixture = TestBed.createComponent(SetupComponent);
     component = fixture.componentInstance;
-    route = TestBed.inject(ActivatedRoute);
     fixture.detectChanges();
     
   });

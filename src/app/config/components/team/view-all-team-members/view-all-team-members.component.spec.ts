@@ -22,16 +22,17 @@ describe('ViewAllTeamMembersComponent', () => {
       declarations: [ ViewAllTeamMembersComponent ],
       providers : [{provide : NotificationService, useValue : notificationService}]
     })
-    .compileComponents();
+    .compileComponents()
+    .then(() => {
+      notificationService = TestBed.inject(NotificationService);
+      teamService = TestBed.inject(TeamService);
+      const spyObj = jasmine.createSpyObj('notificationService',['showError','showSuccess']);
+      spyObj.showError.and.callFake((data)=>{return data});
+      spyObj.showSuccess.and.callFake((data)=>{return data});
+    });
   });
 
   beforeEach(() => {
-    teamService = TestBed.inject(TeamService);
-    notificationService = TestBed.inject(NotificationService);
-
-    const spyObj = jasmine.createSpyObj('notificationService',['showError','showSuccess']);
-    spyObj.showError.and.callFake((data)=>{return data});
-    spyObj.showSuccess.and.callFake((data)=>{return data});
     fixture = TestBed.createComponent(ViewAllTeamMembersComponent);
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
     component = fixture.componentInstance;

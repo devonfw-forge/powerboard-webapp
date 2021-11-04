@@ -1,18 +1,35 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ConfigComponent } from '../config/config.component';
 
 import { TeamComponent } from './team.component';
+import { ViewAllTeamsComponent } from './view-all-teams/view-all-teams.component';
 
 describe('TeamComponent', () => {
   let component: TeamComponent;
   let fixture: ComponentFixture<TeamComponent>;
   let router : Router;
 
+
+  const routes: Routes = [{
+    path: '',
+    component: ConfigComponent,
+    children: [
+      {
+        path: 'team', component: TeamComponent,
+        children: [
+          { path: '', redirectTo: 'viewAllTeams', pathMatch: 'full' },
+          { path: 'viewAllTeams', component: ViewAllTeamsComponent },
+        ]
+      }
+    ]
+  },]
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports :[RouterTestingModule, HttpClientTestingModule],
+      imports :[RouterTestingModule.withRoutes(routes), HttpClientTestingModule],
       declarations: [ TeamComponent ]
     })
     .compileComponents();

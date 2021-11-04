@@ -32,7 +32,13 @@ describe('ViewAllTeamsComponent', () => {
       declarations: [ ViewAllTeamsComponent ],
       providers : [{provide : NotificationService, useValue : notificationService}, {provide : Router, useValue : router}]
     })
-    .compileComponents();
+    .compileComponents()
+    .then(() => {
+      teamService = TestBed.inject(TeamService);
+      teamDetailService = TestBed.inject(TeamDetailsService);
+      generalService = TestBed.inject(GeneralService);
+      notificationService = TestBed.inject(NotificationService);
+    });
   });
 
   beforeEach(() => {
@@ -49,11 +55,6 @@ describe('ViewAllTeamsComponent', () => {
     });
 
 
-
-    teamService = TestBed.inject(TeamService);
-    teamDetailService = TestBed.inject(TeamDetailsService);
-    generalService = TestBed.inject(GeneralService);
-    notificationService = TestBed.inject(NotificationService);
     localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
     fixture = TestBed.createComponent(ViewAllTeamsComponent);
     component = fixture.componentInstance;
@@ -74,10 +75,14 @@ describe('ViewAllTeamsComponent', () => {
   })
 
   it('get all teams should throw error', () =>{
-    let result:any;
-    spy = spyOn(teamService, 'viewAllTeams').and.throwError("error getting team");
+    let reason : any = {
+      error : {
+        message : "error getting all teams"
+      }
+    }
+    spy = spyOn(teamService, 'viewAllTeams').and.throwError(reason);
     component.getAllTeams().catch(error=>{
-      result = error;
+     let result = error;
     });
     expect(teamService.viewAllTeams).toHaveBeenCalled();
   })

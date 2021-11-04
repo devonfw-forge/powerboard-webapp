@@ -26,7 +26,12 @@ describe('EditTeamComponent', () => {
       declarations: [ EditTeamComponent ],
       providers: [{provide  : GeneralService, useValue : generalService}, {provide  : SetupService, useValue : setupService}, {provide  : NotificationService, useValue : notificationService}]
     })
-    .compileComponents();
+    .compileComponents()
+    .then(() => {
+      setupService = TestBed.inject(SetupService);
+    generalService = TestBed.inject(GeneralService);
+    notificationService = TestBed.inject(NotificationService);
+    });
   });
 
   beforeEach(() => {
@@ -35,9 +40,6 @@ describe('EditTeamComponent', () => {
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     fixture = TestBed.createComponent(EditTeamComponent);
     component = fixture.componentInstance;
-    setupService = TestBed.inject(SetupService);
-    generalService = TestBed.inject(GeneralService);
-    notificationService = TestBed.inject(NotificationService);
     fixture.detectChanges();
   });
 
