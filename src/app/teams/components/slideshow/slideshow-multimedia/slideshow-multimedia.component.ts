@@ -43,10 +43,9 @@ export class SlideshowMultimediaComponent implements OnInit {
     this.slideshowFiles = [];
     this.currentIndex = 0;
     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id;
-    console.log(this.teamId)
+  
     const data = await this.generalService.getSlideshowFiles(this.teamId);
-    console.log('Slide show data coming');
-    console.log(data);
+    
     this.slideshowTempFiles = data;
     if(this.slideshowTempFiles.length > 0){
      /*  this.slideshowFiles = this.slideshowFiles.filter(file =>this.isImage(file.fileURL) == true); */
@@ -164,26 +163,31 @@ export class SlideshowMultimediaComponent implements OnInit {
 
 
   onPlayerReady(api: VgApiService) {
+    
     this.api = api;
 
     if (this.componentReady) {
       this.api.volume = 0;
     }
 
-    this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe({
+const data=this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe({
       next: this.playVideo.bind(this),
       error: (reason) => {
         console.error('Error while loading video metadata?');
         // console.log(reason);
       }
+      
     });
-    this.api.getDefaultMedia().subscriptions.ended.subscribe({
+    
+    
+   const data1= this.api.getDefaultMedia().subscriptions.ended.subscribe({
       next: this.nextVideo.bind(this),
       error: (reason) => {
         console.error('Error when loaded video metadata?');
         // console.log(reason);
       }
     });
+    
   }
 
 
