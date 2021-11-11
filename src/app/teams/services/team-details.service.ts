@@ -41,11 +41,12 @@ export class TeamDetailsService {
     {
       console.log(this.teamDetailPermissions);
       this.generalService.removeTeamDetailsPermissions(this.teamDetailPermissions);
-      if(localStorage.getItem('TeamDetailsResponse')!=null){
-        this.teamDetailPermissions = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.privileges;
-      }else{
-        this.teamDetailPermissions = [];
-      }
+      const teamDetails = localStorage.getItem('TeamDetailsResponse');
+        if(teamDetails){
+          this.teamDetailPermissions = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.privileges; 
+        }else{
+          this.teamDetailPermissions = [];    
+        }
       
       console.log(this.teamDetailPermissions);
   

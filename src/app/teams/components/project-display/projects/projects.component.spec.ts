@@ -26,14 +26,14 @@ describe('ProjectsComponent', () => {
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d489e",
                 "teamName": "Team B",
-                "teamLogo": "TeamlogoB",
+                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d489e/logo_B2dd2f2b41-3f0f-44dc-9598-05acc1569771.png",
                 "myRole": "team_member",
                 "teamStatus": 3
             },
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d490e",
                 "teamName": "Team C",
-                "teamLogo": "TeamLogoC",
+                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d490e/logo_Cba48ed82-f863-455e-b87e-141ac186f992.png",
                 "myRole": "team_admin",
                 "teamStatus": 3
             }
@@ -42,19 +42,19 @@ describe('ProjectsComponent', () => {
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d488e",
                 "teamName": "Team A",
-                "teamLogo": "TeamLogoA",
+                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d488e/logo_Aa4aa8e7a-85d6-4b75-8f93-6a11dee9b13c.png",
                 "teamStatus": 3
             },
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d489e",
                 "teamName": "Team B",
-                "teamLogo": "TeamLogoB",
+                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d489e/logo_B2dd2f2b41-3f0f-44dc-9598-05acc1569771.png",
                 "teamStatus": 3
             },
             {
                 "teamId": "46455bf7-ada7-495c-8019-8d7ab76d490e",
                 "teamName": "Team C",
-                "teamLogo": "TeamLogoC",
+                "teamLogo": "https://powerboard-test.s3.eu-central-1.amazonaws.com/uploads/uploads/logo/46455bf7-ada7-495c-8019-8d7ab76d490e/logo_Cba48ed82-f863-455e-b87e-141ac186f992.png",
                 "teamStatus": 3
             }
         ],
@@ -106,14 +106,43 @@ let powerboardDashboardNew : any = {
   },
 }
 }
+
+
+class MockTeamDetailsService{
+  getTeamsInADCenter(centerId:string){
+    if(centerId==null || centerId == undefined || centerId=='' || !centerId){
+      let response :any = {
+        error:{
+          message : "error getting teams in AD center"
+        }
+      }
+      throw response;
+    }
+    else{
+      return null;
+    }
+  }
+  processTeamDetails(teamId:string){
+    if(teamId==null || teamId == undefined || teamId=='' || !teamId){
+      let response :any = {
+        error:{
+          message : "error getting teams in AD center"
+        }
+      }
+      throw response;
+    }
+    else{
+      return null;
+    }
+  }
+}
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule],
       declarations: [ ProjectsComponent ],
-      providers : [{provide  : TeamDetailsService, useValue : teamDetailsService},{provide  : GeneralService, useValue : generalService}]
+      providers : [{provide  : TeamDetailsService, useClass : MockTeamDetailsService},{provide  : GeneralService, useValue : generalService}]
     })
     .compileComponents();
-    teamDetailsService = TestBed.inject(TeamDetailsService);
   });
 
   beforeEach(() => {
@@ -125,11 +154,13 @@ let powerboardDashboardNew : any = {
   spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
     return store[key] = value + '';
   });
+  spyOn(localStorage, 'removeItem').and.callFake(function (key) {
+    return store[key] = null;
+  });
   spyOn(localStorage, 'clear').and.callFake(function () {
       store = {};
   });
   localStorage.setItem("PowerboardDashboard",JSON.stringify(powerboardDashboard));
-  
   generalService = TestBed.inject(GeneralService);
    
     fixture = TestBed.createComponent(ProjectsComponent);
@@ -139,24 +170,27 @@ let powerboardDashboardNew : any = {
 
   it('should create', () => {
     
-   const spy = spyOn(component,'getFromLocalStorage').and.returnValue(null);
+   spyOn(component,'getFromLocalStorage').and.returnValue(null);
     expect(component).toBeTruthy();
   });
 
   it('getfromlocalstorage should get details from local storage', ()=>{
-    const spy = spyOn(component,'getTeamsInADC').and.returnValue(null);
+    spyOn(component,'getTeamsInADC').and.returnValue(null);
      component.getFromLocalStorage();
      expect(localStorage.getItem).toHaveBeenCalled();
   }) 
 
-  it('getfromlocalstorage should get details from local storage', ()=>{
+  it('getfromlocalstorage should get details from local storage and teamIn adc is empty', ()=>{
     //should go to if part
     
   localStorage.setItem('PowerboardDashboard',JSON.stringify(powerboardDashboardNew));
     spyOn(component,'getTeamsInADC').and.returnValue(null);
     component.getFromLocalStorage();
     expect(localStorage.getItem).toHaveBeenCalled();
+    localStorage.setItem("PowerboardDashboard",JSON.stringify(powerboardDashboard));
  }) 
+
+
 /* 
  it('get teams in adc should get details', ()=>{
    let mockDetails : ADCDetails = { 
@@ -167,20 +201,35 @@ let powerboardDashboardNew : any = {
 
 
   
- /*  it('get team in adc should throw error on passing null',() =>{
+   it('get team in adc should throw error on passing null',() =>{
     component.updatedCenter = null;
     component.ADC_Center = null;
     let request : ADCDetails ={
       centerId : null,
       centerName : null
     }
-    let error: any ="error getting teams";
-    const spynew = jasmine.createSpyObj('TeamDetailsService',['getTeamsInADCenter']);
-    spynew.getTeamsInADCenter.and.throwError(error);
-    spyOn(component,'updateTeamsInADC').and.returnValue(null);
+    spyOn(component.teamDetailsService,'getTeamsInADCenter');
+    spyOn(component,'updateTeamsInADC').and.callFake(()=>{return null});
     component.getTeamsInADC(request);
-    expect(spynew.getTeamsInADCenter).toHaveBeenCalled();
-  })  */
+    expect(component.teamDetailsService.getTeamsInADCenter).toHaveBeenCalled();
+  })  
+
+  it('should get Team Details',()=>{
+    spyOn(component.teamDetailsService,'processTeamDetails');
+    component.getTeamDetails("mock");
+    expect(component.teamDetailsService.processTeamDetails).toHaveBeenCalled();
+  })
+  it('should catch error for get Team Details',()=>{
+    spyOn(component.teamDetailsService,'processTeamDetails');
+    component.getTeamDetails(undefined);
+    expect(component.teamDetailsService.processTeamDetails).toHaveBeenCalled();
+  })
+
+  it('should update teams in adc',()=>{
+    localStorage.setItem("PowerboardDashboard",JSON.stringify(powerboardDashboard));
+    component.updateTeamsInADC(null);
+    expect(localStorage.setItem).toHaveBeenCalled();
+  })
 
   /* it('get team in adc should  run',() =>{
     let request : ADCDetails ={

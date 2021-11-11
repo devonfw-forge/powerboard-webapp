@@ -3,25 +3,71 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PowerboardResponse, TeamDetailResponse } from 'src/app/shared/model/general.model';
+import { GeneralService } from 'src/app/shared/services/general.service';
 import { environment } from '../../../environments/environment';
 import { GetTeamDetails } from '../model/pbResponse.model';
 import { TeamDetailsService } from './team-details.service';
+import checkData from 'src/app/checkData.json'
+import TeamDetailsResponse from 'src/app/teamDetailsResponse.json' 
+import { Router } from '@angular/router';
 
 describe('TeamDetailsService', () => {
   let service: TeamDetailsService;
   let httpTestingController : HttpTestingController;
-  let response : PowerboardResponse;
   let userIdTeamIdDetails : GetTeamDetails = new GetTeamDetails();
+
+class MockGeneralService{
+  public removeTeamDetailsPermissions(){
+    return null;
+  }
+  public appendPermissions(){
+    return null;
+  }
+  public showNavBarIcons= true;
+  public checkVisibility(){
+    return null;
+  }
+  public storeLastLoggedIn(){
+    return null;
+  }
+
+}
+
+class MockRouter{
+  navigateByUrl(url : string){
+    return url ;
+  }
+}
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[RouterTestingModule, HttpClientTestingModule],
+      providers:[{provide:GeneralService,useClass:MockGeneralService},
+        {provide:Router,useClass:MockRouter}  
+      ]
       
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+
+    var store = {};
+
+  spyOn(localStorage, 'getItem').and.callFake(function (key) {
+    return store[key];
+  });
+  spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+    return store[key] = value + '';
+  });
+  spyOn(localStorage, 'removeItem').and.callFake(function (key) {
+    return store[key] = null;
+  });
+  spyOn(localStorage, 'clear').and.callFake(function () {
+      store = {};
+  });
+  localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+  localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     
     TestBed.configureTestingModule({});
     service = TestBed.inject(TeamDetailsService);
@@ -130,4 +176,56 @@ it('get teams in ADCenter should return data', () =>{
    httpTestingController.expectOne("http://localhost:3001/v1/teams/center/99055bf7-ada7-495c-8019-8d7ab62d488e");
    
 })
+
+
+
+// correct above methods
+
+
+  it('check set permissions of team details and checking get team details permissions',()=>{
+    let permissions: any= ["1223","12334"];
+    service.setPermissionsOfTeamDetails(permissions);
+    expect(permissions).toEqual(service.getTeamDetailPermissions());
+  })
+
+  it('check reset permissions of team details and checking get team details permissions',()=>{
+    service.resetTeamDetailPermissions();
+    expect([]).toEqual(service.getTeamDetailPermissions());
+  })
+
+  it('should set team details permissions',()=>{
+    localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
+    service.setTeamDetailPermissions();
+    expect(localStorage.getItem).toHaveBeenCalled();
+  })
+
+  it('should set team details permissions if team details response is null',()=>{
+    localStorage.removeItem('TeamDetailsResponse');
+    service.setTeamDetailPermissions();
+    expect(localStorage.getItem).toHaveBeenCalled();
+    expect(service.getTeamDetailPermissions()).toEqual([]);
+    localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
+  })
+
+
+  it('should process team details',()=>{
+    let response : any = {};
+    spyOn(service,'getTeamDetails').and.callFake(()=>{return response });
+    spyOn(service,'setTeamDetailPermissions').and.callFake(()=>{return null});
+    service.processTeamDetails("mock team id");
+    expect(service.getTeamDetails).toHaveBeenCalled();
+  })
+
+  it('should process team details catch error',()=>{
+    let response : any = {
+      error :{
+        message : "error getting team Details"
+      }
+    };
+    spyOn(service,'getTeamDetails').and.throwError(response);
+    spyOn(service,'setTeamDetailPermissions').and.callFake(()=>{return null});
+    service.processTeamDetails("mock team id");
+    expect(service.getTeamDetails).toHaveBeenCalled();
+  })
+
 });

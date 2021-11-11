@@ -15,25 +15,21 @@ export class ProjectDisplayComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.checkMyProjects();
+  }
+
+  checkMyProjects(){
     this.generalService.isSettingsVisible=false;
-
     this.generalService.showNavBarIcons = false;
-
     localStorage.removeItem('TeamDetailsResponse');
     this.teamDetailService.setTeamDetailPermissions();
     this.teamDetailService.setPermissionsOfTeamDetails([]);
-
-
     if ((JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.My_Team).length == 0) {
       this.isMyProjects = false;
-
     }
     else {
       this.isMyProjects = true;
     }
-
-
     this.generalService.checkVisibility();
-
   }
 }

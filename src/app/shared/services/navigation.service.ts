@@ -8,7 +8,7 @@ import { GeneralService } from './general.service';
   providedIn: 'root'
 })
 export class NavigationService {
-  private history: string[] = [];
+  public history: string[] = [];
   lastLocation: string;
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   currentLocation: string;
@@ -19,7 +19,7 @@ export class NavigationService {
   ) {
     this.history = [];
     this.router.events.subscribe((event) => {
-      if(!this.slideshowService.isSlideshowRunning){
+      if(!this.slideshowService.getSlideShow()){
         if (event instanceof NavigationEnd) {
           this.history.push(event.urlAfterRedirects);
         }

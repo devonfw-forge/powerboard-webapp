@@ -9,8 +9,7 @@ import { SlideshowService } from '../../services/slideshow.service';
   styleUrls: ['./slideshow.component.css'],
 })
 export class SlideshowComponent implements OnInit {
-    constructor(public electronService: ElectronService,
-      public router: Router, public slideShowService : SlideshowService) 
+    constructor(public router: Router, public slideShowService : SlideshowService) 
       {
   
     

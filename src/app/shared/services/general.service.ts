@@ -261,11 +261,11 @@ export class GeneralService {
     if(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo){
       const path = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
       const tempextension = path.split(".");
-    const  extension = tempextension[tempextension.length-1];
+    const  extension = tempextension[tempextension.length-2];
     const Logo = ["null", "undefined", null, undefined];
-    if(extension.includes(Logo)){
-      return null;
-    }
+      if(extension.includes(Logo[0]) || extension.includes(Logo[1]) || extension.includes(Logo[2]) || extension.includes(Logo[3])){
+        return null;
+      }
       return JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;
     }
     else{

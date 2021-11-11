@@ -23,7 +23,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
   @ViewChild(AddMemberComponent) child;
   @ViewChild(EditTeamMemberComponent) editChild;
    
-    constructor(public settingService : ConfigService, public generalService : GeneralService, private notifyService : NotificationService, public teamService : TeamService) { }
+    constructor(public settingService : ConfigService, public generalService : GeneralService, public notifyService : NotificationService, public teamService : TeamService) { }
    
     async ngOnInit() {  
    
@@ -31,16 +31,15 @@ export class ViewAllTeamMembersComponent implements OnInit {
    
     }
    async viewAllMembers(){
-     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id; 
-     await this.teamService.viewTeamMembersOfTeam(this.teamId).then(
-    (data)=>{
+     try{
+      this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id; 
+      const data = await this.teamService.viewTeamMembersOfTeam(this.teamId);
       this.teamMembers = data;
-    },
-    (reason)=>{
-      console.log("error viewing team members", reason);
-      this.notifyService.showError(reason.error.message,'');
-    }
-  )
+     }
+     catch(e){
+      console.log("error viewing team members", e);
+      this.notifyService.showError(e.error.message,'');
+     }
   }
    
   public storeDeleteId(userteamId : string){
@@ -65,9 +64,11 @@ export class ViewAllTeamMembersComponent implements OnInit {
    
   async addMember(){
     const result=await this.child.addTeamMember();
-    console.log(result);
     if(result){
       await this.viewAllMembers();
+    }
+    else{
+      console.log("failed to add member");
     }
   }
    

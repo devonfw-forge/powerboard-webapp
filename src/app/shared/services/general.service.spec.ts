@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PowerboardLoginResponse } from 'src/app/auth/model/auth.model';
 
+import checkData from 'src/app/checkData.json'
+import TeamDetailsResponse from 'src/app/teamDetailsResponse.json' 
 import { GeneralService } from './general.service';
 
 describe('GeneralService', () => {
@@ -26,6 +28,24 @@ describe('GeneralService', () => {
   });
 
   beforeEach(() => {
+    var store = {};
+
+  spyOn(localStorage, 'getItem').and.callFake(function (key) {
+    return store[key];
+  });
+  spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+    return store[key] = value + '';
+  });
+  spyOn(localStorage, 'removeItem').and.callFake(function (key) {
+    return store[key] = null;
+  });
+  spyOn(localStorage, 'clear').and.callFake(function () {
+      store = {};
+  });
+
+  localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+  localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
+
     TestBed.configureTestingModule({});
     service = TestBed.inject(GeneralService);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -227,5 +247,131 @@ describe('GeneralService', () => {
       statusText : "Something went wrong, Please try again in some moment"
     });
   });
+
+
+
+  it('should set show nav bar icons as true',()=>{
+    service.setShowNavbarIconsAsTrue();
+    expect(service.IsShowNavBarIcons()).toEqual(true);
+  })
+
+  it('should set show nav bar icons as false',()=>{
+    service.setShowNavbarIconsAsFalse();
+    expect(service.IsShowNavBarIcons()).toEqual(false);
+  })
+
+  it('should get getIsLinksVisible',()=>{
+    expect(service.getIsLinksVisible()).toEqual(service.isLinksVisible);
+  })
+
+  it('should get logo path',()=>{
+    expect(service.getLogoPath()).toBeDefined();
+  })
+
+  it('should getLogopath return null if logo is having error',()=>{
+    let newTeamDetails: any ={
+      "powerboardResponse": {
+          "logo": "undefined/sample_logo.jpg",
+          }
+      }
+      localStorage.setItem('TeamDetailsResponse', JSON.stringify(newTeamDetails));
+      expect(service.getLogoPath()).toEqual(null);
+      localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));    
+  })
+
+  it('should getLogopath return null if logo is not there',()=>{
+    let newTeamDetails: any ={
+      "powerboardResponse": {
+          "logo": undefined,
+          }
+      }
+      localStorage.setItem('TeamDetailsResponse', JSON.stringify(newTeamDetails));
+      expect(service.getLogoPath()).toEqual(null);
+      localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));    
+  })
+
+  it('should get powerboard login response to be truthy',()=>{
+    expect(service.getpowerboardLoginResponse()).toBeDefined();
+  })
+
+  it('should get is guest login with set guest login',()=>{
+    service.setisGuestLogin(true);
+    expect(service.getisGuestLogin()).toEqual(true);
+    service.setisGuestLogin(false);
+  })
+
+  it('should check last logged in',()=>{
+    let newResponse :any ={
+      "loginResponse" : {
+        "powerboardResponse": {
+          "team_id": "mockTeamId"
+        }
+      }
+    }
+    service.setpowerboardLoginResponse(newResponse)
+    spyOn(service,'checkVisibility').and.callFake(()=>{return null});
+    service.checkLastLoggedIn();
+    expect(router.navigate).toHaveBeenCalled();
+    localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
+  })
+
+  it('should store last logged in',()=>{
+    service.lastCheckedInProjectId = "mockTeamIDB";
+    service.storeLastLoggedIn();
+    expect(localStorage.getItem).toHaveBeenCalled();
+  })
+
+  it('should store last logged in if my team is empty',()=>{
+    let newPowerboardResponse : any ={
+      "loginResponse": {
+        "userId": "mock user id",
+        "homeResponse": {
+          "My_Team": []
+        }
+      }
+    }
+    localStorage.setItem('PowerboardDashboard', JSON.stringify(newPowerboardResponse));
+    service.storeLastLoggedIn();
+    expect(localStorage.getItem).toHaveBeenCalled();
+    localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+  })
+
+  it('should check visibility',()=>{
+    spyOn(service,'getLoginComplete').and.returnValue(true);
+    service.checkVisibility();
+    expect(service.isHomeVisible).toEqual(true);
+
+  })
+
+  it('should check visibility and make settings true',()=>{
+    let permissions : any = [
+      "add_team_admin",
+      "view_links",
+      "team_configuration"   
+  ];
+  spyOn(service,'getPermissions').and.returnValue(permissions);
+    spyOn(service,'getLoginComplete').and.returnValue(true);
+    service.checkVisibility();
+    expect(service.isHomeVisible).toEqual(true);
+    expect(service.isSettingsVisible).toEqual(true);
+  })
+
+  it('should check visibility and make settings true and show nav bar icons are true',()=>{
+    let permissions : any = [
+      "add_team_admin",
+      "view_links",
+      "team_configuration"   
+  ];
+  spyOn(service,'getPermissions').and.returnValue(permissions);
+    spyOn(service,'getLoginComplete').and.returnValue(true);
+    service.showNavBarIcons = true;
+    service.checkVisibility();
+    expect(service.isHomeVisible).toEqual(true);
+    expect(service.isSettingsVisible).toEqual(true);
+    expect(service.isLinksVisible).toEqual(true);
+  })
+
+
+
 
 });
