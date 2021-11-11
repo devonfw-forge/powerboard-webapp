@@ -2,7 +2,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
 
@@ -45,6 +45,7 @@ describe('SetupService', () => {
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
     });
+    expect(req.request.method).toEqual('POST'); 
   });
 
 
@@ -60,6 +61,7 @@ describe('SetupService', () => {
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
     });
+    expect(req.request.method).toEqual('DELETE'); 
   });
 
   it('delete logo should get error for empty value', () =>{
@@ -74,6 +76,7 @@ describe('SetupService', () => {
       status : 400,
       statusText : "Invalid param id. Number expected"
     });
+    expect(req.request.method).toEqual('DELETE'); 
   });
 
   it('update team should get error for empty team id', () =>{
@@ -88,6 +91,7 @@ describe('SetupService', () => {
       status : 404,
       statusText : "Cannot PUT /v1/teams/team/update/"
     });
+    expect(req.request.method).toEqual('PUT'); 
   });
 
   it('update team should get error for null value', () =>{
@@ -102,6 +106,7 @@ describe('SetupService', () => {
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
     });
+    expect(req.request.method).toEqual('PUT'); 
   });
 
 
@@ -118,6 +123,7 @@ describe('SetupService', () => {
       status : 400,
       statusText : "Invalid param id. Number expected"
     });
+    expect(req.request.method).toEqual('DELETE'); 
   });
 
 
@@ -133,6 +139,7 @@ describe('SetupService', () => {
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
     });
+    expect(req.request.method).toEqual('DELETE'); 
   });
 
 
@@ -144,6 +151,7 @@ describe('SetupService', () => {
       result = error;
     })
     let req = httpTestingController.expectOne("http://localhost:3001/v1/team-links/getLinksCategory");
+    expect(req.request.method).toEqual('GET'); 
   });
 
   it('add link should get error for null value', () =>{
@@ -158,8 +166,96 @@ describe('SetupService', () => {
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
     });
+    expect(req.request.method).toEqual('POST'); 
   });
 
+
+  //add files to team
+  it('add files to team should get error for null', () =>{
+    let result;
+    let file: File = new File([],'sample');
+    service.addFilesToTeam(null,file).then((data) =>{
+      result = data;
+    }).catch(error => {
+      result = error;
+      expect(error.statusText).toEqual("Something went wrong, Please try again in some moment");
+    })
+    let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/uploadFile/null");
+    req.flush("500 Internal Server Error",{
+      status : 500,
+      statusText : "Something went wrong, Please try again in some moment"
+    });
+    expect(req.request.method).toEqual('POST'); 
+  });
+
+//add folder to team
+it('add folder to team should get error for null value', () =>{
+  let result;
+  service.addFolderToTeam(null,null).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/addFolder/null");
+  req.flush("500 Internal Server Error",{
+    status : 500,
+    statusText : "Something went wrong, Please try again in some moment"
+  });
+  expect(req.request.method).toEqual('POST'); 
+});
+
+//add files in subfolder
+
+it('add files in subfolder should get error for null', () =>{
+  let result;
+  let file: File = new File([],'sample');
+  service.addFileInSubFolder(null,null,file).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+    expect(error.statusText).toEqual("Something went wrong, Please try again in some moment");
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/uploadFileToFolder/null/null");
+  req.flush("500 Internal Server Error",{
+    status : 500,
+    statusText : "Something went wrong, Please try again in some moment"
+  });
+  expect(req.request.method).toEqual('POST'); 
+});
+
+//delete files and folders
+
+it('delete files and folders should get error for null value', () =>{
+  let result;
+  service.deleteFilesAndFolders(null,null).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/deleteFilesAndFolders/null");
+  req.flush("500 Internal Server Error",{
+    status : 500,
+    statusText : "Something went wrong, Please try again in some moment"
+  });
+  expect(req.request.method).toEqual('DELETE'); 
+});
+
+
+//Add to slide show
+it('add to slideshow should get error for null value', () =>{
+  let result;
+  service.addToSlideshow(null,null).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/addToSlideshow/null");
+  req.flush("500 Internal Server Error",{
+    status : 500,
+    statusText : "Something went wrong, Please try again in some moment"
+  });
+  expect(req.request.method).toEqual('POST'); 
+});
 
 
 

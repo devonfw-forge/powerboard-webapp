@@ -6,6 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ElectronService, NgxElectronModule } from 'ngx-electron';
 import { LinkTypeFilterPipe } from 'src/app/config/pipes/link-type-filter.pipe';
 import { ShortUrlPipe } from 'src/app/config/pipes/short-url.pipe';
+import { SetupService } from 'src/app/config/services/setup.service';
+import { LinkResponse } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
 import { ConfigureTeamLinksComponent } from './configure-team-links.component';
@@ -14,16 +16,48 @@ describe('ConfigureTeamLinksComponent', () => {
   let fixture: ComponentFixture<ConfigureTeamLinksComponent>;
   let notificationService : NotificationService;
 
+  class MockSetupService{
+    deleteLink(link:string){
+      console.log(link);
+      return null;
+    }
+  } 
+  class MockNotifyService{
+    showError(heading:string,message:string){
+      console.log(heading,message);
+      return null;
+    }
+    showSuccess(heading:string,message:string){
+      console.log(heading,message);
+      return null;
+    }
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule, FormsModule, NgxElectronModule, ReactiveFormsModule],
       declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe ],
-      providers : [{provide : NotificationService, useValue : notificationService}, ElectronService, ChangeDetectorRef]
+      providers : [{provide : NotificationService, useClass:MockNotifyService}, ElectronService, ChangeDetectorRef,
+        {provide:SetupService, useClass:MockSetupService}
+      ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+
+    var store = {};
+
+    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+      return store[key];
+    });
+    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+      return store[key] = value + '';
+    });
+    spyOn(localStorage, 'clear').and.callFake(function () {
+        store = {};
+    });
+
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     fixture = TestBed.createComponent(ConfigureTeamLinksComponent);
     component = fixture.componentInstance;
@@ -39,55 +73,65 @@ describe('ConfigureTeamLinksComponent', () => {
     expect(component.usefullLinks).toBeTruthy();
   })
 
-/*   it('should open link for a web link', () =>{
-    let link : LinkResponse = {
-      teamLinkId: "51055bf8-ada5-495c-8019-8d7ab76d488e",
-      linkName: "testing",
-      linkType: "web_link",
-      links: "www.testingweb.com"
-    }
-  
-    component.openLink(link);
-    expect(link.linkType).toEqual("web_link");
-  
-    
-  }) */
-
-
- /*  it('should open link for a meeting link', () =>{
-    let link : LinkResponse = {
-      teamLinkId: "51055bf8-ada5-495c-8019-8d7ab76d488e",
-      linkName: "testing",
-      linkType: "meeting_link",
-      links: "www.testingMeeting.com"
-    }
-  
-    component.openLink(link);
-    expect(link.linkType).toEqual("meeting_link");
-   
-    
-  }) */
 
   it('should check save selected link', () =>{
     component.saveSeletedLink("104");
     expect(component.selectedLinkId).toEqual("104");
   })
 
-  it('should add and delete Link', () =>{
-    component.addLink().then(() =>{
-      component.saveSeletedLink(component.addedLink.teamLinkId);
-      component.deleteLink();
-      expect(component.addedLink).toBeTruthy();
-    })
+  it('should open link for meeting link',()=>{
+    spyOn(component,'openMeetingLink').and.callFake(()=>{return null});
+    let link : LinkResponse = {
+      teamLinkId: "mock Link id",
+      linkName: "mock link name",
+      linkType: "meeting_link",
+      links: "mock link"
+    }
+    component.openLink(link);
+    expect(component.openMeetingLink).toHaveBeenCalled();
   })
+
+  it('should open link for web link',()=>{
+    spyOn(component,'openTeamLink').and.callFake(()=>{return null});
+    let link : LinkResponse = {
+      teamLinkId: "mock Link id",
+      linkName: "mock link name",
+      linkType: "web_link",
+      links: "mock link"
+    }
+    component.openLink(link);
+    expect(component.openTeamLink).toHaveBeenCalled();
+  })
+
+  it('should open meeting links on window',()=>{
+    spyOn(window,'open').and.callFake(()=>{return null});
+    component.isElectronRunning= false;
+    component.openMeetingLink("mockLink");
+    expect(window.open).toHaveBeenCalled();
+  })
+  it('should open meeting links on window if electron is running',()=>{
+    spyOn(window,'open').and.callFake(()=>{return null});
+    spyOn(window,'close').and.callFake(()=>{return null});
+    component.isElectronRunning= true;
+    component.openMeetingLink("mockLink");
+    expect(window.open).toHaveBeenCalled();
+    component.isElectronRunning= true;
+  })
+
+  it('should open team links on window if electron is not running',()=>{
+    spyOn(window,'open').and.callFake(()=>{return null});
+    component.isElectronRunning= false;
+    component.openTeamLink("mockLink");
+    expect(window.open).toHaveBeenCalled();
+  })
+
+
+  it('should delete link',()=>{
+    component.selectedLinkId = "mock link id";
+    component.deleteLink();
+    expect(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks).toEqual(component.usefullLinks);
+  })
+  
  
 
-  it('should not delete for null ids', () =>{
-    component.saveSeletedLink(null);
-   /*  const spy = spyOn(component.notifyService, 'showError'); */
-    component.deleteLink().catch(e =>{
-      expect(e).toBeTruthy();
-    })
-   /*  expect(spy).toHaveBeenCalled(); */
-  })
 });

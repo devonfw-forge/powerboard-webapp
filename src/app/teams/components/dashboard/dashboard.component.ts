@@ -23,20 +23,23 @@ export class DashboardComponent implements OnInit {
  
   }
   ngAfterViewInit(){
-    this.afterViewCode();
-  }
-  afterViewCode(){
-    if(this.slideshowService.isSlideshowRunning){
+    if(this.slideshowService.getSlideShow()){
       this.intervalID = setTimeout(()=>{
-         if(this.slideshowService.isSlideshowRunning){
+         if(this.slideshowService.getSlideShow()){
            this.slideshowService.moveSlideshowNextComponent();
          }
        },this.interval);
      }
+     else{
+       console.log(" slideshow is not running");
+     }
   }
   ngOnDestroy() {
     if (this.intervalID) {
-      clearInterval(this.intervalID);
+      window.clearInterval(this.intervalID);
+    }
+    else{
+      console.log("no interval ID")
     }
   }
   

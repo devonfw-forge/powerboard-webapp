@@ -11,11 +11,27 @@ describe('DashboardComponent', () => {
  
   let fixture: ComponentFixture<DashboardComponent>;
 
+  class MockSlideshowService{
+    isSlideshowRunning = false;
+    moveSlideshowNextComponent(){
+      return null;
+    }
+    public getSlideShow():boolean{
+      return  this.isSlideshowRunning ;
+       }
+       public startSlideShow(){
+         this.isSlideshowRunning =true;
+       }
+       public stopSlideShow(){
+         this.isSlideshowRunning = false;
+       }
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[RouterTestingModule, HttpClientModule],
       declarations: [ DashboardComponent ],
-      providers:[SlideshowService, ElectronService]
+      providers:[{provide: SlideshowService,useClass:MockSlideshowService}]
     })
     .compileComponents();
   });
@@ -39,4 +55,32 @@ describe('DashboardComponent', () => {
     slideshowService.isSlideshowRunning = true;
     expect(component.intervalID).toBeTruthy();
   }) */
+
+  it('should check ngAfterviewInit when slideshow is running',()=>{
+    component.slideshowService.startSlideShow();
+    component.ngAfterViewInit();
+    expect(component.interval).toBeTruthy();
+  })
+  it('should check ngAfterviewInit when slideshow is not running',()=>{
+    spyOn(console,'log').and.callThrough();
+    component.slideshowService.stopSlideShow();
+    component.ngAfterViewInit();
+    expect(console.log).toHaveBeenCalled();
+  })
+  
+
+  it('should check ngOndestroy',()=>{
+    spyOn(window,'clearInterval').and.callThrough();
+    component.intervalID = 12345;
+    component.ngOnDestroy();
+    expect(window.clearInterval).toHaveBeenCalled();
+
+  })
+  it('should check ngOndestroy',()=>{
+    spyOn(console,'log').and.callThrough();
+    component.intervalID = undefined;
+    component.ngOnDestroy();
+    expect(console.log).toHaveBeenCalled();
+  })
+
 });

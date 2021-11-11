@@ -19,6 +19,18 @@ describe('BurndownComponent', () => {
   });
 
   beforeEach(() => {
+    var store = {};
+
+  spyOn(localStorage, 'getItem').and.callFake(function (key) {
+    return store[key];
+  });
+  spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+    return store[key] = value + '';
+  });
+  spyOn(localStorage, 'clear').and.callFake(function () {
+      store = {};
+  });
+
     fixture = TestBed.createComponent(BurndownComponent);
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     component = fixture.componentInstance;
@@ -26,25 +38,33 @@ describe('BurndownComponent', () => {
   });
 
   it('should create', () => {
+    spyOn(component,'checkWorkUnit').and.callThrough();
     expect(component).toBeTruthy();
   });
 
+  it('should check work unit if value is more than 1',()=>{
+    let newValues : BurndownResponse ={
+      workUnit: "storypoint",
+      remainingDays: 10,
+      remainingWork: 20,
+      count: 30,
+      burndownStatus: "mock status"
+    }
+    component.burnDown = newValues;
+    component.checkWorkUnit();
+    expect(component.unit).toEqual("storypoints");
+  })
 
-  /*  it('should have precise data',inject([HttpClient], async (http:HttpClient) => {
-    let burndown : BurndownResponse = {
-      "workUnit": "story point",
-      "remainingDays": 3,
-      "remainingWork": 122,
-      "count": 107,
-      "burndownStatus": "Behind Time"
-  };
-    
-   let data :any = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.burndown; 
-   component.burnDown = data;
-   
-    fixture.detectChanges();
- expect(component.burnDown).toEqual(burndown);
-   }));  
- */
-
+  it('should check work unit if value is less than 1',()=>{
+    let newValues : BurndownResponse ={
+      workUnit: "storypoint",
+      remainingDays: 10,
+      remainingWork: 0,
+      count: 30,
+      burndownStatus: "mock status"
+    }
+    component.burnDown = newValues;
+    component.checkWorkUnit();
+    expect(component.unit).toEqual("storypoint");
+  })
 });
