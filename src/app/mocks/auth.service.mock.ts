@@ -18,4 +18,10 @@ guestLogin(){
     }
     return loginResponse;
 }
+
+Login(id:string,password:string){
+const loginResponse='login successful'
+
+return loginResponse;
+}
 }

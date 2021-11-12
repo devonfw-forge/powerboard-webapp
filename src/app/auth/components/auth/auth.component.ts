@@ -33,7 +33,7 @@ import { AuthService } from '../../services/auth.service';
 export class AuthComponent implements OnInit {
   private authError: boolean;
   fieldTextType: boolean = false;
-  private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
+  powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   loginForm: FormGroup;
   multimediaPrefix = environment.multimediaPrefix;
   imagePath : string;
