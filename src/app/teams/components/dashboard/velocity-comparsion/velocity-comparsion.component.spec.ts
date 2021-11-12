@@ -122,6 +122,19 @@ describe('VelocityComparsionComponent', () => {
   });
 
   beforeEach(() => {
+    var store = {};
+
+    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+      return store[key];
+    });
+    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+      return store[key] = value + '';
+    });
+    spyOn(localStorage, 'clear').and.callFake(function () {
+        store = {};
+    });
+  
+
     fixture = TestBed.createComponent(VelocityComparsionComponent);
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamResponse));
     component = fixture.componentInstance;

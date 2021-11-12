@@ -14,11 +14,5 @@ export class VelocityComparsionComponent implements OnInit {
   ngOnInit(): void {
     this.velocity = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.velocity;
     this.workUnit =  JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.sprintWorkUnit;
-    if(this.velocity){
-    if(this.velocity.Avg==null){
-      this.velocity.Avg= 90;
-    }
-      }
-   
   }
 }

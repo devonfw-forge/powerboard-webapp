@@ -20,8 +20,7 @@ describe('TeamSpiritComponent', () => {
                 teamSpiritRating: 5
             }
         }
-    }
-   
+    }  
 }
 
   beforeEach(async () => {
@@ -74,7 +73,10 @@ describe('TeamSpiritComponent', () => {
     let teamDetails = teamDetailsResponse;
     teamDetails.powerboardResponse.dashboard.teamSpirit.teamSpiritRating = 3;
  localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
+ component.ngOnInit();
+ expect(component.teamSpirit.teamSpiritRating).toEqual(3);
 expect(component).toBeTruthy();
+localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
 
 })
 
@@ -82,15 +84,36 @@ it('should check all conditions for mid value of team spirit rating', () =>{
   let teamDetails = teamDetailsResponse;
   teamDetails.powerboardResponse.dashboard.teamSpirit.teamSpiritRating = 5;
 localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
+component.ngOnInit();
+ expect(component.teamSpirit.teamSpiritRating).toEqual(5);
 expect(component).toBeTruthy();
-
+localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
 })
 
 it('should check all conditions for higher team spirit rating', () =>{
  let teamDetails = teamDetailsResponse;
  teamDetails.powerboardResponse.dashboard.teamSpirit.teamSpiritRating = 9;
 localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
+component.ngOnInit();
+ expect(component.teamSpirit.teamSpiritRating).toEqual(9);
 expect(component).toBeTruthy();
-
+localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
 })
+
+it('should check else condition for team spirit rating is null', () =>{
+  let newteamDetailsResponse : any = 
+  {
+    powerboardResponse: {
+        dashboard: {
+            teamSpirit: null
+        }
+    }  
+}
+ localStorage.setItem('TeamDetailsResponse', JSON.stringify(newteamDetailsResponse));
+ component.ngOnInit();
+  expect(component.teamSpirit).toEqual(null);
+ expect(component).toBeTruthy();
+ localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
+ })
+
 });

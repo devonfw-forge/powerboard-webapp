@@ -14,7 +14,7 @@ export class NavigationService {
   currentLocation: string;
   constructor(
     private router: Router,
-    private generalService: GeneralService,
+    public generalService: GeneralService,
     private slideshowService: SlideshowService
   ) {
     this.history = [];
@@ -69,22 +69,14 @@ export class NavigationService {
       JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse
         .homeResponse === undefined
     ) {
-      const userId = JSON.parse(localStorage.getItem('PowerboardDashboard'))
-        .loginResponse.userId;
-      const data = await this.generalService.getProjectDetails(userId);
-      this.powerboardLoginResponse = JSON.parse(
-        localStorage.getItem('PowerboardDashboard')
-      );
+      const userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
+      this.powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
+      const data = await this.generalService.getProjectDetails(userId); 
       this.powerboardLoginResponse.loginResponse.homeResponse = data;
-
-      localStorage.setItem(
-        'PowerboardDashboard',
-        JSON.stringify(this.powerboardLoginResponse)
-      );
-      console.log(data);
+      localStorage.setItem('PowerboardDashboard',JSON.stringify(this.powerboardLoginResponse));
     }
     this.generalService.showNavBarIcons = false;
-    this.router.navigate(['teams/projects']);
+    this.router.navigateByUrl('teams/projects');
   }
 
   pushCurrentLocation(){

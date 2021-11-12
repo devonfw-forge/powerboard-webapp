@@ -42,11 +42,11 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
     private teamDetailsService : TeamDetailsService,
     private generalService: GeneralService,
-    private notificationService : NotificationService,
+    public notificationService : NotificationService,
     private changeDetector: ChangeDetectorRef
   ) {
     this.authError = null;
@@ -63,13 +63,14 @@ export class AuthComponent implements OnInit {
 
   async login() {
     try {
-    /*  this.localLoader = true; */
+      this.powerboardLoginResponse = new PowerboardLoginResponse();
       const data = await this.authService.Login(
         this.loginForm.controls['id'].value,
         this.loginForm.controls['password'].value
       );
+      
       this.powerboardLoginResponse = data;
-     /*  this.localLoader = false; */
+     
       this.generalService.setPermissions(
         this.powerboardLoginResponse.loginResponse.privileges
       );
@@ -77,28 +78,19 @@ export class AuthComponent implements OnInit {
         'PowerboardDashboard',
         JSON.stringify(this.powerboardLoginResponse)
       );
-      console.log(this.generalService.getPermissions());
       this.generalService.setLoginComplete(true);
-
-      this.changeDetector.detectChanges();
       this.generalService.setpowerboardLoginResponse(this.powerboardLoginResponse);
-    
-      if (this.powerboardLoginResponse.loginResponse.isPasswordChanged) {
-        
+      if (this.powerboardLoginResponse.loginResponse.isPasswordChanged) {   
         this.generalService.checkLastLoggedIn();
       } else {
         this.router.navigateByUrl('auth/resetpassword');
       }
       this.teamDetailsService.setTeamDetailPermissions();
       this.generalService.checkVisibility();
-      
+      this.changeDetector.detectChanges();
       this.notificationService.showSuccess("", "Login Successful");
     } catch (e) {
-     /*  this.localLoader = false; */
-      console.log(e);
-      
-
-      window.alert(e.error.message);
+       window.alert(e.error.message);
       this.router.navigateByUrl('/');
     }
   }
@@ -135,7 +127,6 @@ export class AuthComponent implements OnInit {
       this.router.navigate(['teams/projects']);
   
     } catch (e) {
-      console.log(e);
       window.alert(e.error.message);
       this.router.navigateByUrl('/');
     }

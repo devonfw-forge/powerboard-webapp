@@ -21,7 +21,7 @@ export class ClientSatisfactionComponent implements OnInit {
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.dashboard.clientStatus;
     if (this.clientStatus) {
-      if (this.clientStatus?.clientSatisfactionRating < 3.3) {
+      if (this.clientStatus.clientSatisfactionRating < 3.3) {
         this.colour = '#c40000';
       } else if (
         this.clientStatus.clientSatisfactionRating > 3.3 &&

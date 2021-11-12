@@ -181,4 +181,93 @@ httpTestingController.expectOne("http://localhost:3001/v1/teams/team/delete/" + 
 })
 })
 
+//delete team member
+
+it('delete team member should get error for null value', () =>{
+  let result;
+  service.deleteTeamMember(null).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/user/delete/userTeam/null");
+  req.flush("500 Internal Server Error",{
+    status : 500,
+    statusText : "Something went wrong, Please try again in some moment"
+  });
+  expect(req.request.method).toEqual('DELETE'); 
+});
+
+
+//update access role
+it('update  access role should get error for empty team id', () =>{
+  let result;
+  service.updateAccessRole(null).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/user/update/userRole");
+  req.flush("404 Not Found",{
+    status : 404,
+    statusText : "Cannot PUT /v1/teams/team/update/"
+  });
+  expect(req.request.method).toEqual('PUT'); 
+});
+
+//view team members
+it('view team members of team types should return data', () =>{
+  let result;
+  service.viewTeamMembersOfTeam(null).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/user/viewAllMemberOfTeam/null");
+  expect(req.request.method).toEqual('GET'); 
+});
+
+//detele team 
+it('delete team should get error for null value', () =>{
+  let result;
+  service.deleteTeam(null).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/team/delete/null");
+  req.flush("500 Internal Server Error",{
+    status : 500,
+    statusText : "Something went wrong, Please try again in some moment"
+  });
+  expect(req.request.method).toEqual('DELETE'); 
+});
+
+//add  team members
+it('add team member should get error for null value', () =>{
+  let result;
+  service.addTeamMember(null).then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/auth/register");
+  req.flush("500 Internal Server Error",{
+    status : 500,
+    statusText : "Something went wrong, Please try again in some moment"
+  });
+  expect(req.request.method).toEqual('POST'); 
+});
+
+//view all teams
+it('view all teams should get error for null data', () =>{
+  let result;
+  service.viewAllTeams().then((data) =>{
+    result = data;
+  }).catch(error => {
+    result = error;
+  })
+  let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/team/viewAllTeams");
+  expect(req.request.method).toEqual('GET'); 
+});
 });

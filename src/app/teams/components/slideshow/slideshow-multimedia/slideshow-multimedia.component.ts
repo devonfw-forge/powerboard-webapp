@@ -25,7 +25,7 @@ export class SlideshowMultimediaComponent implements OnInit {
   is_image : boolean;
   is_video : boolean
 
-  constructor(public slideshowService: SlideshowService, private generalService : GeneralService,  private changeDetector: ChangeDetectorRef) { 
+  constructor(public slideshowService: SlideshowService, public generalService : GeneralService,  private changeDetector: ChangeDetectorRef) { 
     this.slideshowFiles = [];
     this.slideshowTempFiles = [];
     this.currentIndex = 0;
@@ -90,9 +90,15 @@ export class SlideshowMultimediaComponent implements OnInit {
     console.log(extension);
     if (images.includes(extension)) {
       return true;
-    } else if (videos.includes(extension)) {
+    } else {
+      if (videos.includes(extension)) {
       return false;
+      }
+      else{
+        return null;
+      }
     }
+
   }
 
   ngOnDestroy() {
@@ -111,7 +117,6 @@ export class SlideshowMultimediaComponent implements OnInit {
       if(this.currentIndex >= this.slideshowFiles.length){
         console.log("reached end");
         setTimeout(()=>{
-          console.log("move to next component");
           if (this.slideshowService.isSlideshowRunning) {
             this.slideshowService.moveSlideshowNextComponent();
           }

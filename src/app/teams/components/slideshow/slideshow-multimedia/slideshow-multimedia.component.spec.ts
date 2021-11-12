@@ -1,87 +1,3 @@
-// import { HttpClientTestingModule } from '@angular/common/http/testing';
-// import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { of } from 'rxjs';
-// import { GeneralService } from 'src/app/shared/services/general.service';
-// import { SlideshowService } from 'src/app/teams/services/slideshow.service';
-// import { SlideshowMultimediaComponent } from "./slideshow-multimedia.component";
-
-// describe('SlideshowMultimediaComponent', () => {
-
-//   let component: SlideshowMultimediaComponent;
-//   let fixture: ComponentFixture<SlideshowMultimediaComponent>;
-//   let mockedGeneralService:jasmine.SpyObj<GeneralService>;
-//  mockedGeneralService=jasmine.createSpyObj('GeneralService',['getSlideshowFiles']);
-//   let generalService:GeneralService;
-//   let slideShowService: SlideshowService;
-//   beforeEach(() => {
-//    //const spy=jasmine.createSpyObj('GeneralService',['getSlideshowFiles']);
-//     TestBed.configureTestingModule({
-//       imports :[RouterTestingModule, HttpClientTestingModule],
-//       declarations: [ SlideshowMultimediaComponent ],
-//       providers:[{provide :GeneralService, useValue :mockedGeneralService}]
-//     }).compileComponents();
-//     //mockedGeneralService = TestBed.inject(GeneralService);
-//     // spyOn(mockedGeneralService, 'getSlideshowFiles').and.returnValue(of([]));
-//   });
-//   beforeEach(() => {
-//     // TestBed.configureTestingModule({});
-//     // service = TestBed.inject(SlideshowService);
-//     fixture = TestBed.createComponent(SlideshowMultimediaComponent);
-//     component = fixture.componentInstance;
-//    //mockedGeneralService = TestBed.inject(GeneralService);
-//   //let generalService=fixture.debugElement.injector.get(GeneralService); 
-//     slideShowService=TestBed.inject(SlideshowService);
-//     fixture.detectChanges();
-//   });
-// // beforeEach(() => {
-// //   TestBed.configureTestingModule({
-// //         imports :[RouterTestingModule, HttpClientTestingModule],
-// //         declarations: [ SlideshowMultimediaComponent ],
-// //         providers:[generalService]
-// //       }).compileComponents() ;
-// //   });
-//   // beforeEach(() => {
-//   //   // TestBed.configureTestingModule({});
-//   //   // service = TestBed.inject(SlideshowService);
-//   //   fixture = TestBed.createComponent(SlideshowMultimediaComponent);
-//   //   component = fixture.componentInstance;
-//   //  //mockedGeneralService = TestBed.inject(GeneralService);
-//   // let generalService=fixture.debugElement.injector.get(GeneralService);
-  
-  
-//   //   slideShowService=TestBed.inject(SlideshowService);
-//   //   fixture.detectChanges();
-//   // });
- 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-    
-//   });
-
-//   it('should update slide show multimedia component', () =>{
-//     const slideShowfiles:any=['bannerd8a32383-b767-44e7-b48c-d15fbecc9a49.jpg'];
-//     const powerboardResponse:any={
-//       powerboardResponse:{
-//         team_id:'46455bf7-ada7-495c-8019-8d7ab76d488e'
-//       }
-//     }
-//     spyOn(localStorage,'getItem').and.returnValue(powerboardResponse);
-//     mockedGeneralService.getSlideshowFiles.and.returnValue(slideShowfiles);
-//     //let stub=spyOn(generalService,'getSlideshowFiles').and.returnValue(slideShowfiles);
-//     //mockedGeneralService=TestBed.inject(GeneralService)
-//     //generalService = TestBed.inject(GeneralService);
-//     //fixture.whenStable().then()
-//     //spy.getSlideshowFiles
-//     //jasmine.createSpy('getSlideshowFiles').and.returnValue(slideShowfiles)
-//     //spyOn(component,'isImage').and.returnValue(true);
-    
-//     expect(component.updateComponent).toBeTruthy();
-//     //expect(component.isImage).toHaveBeenCalled();
-      
-
-//     });
-//   })
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
@@ -90,6 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IPlayable, VgApiService } from '@videogular/ngx-videogular/core';
 import { ElectronService } from 'ngx-electron';
 import { Observable } from 'rxjs';
+import checkData from 'src/app/checkData.json'
+import TeamDetailsResponse from 'src/app/teamDetailsResponse.json' 
 import { SlideshowFiles } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { SlideshowService } from 'src/app/teams/services/slideshow.service';
@@ -99,8 +17,13 @@ describe('SlideshowMultimediaComponent', () => {
 
 
   class MockedGeneralService{
-    getSlideshowFiles(){
-      const slideShowfiles:any=['bannerd8a32383-b767-44e7-b48c-d15fbecc9a49.jpg'];
+    getSlideshowFiles(teamId:any){
+      const slideShowfiles:SlideshowFiles[]=[{
+        fileURL:'bannerd8a32383-b767-44e7-b48c-d15fbecc9a49.jpg'
+      },{
+        fileURL:'bannerd8a32383-b767-44e7-b48c-d15fbecc9a49.mp4'
+      }]
+        
       return slideShowfiles;
     }
   }
@@ -132,48 +55,46 @@ describe('SlideshowMultimediaComponent', () => {
     
   // }
   
-  class MockRouter{
-    getItem(){
-      const response:any={
-        powerboardResponse:{
-          team_id:'46455bf7-ada7-495c-8019-8d7ab76d488e'
-        }
-      }
-      return response;
-    }
-  }
 
 
 
   let component: SlideshowMultimediaComponent;
   let fixture: ComponentFixture<SlideshowMultimediaComponent>;
-  let mockedGeneralService:GeneralService;
-  let mockedSlideShowService: SlideshowService;
   // let vgApiService: MockedVgApiService;
   // let mockedVgApiService:MockedVgApiService;
  
   beforeEach(async () => {
-    //vgApiService=new VgApiService();
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientTestingModule],
       declarations: [ SlideshowMultimediaComponent ],
       providers:[
-       //S VgApiService,
         {provide :GeneralService, useClass : MockedGeneralService},
-        {provide:SlideshowService,useClass:MockedSlideShowService},
-       // {provide:VgApiService,useClass:MockedVgApiService},
-        {provide:Router,useClass:MockRouter}]
+        {provide:SlideshowService,useClass:MockedSlideShowService}
+      ] 
     })
-    .compileComponents().then(() => {
+    .compileComponents();
+  });
+  beforeEach(() => {
+    
+    var store = {};
+
+  spyOn(localStorage, 'getItem').and.callFake(function (key) {
+    return store[key];
+  });
+  spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+    return store[key] = value + '';
+  });
+  spyOn(localStorage, 'clear').and.callFake(function () {
+      store = {};
+  });
+
+     localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+    localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
       fixture = TestBed.createComponent(SlideshowMultimediaComponent);
       component = fixture.componentInstance;
-    // mockedGeneralService = TestBed.inject(GeneralService);
-    // mockedSlideShowService=TestBed.inject(SlideshowService);
-     //mockedVgApiService=TestBed.inject(VgApiService);
-      fixture.detectChanges();
-      
-    });;
+      fixture.detectChanges();     
   });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -210,17 +131,21 @@ describe('update component',()=>{
     // expect(component.slideshowControl).toHaveBeenCalled();
       })
 
+      it('should update slide show multimedia component if there is no multimedia file', () =>{
+        
+        //let generalService=new MockedGeneralService;
+        let response : any = "";
+        spyOn(component.generalService,'getSlideshowFiles').and.callFake(()=>{return response});
+        spyOn(component,'isImage').and.callFake(()=>{return true});
+        spyOn(component,'slideshowControl').and.callFake(()=>{return true});
+        component.updateComponent();
+        expect(component.updateComponent).toBeTruthy();
+        // expect(component.isImage).toHaveBeenCalled();
+        // expect(component.slideshowControl).toHaveBeenCalled();
+          })
+
       it('should update slide show multimedia component if there is video file', () =>{
-        const slideShowTempFiles:SlideshowFiles[]=[{
-          fileURL : 'bannerd8a32383-b767-44e7-b48c-d15fbecc9a49.mp4',
-          isImage : false
-        }]
-       component.slideshowTempFiles=slideShowTempFiles;
-         component.slideshowTempFiles.length=1;
-            component.componentReady = false;
-            //component.slideshowTempFiles = [];
-            component.slideshowFiles = [];
-            component.currentIndex = 0;
+        
         
         spyOn(component,'isImage').and.callFake(()=>{return false});
         spyOn(component,'slideshowControl').and.callFake(()=>{return true});
@@ -228,6 +153,8 @@ describe('update component',()=>{
        // expect(component.updateComponent).toHaveBeenCalled();
         expect(component.updateComponent).toBeTruthy();
       })
+
+
 })
  
 
@@ -270,6 +197,7 @@ describe('slideshowControl()',()=>{
     //expect(component.slideshowControl).toHaveBeenCalled();
     expect(component.slideshowControl).toBeTruthy();
     })
+
 })
 
 
@@ -307,6 +235,11 @@ describe('isImage',()=>{
   it(' isImage should return false if the file is a video',()=>{
     const url='video.mp4';
     expect(component.isImage(url)).toBe(false);
+  })
+
+  it(' isImage should return null if the file is neither video nor image',()=>{
+    const url='videoimagemock';
+    expect(component.isImage(url)).toBe(null);
   })
 })
 
@@ -390,12 +323,14 @@ it('should stop the video when it is playing',()=>{
 
 describe('ngOnDestroy()',()=>{
   it('should work properly',()=>{
+    spyOn(window,'clearInterval').and.callFake(()=>{return null})
    component.intervalID='76465879'
 expect(component.ngOnDestroy).toBeTruthy();
   })
 })
 describe('ngOnInit()',()=>{
   it('should work properly',()=>{
+    
     //intervalID=true;
   spyOn(component,'updateComponent').and.callThrough();
   expect(component.ngOnInit).toBeTruthy();

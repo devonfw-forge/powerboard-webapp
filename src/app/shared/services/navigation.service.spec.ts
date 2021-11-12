@@ -6,6 +6,7 @@ import { GeneralService } from './general.service';
 import { SlideshowService } from 'src/app/teams/services/slideshow.service';
 import { NavigationService } from './navigation.service';
 import { Observable } from 'rxjs';
+import checkData from 'src/app/checkData.json';
 
 describe('NavigationService', () => {
   let service: NavigationService;
@@ -32,7 +33,7 @@ class MockSlideshowService {
 class MockGeneralService {
   public getProjectDetails(userId : string){
     console.log(userId);
-    return null;
+    return "";
   }
   public showNavBarIcons = false;
 }
@@ -50,6 +51,19 @@ class MockGeneralService {
   });
 
   beforeEach(() => {
+    var store = {};
+
+    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+      return store[key];
+    });
+    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+      return store[key] = value + '';
+    });
+    spyOn(localStorage, 'clear').and.callFake(function () {
+        store = {};
+    });
+  
+    localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
     TestBed.configureTestingModule({});
     service = TestBed.inject(NavigationService);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -98,33 +112,25 @@ class MockGeneralService {
   })
 
   it('should move to home if homeresponse is not undefined',()=>{
-    spyOn(localStorage,'getItem').and.callFake(()=>{
-      let response : any = {
-        loginResponse :{
-          homeresponse : {
-            id : "1"
-          }
-        }
-      }
-      return response;
-    })
     service.moveToHome();
     expect(localStorage.getItem).toHaveBeenCalled();
   })
 
   it('should move to home if homeresponse is undefined',()=>{
-    spyOn(localStorage,'getItem').and.callFake(()=>{
-      let response : any = {
-        loginResponse :{
-          userId : "mock",
-          homeresponse : undefined
-        }
+    let newPowerBoardResponse : any = {
+      "loginResponse": {
+        "userId": null,
+        "isPasswordChanged": true,
+        "homeResponse": undefined,
+        "privileges": []
       }
-      return response;
-    })
-    spyOn(localStorage,'setItem').and.callFake(()=>{return null});
+    }
+    localStorage.setItem('PowerboardDashboard', JSON.stringify(newPowerBoardResponse));
+    spyOn(service.generalService,'getProjectDetails');
     service.moveToHome();
     expect(localStorage.getItem).toHaveBeenCalled();
-  })
+    expect(service.generalService.getProjectDetails).toHaveBeenCalled();
+    localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+  }) 
 
 });

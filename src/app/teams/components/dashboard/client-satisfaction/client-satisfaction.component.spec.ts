@@ -19,8 +19,7 @@ describe('ClientSatisfactionComponent', () => {
                 teamSpiritRating: 8
             }
         }
-    }
-   
+    } 
 }
   
 
@@ -73,7 +72,10 @@ describe('ClientSatisfactionComponent', () => {
        let teamDetails = teamDetailsResponse;
        teamDetails.powerboardResponse.dashboard.clientStatus.clientSatisfactionRating = 3;
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
+    component.ngOnInit();
+ expect(component.clientStatus.clientSatisfactionRating).toEqual(3);
    expect(component).toBeTruthy();
+   localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
   
    })
 
@@ -82,7 +84,10 @@ describe('ClientSatisfactionComponent', () => {
     let teamDetails = teamDetailsResponse;
     teamDetails.powerboardResponse.dashboard.clientStatus.clientSatisfactionRating = 5;
  localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
+ component.ngOnInit();
+ expect(component.clientStatus.clientSatisfactionRating).toEqual(5);
 expect(component).toBeTruthy();
+localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
 
 })
 
@@ -90,7 +95,25 @@ expect(component).toBeTruthy();
     let teamDetails = teamDetailsResponse;
     teamDetails.powerboardResponse.dashboard.clientStatus.clientSatisfactionRating = 9;
  localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
+ component.ngOnInit();
+ expect(component.clientStatus.clientSatisfactionRating).toEqual(9);
 expect(component).toBeTruthy();
+localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
 
+})
+
+it('should check else conditions for client status is null', () =>{
+  let newteamDetailsResponse : any = 
+  {
+    powerboardResponse: {
+        dashboard: {
+            clientStatus: null,
+        }
+    } 
+}
+localStorage.setItem('TeamDetailsResponse', JSON.stringify(newteamDetailsResponse));
+component.ngOnInit();
+expect(component.clientStatus).toEqual(null);
+localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
 })
 });
