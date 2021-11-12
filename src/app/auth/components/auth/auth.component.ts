@@ -33,7 +33,7 @@ import { AuthService } from '../../services/auth.service';
 export class AuthComponent implements OnInit {
   private authError: boolean;
   fieldTextType: boolean = false;
-  private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
+  powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   loginForm: FormGroup;
   multimediaPrefix = environment.multimediaPrefix;
   imagePath : string;
@@ -68,6 +68,8 @@ export class AuthComponent implements OnInit {
         this.loginForm.controls['id'].value,
         this.loginForm.controls['password'].value
       );
+      // console.log('loginnnnnnnnnnn');
+      // console.log(data);
       this.powerboardLoginResponse = data;
      /*  this.localLoader = false; */
       this.generalService.setPermissions(
@@ -77,7 +79,7 @@ export class AuthComponent implements OnInit {
         'PowerboardDashboard',
         JSON.stringify(this.powerboardLoginResponse)
       );
-      console.log(this.generalService.getPermissions());
+     // console.log(this.generalService.getPermissions());
       this.generalService.setLoginComplete(true);
 
       this.changeDetector.detectChanges();

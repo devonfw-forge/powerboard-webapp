@@ -95,25 +95,12 @@ import { GeneralService } from 'src/app/shared/services/general.service';
 import { SlideshowService } from 'src/app/teams/services/slideshow.service';
 import { SlideshowMultimediaComponent } from './slideshow-multimedia.component';
 import { of } from 'rxjs';
+import { GeneralServiceMock } from 'src/app/mocks/general.service.mock';
+import { MockTeamDetailsService } from 'src/app/mocks/teamDetails.service.mock';
 describe('SlideshowMultimediaComponent', () => {
 
-
-  class MockedGeneralService{
-    getSlideshowFiles(){
-      const slideShowfiles:any=['bannerd8a32383-b767-44e7-b48c-d15fbecc9a49.jpg'];
-      return slideShowfiles;
-    }
-  }
   
-  class MockedSlideShowService{
-    moveSlideshowNextComponent(){
-      return true;
-    }
-    isSlideshowRunning(){
-      return true;
-    }
-   
-  }
+  
   // class MockedVgApiService{
   //   // getState(){
   //   //   return 'playing'
@@ -159,8 +146,8 @@ describe('SlideshowMultimediaComponent', () => {
       declarations: [ SlideshowMultimediaComponent ],
       providers:[
        //S VgApiService,
-        {provide :GeneralService, useClass : MockedGeneralService},
-        {provide:SlideshowService,useClass:MockedSlideShowService},
+        {provide :GeneralService, useClass : GeneralServiceMock},
+        {provide:SlideshowService,useClass:MockTeamDetailsService},
        // {provide:VgApiService,useClass:MockedVgApiService},
         {provide:Router,useClass:MockRouter}]
     })
@@ -247,7 +234,7 @@ describe('slideshowControl()',()=>{
     // component.is_image=true; 
     // component.is_video=false; 
     //spyOn(slideShowService,'moveSlideshowNextComponent').and.callThrough();
-    component.slideshowService.isSlideshowRunning=true;
+    component.slideshowService.isSlideshowRunning==true;
     component.slideshowControl();
     expect(component.slideshowControl).toBeTruthy();
     //expect(component.slideshowControl).toHaveBeenCalled();

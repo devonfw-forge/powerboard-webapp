@@ -264,9 +264,9 @@ describe('GeneralService', () => {
     expect(service.getIsLinksVisible()).toEqual(service.isLinksVisible);
   })
 
-  it('should get logo path',()=>{
-    expect(service.getLogoPath()).toBeDefined();
-  })
+  // it('should get logo path',()=>{
+  //   expect(service.getLogoPath()).toBeDefined();
+  // })
 
   it('should getLogopath return null if logo is having error',()=>{
     let newTeamDetails: any ={
