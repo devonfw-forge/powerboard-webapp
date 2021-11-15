@@ -4,8 +4,20 @@
             <div style="margin:10px; margin-left: 35px;">
                 <div style="color: #0070AD; font-size: 25px; font-weight: 400;">Multimedia</div>
                 <div style="margin-top: 30px;">
-                    <a *ngIf="currentFolder == 'seeAll'" (click)="seeAll()" style="color: #0070AD;  font-size: 16px; font-weight: 500; cursor: pointer;">See All</a>
-                    <a *ngIf="currentFolder !== 'seeAll'" (click)="seeAll()" style="color: #2b0a3d;  font-size: 16px; font-weight: 500; cursor: pointer;">See All</a>
+                    
+
+
+                    <div class="unhighlightedTextArea" *ngIf="currentFolder !== 'seeAll'"> 
+                        <span class="material-icons-outlined mat-icon">
+                            file_copy
+                        </span>
+                         <span  (click)="seeAll()"> See All</span>
+                      </div>
+                      <div *ngIf="currentFolder == 'seeAll'" class="highlightTextArea">
+                           <span   (click)="seeAll()"> See All</span>
+                        </div>
+  
+
 
 
                     <div class="unhighlightedTextArea" *ngIf="currentFolder !== 'Home'">
