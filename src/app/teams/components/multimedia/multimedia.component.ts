@@ -35,7 +35,7 @@ export class MultimediaComponent implements OnInit {
     localPrefix = environment.localPrefix; */
     interval: number = environment.slideshowInterval;
   
-    constructor(private generalService : GeneralService) { 
+    constructor(public generalService : GeneralService) { 
       this.thumbnailData = [];
       this.multimediaFiles = [];
       this.currentFolder = '';
@@ -44,8 +44,8 @@ export class MultimediaComponent implements OnInit {
       /* this.currentPath = ''; */
     
     }
-    async ngOnInit() {
-      await this.updateComponent(); 
+    ngOnInit() {
+      this.updateComponent(); 
     }
   
      updateComponent() {
@@ -246,7 +246,7 @@ export class MultimediaComponent implements OnInit {
   
     ngOnDestroy() {
       if (this.intervalID) {
-        clearInterval(this.intervalID);
+        window.clearInterval(this.intervalID);
       }
     }
   

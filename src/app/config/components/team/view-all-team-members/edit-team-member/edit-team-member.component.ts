@@ -20,7 +20,7 @@ export class EditTeamMemberComponent implements OnInit {
   constructor(
     public configService: ConfigService,
     public generalService: GeneralService,
-    private teamService: TeamService
+    public teamService: TeamService
   ) {
     this.roleName = 'Select Role';
   }
@@ -44,7 +44,15 @@ export class EditTeamMemberComponent implements OnInit {
  
   public async editTeamMember(){
     if(this.currentMember.roleId != this.updateRoleOfMember.roleId){
-      return await this.teamService.updateAccessRole(this.updateRoleOfMember);
+      try{
+        return await this.teamService.updateAccessRole(this.updateRoleOfMember);
+      }
+      catch(e){
+        console.log(e.error.message);
+      }
+    }
+    else{
+      console.log("no changes made");
     }
   }
 }

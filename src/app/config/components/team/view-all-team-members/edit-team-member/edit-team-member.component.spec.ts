@@ -10,24 +10,41 @@ import { EditTeamMemberComponent } from './edit-team-member.component';
 
 describe('EditTeamMemberComponent', () => {
   let component: EditTeamMemberComponent;
-  let generalService : GeneralService;
- /*  let configService : ConfigService; */
-  let teamService : TeamService;
   let fixture: ComponentFixture<EditTeamMemberComponent>;
+
+  class MockConfigureServcie{
+    roles:any =[
+      {
+        roleId:"mock roled id 1",
+        roleName:"mock role name 1"
+      },
+      {
+        roleId:"mock roled id 2",
+        roleName:"mock role name 2"
+      }
+    ]
+  }
+  class MockTeamService{
+    updateAccessRole(updateRoleOfMember){
+      console.log(updateRoleOfMember);
+      return null;
+    }
+  }
+  class MockGeneralService{
+    getPermissions(){
+      return null;
+    }
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[RouterTestingModule, HttpClientTestingModule],
       declarations: [ EditTeamMemberComponent ],
-      providers:[{provide : GeneralService, useValue : generalService},
-        ConfigService,
-        {provide : TeamService, useValue : teamService} ] 
+      providers:[{provide : GeneralService, useClass: MockGeneralService},
+        {provide: ConfigService, useClass : MockConfigureServcie},
+        {provide : TeamService, useClass: MockTeamService} ] 
     })
-    .compileComponents()
-    .then(() => {
-      generalService = TestBed.inject(GeneralService);
-        teamService = TestBed.inject(TeamService);
-    });
+    .compileComponents();
   });
 
   beforeEach(() => {
@@ -43,11 +60,11 @@ describe('EditTeamMemberComponent', () => {
 
 
   it('should get current team member', () =>{
-let memberDetails : TeamMemberDetailsResponse = {
+  let memberDetails : TeamMemberDetailsResponse = {
   userTeamId: "TestingUserTeam",
   userId: "sampleuserId",
   teamId: "sampleTeamid",
-  roleId: "sampleRoleId",
+  roleId: "mock roled id 1",
   userName: "sampleuserName",
   email: "sample.com"
 }
@@ -78,9 +95,52 @@ it('should edit team member', () =>{
   }
   component.currentMember = currentMemberDetails;
   component.updateRoleOfMember = updateMemberDetails;
-  component.editTeamMember().catch(e =>{
-    expect(e).toBeTruthy();
-  })
+  spyOn(component.teamService,'updateAccessRole').and.callFake(()=>{return null});
+  component.editTeamMember()
+  expect(component.teamService.updateAccessRole).toHaveBeenCalled();
+})   
+it('should catch error for edit team member', () =>{
+  let currentMemberDetails : TeamMemberDetailsResponse = {
+    userTeamId: "TestingUserTeam",
+    userId: "sampleuserId",
+    teamId: "sampleTeamid",
+    roleId: "sampleRoleId",
+    userName: "sampleuserName",
+    email: "sample.com"
+  }
+  let updateMemberDetails : UpdateRoles = {
+    userId: null,
+    teamId:  null,
+    roleId: null
+  }
+  let response : any ={
+    error:{message:"error updating access role"}
+  }
+  component.currentMember = currentMemberDetails;
+  component.updateRoleOfMember = updateMemberDetails;
+  spyOn(component.teamService,'updateAccessRole').and.throwError(response);
+  component.editTeamMember()
+  expect(component.teamService.updateAccessRole).toHaveBeenCalled();
+})
 
-})  
+it('should catch error for edit team member', () =>{
+  let currentMemberDetails : TeamMemberDetailsResponse = {
+    userTeamId: "TestingUserTeam",
+    userId: "sampleuserId",
+    teamId: "sampleTeamid",
+    roleId: "sampleRoleId",
+    userName: "sampleuserName",
+    email: "sample.com"
+  }
+  let updateMemberDetails : UpdateRoles = {
+    userId: null,
+    teamId:  null,
+    roleId: "sampleRoleId"
+  }
+  component.currentMember = currentMemberDetails;
+  component.updateRoleOfMember = updateMemberDetails;
+  spyOn(console,'log');
+  component.editTeamMember();
+  expect(console.log).toHaveBeenCalled();
+})
 });
