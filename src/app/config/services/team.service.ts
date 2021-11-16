@@ -2,11 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {
-  TeamInfo,
   TeamMemberDetails,
   TeamsResponse,
-  UpdateRoles,
-  UpdateTeam,
+  UpdateRoles
 } from '../model/config.model';
 
 @Injectable({

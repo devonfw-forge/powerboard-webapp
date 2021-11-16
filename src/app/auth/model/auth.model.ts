@@ -37,7 +37,7 @@ export class TeamDetails
 {
 teamId: string;
 teamLogo? : string;
-teamName : String;
+teamName : string;
 myRole? : string;
 teamStatus? : number;
 

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { HostListener, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { rm } from 'fs';
 import { environment } from '../../../environments/environment';
 import {
   HomeResponse,

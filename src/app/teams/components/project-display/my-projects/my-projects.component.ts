@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-  PowerboardResponse,
-  TeamDetailResponse,
-} from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { SlideshowService } from 'src/app/teams/services/slideshow.service';
-import { GetTeamDetails } from '../../../model/pbResponse.model';
-
 import { TeamDetailsService } from '../../../services/team-details.service';
-import { ProjectTeamDetail } from '../../../model/team.model';
 import { TeamDetails } from 'src/app/auth/model/auth.model';
 
 @Component({

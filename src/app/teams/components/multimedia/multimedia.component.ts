@@ -1,5 +1,4 @@
-import { ElementRef, ViewChild } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { ElementRef, ViewChild, Component, OnInit  } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { MultimediaFilesNew, MultimediaFolderResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
@@ -57,7 +56,7 @@ export class MultimediaComponent implements OnInit {
       this.currentItem = this.multimediaFiles[this.currentIndex].urlName;
      
       for(let folder of this.multimedia.root){
-        if(folder.status == true){
+        if(folder.status){
           this.currentFolder = folder.folderName;
         }
       }

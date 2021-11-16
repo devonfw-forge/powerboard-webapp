@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TeamDetails } from 'src/app/auth/model/auth.model';
 import { PowerboardResponse, TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { GetTeamDetails } from '../model/pbResponse.model';

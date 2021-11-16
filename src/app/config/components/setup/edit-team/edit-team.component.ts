@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ADCListDetails } from 'src/app/teams/model/team.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { TeamsResponse, UpdateTeam } from '../../../model/config.model';
-import { ConfigService } from '../../../services/config.service';
 import { SetupService } from '../../../services/setup.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { environment } from 'src/environments/environment';

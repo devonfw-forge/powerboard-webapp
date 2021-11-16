@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeleteResponse } from 'src/app/config/model/config.model';
-import { MultimediaFilesNew, MultimediaFolderResponse, rootNew, TeamDetailResponse } from 'src/app/shared/model/general.model';
+import { MultimediaFilesNew, MultimediaFolderResponse, RootNew, TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { environment } from 'src/environments/environment';
 import { SetupService } from '../../../services/setup.service';
@@ -16,10 +16,10 @@ export class ConfigureMultimediaComponent implements OnInit {
   currentFolder: string;
   checkStatus : boolean;
   deleteFiles_Folders : DeleteResponse = new DeleteResponse();
-  newSubFolder : rootNew = new rootNew();
+  newSubFolder : RootNew = new RootNew();
   multimedia: MultimediaFolderResponse = new MultimediaFolderResponse();
   multimediaFiles: MultimediaFilesNew[];
-  homeFile:rootNew = new rootNew();
+  homeFile:RootNew = new RootNew();
   isMasterSel: boolean = false;
   folderAddedInSlideshow: string[] = [];
   filesAddedInSlideshow: string[] = [];
@@ -64,7 +64,7 @@ export class ConfigureMultimediaComponent implements OnInit {
 
     this.currentFolder = '';
     for(let folder of this.multimedia.root){
-      if(folder.status == true){
+      if(folder.status){
         this.currentFolder = folder.folderName;
       }
     }
@@ -545,7 +545,7 @@ export class ConfigureMultimediaComponent implements OnInit {
 
   async addFolder() {
     try{
-      this.newSubFolder = new rootNew();
+      this.newSubFolder = new RootNew();
       const data = await this.configureService.addFolderToTeam(this.teamId, this.newFolderName);
       console.log(data);
       this.newSubFolder.folderId = data.id;

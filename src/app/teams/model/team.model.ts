@@ -1,7 +1,7 @@
 export interface ProjectTeamDetail
 {
 teamId: string;
-teamName : String;
+teamName : string;
 
 teamStatus? : number;
 

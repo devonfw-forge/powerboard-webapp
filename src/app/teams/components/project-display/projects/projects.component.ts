@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ADCDetails, PowerboardLoginResponse, TeamDetails } from 'src/app/auth/model/auth.model';
 import {
-  PowerboardResponse,
-  TeamDetailResponse,
+  TeamDetailResponse
 } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
-import { GetTeamDetails } from '../../../model/pbResponse.model';
+
 
 import { ADCListDetails, ProjectTeamDetail } from '../../../model/team.model';
 import { TeamDetailsService } from '../../../services/team-details.service';

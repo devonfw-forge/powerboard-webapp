@@ -1,13 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LinkResponse, LinksCategory } from 'src/app/shared/model/general.model';
+import { LinksCategory } from 'src/app/shared/model/general.model';
 import { environment } from '../../../environments/environment';
 import {
-  ConfigureTeamSpirit,
-  DailyMeetingLinksDetails,
   DeleteResponse,
-  TeamLinksDetails,
-  UpdateTeam,
+  UpdateTeam
 } from '../model/config.model';
 
 @Injectable({

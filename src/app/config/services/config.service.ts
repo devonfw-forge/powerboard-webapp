@@ -1,19 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { environment } from '../../../environments/environment';
 import {
-  ConfigureTeamSpirit,
-  DailyMeetingLinksDetails,
-  GuestDetails,
-  GuestInfo,
   RolesResponse,
-  TeamInfo,
-  TeamLinksDetails,
-  TeamMemberDetails,
-  TeamsResponse,
-  UpdateRoles,
-  UpdateTeam,
+  TeamsResponse
 } from '../model/config.model';
 
 @Injectable({
