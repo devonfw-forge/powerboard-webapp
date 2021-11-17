@@ -25,7 +25,6 @@ export class ConfigureMultimediaComponent implements OnInit {
   filesAddedInSlideshow: string[] = [];
   newFolderName: string = '';
   componentReady: boolean;
-  /* multimediagallery: any; */
   tempPath: string;
   teamDetail: TeamDetailResponse = new TeamDetailResponse();
   multimediaPrefix = environment.multimediaPrefix;
