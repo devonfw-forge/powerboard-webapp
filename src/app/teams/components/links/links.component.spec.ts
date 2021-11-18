@@ -79,10 +79,28 @@ describe('LinksComponent', () => {
     expect(component.counter).toEqual(0)
 
   })
+  it('should  automateWebLinks',()=>{
+   // component.intervalID =1223;
+    // component.ngOnDestroy();
+    const intervalID=134
+    component.automateWebLinks(intervalID);
+    expect(component.automateWebLinks).toBeTruthy();
+    //expect(component.counter).toEqual(0)
+
+  })
   
-  /* it('should open link', () =>{
-    component.isElectronRunning = false;
-    component.openLink("sampleLink.com");
-    expect(component.src).toEqual("sampleLink.com");
-  }) */
+    // it('ngAfterViewInit', () =>{
+    //   var dummyElement = document.createElement('togglebtn');
+    //   document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyElement);
+    //     component.ngAfterViewInit();
+    //     expect(component.ngAfterViewInit).toBeTruthy();
+    // })
+
+
+  //  it('should open link', () =>{
+  //   component.isElectronRunning = false;
+  //   component.openLink("sampleLink.com");
+  //   expect(component.openLink).toBeTruthy();
+  //  // expect(component.src).toEqual("sampleLink.com");
+  // }) 
 });

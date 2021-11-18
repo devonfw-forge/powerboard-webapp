@@ -1,4 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,10 +34,24 @@ describe('ConfigureTeamLinksComponent', () => {
     }
   }
 
+  @Component({selector: 'app-add-links', template: './add-links.component.html'})
+  class MockedAddLinksComponent{
+    onSubmit(){
+    let data={ 
+      linkName:'abc',
+      id:'353987',
+      linkType:{
+        title:'Mock'
+      },
+      link:'abc.com'
+    }
+      return data;
+    }
+  }
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule, FormsModule, NgxElectronModule, ReactiveFormsModule],
-      declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe ],
+      declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe, MockedAddLinksComponent ],
       providers : [{provide : NotificationService, useClass:MockNotifyService}, ElectronService, ChangeDetectorRef,
         {provide:SetupService, useClass:MockSetupService}
       ]
@@ -132,6 +147,16 @@ describe('ConfigureTeamLinksComponent', () => {
     expect(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks).toEqual(component.usefullLinks);
   })
   
+  it('should add link',()=>{
+    component.addedLink={
+      linkName : 'abc',
+      teamLinkId : '67532',
+      linkType :'skype',
+      links : 'abc.com'
+    }
+    component.addLink();
+    expect(component.addLink).toBeTruthy();
+  })
  
 
 });

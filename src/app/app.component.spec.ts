@@ -35,6 +35,11 @@ class MockRouter {
   }
 }
 
+class MockLocation{
+  path(){
+    return '/dashboard'
+  }
+}
 
 beforeEach(async () => {
   await TestBed.configureTestingModule({
@@ -52,6 +57,7 @@ beforeEach(async () => {
      {provide : TeamDetailsService, useClass:MockTeamDetailsService},
      {provide : NavigationService, useClass:NavigationMockService},
      {provide : Router, useClass:MockRouter},
+     {provide : Location, useClass:MockRouter},
     ]
       
   }).compileComponents();
@@ -166,11 +172,11 @@ it('should checkLocation() ', () => {
 
   //app.location.path().includes("/dashboard")==true;
  //spyOn(app,'highlight').and.callThrough()
- var dummyDashboard = document.createElement('dashboard');
-document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
+//  var dummyDashboard = document.createElement('dashboard');
+// document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
 
 //spyOn(location,'path').and.returnValue(true);
-spyOn(app,'highlight').and.callFake;
+spyOn(app,'highlight').and.callThrough();
   app.checkLocation();
   expect(app.checkLocation).toBeTruthy();
 
@@ -195,12 +201,8 @@ it('should moveToSetings() ', () => {
   app.moveToSetings()
   expect(app.moveToSetings).toBeTruthy();
 
-})
-it('should moveToSetings() ', () => {
-  app.moveToSetings()
-  expect(app.moveToSetings).toBeTruthy();
+}),
 
-})
 it('should onKeydownHandler ', () => {
  let event: KeyboardEvent
   app.onKeydownHandler(event);

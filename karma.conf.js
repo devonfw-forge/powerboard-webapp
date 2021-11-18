@@ -32,16 +32,16 @@ module.exports = function (config) {
     },
     reporters: ["progress", "kjhtml"],
     
- sonarQubeUnitReporter: {  
-      sonarQubeVersion: 'LATEST',    
-      outputFile: 'reports/ut_report.xml',    
-      overrideTestDescription: true,   
-      testPaths: ['./src'],    
-      testFilePattern: '.spec.ts',   
-      useBrowserName: false,    
-      browserNoActivityTimeout: 100000,    
-    },    
-    reporters: ['sonarqubeUnit'],
+//  sonarQubeUnitReporter: {  
+//       sonarQubeVersion: 'LATEST',    
+//       outputFile: 'reports/ut_report.xml',    
+//       overrideTestDescription: true,   
+//       testPaths: ['./src'],    
+//       testFilePattern: '.spec.ts',   
+//       useBrowserName: false,    
+//       browserNoActivityTimeout: 100000,    
+//     },    
+//     reporters: ['sonarqubeUnit'],
 
 
     port: 9876,

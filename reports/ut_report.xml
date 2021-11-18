@@ -1,385 +1,440 @@
 <testExecutions version="1">
-  <file path="src/app/config/services/setup.service.spec.ts">
-    <testCase name="SetupService add link should get error for null value" duration="51"/>
-    <testCase name="SetupService delete logo should get error for null value" duration="15"/>
-    <testCase name="SetupService get links types should return data" duration="3"/>
-    <testCase name="SetupService add logo should get error for null" duration="5"/>
-    <testCase name="SetupService delete link should get error for null value" duration="12"/>
-    <testCase name="SetupService should be created" duration="11"/>
-    <testCase name="SetupService delete link should get error for empty value" duration="14"/>
-    <testCase name="SetupService update team should get error for null value" duration="13"/>
-    <testCase name="SetupService add files in subfolder should get error for null" duration="13"/>
-    <testCase name="SetupService update team should get error for empty team id" duration="11"/>
-    <testCase name="SetupService add folder to team should get error for null value" duration="4"/>
-    <testCase name="SetupService delete logo should get error for empty value" duration="4"/>
-    <testCase name="SetupService add files to team should get error for null" duration="6"/>
-    <testCase name="SetupService add to slideshow should get error for null value" duration="3"/>
-    <testCase name="SetupService delete files and folders should get error for null value" duration="6"/>
+  <file path="src/app/auth/components/reset-password/reset-password.component.spec.ts">
+    <testCase name="ResetPasswordComponent should go to home" duration="148"/>
+    <testCase name="ResetPasswordComponent should throw error for reset password" duration="31"/>
+    <testCase name="ResetPasswordComponent should reset password" duration="18"/>
+    <testCase name="ResetPasswordComponent should create" duration="17"/>
   </file>
   <file path="src/app/teams/components/project-display/project-display.component.spec.ts">
-    <testCase name="ProjectDisplayComponent should check team is present" duration="78"/>
-    <testCase name="ProjectDisplayComponent should create" duration="15"/>
-    <testCase name="ProjectDisplayComponent should check team is not present" duration="13"/>
+    <testCase name="ProjectDisplayComponent should create" duration="30"/>
+    <testCase name="ProjectDisplayComponent should check team is present" duration="11"/>
+    <testCase name="ProjectDisplayComponent should check team is not present" duration="8"/>
   </file>
-  <file path="src/app/config/services/team.service.spec.ts">
-    <testCase name="TeamService change team member role should get error for null" duration="6"/>
-    <testCase name="TeamService view all team members should throw error for null " duration="5"/>
-    <testCase name="TeamService should add and delete team" duration="3"/>
-    <testCase name="TeamService view all teams should get error for null data" duration="3"/>
-    <testCase name="TeamService should be created" duration="2"/>
-    <testCase name="TeamService should view all the teams" duration="6"/>
-    <testCase name="TeamService add team member should throw internal server error" duration="7"/>
-    <testCase name="TeamService add team should throw internal server error" duration="2"/>
-    <testCase name="TeamService delete team should get error for null value" duration="2"/>
-    <testCase name="TeamService should add and delete team member" duration="8"/>
-    <testCase name="TeamService add team member should get error for null value" duration="5"/>
-    <testCase name="TeamService view team members of team types should return data" duration="4"/>
-    <testCase name="TeamService update  access role should get error for empty team id" duration="4"/>
-    <testCase name="TeamService delete team member should get error for null value" duration="2"/>
-  </file>
-  <file path="src/app/config/components/team/view-all-team-members/view-all-team-members.component.spec.ts">
-    <testCase name="ViewAllTeamMembersComponent should close" duration="183"/>
-    <testCase name="ViewAllTeamMembersComponent should not add member if returns false" duration="58"/>
-    <testCase name="ViewAllTeamMembersComponent should add member" duration="45"/>
-    <testCase name="ViewAllTeamMembersComponent should set current team member" duration="40"/>
-    <testCase name="ViewAllTeamMembersComponent should edit team member" duration="35"/>
-    <testCase name="ViewAllTeamMembersComponent should edit team member" duration="58"/>
-    <testCase name="ViewAllTeamMembersComponent should delete team member" duration="63"/>
-    <testCase name="ViewAllTeamMembersComponent should store delete id" duration="32"/>
-    <testCase name="ViewAllTeamMembersComponent should  view all team members" duration="69"/>
-    <testCase name="ViewAllTeamMembersComponent should create" duration="35"/>
-    <testCase name="ViewAllTeamMembersComponent should delete team member for null" duration="50"/>
-  </file>
-  <file path="src/app/config/components/team/view-all-team-members/add-member/add-member.component.spec.ts">
-    <testCase name="AddMemberComponent should add team member" duration="38"/>
-    <testCase name="AddMemberComponent should create" duration="29"/>
-    <testCase name="AddMemberComponent should throw error for add team member" duration="29"/>
-    <testCase name="AddMemberComponent should update role" duration="41"/>
-  </file>
-  <file path="src/app/teams/components/multimedia/multimedia.component.spec.ts">
-    <testCase name="MultimediaComponent should show current folder as home if folder status is true" duration="180"/>
-    <testCase name="MultimediaComponent should update component get details from local storage" duration="41"/>
-    <testCase name="MultimediaComponent should update component get details from local storage and current folder is home" duration="76"/>
-    <testCase name="MultimediaComponent should create" duration="52"/>
-    <testCase name="MultimediaComponent should go to next item" duration="106"/>
-    <testCase name="MultimediaComponent should process files" duration="78"/>
-    <testCase name="MultimediaComponent should go to previous item" duration="52"/>
-    <testCase name="MultimediaComponent should get onclick play list item for video as well" duration="29"/>
-    <testCase name="MultimediaComponent should see All files" duration="62"/>
-    <testCase name="MultimediaComponent should catch error for get files from folder" duration="35"/>
-    <testCase name="MultimediaComponent should clear interval Id" duration="51"/>
-    <testCase name="MultimediaComponent should catch error for see All" duration="34"/>
-    <testCase name="MultimediaComponent should show current folder as home if folder status is false" duration="45"/>
-    <testCase name="MultimediaComponent should get files from folder" duration="16"/>
-  </file>
-  <file path="src/app/config/pipes/short-url.pipe.spec.ts">
-    <testCase name="ShortUrlPipe check transform method for len more than 30" duration="1"/>
-    <testCase name="ShortUrlPipe check transform method for len less than 30" duration="1"/>
-    <testCase name="ShortUrlPipe check for mull in tranform method" duration="3"/>
-    <testCase name="ShortUrlPipe create an instance" duration="1"/>
-    <testCase name="ShortUrlPipe check for undefined in tranform method" duration="1"/>
-  </file>
-  <file path="src/app/teams/components/project-display/projects/projects.component.spec.ts">
-    <testCase name="ProjectsComponent should create" duration="37"/>
-    <testCase name="ProjectsComponent should update teams in adc" duration="36"/>
-    <testCase name="ProjectsComponent getfromlocalstorage should get details from local storage and teamIn adc is empty" duration="10"/>
-    <testCase name="ProjectsComponent getfromlocalstorage should get details from local storage" duration="18"/>
-    <testCase name="ProjectsComponent should catch error for get Team Details" duration="34"/>
-    <testCase name="ProjectsComponent should get Team Details" duration="45"/>
-    <testCase name="ProjectsComponent get team in adc should throw error on passing null" duration="20"/>
-  </file>
-  <file path="src/app/config/components/team/view-all-teams/add-team/add-team.component.spec.ts">
-    <testCase name="AddTeamComponent should create" duration="36"/>
-    <testCase name="AddTeamComponent should not add team for null data" duration="30"/>
-    <testCase name="AddTeamComponent should update center" duration="36"/>
-  </file>
-  <file path="src/app/config/components/setup/setup.component.spec.ts">
-    <testCase name="SetupComponent should change active" duration="55"/>
-  </file>
-  <file path="src/app/app.component.spec.ts">
-    <testCase name="AppComponent should get highlight for links" duration="78"/>
-    <testCase name="AppComponent should get highlight for dashboard" duration="12"/>
-    <testCase name="AppComponent should get TeamName" duration="11"/>
-    <testCase name="AppComponent should toggle properly" duration="5"/>
-    <testCase name="AppComponent should moveToSetings() " duration="5"/>
-    <testCase name="AppComponent should confirm logout " duration="6"/>
-    <testCase name="AppComponent should onKeydownHandler " duration="27"/>
-    <testCase name="AppComponent should confirmStay " duration="13"/>
-    <testCase name="AppComponent should go back " duration="10"/>
-    <testCase name="AppComponent should moveToSetings() " duration="9"/>
-    <testCase name="AppComponent should checkLocation() " duration="13"/>
-    <testCase name="AppComponent should get highlight for multimedia" duration="22"/>
-    <testCase name="AppComponent should create" duration="14"/>
-    <testCase name="AppComponent should toggle properly" duration="12"/>
-  </file>
-  <file path="src/app/config/services/config.service.spec.ts">
-    <testCase name="ConfigService should set team details" duration="29"/>
-    <testCase name="ConfigService should got roles" duration="4"/>
-    <testCase name="ConfigService should be created" duration="4"/>
-  </file>
-  <file path="src/app/teams/components/project-display/my-projects/my-projects.component.spec.ts">
-    <testCase name="MyProjectsComponent get team details should run" duration="27"/>
-    <testCase name="MyProjectsComponent get team details should run" duration="14"/>
-    <testCase name="MyProjectsComponent should create" duration="6"/>
-  </file>
-  <file path="src/app/config/components/team/view-all-team-members/edit-team-member/edit-team-member.component.spec.ts">
-    <testCase name="EditTeamMemberComponent should get current team member" duration="5"/>
-    <testCase name="EditTeamMemberComponent should catch error for edit team member" duration="20"/>
-    <testCase name="EditTeamMemberComponent should catch error for edit team member" duration="6"/>
-    <testCase name="EditTeamMemberComponent should edit team member" duration="12"/>
-    <testCase name="EditTeamMemberComponent should update role" duration="9"/>
-    <testCase name="EditTeamMemberComponent should create" duration="9"/>
-  </file>
-  <file path="src/app/shared/services/notification.service.spec.ts">
-    <testCase name="NotificationService should show info" duration="4"/>
-    <testCase name="NotificationService should show success" duration="4"/>
-    <testCase name="NotificationService should be created" duration="6"/>
-    <testCase name="NotificationService should show warning" duration="9"/>
-    <testCase name="NotificationService should show error" duration="5"/>
+  <file path="src/app/config/components/team/team.component.spec.ts">
+    <testCase name="TeamComponent should create" duration="18"/>
+    <testCase name="TeamComponent should check route" duration="20">
+      <failure message="Error">Error: Uncaught (in promise): Error: Cannot match any routes. URL Segment: 'viewAllTeams'
+Error: Cannot match any routes. URL Segment: 'viewAllTeams'
+    at ApplyRedirects.noMatchError (node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js:2628:1)
+    at CatchSubscriber.selector (node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js:2610:1)
+    at CatchSubscriber.error (node_modules/rxjs/_esm2015/internal/operators/catchError.js:27:1)
+    at MapSubscriber._error (node_modules/rxjs/_esm2015/internal/Subscriber.js:75:1)
+    at MapSubscriber.error (node_modules/rxjs/_esm2015/internal/Subscriber.js:55:1)
+    at MapSubscriber._error (node_modules/rxjs/_esm2015/internal/Subscriber.js:75:1)
+    at MapSubscriber.error (node_modules/rxjs/_esm2015/internal/Subscriber.js:55:1)
+    at ThrowIfEmptySubscriber._error (node_modules/rxjs/_esm2015/internal/Subscriber.js:75:1)
+    at ThrowIfEmptySubscriber.error (node_modules/rxjs/_esm2015/internal/Subscriber.js:55:1)
+    at TakeLastSubscriber._error (node_modules/rxjs/_esm2015/internal/Subscriber.js:75:1)
+error properties: Object({ rejection: Error: Cannot match any routes. URL Segment: 'viewAllTeams', promise: [object Promise], zone: Zone({ _parent: Zone({ _parent: Zone({ _parent: Zone({ _parent: null, _name: '&lt;root&gt;', _properties: Object({  }), _zoneDelegate: ZoneDelegate({ _taskCounts: Object({ microTask: 0, macroTask: 0, eventTask: 0 }), zone: &lt;circular reference: Object&gt;, _parentDelegate: null, _forkZS: null, _forkDlgt: null, _forkCurrZone: null, _interceptZS: null, _interceptDlgt: null, _interceptCurrZone: null, _invokeZS: null, _invokeDlgt: null, _invokeCurrZone: null, _handleErrorZS: null, _handleErrorDlgt: null, _handleErrorCurrZone: null, _scheduleTaskZS: null, _scheduleTaskDlgt: null, _scheduleTaskCurrZone: null, _invokeTaskZS: null, _invokeTaskDlgt: null, _invokeTaskCurrZone: null, _cancelTaskZS: null, _cancelTaskDlgt: null, _cancelTaskCurrZone: null, _hasTaskZS: null, _hasTaskDlgt: null, _hasTaskDlgtOwner: null, _hasTaskCurrZone: null }) }), _name: 'ProxyZone', _properties: Object({ Prox ...
+Error: Uncaught (in promise): Error: Cannot match any routes. URL Segment: 'viewAllTeams'
+Error: Cannot match any routes. URL Segment: 'viewAllTeams'
+    at ApplyRedirects.noMatchError (node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js:2628:1)
+    at CatchSubscriber.selector (node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js:2610:1)
+    at CatchSubscriber.error (node_modules/rxjs/_esm2015/internal/operators/catchError.js:27:1)
+    at MapSubscriber._error (node_modules/rxjs/_esm2015/internal/Subscriber.js:75:1)
+    at MapSubscriber.error (node_modules/rxjs/_esm2015/internal/Subscriber.js:55:1)
+    at MapSubscriber._error (node_modules/rxjs/_esm2015/internal/Subscriber.js:75:1)
+    at MapSubscriber.error (node_modules/rxjs/_esm2015/internal/Subscriber.js:55:1)
+    at ThrowIfEmptySubscriber._error (node_modules/rxjs/_esm2015/internal/Subscriber.js:75:1)
+    at ThrowIfEmptySubscriber.error (node_modules/rxjs/_esm2015/internal/Subscriber.js:55:1)
+    at TakeLastSubscriber._error (node_modules/rxjs/_esm2015/internal/Subscriber.js:75:1)
+    at resolvePromise (node_modules/zone.js/dist/zone-evergreen.js:1213:1)
+    at resolvePromise (node_modules/zone.js/dist/zone-evergreen.js:1167:1)
+    at node_modules/zone.js/dist/zone-evergreen.js:1279:1
+    at ZoneDelegate.invokeTask (node_modules/zone.js/dist/zone-evergreen.js:406:1)
+    at ProxyZoneSpec.push.QpwO.ProxyZoneSpec.onInvokeTask (node_modules/zone.js/dist/zone-testing.js:332:1)
+    at ZoneDelegate.invokeTask (node_modules/zone.js/dist/zone-evergreen.js:405:1)
+    at Object.onInvokeTask (node_modules/zone.js/dist/zone-evergreen.js:284:1)
+    at ZoneDelegate.invokeTask (node_modules/zone.js/dist/zone-evergreen.js:405:1)
+    at Object.onInvokeTask (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:28578:1)
+    at ZoneDelegate.invokeTask (node_modules/zone.js/dist/zone-evergreen.js:405:1)
+    at ____________________Elapsed_135_ms__At__Tue_Nov_16_2021_10_41_46_GMT_0530__India_Standard_Time_ (http://localhost)
+    at Object.onScheduleTask (node_modules/zone.js/dist/zone-testing.js:118:1)
+    at ZoneDelegate.scheduleTask (node_modules/zone.js/dist/zone-evergreen.js:386:1)
+    at Object.onScheduleTask (node_modules/zone.js/dist/zone-evergreen.js:283:1)
+    at ZoneDelegate.scheduleTask (node_modules/zone.js/dist/zone-evergreen.js:386:1)
+    at Zone.scheduleTask (node_modules/zone.js/dist/zone-evergreen.js:221:1)
+    at Zone.scheduleMicroTask (node_modules/zone.js/dist/zone-evergreen.js:241:1)
+    at scheduleResolveOrReject (node_modules/zone.js/dist/zone-evergreen.js:1266:1)
+    at resolvePromise (node_modules/zone.js/dist/zone-evergreen.js:1204:1)
+    at ____________________Elapsed_4_ms__At__Tue_Nov_16_2021_10_41_46_GMT_0530__India_Standard_Time_ (http://localhost)
+    at Object.onScheduleTask (node_modules/zone.js/dist/zone-testing.js:118:1)
+    at ZoneDelegate.scheduleTask (node_modules/zone.js/dist/zone-evergreen.js:386:1)
+    at Object.onScheduleTask (node_modules/zone.js/dist/zone-evergreen.js:283:1)
+    at ZoneDelegate.scheduleTask (node_modules/zone.js/dist/zone-evergreen.js:386:1)
+    at Zone.scheduleTask (node_modules/zone.js/dist/zone-evergreen.js:221:1)
+    at Zone.scheduleMicroTask (node_modules/zone.js/dist/zone-evergreen.js:241:1)
+    at scheduleResolveOrReject (node_modules/zone.js/dist/zone-evergreen.js:1266:1)
+    at ZoneAwarePromise.then (node_modules/zone.js/dist/zone-evergreen.js:1410:1)
+</failure>
+    </testCase>
   </file>
   <file path="src/app/auth/components/auth/auth.component.spec.ts">
-    <testCase name="AuthComponent should create" duration="54"/>
-    <testCase name="AuthComponent should make auth error value to false" duration="25"/>
-    <testCase name="AuthComponent should get login complete when isPasswordchanged is true" duration="8"/>
-    <testCase name="AuthComponent should toggle field text type" duration="12"/>
-    <testCase name="AuthComponent should login for guest users" duration="11"/>
-    <testCase name="AuthComponent should get login complete when isPasswordchanged is false" duration="24"/>
-    <testCase name="AuthComponent should login for guest users" duration="15"/>
-    <testCase name="AuthComponent should return auth error value" duration="41"/>
-    <testCase name="AuthComponent should get error for login with null values" duration="23"/>
-  </file>
-  <file path="src/app/teams/components/dashboard/burndown/burndown.component.spec.ts">
-    <testCase name="BurndownComponent should create" duration="25"/>
-    <testCase name="BurndownComponent should check work unit if value is more than 1" duration="16"/>
-    <testCase name="BurndownComponent should check work unit if value is less than 1" duration="8"/>
-  </file>
-  <file path="src/app/teams/components/slideshow/slideshow-multimedia/slideshow-multimedia.component.spec.ts">
-    <testCase name="SlideshowMultimediaComponent nextVideo should not move slide show to Next Component if there is only one component" duration="16"/>
-    <testCase name="SlideshowMultimediaComponent nextVideo should move slide show to Next Component" duration="9"/>
-    <testCase name="SlideshowMultimediaComponent isImage  isImage should return null if the file is neither video nor image" duration="5"/>
-    <testCase name="SlideshowMultimediaComponent isImage  isImage should return false if the file is a video" duration="7"/>
-    <testCase name="SlideshowMultimediaComponent isImage  isImage should return true if the file is an image" duration="8"/>
-    <testCase name="SlideshowMultimediaComponent onTap should stop the video when it is playing" duration="7"/>
-    <testCase name="SlideshowMultimediaComponent onTap should play the video when it is paused" duration="8"/>
-    <testCase name="SlideshowMultimediaComponent playVideo should play the video properly" duration="7"/>
-    <testCase name="SlideshowMultimediaComponent slideshowControl() if the file is image" duration="14"/>
-    <testCase name="SlideshowMultimediaComponent slideshowControl() if the file is video" duration="15"/>
-    <testCase name="SlideshowMultimediaComponent update component should update slide show multimedia component if there is video file" duration="9"/>
-    <testCase name="SlideshowMultimediaComponent update component should update slide show multimedia component if there is no multimedia file" duration="8"/>
-    <testCase name="SlideshowMultimediaComponent update component should update slide show multimedia component if there is any multimedia file" duration="7"/>
-    <testCase name="SlideshowMultimediaComponent onPlayerReady" duration="5"/>
-    <testCase name="SlideshowMultimediaComponent ngOnInit() should work properly" duration="5"/>
-    <testCase name="SlideshowMultimediaComponent ngOnDestroy() should work properly" duration="7"/>
-    <testCase name="SlideshowMultimediaComponent should create" duration="10"/>
-  </file>
-  <file path="src/app/auth/components/reset-password/reset-password.component.spec.ts">
-    <testCase name="ResetPasswordComponent should reset password" duration="53"/>
-    <testCase name="ResetPasswordComponent should throw error for reset password" duration="26"/>
-    <testCase name="ResetPasswordComponent should create" duration="39">
+    <testCase name="AuthComponent should login for guest users" duration="69"/>
+    <testCase name="AuthComponent should get error for login with null values" duration="24">
       <failure message="Error">Unhandled promise rejection: [object Object] thrown
 </failure>
     </testCase>
-    <testCase name="ResetPasswordComponent should go to home" duration="26"/>
+    <testCase name="AuthComponent should login for guest users" duration="19"/>
+    <testCase name="AuthComponent should make auth error value to false" duration="15"/>
+    <testCase name="AuthComponent should return auth error value" duration="11"/>
+    <testCase name="AuthComponent should toggle field text type" duration="11"/>
+    <testCase name="AuthComponent should create" duration="10"/>
+    <testCase name="AuthComponent should get login complete when isPasswordchanged is false" duration="16"/>
+    <testCase name="AuthComponent should get login complete when isPasswordchanged is true" duration="14"/>
   </file>
-  <file path="src/app/shared/services/general.service.spec.ts">
-    <testCase name="GeneralService should get getIsLinksVisible" duration="8"/>
-    <testCase name="GeneralService get slideshow files should throw erorr for null data" duration="9"/>
-    <testCase name="GeneralService should get powerboard login response to be truthy" duration="4"/>
-    <testCase name="GeneralService should check last logged in" duration="5"/>
-    <testCase name="GeneralService get files from team should throw erorr for null data" duration="8"/>
-    <testCase name="GeneralService should getLogopath return null if logo is having error" duration="2"/>
-    <testCase name="GeneralService getProject details should throw erorr for empty data" duration="2"/>
-    <testCase name="GeneralService get files from team should throw erorr for empty data" duration="4"/>
-    <testCase name="GeneralService should check visibility and make settings true and show nav bar icons are true" duration="6"/>
-    <testCase name="GeneralService should set show nav bar icons as true" duration="5"/>
-    <testCase name="GeneralService should get is guest login with set guest login" duration="4"/>
-    <testCase name="GeneralService get slideshow files should throw erorr for empty data" duration="11"/>
-    <testCase name="GeneralService should getLogopath return null if logo is not there" duration="4"/>
-    <testCase name="GeneralService should set show nav bar icons as false" duration="5"/>
-    <testCase name="GeneralService should check last logged in" duration="7"/>
-    <testCase name="GeneralService should check visibility and make settings true" duration="11"/>
-    <testCase name="GeneralService should be created" duration="3"/>
-    <testCase name="GeneralService should check visibility" duration="2"/>
-    <testCase name="GeneralService send last logged project should throw erorr for incorrect data" duration="7"/>
-    <testCase name="GeneralService should store last logged in if my team is empty" duration="5"/>
-    <testCase name="GeneralService getProject details should throw erorr for null data" duration="5"/>
-    <testCase name="GeneralService should store last logged in" duration="6"/>
-    <testCase name="GeneralService should logout" duration="2"/>
-    <testCase name="GeneralService get files from folder should throw erorr for null data" duration="2"/>
-    <testCase name="GeneralService should check visibility" duration="2"/>
-    <testCase name="GeneralService get files from folder should throw erorr for empty data" duration="2"/>
-    <testCase name="GeneralService should append permissions" duration="4"/>
-    <testCase name="GeneralService should remove some permissions" duration="7"/>
-  </file>
-  <file path="src/app/config/components/team/team.component.spec.ts">
-    <testCase name="TeamComponent should create" duration="15"/>
-    <testCase name="TeamComponent should check route" duration="10"/>
-  </file>
-  <file path="src/app/auth/services/auth.service.spec.ts">
-    <testCase name="LoginService login should throw erorr for null data" duration="4"/>
-    <testCase name="LoginService should be created" duration="4"/>
-    <testCase name="LoginService should return data" duration="4"/>
-    <testCase name="LoginService reset password should throw error" duration="4"/>
-    <testCase name="LoginService guest login should return data" duration="7"/>
-    <testCase name="LoginService login should throw erorr for incorrect data" duration="3"/>
-  </file>
-  <file path="src/app/teams/services/team-details.service.spec.ts">
-    <testCase name="TeamDetailsService get teams in ADCenter should throw error for null values" duration="6"/>
-    <testCase name="TeamDetailsService get teams in ADCenter should throw error for incorrect values" duration="7"/>
-    <testCase name="TeamDetailsService should process team details" duration="11"/>
-    <testCase name="TeamDetailsService should process team details catch error" duration="5"/>
-    <testCase name="TeamDetailsService should set team details permissions if team details response is null" duration="10"/>
-    <testCase name="TeamDetailsService check set permissions of team details and checking get team details permissions" duration="7"/>
-    <testCase name="TeamDetailsService get team details should throw error for null values" duration="9"/>
-    <testCase name="TeamDetailsService get teams in ADCenter should return data" duration="11"/>
-    <testCase name="TeamDetailsService get team details should throw error for incorrect values" duration="5"/>
-    <testCase name="TeamDetailsService should be created" duration="4"/>
-    <testCase name="TeamDetailsService should set team details permissions" duration="5"/>
-    <testCase name="TeamDetailsService get team details should return data" duration="7"/>
-    <testCase name="TeamDetailsService check reset permissions of team details and checking get team details permissions" duration="5"/>
-  </file>
-  <file path="src/app/config/components/config/config.component.spec.ts">
-    <testCase name="ConfigComponent should navigate to setup" duration="11"/>
-    <testCase name="ConfigComponent should create" duration="11"/>
-    <testCase name="ConfigComponent should navigate to team" duration="6"/>
-  </file>
-  <file path="src/app/shared/services/navigation.service.spec.ts">
-    <testCase name="NavigationService should clear history" duration="5"/>
-    <testCase name="NavigationService should be created" duration="8"/>
-    <testCase name="NavigationService should go back properly if reaches end" duration="4"/>
-    <testCase name="NavigationService should go back properly" duration="3"/>
-    <testCase name="NavigationService should go back properly for inside teams" duration="9"/>
-    <testCase name="NavigationService should move to home if homeresponse is undefined" duration="6"/>
-    <testCase name="NavigationService should clear history" duration="11"/>
-    <testCase name="NavigationService should go back properly for inside config" duration="8"/>
-    <testCase name="NavigationService should move to home if homeresponse is not undefined" duration="5"/>
-  </file>
-  <file path="src/app/config/components/setup/configure-multimedia/configure-multimedia.component.spec.ts">
-    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is selected and folders are selected" duration="94"/>
-    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is not selected and current folder is not home in new folder" duration="26"/>
-    <testCase name="ConfigureMultimediaComponent should check if home file is selected" duration="20"/>
-    <testCase name="ConfigureMultimediaComponent should check add to slideshow" duration="15"/>
-    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is selected and folders are selected and status true" duration="37"/>
-    <testCase name="ConfigureMultimediaComponent should check files selection if current folder is not home and not all files selected" duration="36"/>
-    <testCase name="ConfigureMultimediaComponent should test check slideshow files and folders" duration="58"/>
-    <testCase name="ConfigureMultimediaComponent should check files selection if current folder is home and all files selected" duration="32"/>
-    <testCase name="ConfigureMultimediaComponent should add items to slideshow catch error" duration="38"/>
-    <testCase name="ConfigureMultimediaComponent should close and clear folder name" duration="14"/>
-    <testCase name="ConfigureMultimediaComponent should check root selection" duration="25"/>
-    <testCase name="ConfigureMultimediaComponent should check home in slideshow" duration="61"/>
-    <testCase name="ConfigureMultimediaComponent should remove folders and files ids" duration="22"/>
-    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is not selected and current folder is not home in new folder and no files selected" duration="28"/>
-    <testCase name="ConfigureMultimediaComponent should show home files" duration="47"/>
-    <testCase name="ConfigureMultimediaComponent should select all" duration="28"/>
-    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is not selected and current folder is home" duration="14"/>
-    <testCase name="ConfigureMultimediaComponent should check files selection if current folder is home and not all files selected" duration="37"/>
-    <testCase name="ConfigureMultimediaComponent should get files from folder" duration="39"/>
-    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is not selected and current folder is not home in if" duration="28"/>
-    <testCase name="ConfigureMultimediaComponent should create" duration="19"/>
-    <testCase name="ConfigureMultimediaComponent should check slidehow files and folders" duration="19"/>
-    <testCase name="ConfigureMultimediaComponent should delete files and folders" duration="29"/>
-    <testCase name="ConfigureMultimediaComponent should select and deselect all" duration="27"/>
-    <testCase name="ConfigureMultimediaComponent should delete files and folders catch error" duration="48"/>
-    <testCase name="ConfigureMultimediaComponent should add items to slideshow" duration="25"/>
-    <testCase name="ConfigureMultimediaComponent should add folders catch error" duration="20"/>
-    <testCase name="ConfigureMultimediaComponent should add folders" duration="50"/>
-  </file>
-  <file path="src/app/config/components/setup/configure-team-links/add-links/add-links.component.spec.ts">
-    <testCase name="AddLinksComponent should create" duration="55"/>
-    <testCase name="AddLinksComponent should  get error onsubmit data on adding link" duration="17"/>
-    <testCase name="AddLinksComponent should update link" duration="12"/>
-    <testCase name="AddLinksComponent should submit data" duration="11"/>
-    <testCase name="AddLinksComponent should get link types" duration="9"/>
-    <testCase name="AddLinksComponent should submit data on adding link" duration="14"/>
-  </file>
-  <file path="src/app/teams/components/dashboard/client-satisfaction/client-satisfaction.component.spec.ts">
-    <testCase name="ClientSatisfactionComponent should create" duration="50"/>
-    <testCase name="ClientSatisfactionComponent should check all conditions for lower client satisfaction rating" duration="30"/>
-    <testCase name="ClientSatisfactionComponent should check all conditions for higher client satisfaction rating" duration="16"/>
-    <testCase name="ClientSatisfactionComponent should check else conditions for client status is null" duration="11"/>
-    <testCase name="ClientSatisfactionComponent should check all conditions for mid value of client satisfaction rating" duration="8"/>
-  </file>
-  <file path="src/app/config/components/setup/configure-team-links/configure-team-links.component.spec.ts">
-    <testCase name="ConfigureTeamLinksComponent should check save selected link" duration="49"/>
-    <testCase name="ConfigureTeamLinksComponent should open link for web link" duration="22"/>
-    <testCase name="ConfigureTeamLinksComponent should get links" duration="39"/>
-    <testCase name="ConfigureTeamLinksComponent should create" duration="19"/>
-    <testCase name="ConfigureTeamLinksComponent should open team links on window if electron is not running" duration="20"/>
-    <testCase name="ConfigureTeamLinksComponent should open meeting links on window if electron is running" duration="20"/>
-    <testCase name="ConfigureTeamLinksComponent should open link for meeting link" duration="19"/>
-    <testCase name="ConfigureTeamLinksComponent should delete link" duration="14"/>
-    <testCase name="ConfigureTeamLinksComponent should open meeting links on window" duration="26"/>
-  </file>
-  <file path="src/app/teams/components/links/links.component.spec.ts">
-    <testCase name="LinksComponent should get links" duration="48"/>
-    <testCase name="LinksComponent check ngDestroy" duration="16"/>
-    <testCase name="LinksComponent should open meeting links on window if electron is running" duration="27"/>
-    <testCase name="LinksComponent should open link if electron is not running" duration="23"/>
-    <testCase name="LinksComponent should open meeting links on window" duration="16"/>
-    <testCase name="LinksComponent should create" duration="9"/>
-  </file>
-  <file path="src/app/config/pipes/link-type-filter.pipe.spec.ts">
-    <testCase name="LinkTypeFilterPipe check transform method" duration="1"/>
-    <testCase name="LinkTypeFilterPipe check for mull in tranform method" duration="1"/>
-    <testCase name="LinkTypeFilterPipe check for undefined in tranform method" duration="1"/>
-    <testCase name="LinkTypeFilterPipe create an instance" duration="1"/>
+  <file path="src/app/teams/components/project-display/projects/projects.component.spec.ts">
+    <testCase name="ProjectsComponent should update teams in adc" duration="58"/>
+    <testCase name="ProjectsComponent get team in adc should throw error on passing null" duration="13"/>
+    <testCase name="ProjectsComponent should create" duration="12"/>
+    <testCase name="ProjectsComponent getfromlocalstorage should get details from local storage" duration="16"/>
+    <testCase name="ProjectsComponent should get Team Details" duration="16"/>
+    <testCase name="ProjectsComponent should catch error for get Team Details" duration="12"/>
+    <testCase name="ProjectsComponent getfromlocalstorage should get details from local storage and teamIn adc is empty" duration="16"/>
   </file>
   <file path="src/app/teams/components/dashboard/code-quality/code-quality.component.spec.ts">
-    <testCase name="CodeQualityComponent should create" duration="11"/>
-    <testCase name="CodeQualityComponent should have precise data" duration="6"/>
+    <testCase name="CodeQualityComponent should have precise data" duration="30"/>
+    <testCase name="CodeQualityComponent should create" duration="8"/>
   </file>
-  <file path="src/app/teams/components/dashboard/velocity-comparsion/velocity-comparsion.component.spec.ts">
-    <testCase name="VelocityComparsionComponent should create" duration="9"/>
-    <testCase name="VelocityComparsionComponent should have precise data" duration="4"/>
+  <file path="src/app/config/components/setup/setup.component.spec.ts">
+    <testCase name="SetupComponent should change active" duration="41"/>
+  </file>
+  <file path="src/app/app.component.spec.ts">
+    <testCase name="AppComponent should toggle properly" duration="65"/>
+    <testCase name="AppComponent should create" duration="7"/>
+    <testCase name="AppComponent should toggle properly" duration="8"/>
+    <testCase name="AppComponent should get TeamName" duration="5"/>
+    <testCase name="AppComponent should get highlight for dashboard" duration="17"/>
+    <testCase name="AppComponent should get highlight for links" duration="8"/>
+    <testCase name="AppComponent should get highlight for multimedia" duration="10"/>
+    <testCase name="AppComponent should checkLocation() " duration="6"/>
+    <testCase name="AppComponent should go back " duration="8"/>
+    <testCase name="AppComponent should confirm logout " duration="6"/>
+    <testCase name="AppComponent should confirmStay " duration="7"/>
+    <testCase name="AppComponent should moveToSetings() " duration="8"/>
+    <testCase name="AppComponent should moveToSetings() " duration="6"/>
+    <testCase name="AppComponent should onKeydownHandler " duration="5"/>
+  </file>
+  <file path="src/app/teams/components/dashboard/team-spirit/team-spirit.component.spec.ts">
+    <testCase name="TeamSpiritComponent should check all conditions for lower team spirit rating" duration="30"/>
+    <testCase name="TeamSpiritComponent should check all conditions for mid value of team spirit rating" duration="11"/>
+    <testCase name="TeamSpiritComponent should create" duration="10"/>
+    <testCase name="TeamSpiritComponent should check else condition for team spirit rating is null" duration="10"/>
+    <testCase name="TeamSpiritComponent should check all conditions for higher team spirit rating" duration="7"/>
+  </file>
+  <file path="src/app/teams/components/dashboard/dashboard.component.spec.ts">
+    <testCase name="DashboardComponent should check ngOndestroy" duration="23"/>
+    <testCase name="DashboardComponent should check ngAfterviewInit when slideshow is running" duration="7"/>
+    <testCase name="DashboardComponent should check ngOndestroy" duration="8"/>
+    <testCase name="DashboardComponent should check ngAfterviewInit when slideshow is not running" duration="18"/>
+    <testCase name="DashboardComponent should create" duration="10"/>
   </file>
   <file path="src/app/teams/services/slideshow.service.spec.ts">
-    <testCase name="SlideshowService should move to next component" duration="5"/>
-    <testCase name="SlideshowService should check is electron running" duration="5"/>
-    <testCase name="SlideshowService should move to previouscomponent" duration="4"/>
-    <testCase name="SlideshowService should move to next component and check else condition" duration="6"/>
-    <testCase name="SlideshowService should move to previous component and check else condition" duration="4"/>
-    <testCase name="SlideshowService should be created" duration="2"/>
-    <testCase name="SlideshowService should check slideshow array" duration="2"/>
+    <testCase name="SlideshowService should be created" duration="9"/>
+    <testCase name="SlideshowService should move to previouscomponent" duration="8"/>
+    <testCase name="SlideshowService should check is electron running" duration="6"/>
+    <testCase name="SlideshowService should check slideshow array" duration="7"/>
+    <testCase name="SlideshowService should move to next component" duration="3"/>
+    <testCase name="SlideshowService should move to next component and check else condition" duration="4"/>
+    <testCase name="SlideshowService should move to previous component and check else condition" duration="3"/>
+  </file>
+  <file path="src/app/config/components/setup/configure-multimedia/configure-multimedia.component.spec.ts">
+    <testCase name="ConfigureMultimediaComponent should add items to slideshow catch error" duration="78"/>
+    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is not selected and current folder is not home in new folder and no files selected" duration="17"/>
+    <testCase name="ConfigureMultimediaComponent should add items to slideshow" duration="25"/>
+    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is not selected and current folder is home" duration="18"/>
+    <testCase name="ConfigureMultimediaComponent should get files from folder" duration="16"/>
+    <testCase name="ConfigureMultimediaComponent should check files selection if current folder is not home and not all files selected" duration="19"/>
+    <testCase name="ConfigureMultimediaComponent should test check slideshow files and folders" duration="17"/>
+    <testCase name="ConfigureMultimediaComponent should check files selection if current folder is home and not all files selected" duration="16"/>
+    <testCase name="ConfigureMultimediaComponent should check if home file is selected" duration="19"/>
+    <testCase name="ConfigureMultimediaComponent should show home files" duration="25"/>
+    <testCase name="ConfigureMultimediaComponent should delete files and folders" duration="20"/>
+    <testCase name="ConfigureMultimediaComponent should check add to slideshow" duration="11"/>
+    <testCase name="ConfigureMultimediaComponent should check home in slideshow" duration="15"/>
+    <testCase name="ConfigureMultimediaComponent should select all" duration="19"/>
+    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is not selected and current folder is not home in if" duration="12"/>
+    <testCase name="ConfigureMultimediaComponent should check slidehow files and folders" duration="16"/>
+    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is not selected and current folder is not home in new folder" duration="15"/>
+    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is selected and folders are selected" duration="15"/>
+    <testCase name="ConfigureMultimediaComponent should getDeleteIds work according to the logic if home is selected and folders are selected and status true" duration="17"/>
+    <testCase name="ConfigureMultimediaComponent should check root selection" duration="20"/>
+    <testCase name="ConfigureMultimediaComponent should select and deselect all" duration="23"/>
+    <testCase name="ConfigureMultimediaComponent should delete files and folders catch error" duration="21"/>
+    <testCase name="ConfigureMultimediaComponent should create" duration="14"/>
+    <testCase name="ConfigureMultimediaComponent should check files selection if current folder is home and all files selected" duration="12"/>
+    <testCase name="ConfigureMultimediaComponent should close and clear folder name" duration="14"/>
+    <testCase name="ConfigureMultimediaComponent should remove folders and files ids" duration="21"/>
+    <testCase name="ConfigureMultimediaComponent should add folders" duration="23"/>
+    <testCase name="ConfigureMultimediaComponent should add folders catch error" duration="16"/>
+  </file>
+  <file path="src/app/auth/services/auth.service.spec.ts">
+    <testCase name="LoginService should return data" duration="9"/>
+    <testCase name="LoginService login should throw erorr for null data" duration="5"/>
+    <testCase name="LoginService should be created" duration="4"/>
+    <testCase name="LoginService login should throw erorr for incorrect data" duration="6"/>
+    <testCase name="LoginService guest login should return data" duration="5"/>
+    <testCase name="LoginService reset password should throw error" duration="6"/>
+  </file>
+  <file path="src/app/shared/services/navigation.service.spec.ts">
+    <testCase name="NavigationService should move to home if homeresponse is not undefined" duration="5"/>
+    <testCase name="NavigationService should clear history" duration="4"/>
+    <testCase name="NavigationService should move to home if homeresponse is undefined" duration="3"/>
+    <testCase name="NavigationService should go back properly for inside teams" duration="10"/>
+    <testCase name="NavigationService should clear history" duration="2"/>
+    <testCase name="NavigationService should go back properly" duration="6"/>
+    <testCase name="NavigationService should go back properly if reaches end" duration="2"/>
+    <testCase name="NavigationService should go back properly for inside config" duration="6"/>
+    <testCase name="NavigationService should be created" duration="4"/>
+  </file>
+  <file path="src/app/teams/components/slideshow/slideshow-multimedia/slideshow-multimedia.component.spec.ts">
+    <testCase name="SlideshowMultimediaComponent onTap should play the video when it is paused" duration="12"/>
+    <testCase name="SlideshowMultimediaComponent onTap should stop the video when it is playing" duration="6"/>
+    <testCase name="SlideshowMultimediaComponent ngOnDestroy() should work properly" duration="5"/>
+    <testCase name="SlideshowMultimediaComponent update component should update slide show multimedia component if there is any multimedia file" duration="4"/>
+    <testCase name="SlideshowMultimediaComponent update component should update slide show multimedia component if there is no multimedia file" duration="6"/>
+    <testCase name="SlideshowMultimediaComponent update component should update slide show multimedia component if there is video file" duration="5"/>
+    <testCase name="SlideshowMultimediaComponent onPlayerReady" duration="5"/>
+    <testCase name="SlideshowMultimediaComponent should create" duration="3"/>
+    <testCase name="SlideshowMultimediaComponent playVideo should play the video properly" duration="5"/>
+    <testCase name="SlideshowMultimediaComponent nextVideo should not move slide show to Next Component if there is only one component" duration="6"/>
+    <testCase name="SlideshowMultimediaComponent nextVideo should move slide show to Next Component" duration="6"/>
+    <testCase name="SlideshowMultimediaComponent isImage  isImage should return null if the file is neither video nor image" duration="14"/>
+    <testCase name="SlideshowMultimediaComponent isImage  isImage should return true if the file is an image" duration="4"/>
+    <testCase name="SlideshowMultimediaComponent isImage  isImage should return false if the file is a video" duration="7"/>
+    <testCase name="SlideshowMultimediaComponent slideshowControl() if the file is image" duration="5"/>
+    <testCase name="SlideshowMultimediaComponent slideshowControl() if the file is video" duration="4"/>
+    <testCase name="SlideshowMultimediaComponent ngOnInit() should work properly" duration="5"/>
+  </file>
+  <file path="src/app/teams/components/dashboard/client-satisfaction/client-satisfaction.component.spec.ts">
+    <testCase name="ClientSatisfactionComponent should check all conditions for higher client satisfaction rating" duration="16"/>
+    <testCase name="ClientSatisfactionComponent should check else conditions for client status is null" duration="6"/>
+    <testCase name="ClientSatisfactionComponent should check all conditions for lower client satisfaction rating" duration="8"/>
+    <testCase name="ClientSatisfactionComponent should create" duration="5"/>
+    <testCase name="ClientSatisfactionComponent should check all conditions for mid value of client satisfaction rating" duration="6"/>
+  </file>
+  <file path="src/app/config/components/setup/configure-team-links/add-links/add-links.component.spec.ts">
+    <testCase name="AddLinksComponent should submit data on adding link" duration="15"/>
+    <testCase name="AddLinksComponent should submit data" duration="15"/>
+    <testCase name="AddLinksComponent should update link" duration="5"/>
+    <testCase name="AddLinksComponent should create" duration="5"/>
+    <testCase name="AddLinksComponent should get link types" duration="6"/>
+    <testCase name="AddLinksComponent should  get error onsubmit data on adding link" duration="9"/>
+  </file>
+  <file path="src/app/teams/services/team-details.service.spec.ts">
+    <testCase name="TeamDetailsService should set team details permissions" duration="4"/>
+    <testCase name="TeamDetailsService should set team details permissions if team details response is null" duration="5"/>
+    <testCase name="TeamDetailsService check reset permissions of team details and checking get team details permissions" duration="2"/>
+    <testCase name="TeamDetailsService should be created" duration="2"/>
+    <testCase name="TeamDetailsService should process team details catch error" duration="6"/>
+    <testCase name="TeamDetailsService get team details should return data" duration="2"/>
+    <testCase name="TeamDetailsService check set permissions of team details and checking get team details permissions" duration="2"/>
+    <testCase name="TeamDetailsService get teams in ADCenter should throw error for null values" duration="3"/>
+    <testCase name="TeamDetailsService get teams in ADCenter should throw error for incorrect values" duration="4"/>
+    <testCase name="TeamDetailsService get team details should throw error for null values" duration="4"/>
+    <testCase name="TeamDetailsService get teams in ADCenter should return data" duration="4"/>
+    <testCase name="TeamDetailsService get team details should throw error for incorrect values" duration="3"/>
+    <testCase name="TeamDetailsService should process team details" duration="3"/>
+  </file>
+  <file path="src/app/config/services/config.service.spec.ts">
+    <testCase name="ConfigService should be created" duration="17"/>
+    <testCase name="ConfigService should set team details" duration="3"/>
+    <testCase name="ConfigService should got roles" duration="2"/>
+  </file>
+  <file path="src/app/config/components/config/config.component.spec.ts">
+    <testCase name="ConfigComponent should navigate to setup" duration="6"/>
+    <testCase name="ConfigComponent should navigate to team" duration="8"/>
+    <testCase name="ConfigComponent should create" duration="3"/>
+  </file>
+  <file path="src/app/shared/services/notification.service.spec.ts">
+    <testCase name="NotificationService should show info" duration="6"/>
+    <testCase name="NotificationService should show warning" duration="2"/>
+    <testCase name="NotificationService should show success" duration="12"/>
+    <testCase name="NotificationService should be created" duration="2"/>
+    <testCase name="NotificationService should show error" duration="2"/>
+  </file>
+  <file path="src/app/config/components/team/view-all-team-members/add-member/add-member.component.spec.ts">
+    <testCase name="AddMemberComponent should throw error for add team member" duration="23"/>
+    <testCase name="AddMemberComponent should update role" duration="14"/>
+    <testCase name="AddMemberComponent should create" duration="28"/>
+    <testCase name="AddMemberComponent should add team member" duration="18"/>
+  </file>
+  <file path="src/app/config/pipes/short-url.pipe.spec.ts">
+    <testCase name="ShortUrlPipe check for undefined in tranform method" duration="1"/>
+    <testCase name="ShortUrlPipe check transform method for len more than 30" duration="5"/>
+    <testCase name="ShortUrlPipe create an instance" duration="1"/>
+    <testCase name="ShortUrlPipe check for mull in tranform method" duration="1"/>
+    <testCase name="ShortUrlPipe check transform method for len less than 30" duration="1"/>
+  </file>
+  <file path="src/app/teams/components/dashboard/velocity-comparsion/velocity-comparsion.component.spec.ts">
+    <testCase name="VelocityComparsionComponent should create" duration="16"/>
+    <testCase name="VelocityComparsionComponent should have precise data" duration="6"/>
+  </file>
+  <file path="src/app/config/services/team.service.spec.ts">
+    <testCase name="TeamService add team member should get error for null value" duration="13"/>
+    <testCase name="TeamService add team member should throw internal server error" duration="4"/>
+    <testCase name="TeamService delete team should get error for null value" duration="10"/>
+    <testCase name="TeamService should add and delete team member" duration="5"/>
+    <testCase name="TeamService view all team members should throw error for null " duration="5"/>
+    <testCase name="TeamService view team members of team types should return data" duration="3"/>
+    <testCase name="TeamService should view all the teams" duration="4"/>
+    <testCase name="TeamService add team should throw internal server error" duration="5"/>
+    <testCase name="TeamService update  access role should get error for empty team id" duration="4"/>
+    <testCase name="TeamService delete team member should get error for null value" duration="5"/>
+    <testCase name="TeamService should add and delete team" duration="4"/>
+    <testCase name="TeamService change team member role should get error for null" duration="4"/>
+    <testCase name="TeamService view all teams should get error for null data" duration="5"/>
+    <testCase name="TeamService should be created" duration="3"/>
+  </file>
+  <file path="src/app/config/components/setup/configure-team-links/configure-team-links.component.spec.ts">
+    <testCase name="ConfigureTeamLinksComponent should delete link" duration="35"/>
+    <testCase name="ConfigureTeamLinksComponent should open team links on window if electron is not running" duration="18"/>
+    <testCase name="ConfigureTeamLinksComponent should open link for web link" duration="23"/>
+    <testCase name="ConfigureTeamLinksComponent should open link for meeting link" duration="16"/>
+    <testCase name="ConfigureTeamLinksComponent should open meeting links on window if electron is running" duration="10"/>
+    <testCase name="ConfigureTeamLinksComponent should open meeting links on window" duration="12"/>
+    <testCase name="ConfigureTeamLinksComponent should create" duration="17"/>
+    <testCase name="ConfigureTeamLinksComponent should check save selected link" duration="14"/>
+    <testCase name="ConfigureTeamLinksComponent should get links" duration="13"/>
+  </file>
+  <file path="src/app/config/components/team/view-all-team-members/view-all-team-members.component.spec.ts">
+    <testCase name="ViewAllTeamMembersComponent should store delete id" duration="44"/>
+    <testCase name="ViewAllTeamMembersComponent should not add member if returns false" duration="19"/>
+    <testCase name="ViewAllTeamMembersComponent should  view all team members" duration="15"/>
+    <testCase name="ViewAllTeamMembersComponent should create" duration="19"/>
+    <testCase name="ViewAllTeamMembersComponent should edit team member" duration="19"/>
+    <testCase name="ViewAllTeamMembersComponent should add member" duration="14"/>
+    <testCase name="ViewAllTeamMembersComponent should set current team member" duration="20"/>
+    <testCase name="ViewAllTeamMembersComponent should delete team member for null" duration="26"/>
+    <testCase name="ViewAllTeamMembersComponent should close" duration="25"/>
+    <testCase name="ViewAllTeamMembersComponent should delete team member" duration="32"/>
+    <testCase name="ViewAllTeamMembersComponent should edit team member" duration="18"/>
+  </file>
+  <file path="src/app/shared/services/general.service.spec.ts">
+    <testCase name="GeneralService get slideshow files should throw erorr for null data" duration="6"/>
+    <testCase name="GeneralService should set show nav bar icons as false" duration="3"/>
+    <testCase name="GeneralService should getLogopath return null if logo is having error" duration="5"/>
+    <testCase name="GeneralService get slideshow files should throw erorr for empty data" duration="4"/>
+    <testCase name="GeneralService should remove some permissions" duration="4"/>
+    <testCase name="GeneralService should get powerboard login response to be truthy" duration="8"/>
+    <testCase name="GeneralService should append permissions" duration="3"/>
+    <testCase name="GeneralService should set show nav bar icons as true" duration="3"/>
+    <testCase name="GeneralService should get getIsLinksVisible" duration="3"/>
+    <testCase name="GeneralService should be created" duration="2"/>
+    <testCase name="GeneralService should check last logged in" duration="2"/>
+    <testCase name="GeneralService should getLogopath return null if logo is not there" duration="3"/>
+    <testCase name="GeneralService should logout" duration="3"/>
+    <testCase name="GeneralService should get is guest login with set guest login" duration="2"/>
+    <testCase name="GeneralService getProject details should throw erorr for empty data" duration="2"/>
+    <testCase name="GeneralService should store last logged in" duration="6"/>
+    <testCase name="GeneralService getProject details should throw erorr for null data" duration="3"/>
+    <testCase name="GeneralService should store last logged in if my team is empty" duration="2"/>
+    <testCase name="GeneralService should check visibility" duration="7"/>
+    <testCase name="GeneralService send last logged project should throw erorr for incorrect data" duration="3"/>
+    <testCase name="GeneralService get files from folder should throw erorr for empty data" duration="3"/>
+    <testCase name="GeneralService should check visibility" duration="4"/>
+    <testCase name="GeneralService get files from folder should throw erorr for null data" duration="3"/>
+    <testCase name="GeneralService should check visibility and make settings true" duration="6"/>
+    <testCase name="GeneralService should check visibility and make settings true and show nav bar icons are true" duration="7"/>
+    <testCase name="GeneralService get files from team should throw erorr for empty data" duration="10"/>
+    <testCase name="GeneralService should check last logged in" duration="3"/>
+    <testCase name="GeneralService get files from team should throw erorr for null data" duration="3"/>
+  </file>
+  <file path="src/app/config/components/team/view-all-teams/view-all-teams.component.spec.ts">
+    <testCase name="ViewAllTeamsComponent should create" duration="22"/>
+    <testCase name="ViewAllTeamsComponent should catch exception for delete team" duration="13"/>
+    <testCase name="ViewAllTeamsComponent should view team" duration="13"/>
+    <testCase name="ViewAllTeamsComponent should get center name from center id" duration="7"/>
+    <testCase name="ViewAllTeamsComponent get all teams" duration="6"/>
+    <testCase name="ViewAllTeamsComponent get all teams should throw error" duration="29"/>
+    <testCase name="ViewAllTeamsComponent should store delete id" duration="13"/>
+    <testCase name="ViewAllTeamsComponent should delete team" duration="10"/>
+  </file>
+  <file path="src/app/teams/components/links/links.component.spec.ts">
+    <testCase name="LinksComponent should open link if electron is not running" duration="27"/>
+    <testCase name="LinksComponent should open meeting links on window" duration="13"/>
+    <testCase name="LinksComponent check ngDestroy" duration="8"/>
+    <testCase name="LinksComponent should get links" duration="12"/>
+    <testCase name="LinksComponent should open meeting links on window if electron is running" duration="12"/>
+    <testCase name="LinksComponent should create" duration="10"/>
+  </file>
+  <file path="src/app/teams/components/dashboard/burndown/burndown.component.spec.ts">
+    <testCase name="BurndownComponent should create" duration="24"/>
+    <testCase name="BurndownComponent should check work unit if value is more than 1" duration="11"/>
+    <testCase name="BurndownComponent should check work unit if value is less than 1" duration="8"/>
+  </file>
+  <file path="src/app/config/components/team/view-all-team-members/edit-team-member/edit-team-member.component.spec.ts">
+    <testCase name="EditTeamMemberComponent should edit team member" duration="6"/>
+    <testCase name="EditTeamMemberComponent should update role" duration="9"/>
+    <testCase name="EditTeamMemberComponent should get current team member" duration="11"/>
+    <testCase name="EditTeamMemberComponent should catch error for edit team member" duration="7"/>
+    <testCase name="EditTeamMemberComponent should catch error for edit team member" duration="7"/>
+    <testCase name="EditTeamMemberComponent should create" duration="7"/>
   </file>
   <file path="src/app/config/pipes/adcenter-filter.pipe.spec.ts">
-    <testCase name="ADcenterFilterPipe check transform method" duration="1"/>
     <testCase name="ADcenterFilterPipe create an instance" duration="1"/>
+    <testCase name="ADcenterFilterPipe check transform method" duration="1"/>
     <testCase name="ADcenterFilterPipe check for mull in tranform method" duration="1"/>
     <testCase name="ADcenterFilterPipe check for undefined in tranform method" duration="1"/>
   </file>
-  <file path="src/app/teams/components/dashboard/team-spirit/team-spirit.component.spec.ts">
-    <testCase name="TeamSpiritComponent should check all conditions for higher team spirit rating" duration="10"/>
-    <testCase name="TeamSpiritComponent should check else condition for team spirit rating is null" duration="11"/>
-    <testCase name="TeamSpiritComponent should check all conditions for lower team spirit rating" duration="12"/>
-    <testCase name="TeamSpiritComponent should check all conditions for mid value of team spirit rating" duration="16"/>
-    <testCase name="TeamSpiritComponent should create" duration="4"/>
-  </file>
-  <file path="src/app/config/components/team/view-team/view-team.component.spec.ts">
-    <testCase name="ViewTeamComponent should create" duration="10"/>
-  </file>
-  <file path="src/app/teams/components/dashboard/dashboard.component.spec.ts">
-    <testCase name="DashboardComponent should check ngOndestroy" duration="26"/>
-    <testCase name="DashboardComponent should check ngOndestroy" duration="15"/>
-    <testCase name="DashboardComponent should check ngAfterviewInit when slideshow is not running" duration="13"/>
-    <testCase name="DashboardComponent should create" duration="13"/>
-    <testCase name="DashboardComponent should check ngAfterviewInit when slideshow is running" duration="9"/>
-  </file>
-  <file path="src/app/config/components/team/view-all-teams/view-all-teams.component.spec.ts">
-    <testCase name="ViewAllTeamsComponent get all teams should throw error" duration="68"/>
-    <testCase name="ViewAllTeamsComponent should store delete id" duration="14"/>
-    <testCase name="ViewAllTeamsComponent get all teams" duration="13"/>
-    <testCase name="ViewAllTeamsComponent should view team" duration="10"/>
-    <testCase name="ViewAllTeamsComponent should get center name from center id" duration="8"/>
-    <testCase name="ViewAllTeamsComponent should delete team" duration="15"/>
-    <testCase name="ViewAllTeamsComponent should catch exception for delete team" duration="13"/>
-    <testCase name="ViewAllTeamsComponent should create" duration="8"/>
-  </file>
-  <file path="src/app/teams/components/slideshow/slideshow.component.spec.ts">
-    <testCase name="SlideshowComponent should create" duration="4"/>
+  <file path="src/app/config/components/team/view-all-teams/add-team/add-team.component.spec.ts">
+    <testCase name="AddTeamComponent should create" duration="20"/>
+    <testCase name="AddTeamComponent should not add team for null data" duration="15"/>
+    <testCase name="AddTeamComponent should update center" duration="9"/>
   </file>
   <file path="src/app/config/components/setup/edit-team/edit-team.component.spec.ts">
-    <testCase name="EditTeamComponent should create" duration="33"/>
-    <testCase name="EditTeamComponent should change ad center" duration="24"/>
-    <testCase name="EditTeamComponent should update team details" duration="29"/>
+    <testCase name="EditTeamComponent should create" duration="37"/>
+    <testCase name="EditTeamComponent should update team details" duration="17"/>
+    <testCase name="EditTeamComponent should change ad center" duration="15"/>
+  </file>
+  <file path="src/app/config/components/team/view-team/view-team.component.spec.ts">
+    <testCase name="ViewTeamComponent should create" duration="12"/>
+  </file>
+  <file path="src/app/teams/components/project-display/my-projects/my-projects.component.spec.ts">
+    <testCase name="MyProjectsComponent should create" duration="24"/>
+    <testCase name="MyProjectsComponent get team details should run" duration="9"/>
+    <testCase name="MyProjectsComponent get team details should run" duration="7"/>
+  </file>
+  <file path="src/app/config/pipes/link-type-filter.pipe.spec.ts">
+    <testCase name="LinkTypeFilterPipe check transform method" duration="3"/>
+    <testCase name="LinkTypeFilterPipe check for undefined in tranform method" duration="1"/>
+    <testCase name="LinkTypeFilterPipe check for mull in tranform method" duration="1"/>
+    <testCase name="LinkTypeFilterPipe create an instance" duration="1"/>
+  </file>
+  <file path="src/app/teams/components/slideshow/slideshow.component.spec.ts">
+    <testCase name="SlideshowComponent should create" duration="8"/>
+  </file>
+  <file path="src/app/config/services/setup.service.spec.ts">
+    <testCase name="SetupService delete logo should get error for empty value" duration="6"/>
+    <testCase name="SetupService add link should get error for null value" duration="3"/>
+    <testCase name="SetupService delete logo should get error for null value" duration="3"/>
+    <testCase name="SetupService add logo should get error for null" duration="9"/>
+    <testCase name="SetupService get links types should return data" duration="2"/>
+    <testCase name="SetupService update team should get error for null value" duration="2"/>
+    <testCase name="SetupService delete link should get error for empty value" duration="2"/>
+    <testCase name="SetupService add folder to team should get error for null value" duration="3"/>
+    <testCase name="SetupService should be created" duration="2"/>
+    <testCase name="SetupService update team should get error for empty team id" duration="3"/>
+    <testCase name="SetupService delete link should get error for null value" duration="2"/>
+    <testCase name="SetupService add files to team should get error for null" duration="3"/>
+    <testCase name="SetupService delete files and folders should get error for null value" duration="2"/>
+    <testCase name="SetupService add files in subfolder should get error for null" duration="9"/>
+    <testCase name="SetupService add to slideshow should get error for null value" duration="2"/>
+  </file>
+  <file path="src/app/teams/components/multimedia/multimedia.component.spec.ts">
+    <testCase name="MultimediaComponent should get onclick play list item for video as well" duration="34"/>
+    <testCase name="MultimediaComponent should get files from folder" duration="43"/>
+    <testCase name="MultimediaComponent should show current folder as home if folder status is false" duration="22"/>
+    <testCase name="MultimediaComponent should catch error for get files from folder" duration="15"/>
+    <testCase name="MultimediaComponent should go to previous item" duration="17"/>
+    <testCase name="MultimediaComponent should create" duration="17"/>
+    <testCase name="MultimediaComponent should process files" duration="17"/>
+    <testCase name="MultimediaComponent should update component get details from local storage" duration="18"/>
+    <testCase name="MultimediaComponent should see All files" duration="18"/>
+    <testCase name="MultimediaComponent should catch error for see All" duration="16"/>
+    <testCase name="MultimediaComponent should update component get details from local storage and current folder is home" duration="19"/>
+    <testCase name="MultimediaComponent should clear interval Id" duration="13"/>
+    <testCase name="MultimediaComponent should show current folder as home if folder status is true" duration="16"/>
+    <testCase name="MultimediaComponent should go to next item" duration="14"/>
   </file>
 </testExecutions>
