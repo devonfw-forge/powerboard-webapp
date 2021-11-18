@@ -4,6 +4,7 @@ import { VgApiService } from '@videogular/ngx-videogular/core';
 import { MultimediaFilesNew, MultimediaFolderResponse } from 'src/app/model/general.model';
 import { environment } from 'src/environments/environment';
 import { GeneralService } from '../service/general.service';
+import { UrlPathConstants } from '../UrlPaths';
 
 
 
@@ -34,9 +35,8 @@ export class MultimediaComponent implements OnInit {
   is_image: boolean = true;
   is_video: boolean = false;
   counter: number = 0;
- /*  multimediaPrefix = environment.multimediaPrefix;
-  localPrefix = environment.localPrefix; */
-  interval: number = environment.slideshowInterval;
+ 
+  interval: number = UrlPathConstants.slideshowInterval;
 
   constructor(private generalService : GeneralService) { 
     this.thumbnailData = [];
@@ -68,19 +68,7 @@ export class MultimediaComponent implements OnInit {
       this.currentFolder = 'Home';
     }
     this.processFiles();
-   /*  if(this.multimedia.rootResponse.length>0){
-      this.currentItem = this.multimedia.rootResponse[this.currentIndex].fileName;
-      this.multimediaFiles = this.multimedia.rootResponse;
-      this.currentPath = environment.multimediaPrefix + this.teamId + '/';
-    }
-    else{
-      this.currentItem = this.multimedia.folderResponse[0].fileResponse[this.currentIndex].fileName;
-      this.multimediaFiles = this.multimedia.folderResponse[0].fileResponse;
-      this.currentPath = environment.multimediaPrefix + this.teamId + '/' 
-                      + this.multimedia.folderResponse[0].folderName + '/';
-      this.currentFolder = this.multimedia.folderResponse[0].folderName;
-    }
-    this.processFiles(); */
+   
   } 
   showHomeFiles(){
     this.multimediaFiles = [];

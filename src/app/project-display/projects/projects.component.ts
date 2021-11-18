@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ADCDetails, PowerboardLoginResponse, TeamDetails } from 'src/app/login/model/login.model';
 import {  TeamDetailResponse } from 'src/app/model/general.model';
 import { GeneralService } from 'src/app/service/general.service';
-import { environment } from 'src/environments/environment';
 import { GetTeamDetails } from '../model/pbResponse.model';
 
 import { ADCListDetails, ProjectTeamDetail } from '../my-projects/model/team.model';

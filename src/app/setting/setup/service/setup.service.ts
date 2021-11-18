@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LinkResponse, LinksCategory } from 'src/app/model/general.model';
+import { UrlPathConstants } from 'src/app/UrlPaths';
 import { environment } from 'src/environments/environment';
 import { ConfigureTeamSpirit, DailyMeetingLinksDetails, TeamLinksDetails, UpdateTeam } from '../../model/setting.model';
 
@@ -19,30 +20,30 @@ export class SetupService {
     const formData = new FormData();
     formData.append('logo', file, file.name);
     return await this.http
-    .post<any>(environment.globalEndPoint + environment.uploadLogoEndPoint + teamId, formData).toPromise();
+    .post<any>(environment.globalEndPoint + UrlPathConstants.uploadLogoEndPoint + teamId, formData).toPromise();
   }
 
 
   async deleteLogo(teamId:string):Promise<any>{
     return await this.http.delete<any>(
-      environment.globalEndPoint + environment.deleteLogoEndPoint + teamId).toPromise();
+      environment.globalEndPoint + UrlPathConstants.deleteLogoEndPoint + teamId).toPromise();
   }
 
 
   async updateTeam(formData: UpdateTeam, teamId : string):Promise<any>{
     return await this.http.put<any>(
-      environment.globalEndPoint + environment.updateTeamEndPoint+ teamId, formData ).toPromise();
+      environment.globalEndPoint + UrlPathConstants.updateTeamEndPoint+ teamId, formData ).toPromise();
   }
 
 
   
   async deleteLink(teamLinkId:string):Promise<any>{
     return await this.http.delete<any>(
-      environment.globalEndPoint + environment.deleteLinkEndPoint + teamLinkId).toPromise();
+      environment.globalEndPoint + UrlPathConstants.deleteLinkEndPoint + teamLinkId).toPromise();
   }
 
   async getLinkTypes(): Promise<any>{
-    return await this.http.get<any>(environment.globalEndPoint + environment.getLinksCategoryEndPoint).toPromise();
+    return await this.http.get<any>(environment.globalEndPoint + UrlPathConstants.getLinksCategoryEndPoint).toPromise();
   }
 
 
@@ -57,7 +58,7 @@ export class SetupService {
   } */
 
   async addLink(addLinkForm: LinksCategory){
-    return await this.http.post(environment.globalEndPoint + environment.addLinkEndPoint, addLinkForm).toPromise();
+    return await this.http.post(environment.globalEndPoint + UrlPathConstants.addLinkEndPoint, addLinkForm).toPromise();
   }
 
 

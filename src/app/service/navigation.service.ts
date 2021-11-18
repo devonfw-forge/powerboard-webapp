@@ -2,21 +2,25 @@ import { Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { GeneralService } from './general.service';
 import { PowerboardLoginResponse } from '../login/model/login.model';
+import { SlideshowService } from '../slideshow/slideshow.service';
 
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
-  private history: string[] = [];
+  public history: string[] = [];
   lastLocation: string;
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   currentLocation: string;
   constructor(
     private router: Router,
-    private generalService: GeneralService
+    public generalService: GeneralService,
+    private slideshowService: SlideshowService
   ) {
     this.history = [];
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.history.push(event.urlAfterRedirects);
+      if(!this.slideshowService.getSlideShow()){
+        if (event instanceof NavigationEnd) {
+          this.history.push(event.urlAfterRedirects);
+        }
       }
     });
     this.lastLocation = '';
@@ -40,7 +44,7 @@ export class NavigationService {
           this.lastLocation = this.history.pop();
         }
       }
-      if (this.lastLocation.includes('/projects')) {
+      if (this.lastLocation.includes('projects')) {
         this.moveToHome();
       } else {
         this.router.navigateByUrl('/' + this.lastLocation);
@@ -63,22 +67,14 @@ export class NavigationService {
       JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse
         .homeResponse === undefined
     ) {
-      const userId = JSON.parse(localStorage.getItem('PowerboardDashboard'))
-        .loginResponse.userId;
-      const data = await this.generalService.getProjectDetails(userId);
-      this.powerboardLoginResponse = JSON.parse(
-        localStorage.getItem('PowerboardDashboard')
-      );
+      const userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
+      this.powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
+      const data = await this.generalService.getProjectDetails(userId); 
       this.powerboardLoginResponse.loginResponse.homeResponse = data;
-
-      localStorage.setItem(
-        'PowerboardDashboard',
-        JSON.stringify(this.powerboardLoginResponse)
-      );
-      console.log(data);
+      localStorage.setItem('PowerboardDashboard',JSON.stringify(this.powerboardLoginResponse));
     }
     this.generalService.showNavBarIcons = false;
-    this.router.navigate(['/projects']);
+    this.router.navigateByUrl('projects');
   }
 
   pushCurrentLocation(){

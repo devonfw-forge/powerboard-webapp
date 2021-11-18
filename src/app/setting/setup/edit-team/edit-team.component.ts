@@ -25,8 +25,7 @@ export class EditTeamComponent implements OnInit {
   logo: string;
   
   newLogoPath : string;
-  logoPrefix = environment.multimediaPrefix;
-  localPrefix = environment.localPrefix;
+  
   editLogoPath : string;
   form: FormGroup;
   constructor(

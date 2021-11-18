@@ -29,9 +29,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   /* multimediagallery: any; */
   tempPath: string;
   teamDetail: TeamDetailResponse = new TeamDetailResponse();
-  multimediaPrefix = environment.multimediaPrefix;
-  localPrefix = environment.localPrefix;
-
+  
   constructor(
     public configureService: ConfigureMultimediaServiceService,
     /* private notifyService: NotificationService, */
@@ -597,6 +595,7 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
     this.isMasterSel = false;
+    this.updateLocalStorage();
   }
   catch(e){
     console.log(e.error.message);
