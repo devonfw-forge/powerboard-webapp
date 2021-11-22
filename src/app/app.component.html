@@ -1,146 +1,146 @@
 
 
 <div class="hoverContainer col-md-12" *ngIf="slideShowService.isSlideshowRunning">
- <div (click)="slideShowService.stopSlideShow()" style="color: grey; cursor: pointer;" class="text-right">
-  <span style="font-size: 30px;" class="material-icons-outlined">
-    cancel
-    </span>
+  <div (click)="slideShowService.stopSlideShow()" style="color: grey; cursor: pointer;" class="text-right">
+   <span style="font-size: 30px;" class="material-icons-outlined">
+     cancel
+     </span>
+  </div>
  </div>
-</div>
-
- <div class="hoverMenu row col-md-3">
-  </div>
-  
-
-
-
-
-  <nav aria-label="navbar" class="navbar navbar-expand-lg navbar-light" *ngIf="generalService.getLoginComplete() && !slideShowService.isSlideshowRunning" id="navbarborder">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand"><img src="assets/layoutAssets/navbar/logo1.png" alt="capgemini Logo" class="logo"></a>
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="border-left: 2px solid #0070AD; padding-left: 5px; height: 30px; padding-bottom: 40px;">
-        <li class="nav-item active" (click)="navigation.moveToHome()" >
-          <a class="nav-link"><span class="material-icons-outlined mat-icon-home" >
-            home
-            </span><strong style="margin-left: 5px; font-size: 20px;">Powerboard</strong></a>
-        </li>
-      </ul>
-      <ul class="navbar-nav inline my-2 my-lg-0">
-    <li class="pr-3"  *ngIf="generalService.isSettingsVisible" (click)="moveToSetings()">
-     
-     <span class="material-icons-outlined mat-icon">
-      settings
-      </span>
-    <strong class="text-style ml-1">Configuration</strong>
-    
-    </li>
-    <li (click)="generalService.logout(); teamDetailService.resetTeamDetailPermissions(); navigation.clearRouterHistory()" class="pl-3" *ngIf ="!generalService.getisGuestLogin()" >
-      <span class="material-icons mat-icon">
-        exit_to_app
- </span><strong class="text-style ml-1">Leave</strong>
-      </li>
-
-
-      <li class="pl-3" *ngIf ="generalService.getisGuestLogin()" (click)="generalService.logout(); teamDetailService.resetTeamDetailPermissions(); navigation.clearRouterHistory()">
-        <span class="material-icons mat-icon">
-          login
-   </span><strong class="text-style ml-1">Login</strong>
-        </li>
-
-
-      </ul>
-    </div>
-  </nav>
-
-  <nav aria-label="second navbar" class="navbar navbar-expand-lg navbar-light" *ngIf="generalService.showNavBarIcons  && !slideShowService.isSlideshowRunning" id="subnavbar">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" style="font-size: 16px;" (click)="back()"> <span class="material-icons-outlined mat-icon">
-        chevron_left
-        </span> <span class="text-style" style="color:#0070AD; font-weight: bold;"> Back </span></a>
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="padding-left: 75px; font-size: 22px;">
-        <li class="nav-item active">
-          <a class="nav-link"><strong style="margin-left: 5px; cursor: default;">{{getTeamName()}}</strong><img class="Logo_nav" alt="display Logo" *ngIf="generalService.getLogoPath()!= null" src="{{generalService.getLogoPath()}}"></a>
-          
-        </li>
-        <li style="margin-left: 130px;" *ngIf="generalService.isDashboardVisible">
-          <div class="button" >
-  
-            <button class="btn btn-outline btn-cg" id="dashboard" (click)="highlight('dashboard')" [routerLink]="['teams/dashboard']">
-              Dashboard
-            </button>
-          </div>
-        </li>
  
-        <li *ngIf="generalService.isLinksVisible">
-          <div class="button">
-  
-            <button class="btn btn-outline btn-cg" id="links" (click)="highlight('links')"  [routerLink]="['teams/links']">
-              Links
-            </button>
-          </div>
-        </li>
- 
-        <li>
-          <div class="button">
-  
-            <button class="btn btn-outline btn-cg" id="multimedia" (click)="highlight('multimedia')" [routerLink]="['teams/multimedia']">
-              Multimedia
-            </button>
-          </div>
-        </li>
-          <span>{{checkLocation()}}</span>
-      </ul>
-      <div class="custom-control custom-switch" >
-        <input style="cursor: pointer;" type="checkbox"[(ngModel)]="slideShowService.isSlideshowRunning" (change)="slideShowService.checkSlideshowArray()" class="custom-control-input" id="customSwitches">
-        <label style="cursor: pointer;" class="custom-control-label" for="customSwitches">Slideshow</label>
-      </div>
-    </div>
-  </nav>
-
-
-  <div *ngIf="!generalService.getLoginComplete()"><app-auth></app-auth></div>
-  <div *ngIf="generalService.getLoginComplete()" class="bg">
-    <div></div>
-    <router-outlet></router-outlet>
-  </div> 
-
-  
-
-<div class="modal bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-  <div class="modal-content">
-    <div class="modal-header pl-5">
-      
-      <h5 class="modal-title pl-5" id="exampleModalLabel">Leave</h5>
-     
-      <button type="button" class="close icon" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="hoverMenu row col-md-3">
+   </div>
    
-    
-    </div>
-    <div class="modal-body pt-3 pb-1">
-      <p>Are you sure you want to leave?</p>
-    </div>
-    <div class="footer pb-4">
-
-        <div>
-
-          <button type="button" class="btn btn-basic btn-custom btn-cg-m mr-2 ml-3"
-            data-dismiss="modal" (click)="confirmStay()">No,go back</button>
-          <button type="button" class="btn btn-basic btn-custom btn-cg-m ml-2 mr-2 "data-dismiss="modal" (click)="confirmLogout()">Yes,leave</button>
-        </div>
+ 
+ 
+ 
+ 
+   <nav aria-label="navbar" class="navbar navbar-expand-lg navbar-light" *ngIf="generalService.getLoginComplete() && !slideShowService.isSlideshowRunning" id="navbarborder">
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+       <a class="navbar-brand"><img src="assets/layoutAssets/navbar/logo1.png" alt="capgemini Logo" class="logo"></a>
+       <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="border-left: 2px solid #0070AD; padding-left: 5px; height: 30px; padding-bottom: 40px;">
+         <li class="nav-item active" (click)="navigation.moveToHome()" >
+           <a class="nav-link"><span class="material-icons-outlined mat-icon-home" >
+             home
+             </span><strong style="margin-left: 5px; font-size: 20px;">Powerboard</strong></a>
+         </li>
+       </ul>
+       <ul class="navbar-nav inline my-2 my-lg-0">
+     <li class="pr-3"  *ngIf="generalService.isSettingsVisible" (click)="moveToSetings()">
       
-    </div>
-  </div>
-</div>
-</div>
+      <span class="material-icons-outlined mat-icon">
+       settings
+       </span>
+     <strong class="text-style ml-1">Configuration</strong>
+     
+     </li>
+     <li (click)="generalService.logout(); teamDetailService.resetTeamDetailPermissions(); navigation.clearRouterHistory()" class="pl-3" *ngIf ="!generalService.getisGuestLogin()" >
+       <span class="material-icons mat-icon">
+         exit_to_app
+  </span><strong class="text-style ml-1">Leave</strong>
+       </li>
+ 
+ 
+       <li class="pl-3" *ngIf ="generalService.getisGuestLogin()" (click)="generalService.logout(); teamDetailService.resetTeamDetailPermissions(); navigation.clearRouterHistory()">
+         <span class="material-icons mat-icon">
+           login
+    </span><strong class="text-style ml-1">Login</strong>
+         </li>
+ 
+ 
+       </ul>
+     </div>
+   </nav>
+ 
+   <nav aria-label="second navbar" class="navbar navbar-expand-lg navbar-light" *ngIf="generalService.IsShowNavBarIcons()  && !slideShowService.isSlideshowRunning" id="subnavbar">
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+       <a class="navbar-brand" style="font-size: 16px;" (click)="back()"> <span class="material-icons-outlined mat-icon">
+         chevron_left
+         </span> <span class="text-style" style="color:#0070AD; font-weight: bold;"> Back </span></a>
+       <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="padding-left: 75px; font-size: 22px;">
+         <li class="nav-item active">
+           <a class="nav-link"><strong style="margin-left: 5px; cursor: default;">{{getTeamName()}}</strong><img class="Logo_nav" alt="display Logo" *ngIf="generalService.getLogoPath()!= null" src="{{generalService.getLogoPath()}}"></a>
+           
+         </li>
+         <li style="margin-left: 130px;" *ngIf="generalService.isDashboardVisible">
+           <div class="button" >
+   
+             <button class="btn btn-outline btn-cg" id="dashboard" (click)="highlight('dashboard')" [routerLink]="['teams/dashboard']">
+               Dashboard
+             </button>
+           </div>
+         </li>
   
-  <button data-toggle="modal" data-target=".bd-example-modal-sm" style="display: none;" id="openLogoutModal"></button>
+         <li *ngIf="generalService.getIsLinksVisible()">
+           <div class="button">
+   
+             <button class="btn btn-outline btn-cg" id="links" (click)="highlight('links')"  [routerLink]="['teams/links']">
+               Links
+             </button>
+           </div>
+         </li>
+  
+         <li>
+           <div class="button">
+   
+             <button class="btn btn-outline btn-cg" id="multimedia" (click)="highlight('multimedia')" [routerLink]="['teams/multimedia']">
+               Multimedia
+             </button>
+           </div>
+         </li>
+           <span>{{checkLocation()}}</span>
+       </ul>
+       <div class="custom-control custom-switch" >
+         <input style="cursor: pointer;" type="checkbox"[(ngModel)]="slideShowService.isSlideshowRunning" (change)="slideShowService.checkSlideshowArray()" class="custom-control-input" id="customSwitches">
+         <label style="cursor: pointer;" class="custom-control-label" for="customSwitches">Slideshow</label>
+       </div>
+     </div>
+   </nav>
+ 
+ 
+   <div *ngIf="!generalService.getLoginComplete()"><app-auth></app-auth></div>
+   <div *ngIf="generalService.getLoginComplete()" class="bg">
+     <div></div>
+     <router-outlet></router-outlet>
+   </div> 
+ 
+   
+ 
+ <div class="modal bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+ aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+   <div class="modal-content">
+     <div class="modal-header pl-5">
+       
+       <h5 class="modal-title pl-5" id="exampleModalLabel">Leave</h5>
+      
+       <button type="button" class="close icon" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+    
+     
+     </div>
+     <div class="modal-body pt-3 pb-1">
+       <p>Are you sure you want to leave?</p>
+     </div>
+     <div class="footer pb-4">
+ 
+         <div>
+ 
+           <button type="button" class="btn btn-basic btn-custom btn-cg-m mr-2 ml-3"
+             data-dismiss="modal" (click)="confirmStay()">No,go back</button>
+           <button type="button" class="btn btn-basic btn-custom btn-cg-m ml-2 mr-2 "data-dismiss="modal" (click)="confirmLogout()">Yes,leave</button>
+         </div>
+       
+     </div>
+   </div>
+ </div>
+ </div>
+   
+   <button data-toggle="modal" data-target=".bd-example-modal-sm" style="display: none;" id="openLogoutModal"></button>

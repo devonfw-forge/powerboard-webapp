@@ -4,10 +4,6 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ElectronService } from 'ngx-electron';
 import { AppComponent } from "./app.component";
-import { GeneralServiceMock } from './mocks/general.service.mock';
-import { NavigationMockService } from './mocks/navigation.service.mock';
-import { MockSlideShowService } from './mocks/slideShow.service.mock';
-import { MockTeamDetailsService } from './mocks/teamDetails.service.mock';
 import { GeneralService } from './shared/services/general.service';
 import { NavigationService } from './shared/services/navigation.service';
 import { SlideshowService } from './teams/services/slideshow.service';
@@ -16,16 +12,58 @@ import { TeamDetailsService } from './teams/services/team-details.service';
 describe('AppComponent', () => {
   let app: AppComponent; 
   let fixture: ComponentFixture<AppComponent>;
- let electronService: ElectronService;
- //let slideshowService : SlideshowService;
- let slideShowService:MockSlideShowService;
- let generalService : GeneralService;
- let httpTestingController : HttpTestingController;
-let teamDetailService:TeamDetailsService;
-// let router = {
-//   navigateByUrl: jasmine.createSpy('navigateByUrl')
-// }
-let location;
+  let httpTestingController : HttpTestingController;
+  class MockSlideShowService{
+    isSlideshowRunning = false;
+    checkSlideshowArray(){
+      return null;
+    }
+    stopSlideShow(){
+      return null;
+    }
+    startSlideShow(){
+      return null;
+    }
+  }
+  class MockGeneralService{
+    isDashboardVisible = true;
+    IsShowNavBarIcons(){
+      return null;
+    }
+    getIsLinksVisible(){
+      return true;
+    }
+    getLoginComplete(){
+      return true;
+    }
+    getLogoPath(){
+      return null;
+    }
+    logout(){
+      return null;
+    }
+    getisGuestLogin(){
+      return true;
+    }
+  }
+  class MockNavigationService{
+    back(){
+      return true;
+    }
+    clearRouterHistory(){
+      return null;
+    }
+    pushCurrentLocation(){
+      return null;
+    }
+  }
+  class MockTeamDetailsService{
+    resetTeamDetailPermissions(){
+      return null;
+    }
+  }
+ 
+
 class MockRouter {
   navigate(path:string){
    return path;
@@ -35,11 +73,6 @@ class MockRouter {
   }
 }
 
-class MockLocation{
-  path(){
-    return '/dashboard'
-  }
-}
 
 beforeEach(async () => {
   await TestBed.configureTestingModule({
@@ -50,40 +83,20 @@ beforeEach(async () => {
       AppComponent
     ],
     providers:[
-      ElectronService,
-      
      {provide : SlideshowService, useClass:MockSlideShowService},
-     {provide : GeneralService, useClass:GeneralServiceMock},
+     {provide : GeneralService, useClass:MockGeneralService},
      {provide : TeamDetailsService, useClass:MockTeamDetailsService},
-     {provide : NavigationService, useClass:NavigationMockService},
+     {provide : NavigationService, useClass:MockNavigationService},
      {provide : Router, useClass:MockRouter},
-     {provide : Location, useClass:MockRouter},
     ]
       
   }).compileComponents();
 });
 
-// beforeEach(() => {
-//   var store = {};
-
-// spyOn(localStorage, 'getItem').and.callFake(function (key) {
-//   return store[key];
-// });
-// spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
-//   return store[key] = value + '';
-// });
-// spyOn(localStorage, 'clear').and.callFake(function () {
-//     store = {};
-// });
-// })
 beforeEach(() => {
   fixture = TestBed.createComponent(AppComponent);
   app = fixture.componentInstance;
   fixture.detectChanges();
-  // generalService= TestBed.inject(GeneralService);
-  // notificationService = TestBed.inject(NotificationService);
-  //location=TestBed.inject(Location)
- // router = TestBed.inject(Router);
 });
 
 it('should create', () => {
@@ -172,11 +185,11 @@ it('should checkLocation() ', () => {
 
   //app.location.path().includes("/dashboard")==true;
  //spyOn(app,'highlight').and.callThrough()
-//  var dummyDashboard = document.createElement('dashboard');
-// document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
+ var dummyDashboard = document.createElement('dashboard');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
 
 //spyOn(location,'path').and.returnValue(true);
-spyOn(app,'highlight').and.callThrough();
+spyOn(app,'highlight').and.callFake;
   app.checkLocation();
   expect(app.checkLocation).toBeTruthy();
 
@@ -201,8 +214,12 @@ it('should moveToSetings() ', () => {
   app.moveToSetings()
   expect(app.moveToSetings).toBeTruthy();
 
-}),
+})
+it('should moveToSetings() ', () => {
+  app.moveToSetings()
+  expect(app.moveToSetings).toBeTruthy();
 
+})
 it('should onKeydownHandler ', () => {
  let event: KeyboardEvent
   app.onKeydownHandler(event);
