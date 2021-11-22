@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TeamDetails } from 'src/app/auth/model/auth.model';
 import { PowerboardResponse, TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { GetTeamDetails } from '../model/pbResponse.model';
@@ -21,16 +20,14 @@ export class TeamDetailsService {
     }
     
     async getTeamDetails(userIdTeamIdDetails : GetTeamDetails):Promise<PowerboardResponse>{
-      return await this.http.post<PowerboardResponse>(
+      return this.http.post<PowerboardResponse>(
         environment.globalEndPoint + environment.getTeamDetailsEndPoint, userIdTeamIdDetails ).toPromise();
     }
   
     async getTeamsInADCenter(centerId : string):Promise<ProjectTeamDetail[]>{
-      return await this.http.get<ProjectTeamDetail[]>(
+      return this.http.get<ProjectTeamDetail[]>(
         environment.globalEndPoint + environment.getTeamsCenterEndPoint  + centerId ).toPromise();
     }
-  
-  /* new call */
   
     public getTeamDetailPermissions(): string[]
     {
@@ -70,10 +67,10 @@ export class TeamDetailsService {
       try{
         this.UserIdTeamIdDetails.teamId = teamId;
         this.UserIdTeamIdDetails.userId = this.userId;
-        /* this.localLoader = true; */
+  
         const data = await this.getTeamDetails(this.UserIdTeamIdDetails);
         this.teamDetails.powerboardResponse = data;
-        /* this.localLoader = false; */
+        
         localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetails));
         this.setTeamDetailPermissions();
         this.generalService.showNavBarIcons = true;
@@ -82,7 +79,6 @@ export class TeamDetailsService {
         this.generalService.storeLastLoggedIn();
       }
       catch(e){
-        /* this.localLoader = false; */
         console.log(e.error.message);
       }
     }

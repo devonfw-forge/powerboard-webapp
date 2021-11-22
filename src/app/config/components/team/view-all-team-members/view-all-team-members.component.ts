@@ -79,7 +79,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
    
     async editTeamMember(){
     try{
-     const data = await this.editChild.editTeamMember();
+     await this.editChild.editTeamMember();
      this.viewAllMembers();
     }
     catch(e){

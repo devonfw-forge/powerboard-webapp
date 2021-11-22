@@ -96,7 +96,6 @@ export class GuestDetails{
 }
 
 import { Pipe, PipeTransform } from '@angular/core';
-import { stringify } from 'querystring';
  
 @Pipe({ name: 'removeUnderscore' })
 export class RemoveUnderscorePipe implements PipeTransform {

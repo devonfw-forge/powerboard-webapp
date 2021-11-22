@@ -1,16 +1,7 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { DashboardComponent } from './teams/components/dashboard/dashboard.component';
-import { LinksComponent } from './teams/components/links/links.component';
-import { ResetPasswordComponent } from './auth/components/reset-password/reset-password.component';
-import { MultimediaComponent } from './teams/components/multimedia/multimedia.component';
-
-import { ProjectDisplayComponent } from './teams/components/project-display/project-display.component';
-
 import { ViewTeamComponent } from './config/components/team/view-team/view-team.component';
-import { SlideshowComponent } from './teams/components/slideshow/slideshow.component';
-import { SlideshowMultimediaComponent } from './teams/components/slideshow/slideshow-multimedia/slideshow-multimedia.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [

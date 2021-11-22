@@ -1,11 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { WebviewTag } from 'electron';
 import { ElectronService } from 'ngx-electron';
 import { LinkResponse, TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { TeamLinksDetails } from '../../../model/config.model';
-import { ConfigService } from '../../../services/config.service';
 import { SetupService } from '../../../services/setup.service';
 import { AddLinksComponent } from './add-links/add-links.component';
 
@@ -82,7 +80,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
   openTeamLink(link: string) {
     console.log(link);
     if (!this.isElectronRunning) {
-      let myWindow = window.open(link, "myWindow", "width=1000,height=1000");
+      window.open(link, "myWindow", "width=1000,height=1000");
     }
     else {
       this.src = link;

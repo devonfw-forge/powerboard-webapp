@@ -29,7 +29,7 @@ export class SlideshowService {
     }
   
     public getSlideShow():boolean{
-   return  this.isSlideshowRunning ;
+   return  this.isSlideshowRunning;
     }
     public startSlideShow(){
       this.isSlideshowRunning =true;

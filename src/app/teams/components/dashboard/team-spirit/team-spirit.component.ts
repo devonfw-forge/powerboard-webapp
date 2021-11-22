@@ -15,7 +15,6 @@ export class TeamSpiritComponent implements OnInit {
   colour: string;
   componentReady: boolean;
 
-  constructor() {}
   ngOnInit(): void {
     this.teamSpirit = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')

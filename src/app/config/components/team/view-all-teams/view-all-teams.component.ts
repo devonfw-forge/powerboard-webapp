@@ -1,5 +1,4 @@
-import { ViewChild } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { ViewChild, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GetTeamDetails } from 'src/app/teams/model/pbResponse.model';

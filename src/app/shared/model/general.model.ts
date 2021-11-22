@@ -92,7 +92,7 @@ export class VisibleResponse{
 
 export class MultimediaFolderResponse{
   display : MultimediaFilesNew[];
-  root : rootNew[];
+  root : RootNew[];
   }
   
   export class MultimediaFilesNew{
@@ -102,7 +102,7 @@ export class MultimediaFolderResponse{
       isImage? : boolean;
       inSlideShow? : boolean;
   }
-  export class rootNew{
+  export class RootNew{
       folderId : string;
       folderName : string; 
       status : boolean;

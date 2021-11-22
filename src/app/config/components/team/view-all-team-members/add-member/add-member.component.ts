@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
-  FormControl,
   Validators,
-  NgForm,
   FormBuilder,
 } from '@angular/forms';
 import { GeneralService } from 'src/app/shared/services/general.service';
