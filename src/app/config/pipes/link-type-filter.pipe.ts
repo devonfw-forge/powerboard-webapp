@@ -7,9 +7,9 @@ export class LinkTypeFilterPipe implements PipeTransform {
   transform(linkType: string, args?: any): any {
     if (linkType) {
       const linkTypeArray = linkType.split('_');
-      const result = linkTypeArray[0] + ' ' + linkTypeArray[1];
+      
 
-      return result;
+      return linkTypeArray[0] + ' ' + linkTypeArray[1];
     }
       return linkType;
   }

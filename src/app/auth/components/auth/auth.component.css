@@ -19,12 +19,6 @@ height: 40px;
   color: #0070AD;
 }
 
-.mat-icon{
-  color: #0070AD;
-  font-size: inherit;
-  vertical-align: middle;
-  padding-bottom: 3px;
-}
 .logo{
   font-size: 200%;
   margin-top: 3%;
@@ -67,11 +61,6 @@ pointer-events: none;
 
 
 
-.input-field {
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-}
 
 
 .login-image{
@@ -104,38 +93,6 @@ form {
 }
   
 
-
-.input-field {
-
-  display: grid;
-  grid-template-columns: 15% 85%;
-  padding: 0 0.4rem;
-  position: relative;
-}
-.input-field i {
-  text-align: center;
-  line-height: 35px;
-  color: #acacac;
-  transition: 0.5s;
-  font-size: 1.1rem;
-}
-
-.input-field input {
-
-
-  width: 314px;
-  height: 40px;
- 
-  line-height: 31;
-  font-weight: 100;
-  font-size: 1.0rem;
-  color: #333;
-}
-
-.input-field input::placeholder {
-  color: #aaa;
-  font-weight: 500;
-}
 
 .form-group{
   width: 314px;

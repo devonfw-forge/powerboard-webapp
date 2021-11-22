@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { timeStamp } from 'console';
 import { environment } from 'src/environments/environment';
 import { SprintDetailResponse } from '../../../shared/model/general.model';
-import { GeneralService } from '../../../shared/services/general.service';
 import { SlideshowService } from '../../services/slideshow.service';
 
 @Component({

@@ -9,8 +9,7 @@ import { BurndownResponse } from 'src/app/shared/model/general.model';
 export class BurndownComponent implements OnInit {
   burnDown: BurndownResponse = new BurndownResponse();
   unit: string;
-  constructor() {
-   }
+  
   
   ngOnInit(): void {
     

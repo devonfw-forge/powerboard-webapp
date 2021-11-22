@@ -11,11 +11,7 @@ export class LoginResponse
 {
 userId : string;
 isPasswordChanged : boolean;
-/* My_Center : ADCDetails = new ADCDetails(); */
 privileges: string[];
-/* My_Team? : TeamDetails[];
-Teams_In_ADC : TeamDetails[];
-ADC_List : ADCDetails[] ; */
 homeResponse : HomeResponse;
 powerboardResponse?: PowerboardResponse;
   loginResponse: PowerboardLoginResponse;
@@ -28,16 +24,12 @@ export class HomeResponse{
     Teams_In_ADC : TeamDetails[];
 ADC_List : ADCDetails[] ;
 }
-/* export class MyCenterDetails { 
-    centerId : string;
-    centerName: string;
-} */
 
 export class TeamDetails
 {
 teamId: string;
 teamLogo? : string;
-teamName : String;
+teamName : string;
 myRole? : string;
 teamStatus? : number;
 

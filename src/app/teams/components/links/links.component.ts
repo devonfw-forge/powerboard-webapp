@@ -27,10 +27,8 @@ export class LinksComponent implements OnInit {
     this.teamLinks = [];
     this.webLinksIndex = [];
     if (electronService.isElectronApp) {
-      // Do electron stuff
       this.isElectronRunning = true;
     } else {
-      // Do other web stuff
       this.isElectronRunning = false;
     }
   }
@@ -42,20 +40,17 @@ export class LinksComponent implements OnInit {
 
   ngAfterViewInit() {
     if (this.isElectronRunning) {
-      // this.getLinks()
       console.log("I am not suppose to be present here");
       this.webview = document.querySelector('webview');
 
       this.webview.setAttribute('src', this.src);
-      // Loading
       this.webview.addEventListener('did-start-loading', (e) => {
         this.loading = true;
         this.ref.detectChanges();
 
-        this.webview.addEventListener('did-stop-loading', (e) => {
+        this.webview.addEventListener('did-stop-loading', (el) => {
           this.loading = false;
-          const target: any = e.target;
-
+          console.log(el);
           this.ref.detectChanges();
         });
       });
@@ -76,9 +71,8 @@ export class LinksComponent implements OnInit {
 
   public getLinks() {
     this.webLinksIndex = [];
-    let i = 0;
     this.teamLinks = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks;
-    for (i = 0; i < this.teamLinks.length; i++) {
+    for (let i = 0; i < this.teamLinks.length; i++) {
       if (this.teamLinks[i].linkType === 'web_link') {
         this.webLinksIndex.push(i);
         if (this.src === '') {
@@ -111,7 +105,7 @@ export class LinksComponent implements OnInit {
     console.log(link);
     console.log(this.webLinksIndex[this.counter]);
     if (!this.isElectronRunning) {
-      let myWindow = window.open(link, "myWindow", "width=1000,height=1000");
+      window.open(link, "myWindow", "width=1000,height=1000");
     }
     else {
       this.src = link;

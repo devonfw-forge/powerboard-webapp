@@ -28,9 +28,6 @@ import { ADcenterFilterPipe } from './pipes/adcenter-filter.pipe';
 import { ConfigureMultimediaComponent } from './components/setup/configure-multimedia/configure-multimedia.component';
 import { EditTeamMemberComponent } from './components/team/view-all-team-members/edit-team-member/edit-team-member.component';
 
-/* import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; */
-
-/* import { FileDropModule } from 'ngx-file-drop'; */
 
 const routes: Routes = [{
   path: '',

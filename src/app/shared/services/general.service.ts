@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { HostListener, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { rm } from 'fs';
 import { environment } from '../../../environments/environment';
 import {
   HomeResponse,
@@ -48,8 +47,6 @@ export class GeneralService {
   isSettingsVisible: boolean;
   isLogoutVisible: boolean;
   isGuestLogin: boolean;
-  /* isSettingFlag: boolean;
-  isLinksFlag: boolean; */
 
   public showNavBarIcons: boolean;
 
@@ -124,22 +121,40 @@ export class GeneralService {
     this.checkVisibility();
     this.router.navigate(['/']);
   }
-
-  checkVisibility() {
-    if (this.getLoginComplete()) {
-      this.isHomeVisible = true;
+checkVisibilityIfLoginComplete(){
+  this.isHomeVisible = true;
       this.isLogoutVisible = true;
-     /*  this.isSettingFlag = false; */
      this.isSettingsVisible = false;
       if (this.getPermissions()) {
         for (let permission of this.getPermissions()) {
           if (this.configureButton == permission) {
-            /* this.isSettingFlag = true; */
             this.isSettingsVisible =true;
           }
         }
         
-      } 
+      }
+}
+checkVisibilityIfNavBarAndLoginTrue(){
+  this.isDashboardVisible = true;
+      this.isMultimediaVisible = true;
+      this.isSettingsVisible =false;
+      this.isLinksVisible = false;
+      this.isSlideshowVisible = false;
+      if (this.getPermissions()) {
+        for (let permission of this.getPermissions()) {
+          if (this.configureButton == permission) {
+           this.isSettingsVisible = true;
+          }
+          if (this.viewLinks == permission) {
+            this.isLinksVisible = true;
+          }
+        }
+        
+      }
+}
+  checkVisibility() {
+    if (this.getLoginComplete()) {
+       this.checkVisibilityIfLoginComplete();
     } else {
       this.isHomeVisible = false;
       this.isLogoutVisible = false;
@@ -153,26 +168,7 @@ export class GeneralService {
 
 
     if (this.showNavBarIcons && this.getLoginComplete()) {
-      this.isDashboardVisible = true;
-      this.isMultimediaVisible = true;
-      /* this.isSettingFlag = false;
-      this.isLinksFlag = false; */
-      this.isSettingsVisible =false;
-      this.isLinksVisible = false;
-      this.isSlideshowVisible = false;
-      if (this.getPermissions()) {
-        for (let permission of this.getPermissions()) {
-          if (this.configureButton == permission) {
-           /*  this.isSettingFlag = true; */
-           this.isSettingsVisible = true;
-          }
-          if (this.viewLinks == permission) {
-            /* this.isLinksFlag = true; */
-            this.isLinksVisible = true;
-          }
-        }
-        
-      } 
+       this.checkVisibilityIfNavBarAndLoginTrue()
     } else {
       this.isDashboardVisible = false;
       this.isMultimediaVisible = false;
@@ -231,25 +227,21 @@ export class GeneralService {
         if (this.lastCheckedInProjectId == team.teamId) {
           this.userIdTeamIdDetails.teamId = team.teamId;
         }
-        //  else{
-        //    this.userIdTeamIdDetails.teamId=this.lastCheckedInProjectId;
-        //  }
       }
     } else {
       this.userIdTeamIdDetails.teamId = this.lastCheckedInProjectId;
     }
-    // this.sendLastLoggedIn();
   }
 
   /* new end point call */
   async getProjectDetails(userId: string): Promise<HomeResponse> {
-    return await this.http
+    return this.http
       .get<HomeResponse>(environment.globalEndPoint + environment.getProjectDetailsEndpoint + userId)
       .toPromise();
   }
 
   async sendLastLoggedIn() {
-    await this.http
+     this.http
       .put<any>(
         environment.globalEndPoint + environment.lastLoggedEndPoint,
         this.userIdTeamIdDetails
@@ -275,18 +267,18 @@ export class GeneralService {
 
 
    async getAllFilesFromFolder(teamId: string, folderId : string): Promise<MultimediaFilesNew[]> {
-    return await this.http
+    return this.http
       .get<MultimediaFilesNew[]>(environment.globalEndPoint + environment.FilesFromFolderEndpoint + teamId + '/' + folderId)
       .toPromise();
   }
 
   async getAllFilesFromTeam(teamId: string): Promise<MultimediaFilesNew[]> {
-    return await this.http
+    return this.http
       .get<MultimediaFilesNew[]>(environment.globalEndPoint + environment.FilesForTeamEndpoint + teamId)
       .toPromise();
   }
   async getSlideshowFiles(teamId: string) : Promise<any>{
-    return await this.http.get<any>(environment.globalEndPoint + environment.getSlideshowFilesEndpoint + teamId).toPromise();
+    return this.http.get<any>(environment.globalEndPoint + environment.getSlideshowFilesEndpoint + teamId).toPromise();
     }
 
     public IsShowNavBarIcons(){

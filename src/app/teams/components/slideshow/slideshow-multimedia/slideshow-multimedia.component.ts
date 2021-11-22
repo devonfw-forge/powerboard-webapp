@@ -48,7 +48,6 @@ export class SlideshowMultimediaComponent implements OnInit {
     
     this.slideshowTempFiles = data;
     if(this.slideshowTempFiles.length > 0){
-     /*  this.slideshowFiles = this.slideshowFiles.filter(file =>this.isImage(file.fileURL) == true); */
     for(let file of this.slideshowTempFiles){
       if(this.isImage(file.fileURL)){
         this.slideshowFiles.push(file);
@@ -61,20 +60,10 @@ export class SlideshowMultimediaComponent implements OnInit {
     }
      console.log(this.slideshowFiles);
      this.slideshowControl();
-    /* this.currentItem = this.slideshowFiles[this.counter].fileURL;
-    this.counter++;
-    this.automateSlideshow(); */
     }
     else{
       this.slideshowService.moveSlideshowNextComponent();
     }
-    /* this.currentItem = this.slideshowFiles[this.currentIndex].fileURL; */
-    /* this.processFiles(); */
-    /* for(let folder of this.multimedia.root){
-      if(folder.status == true){
-        this.currentFolder = folder.folderName;
-      }
-    } */
     }
     catch(e){
       console.log(e);
@@ -139,30 +128,8 @@ export class SlideshowMultimediaComponent implements OnInit {
           this.slideshowService.moveSlideshowNextComponent();
         }
       }
-     /*  if (this.api) {
-        if(this.api.state === 'playing'){
-          setTimeout(this.slideshowControl.bind(this), this.interval);
-        }
-        
-      }
-      else{
-        this.currentItem = this.slideshowFiles[this.currentIndex].fileURL;
-        this.currentIndex++;
-        setTimeout(this.slideshowControl.bind(this), this.interval);
-      } */
     }
   }
-
-
-  //videos to slideshow
-  /* onPlayerReady(api: VgApiService) {
-    console.log("api value");
-    console.log(api);
-    this.api = api;
-    if (this.componentReady) {
-      this.api.volume = 0;
-    }
-  } */
 
 
 
@@ -175,21 +142,21 @@ export class SlideshowMultimediaComponent implements OnInit {
       this.api.volume = 0;
     }
 
-const data=this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe({
+this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe({
       next: this.playVideo.bind(this),
       error: (reason) => {
         console.error('Error while loading video metadata?');
-        // console.log(reason);
+        console.log(reason);
       }
       
     });
     
     
-   const data1= this.api.getDefaultMedia().subscriptions.ended.subscribe({
+   this.api.getDefaultMedia().subscriptions.ended.subscribe({
       next: this.nextVideo.bind(this),
       error: (reason) => {
         console.error('Error when loaded video metadata?');
-        // console.log(reason);
+        console.log(reason);
       }
     });
     

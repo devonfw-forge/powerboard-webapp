@@ -40,15 +40,6 @@ padding-left: 5%;
 
 
  .modal-header{
-   border-bottom: none;
-   padding-bottom: 0%;
- }
- /* .modal-body{
-   padding: 2rem;
-   padding-top: 1%;
- } */
-
- .modal-header{
   border-bottom: none;
   padding-bottom: 0%;
 }
@@ -67,9 +58,6 @@ padding-left: 5%;
   padding-right: 0%;
 }
 
-.margin-delete{
-  padding-left: 1%;
-}
 
 .btn-basic{
   border: 2px solid grey;
