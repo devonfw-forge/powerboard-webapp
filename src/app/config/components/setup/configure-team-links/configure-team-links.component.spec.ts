@@ -32,6 +32,9 @@ describe('ConfigureTeamLinksComponent', () => {
       console.log(heading,message);
       return null;
     }
+    showInfo(message:string ,title:string){
+     return null;
+    }
   }
 
   @Component({selector: 'app-add-links', template: './add-links.component.html'})
@@ -76,6 +79,7 @@ describe('ConfigureTeamLinksComponent', () => {
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     fixture = TestBed.createComponent(ConfigureTeamLinksComponent);
     component = fixture.componentInstance;
+    component.isElectronRunning=true;
     fixture.detectChanges();
   });
 
@@ -84,6 +88,11 @@ describe('ConfigureTeamLinksComponent', () => {
   });
 
   it('should get links', ()=>{
+    component.getLinks();
+    expect(component.usefullLinks).toBeTruthy();
+  })
+  it('should get links', ()=>{
+    component.usefullLinks=[];
     component.getLinks();
     expect(component.usefullLinks).toBeTruthy();
   })
@@ -140,11 +149,19 @@ describe('ConfigureTeamLinksComponent', () => {
     expect(window.open).toHaveBeenCalled();
   })
 
+  // it('should open team links on window if electron is running',()=>{
+  //   spyOn(window,'open').and.callFake(()=>{return null});
+  //   component.isElectronRunning= true;
+  //   const link='mock link'
+  //   component.openTeamLink(link);
+  //   expect(window.open).toHaveBeenCalled();
+  // })
 
   it('should delete link',()=>{
     component.selectedLinkId = "mock link id";
     component.deleteLink();
-    expect(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks).toEqual(component.usefullLinks);
+   // expect(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks).toEqual(component.usefullLinks);
+   expect(component.deleteLink).toBeDefined();
   })
   
   it('should add link',()=>{

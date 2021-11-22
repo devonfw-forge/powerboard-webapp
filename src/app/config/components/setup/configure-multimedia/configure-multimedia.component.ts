@@ -168,7 +168,7 @@ export class ConfigureMultimediaComponent implements OnInit {
       const file = (event.target as HTMLInputElement).files[0];
       if(this.currentFolder == this.homeFile.folderName){
         const data = await this.configureService.addFilesToTeam(this.teamId, file);
-        console.log(data);
+       // console.log(data);
         let newFile = {
           id: data.id,
           urlName: data.fileName,
@@ -205,7 +205,7 @@ export class ConfigureMultimediaComponent implements OnInit {
           }
         }
         const data = await this.configureService.addFileInSubFolder(folderId, this.teamId,file);
-        console.log(data);
+       // console.log(data);
         let newFile = {
           id : data.id,
           urlName : data.fileName,
