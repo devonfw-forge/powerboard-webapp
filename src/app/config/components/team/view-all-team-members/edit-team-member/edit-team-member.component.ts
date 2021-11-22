@@ -25,7 +25,9 @@ export class EditTeamMemberComponent implements OnInit {
     this.roleName = 'Select Role';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.roleName = 'Select Role';
+  }
   getCurrentTeamMember(member){
     this.currentMember = member;
  

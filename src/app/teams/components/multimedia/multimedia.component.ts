@@ -11,13 +11,11 @@ import { environment } from 'src/environments/environment';
 })
 export class MultimediaComponent implements OnInit {
   @ViewChild('widgetsContent') widgetsContent: ElementRef;
-  /*   currentPath : string; */
     currentIndex = 0;
     currentItem: string;
     api: VgApiService;
     thumbnailData: string[];
     checkStatus :  boolean;
-    //multimediaData: string[];
     thumbnailIsImage: boolean[] = [];
     intervalID: any;
     teamId: string;
@@ -30,8 +28,6 @@ export class MultimediaComponent implements OnInit {
     is_image: boolean = true;
     is_video: boolean = false;
     counter: number = 0;
-   /*  multimediaPrefix = environment.multimediaPrefix;
-    localPrefix = environment.localPrefix; */
     interval: number = environment.slideshowInterval;
   
     constructor(public generalService : GeneralService) { 
@@ -40,7 +36,6 @@ export class MultimediaComponent implements OnInit {
       this.currentFolder = '';
       this.currentIndex = 0;
       this.multimedia = new MultimediaFolderResponse();
-      /* this.currentPath = ''; */
     
     }
     ngOnInit() {
@@ -64,19 +59,6 @@ export class MultimediaComponent implements OnInit {
         this.currentFolder = 'Home';
       }
       this.processFiles();
-     /*  if(this.multimedia.rootResponse.length>0){
-        this.currentItem = this.multimedia.rootResponse[this.currentIndex].fileName;
-        this.multimediaFiles = this.multimedia.rootResponse;
-        this.currentPath = environment.multimediaPrefix + this.teamId + '/';
-      }
-      else{
-        this.currentItem = this.multimedia.folderResponse[0].fileResponse[this.currentIndex].fileName;
-        this.multimediaFiles = this.multimedia.folderResponse[0].fileResponse;
-        this.currentPath = environment.multimediaPrefix + this.teamId + '/' 
-                        + this.multimedia.folderResponse[0].folderName + '/';
-        this.currentFolder = this.multimedia.folderResponse[0].folderName;
-      }
-      this.processFiles(); */
     } 
     showHomeFiles(){
       this.multimediaFiles = [];
@@ -158,37 +140,8 @@ export class MultimediaComponent implements OnInit {
       this.currentIndex = index;
       this.currentItem = item;
   
-      /* if (this.counter != this.thumbnailData.length - 1 && this.slideshowService.isSlideshowRunning) {
-        console.log(this.counter + "-> on click before +1");
-        this.counter = this.counter + 1;
-        console.log(this.counter + "-> on click after +1");
-        if (this.counter === 1) {
-          this.automatePlaylist(this.interval);
-        }
-  
-      }
-      else if (this.counter === this.thumbnailData.length - 1 && this.slideshowService.isSlideshowRunning) {
-        console.log("automate done");
-  
-        clearInterval(this.intervalID);
-        setTimeout(() => {
-          if (this.slideshowService.isSlideshowRunning) {
-            this.slideshowService.moveSlideshowNextComponent();
-          }
-        }, this.interval);
-      } */
-  
   
     }
-  
-    /* automatePlaylist(interval: number) {
-      if (this.counter === 0) {
-        this.onClickPlaylistItem(this.thumbnailData[this.counter], this.counter);
-      }
-      else {
-        this.intervalID = setInterval(() => this.onClickPlaylistItem(this.thumbnailData[this.counter], this.counter), interval);
-      }
-    } */
   
     isImage(url: string) {
       const images = ["jpg", "jpeg", "gif", "png"];

@@ -80,7 +80,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
   openTeamLink(link: string) {
     console.log(link);
     if (!this.isElectronRunning) {
-      let myWindow = window.open(link, "myWindow", "width=1000,height=1000");
+      window.open(link, "myWindow", "width=1000,height=1000");
     }
     else {
       this.src = link;

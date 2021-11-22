@@ -119,9 +119,6 @@ if(JSON.parse(
      var image = <HTMLImageElement>document.getElementById('output');
      image.src = URL.createObjectURL(file); 
      this.notifyService.showSuccess("","Logo Uploaded Successfully");
-     /* this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
-     this.teamDetail.powerboardResponse.logo = data.logo;
-     localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetail)); */
     }catch(e){
       console.log(e);
       this.spinner = false;

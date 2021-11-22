@@ -27,7 +27,6 @@ export class ProjectsComponent implements OnInit {
   constructor(public teamDetailsService: TeamDetailsService, private router: Router, public generalService: GeneralService) {
     this.ADC_Center = "Select center";
     this.newAdCenter = new ADCDetails();
-    /* this.localLoader = false; */
   }
 
   ngOnInit(): void {

@@ -19,7 +19,7 @@ export class TeamService {
   } */
 
   async addTeamWithLogo(formData : FormData):Promise<any>{
-    return await this.http.post<any>(
+    return this.http.post<any>(
       environment.globalEndPoint + environment.addTeamEndPoint, formData).toPromise();
   }
   
@@ -30,12 +30,12 @@ export class TeamService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text' 
    }
-    return await this.http.delete<any>(
+    return this.http.delete<any>(
       environment.globalEndPoint + environment.deleteTeamEndPoint+ teamId, requestOptions).toPromise();
   }
 
   async viewAllTeams():Promise<TeamsResponse[]>{
-    return await this.http.get<TeamsResponse[]>(
+    return this.http.get<TeamsResponse[]>(
       environment.globalEndPoint + environment.viewAllTeamsEndPoint).toPromise();
   }
 
@@ -48,24 +48,24 @@ export class TeamService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text' 
    }
-    return await this.http.post<any>(
+    return this.http.post<any>(
       environment.globalEndPoint + environment.addTeamMemberEndPoint, teamMember, requestOptions
         
    ).toPromise();
   }
 
   async viewTeamMembersOfTeam(teamId : string):Promise<any>{
-    return await this.http.get<any>(
+    return this.http.get<any>(
       environment.globalEndPoint + environment.viewAllMembersOfTeamEndPoint + teamId).toPromise();
   }
 
    async deleteTeamMember(userteamId : string):Promise<any>{
-    return await this.http.delete<any>(
+    return this.http.delete<any>(
       environment.globalEndPoint + environment.deleteTeamMemberEndPoint + userteamId).toPromise();
   } 
 
   async updateAccessRole(updateRole : UpdateRoles):Promise<any>{
-    return await this.http.put<any>(
+    return this.http.put<any>(
       environment.globalEndPoint + environment.updateUserRoleEndPoint,updateRole).toPromise();
   }
 }

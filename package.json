@@ -13,6 +13,7 @@
     "start:electron": "ng build --base-href ./ && electron .",
     "electron": "ng build && electron",
     "pack": "electron-packager . "
+  
   },
   "browser": {
     "child_process": false

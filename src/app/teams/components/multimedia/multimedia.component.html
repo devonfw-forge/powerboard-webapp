@@ -38,7 +38,9 @@
                   <div *ngIf="is_video">
                       <vg-player *ngIf="currentItem" (onPlayerReady)="onPlayerReady($event)" (tap)="onTap()">
                         <vg-buffering></vg-buffering>
-        
+                        <track label="English" kind="captions" srclang="en" src="resources/myvideo-en.vtt" default>
+                            <track label="Deutsch" kind="captions" srclang="de" src="resources/myvideo-de.vtt">
+                            <track label="Español" kind="captions" srclang="es" src="resources/myvideo-es.vtt">
                         <vg-controls>
                           <vg-play-pause></vg-play-pause>
                           <vg-playback-button></vg-playback-button>

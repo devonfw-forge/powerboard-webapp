@@ -16,23 +16,22 @@ export class AuthService {
     userName: string,
     password: string
   ): Promise<PowerboardLoginResponse> {
-    const data = await this.http
+    return this.http
     .post<PowerboardLoginResponse>(environment.globalEndPoint+ environment.loginEndPoint, {
       username: userName, //'raj11',
       password: password, //'password'
     })
     .toPromise();
-    return data;
   }
 
   public async resetPassword(resetPassword: PasswordResetForm): Promise<any> {
-    return await this.http
+    return this.http
       .put<any>(environment.globalEndPoint + environment.resetPasswordEndPonit, resetPassword)
       .toPromise();
   }
 
   public async guestLogin(): Promise<PowerboardLoginResponse> {
-    return await this.http
+    return this.http
       .post<PowerboardLoginResponse>(
         environment.globalEndPoint + environment.guestLoginEndPoint,
         {

@@ -17,7 +17,6 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { ToastrModule } from 'ngx-toastr';
 
 
-/* import { NgxEchartsModule } from 'ngx-echarts/lib/ngx-echarts.module'; */
 
 @NgModule({
   declarations: [AppComponent],

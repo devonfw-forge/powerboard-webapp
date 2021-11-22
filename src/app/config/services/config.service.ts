@@ -63,7 +63,7 @@ export class ConfigService {
     }
   
     async getRoles():Promise<RolesResponse[]>{
-      return await this.http.get<RolesResponse[]>(
+      return this.http.get<RolesResponse[]>(
         environment.globalEndPoint + environment.viewAllUserRolesEndPoint ).toPromise();
     }
 }

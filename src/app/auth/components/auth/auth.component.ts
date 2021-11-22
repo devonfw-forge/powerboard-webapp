@@ -14,15 +14,6 @@ import { environment } from 'src/environments/environment';
 import { PowerboardLoginResponse } from '../../model/auth.model';
 import { AuthService } from '../../services/auth.service';
 
-// import { TeamDetailResponse } from '../model/general.model';
-// import { TeamDetailsService } from '../project-display/service/team-details.service';
-// import { GeneralService } from '../service/general.service';
-// import {environment} from '../../environments/environment'
-// import {  PowerboardLoginResponse } from './model/login.model';
-
-// import { LoginService } from './service/login.service';
-// import { NotificationService } from '../service/notification.service';
-
 
 @Component({
   selector: 'app-auth',
@@ -36,7 +27,6 @@ export class AuthComponent implements OnInit {
   loginForm: FormGroup;
   multimediaPrefix = environment.multimediaPrefix;
   imagePath : string;
-  /* localLoader : boolean; */
   teamDetails : TeamDetailResponse = new TeamDetailResponse();
 
   constructor(
@@ -49,7 +39,6 @@ export class AuthComponent implements OnInit {
     private changeDetector: ChangeDetectorRef
   ) {
     this.authError = null;
-    /* this.localLoader = false; */
     this.imagePath = this.multimediaPrefix + "multimedia/46455bf7-ada7-495c-8019-8d7ab76d490e/Screenshot(3)2fd7e5fd-5340-47b3-b704-f18596a38656.png"
   }
 

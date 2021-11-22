@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DeleteResponse } from 'src/app/config/model/config.model';
 import { MultimediaFilesNew, MultimediaFolderResponse, RootNew, TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { environment } from 'src/environments/environment';
 import { SetupService } from '../../../services/setup.service';
 
@@ -32,7 +33,7 @@ export class ConfigureMultimediaComponent implements OnInit {
 
   constructor(
     public configureService: SetupService,
-    /* private notifyService: NotificationService, */
+    private notifyService: NotificationService,
     private generalService: GeneralService
   ) {
     this.checkStatus = false;
@@ -160,40 +161,12 @@ export class ConfigureMultimediaComponent implements OnInit {
 
 
 
-  async uploadFile(event) {
-     /* console.log(this.multimediagallery); */
-     
+  async uploadFile(event) { 
      try {
       const file = (event.target as HTMLInputElement).files[0];
       if(this.currentFolder == this.homeFile.folderName){
         const data = await this.configureService.addFilesToTeam(this.teamId, file);
-        console.log(data);
-        let newFile = {
-          id: data.id,
-          urlName: data.fileName,
-          isSelected : false,
-          inSlideShow : false,
-          isImage : this.isImage(data.fileName)
-        };
-        /* this.multimediagallery.display[0].push(newFile); */
-        this.checkStatus = false;
-        for(let folder of this.multimedia.root){
-          if(folder.status){
-            this.checkStatus = true;
-          }
-        }
-        if(this.checkStatus){
-          this.multimedia.display = [];
-          for(let folder of this.multimedia.root){
-            folder.status = false;
-          }
-        }
-        this.multimedia.display.push(newFile);
-        this.multimediaFiles = this.multimedia.display;
-        this.checkImagesAndVideos();
-        this.checkHomeInslideShowStatus();
-        
-        this.updateLocalStorage();
+        this.updateUploadInHome(data);
       }
       else{
         let folderId = '';
@@ -204,44 +177,69 @@ export class ConfigureMultimediaComponent implements OnInit {
           }
         }
         const data = await this.configureService.addFileInSubFolder(folderId, this.teamId,file);
-        console.log(data);
-        let newFile = {
-          id : data.id,
-          urlName : data.fileName,
-          isSelected : false,
-          inSlideShow : false,
-          isImage : this.isImage(data.fileName)
-        }
-        for(let folder of this.multimedia.root){
-          if(folder.folderId == folderId){
-            if(folder.status){
-              this.multimedia.display.push(newFile);
-              this.updateLocalStorage();
-              this.updateComponent();
-            }
-            else{
-              this.tempPath = newFile.urlName;
-              if(newFile.isImage){
-                newFile.urlName = this.tempPath;
-              } else {
-                const video_thumbnail = this.tempPath + '#t=5';
-                newFile.urlName = video_thumbnail;
-              }
-              this.multimediaFiles.push(newFile);
-            }
-            break;
-          }
-        }
-
-      }
-    
-    
-      
+        this.updateUploadInSubFolder(data,folderId);
+      }   
       this.updateComponent();
-     /*  this.notifyService.showSuccess('', 'File Added Successfully'); */
+      this.notifyService.showSuccess('', 'File Added Successfully');
     } catch (e) {
       console.log(e.error.message);
-     /*  this.notifyService.showError('', e.error.message); */
+      this.notifyService.showError('', e.error.message);
+    }
+  }
+  updateUploadInHome(data){
+    let newFile = {
+      id: data.id,
+      urlName: data.fileName,
+      isSelected : false,
+      inSlideShow : false,
+      isImage : this.isImage(data.fileName)
+    };
+    this.checkStatus = false;
+    for(let folder of this.multimedia.root){
+      if(folder.status){
+        this.checkStatus = true;
+      }
+    }
+    if(this.checkStatus){
+      this.multimedia.display = [];
+      for(let folder of this.multimedia.root){
+        folder.status = false;
+      }
+    }
+    this.multimedia.display.push(newFile);
+    this.multimediaFiles = this.multimedia.display;
+    this.checkImagesAndVideos();
+    this.checkHomeInslideShowStatus();
+    
+    this.updateLocalStorage();
+  }
+  updateUploadInSubFolder(data,folderId){
+    let newFile = {
+      id : data.id,
+      urlName : data.fileName,
+      isSelected : false,
+      inSlideShow : false,
+      isImage : this.isImage(data.fileName)
+    }
+    for(let folder of this.multimedia.root){
+      if(folder.folderId == folderId){
+        if(folder.status){
+          this.multimedia.display.push(newFile);
+          this.updateLocalStorage();
+          this.updateComponent();
+        }
+        else{
+          this.tempPath = newFile.urlName;
+          if(newFile.isImage){
+            newFile.urlName = this.tempPath;
+          } else {
+            const video_thumbnail = this.tempPath + '#t=5';
+            newFile.urlName = video_thumbnail;
+          }
+          this.multimediaFiles.push(newFile);
+        }
+        break;
+      }
     }
   }
   SelectAndDeselectAll(){
@@ -318,36 +316,90 @@ export class ConfigureMultimediaComponent implements OnInit {
         this.isMasterSel = false;
       }
   }
-  checkHomeIsSelected(){
-    if(this.homeFile.isSelected){
-      this.isMasterSel = false;
-      this.homeFile.isSelected = false;
-      for(let file of this.multimediaFiles){
-        file.isSelected = false;
-      }
-      for(let file of this.multimedia.display){
-        file.isSelected = false;
+  deSelectFilesIfHomeSelected(){
+    this.isMasterSel = false;
+    this.homeFile.isSelected = false;
+    for(let file of this.multimediaFiles){
+      file.isSelected = false;
+    }
+    for(let file of this.multimedia.display){
+      file.isSelected = false;
+    }
+  }
+  selectFilesHomeSelectionTurnTrue(){
+    this.homeFile.isSelected = true;
+    if(this.currentFolder == this.homeFile.folderName){
+      if(this.multimediaFiles.length>0){
+        for(let file of this.multimediaFiles){
+          file.isSelected = true;
+        }
+        for(let file of this.multimedia.display){
+          file.isSelected = true;
+        }
       }
     }
     else{
-      this.homeFile.isSelected = true;
-      if(this.currentFolder == this.homeFile.folderName){
-        if(this.multimediaFiles.length>0){
-          for(let file of this.multimediaFiles){
-            file.isSelected = true;
-          }
-          for(let file of this.multimedia.display){
-            file.isSelected = true;
-          }
-        }
+      for(let file of this.multimediaFiles){
+        file.isSelected = false;
       }
-      else{
-        for(let file of this.multimediaFiles){
-          file.isSelected = false;
-        }
-      }
+    }
+  }
+  checkHomeIsSelected(){
+    if(this.homeFile.isSelected){
+     this.deSelectFilesIfHomeSelected();
+    }
+    else{
+      this.selectFilesHomeSelectionTurnTrue();
       this.checkMasterForRootSelection();
     }
+  }
+  checkFilesSelectionIfCurrentFolderIsHome(){
+    this.checkStatus = true;
+    for(let file of this.multimediaFiles){
+      if(!file.isSelected){
+        this.checkStatus = false;
+      }
+    }
+    if(this.checkStatus){
+      this.homeFile.isSelected = true;
+      for(let folder of this.multimedia.root){
+        if(!folder.isSelected){
+          this.checkStatus = false;
+        }
+      }
+      if(this.checkStatus){
+        this.isMasterSel = true;
+      }
+      else{
+        this.isMasterSel = false;
+      }
+    }
+    else{
+      this.homeFile.isSelected = false;
+      this.isMasterSel = false;
+    }
+  }
+  checkFilesSelectionIfHomeIsNotCurrentFolder(i:number){
+    this.multimediaFiles[i].isSelected = true;
+      this.homeFile.isSelected = false;
+      
+      if(this.currentFolder == this.homeFile.folderName){
+       this.checkFilesSelectionIfCurrentFolderIsHome();
+      }
+      else {
+        this.checkStatus = true;
+        for(let file of this.multimediaFiles){
+          if(!file.isSelected){
+            this.checkStatus = false;
+          }
+        }
+        if(this.checkStatus){
+          this.isMasterSel = true;
+        }
+        else{
+          this.isMasterSel = false;
+        }
+      }
   }
   checkFilesSelection(i:number){
     if(this.currentFolder!== this.homeFile.folderName){
@@ -364,60 +416,13 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
     else {
-      this.multimediaFiles[i].isSelected = true;
-      this.homeFile.isSelected = false;
-      
-      if(this.currentFolder == this.homeFile.folderName){
-        this.checkStatus = true;
-        for(let file of this.multimediaFiles){
-          if(!file.isSelected){
-            this.checkStatus = false;
-          }
-        }
-        if(this.checkStatus){
-          this.homeFile.isSelected = true;
-          for(let folder of this.multimedia.root){
-            if(!folder.isSelected){
-              this.checkStatus = false;
-            }
-          }
-          if(this.checkStatus){
-            this.isMasterSel = true;
-          }
-          else{
-            this.isMasterSel = false;
-          }
-        }
-        else{
-          this.homeFile.isSelected = false;
-          this.isMasterSel = false;
-        }
-      }
-      else {
-        this.checkStatus = true;
-        for(let file of this.multimediaFiles){
-          if(!file.isSelected){
-            this.checkStatus = false;
-          }
-        }
-        if(this.checkStatus){
-          this.isMasterSel = true;
-        }
-        else{
-          this.isMasterSel = false;
-        }
-      }
-      
-      
+      this.checkFilesSelectionIfHomeIsNotCurrentFolder(i);
     }
   }
 
-  getDeleteIds(){
-    this.deleteFiles_Folders.filesId = [];
-    this.deleteFiles_Folders.foldersId = [];
-    this.deleteFiles_Folders.subFolderId = null;
-    if(this.homeFile.isSelected){ //if home is selected
-      console.log("if home is selected");
+
+  getDeleteIdsIfHomeIsSelected(){
+    console.log("if home is selected");
       this.deleteFiles_Folders.filesId = [];
       this.deleteFiles_Folders.foldersId = [];
       this.deleteFiles_Folders.subFolderId = null;
@@ -439,14 +444,9 @@ export class ConfigureMultimediaComponent implements OnInit {
           }
         }
       }
-    }else{ //if home is not selected
-      console.log("if home is not selected");
-      this.deleteFiles_Folders.filesId = [];
-      this.deleteFiles_Folders.foldersId = [];
-      this.deleteFiles_Folders.subFolderId = null;
-
-      if(this.currentFolder == this.homeFile.folderName){ // if home is current folder
-        console.log("if current folder is home");
+  }
+  getDeleteIdsIfHomeIsCurrentFolder(){
+    console.log("if current folder is home");
         this.deleteFiles_Folders.filesId = [];
         this.deleteFiles_Folders.foldersId = [];
         this.deleteFiles_Folders.subFolderId = null;
@@ -461,10 +461,10 @@ export class ConfigureMultimediaComponent implements OnInit {
             this.deleteFiles_Folders.filesId.push(file.id);
           }
         }
-      }
-      else{ // if home is not selected
-        console.log("if home is not current folder");
-        this.deleteFiles_Folders.filesId = [];
+  }
+
+  getDeleteIdsIfHomeIsNotCurrentFolder(){
+    this.deleteFiles_Folders.filesId = [];
         this.deleteFiles_Folders.foldersId = [];
         this.deleteFiles_Folders.subFolderId = null;
 
@@ -484,17 +484,40 @@ export class ConfigureMultimediaComponent implements OnInit {
         }
         else{
           console.log("if only files with subfolder Id");
-          for(let file of this.multimediaFiles){
-            if(file.isSelected){
-              this.deleteFiles_Folders.filesId.push(file.id);
-            }
-            for(let folder of this.multimedia.root){
-              if(this.currentFolder == folder.folderName){
-                this.deleteFiles_Folders.subFolderId = folder.folderId;
-              }
-            }
-          }
+          this.getDeleteIdsFilesFromSubFolder();
         }
+  }
+  getDeleteIdsFilesFromSubFolder(){
+    for(let file of this.multimediaFiles){
+      if(file.isSelected){
+        this.deleteFiles_Folders.filesId.push(file.id);
+      }
+      for(let folder of this.multimedia.root){
+        if(this.currentFolder == folder.folderName){
+          this.deleteFiles_Folders.subFolderId = folder.folderId;
+        }
+      }
+    }
+  }
+  getDeleteIds(){
+    this.deleteFiles_Folders.filesId = [];
+    this.deleteFiles_Folders.foldersId = [];
+    this.deleteFiles_Folders.subFolderId = null;
+    if(this.homeFile.isSelected){ //if home is selected
+      this.getDeleteIdsIfHomeIsSelected();
+      
+    }else{ //if home is not selected
+      console.log("if home is not selected");
+      this.deleteFiles_Folders.filesId = [];
+      this.deleteFiles_Folders.foldersId = [];
+      this.deleteFiles_Folders.subFolderId = null;
+
+      if(this.currentFolder == this.homeFile.folderName){ // if home is current folder
+        this.getDeleteIdsIfHomeIsCurrentFolder();
+      }
+      else{ // if home is not selected
+        console.log("if home is not current folder");
+        this.getDeleteIdsIfHomeIsNotCurrentFolder();
       }
     }
 
@@ -510,12 +533,12 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.getDeleteIds();
     try{
       await this.configureService.deleteFilesAndFolders(this.teamId, this.deleteFiles_Folders);
-      /* this.notifyService.showSuccess("", "File deleted Successfully"); */
+      this.notifyService.showSuccess("", "File deleted Successfully"); 
       this.removeIds();
     }
     catch(e){
       console.log(e.error.message);
-     /*  this.notifyService.showError("", e.error.message); */
+     this.notifyService.showError("", e.error.message); 
     } 
    
     console.log('delete');
@@ -574,8 +597,8 @@ export class ConfigureMultimediaComponent implements OnInit {
  async addToSlideShow(){
   this.checkSlideshowFilesAndFolders();
   try{
-    const data = await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
-  /*   this.notifyService.showSuccess("", "Files & folders added to slide show successfully"); */
+  await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
+   this.notifyService.showSuccess("", "Files & folders added to slide show successfully"); 
     for(let file of this.multimedia.display){
       if(file.isSelected){
        file.inSlideShow = true;
@@ -599,7 +622,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   }
   catch(e){
     console.log(e.error.message);
-   /*  this.notifyService.showError("", e.error.message); */
+    this.notifyService.showError("", e.error.message); 
   } 
  
 }
@@ -609,6 +632,18 @@ public checkSlideshowFilesAndFolders(){
   this.fileAndFolderIds = [];
   
   if(this.homeFile.isSelected){
+   this.checkSlideshowFilesIfHomeSelected()
+  }
+  else{
+    this.checkSlideshowFilesIfHomeIsCurrentAndNotSelected()
+  }
+  for(let folder of this.multimedia.root){
+    if(folder.isSelected){
+      this.fileAndFolderIds.push(folder.folderId);
+    }
+  }
+}
+  checkSlideshowFilesIfHomeSelected(){
     this.checkStatus = true;
     for(let file of this.multimedia.root){
       if(file.status){
@@ -621,7 +656,7 @@ public checkSlideshowFilesAndFolders(){
       }
     }
   }
-  else{
+  checkSlideshowFilesIfHomeIsCurrentAndNotSelected(){
     if(this.currentFolder === this.homeFile.folderName){
       for(let file of this.multimediaFiles){
         if(file.isSelected){
@@ -630,11 +665,4 @@ public checkSlideshowFilesAndFolders(){
       }
     }
   }
-  for(let folder of this.multimedia.root){
-    if(folder.isSelected){
-      this.fileAndFolderIds.push(folder.folderId);
-    }
-  }
-  console.log(this.fileAndFolderIds);
-}
 }
