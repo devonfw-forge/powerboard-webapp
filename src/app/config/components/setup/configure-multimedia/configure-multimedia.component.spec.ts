@@ -1,9 +1,10 @@
-/* import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SetupService } from 'src/app/config/services/setup.service';
 import { MultimediaFilesNew, MultimediaFolderResponse, RootNew } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
 import { ConfigureMultimediaComponent } from './configure-multimedia.component';
 describe('ConfigureMultimediaComponent', () => {
@@ -52,13 +53,25 @@ describe('ConfigureMultimediaComponent', () => {
      
     }
   }
+  class MockNotifyService{
+    showError(heading:string,message:string){
+      console.log(heading,message);
+      return null;
+    }
+    showSuccess(heading:string,message:string){
+      console.log(heading,message);
+      return null;
+    }
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
       declarations: [ ConfigureMultimediaComponent ],
       providers: [{provide:SetupService,useClass:MockedSetUpService},
-         {provide:GeneralService , useClass:MockGeneralService}]
+         {provide:GeneralService , useClass:MockGeneralService},
+         {provide:NotificationService, useClass: MockNotifyService}
+      ]
     })
     .compileComponents();
   });
@@ -593,4 +606,4 @@ it('should close and clear folder name',()=>{
     expect(component.uploadFile).toBeTruthy();
   })
 
-}); */
+}); 
