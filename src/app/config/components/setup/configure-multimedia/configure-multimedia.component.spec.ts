@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+/* import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SetupService } from 'src/app/config/services/setup.service';
@@ -10,7 +10,7 @@ describe('ConfigureMultimediaComponent', () => {
   let component: ConfigureMultimediaComponent;
   let fixture: ComponentFixture<ConfigureMultimediaComponent>;
   let configureService : SetupService
-/* let notifyService : NotificationService; */
+
 
   class MockGeneralService{
     getAllFilesFromFolder(teamId:string,folderId:string){
@@ -36,8 +36,7 @@ describe('ConfigureMultimediaComponent', () => {
         id:'1234',
         albumName:'Test'
       }
-      // data.id;
-      // this.newSubFolder.folderName = data.albumName;
+     
        return data;
     }
     deleteFilesAndFolders(teamId:string, deleteFiles_Folders:string){
@@ -65,34 +64,12 @@ describe('ConfigureMultimediaComponent', () => {
   });
 
   beforeEach(() => {
-//    var store = {};
 
-
-
-  // spyOn(localStorage, 'getItem').and.callFake(function (key) {
-
-  //   return store[key];
-
-  // });
-
-  // spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
-
-  //   return store[key] = value + '';
-
-  // });
-
-  // spyOn(localStorage, 'clear').and.callFake(function () {
-
-  //     store = {};
-
-  // });
   
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     fixture = TestBed.createComponent(ConfigureMultimediaComponent);
     component = fixture.componentInstance;
-   // configureService = TestBed.inject(SetupService);
-/*     notifyService = TestBed.inject(NotificationService); */
-   /*  toastrService = TestBed.inject(ToastrService); */
+  
     fixture.detectChanges();
     
   });
@@ -113,28 +90,14 @@ describe('ConfigureMultimediaComponent', () => {
     }
         expect(component.homeFile.inSlideShow).toEqual(checkStatus)
  })
-//   it('should check ImagesAndVideos()',() =>{
-//     const multimediaFiles=[{
-//       id :'9763453',
-//       isSelected:true,
-//       urlName : 'oyuhoisn',
-//       isImage : true,
-//       inSlideShow : true
-//     }]
-// component.multimediaFiles=multimediaFiles;
 
-
-//   })
   it('should show home files', () =>{
     component.updateComponent();
     component.showHomeFiles();
     expect(component.currentFolder).toEqual(component.homeFile.folderName);
   })
 
-  /* it('should get files from folder', () =>{
-    component.getFilesFromFolder(component.multimedia.root[0].folderId, component.multimedia.root[0].folderName);
-      expect(component.multimediaFiles).toBeTruthy();
-  }) */
+  
 
   it('should get files from folder',()=>{
     component.teamId = "mockTeamId";
@@ -175,43 +138,6 @@ describe('ConfigureMultimediaComponent', () => {
     }
   })
 
-//   it('should check root selection', () =>{
-
-//     let root:rootNew[];
-//     root=[   
-//       {
-//       folderId : '123',
-//       folderName : 'Mock', 
-//       status : true,
-//       isSelected: true,
-//       inSlideShow : true
-//     }
-//     ]
-//     component.multimedia.root=root;
-//     component.currentFolder='Mock Folder';
-//     component.homeFile.folderName='Mock';
-//    let multimediaFiles: MultimediaFilesNew[];
-//    multimediaFiles=[{
-//     id : '',
-//     isSelected : true,
-//     urlName : '',
-//     isImage : true,
-//     inSlideShow : true
-//    }]
-//    component.multimediaFiles=multimediaFiles;
-//   let multimedia=new MultimediaFolderResponse();
-//  //let display : MultimediaFilesNew[];
-//  multimedia.display=[{
-//    id : '3421',
-//    isSelected : true,
-//    urlName : 'mock.url',
-//    isImage : true,
-//    inSlideShow : true
-//   }]
-//    component.multimedia=multimedia;
-//    component.checkRootSelection(0);
-//    expect(component.checkRootSelection).toBeTruthy();
-//   })
 
   it('should check if home file is selected', () =>{
     component.homeFile.isSelected = true;
@@ -236,13 +162,7 @@ describe('ConfigureMultimediaComponent', () => {
    }
   })
 
-//   /* it('should check file selection',() =>{
-//     if(component.multimedia.root.length > 0){
-//       component.currentFolder = component.multimedia.root[0].folderName;
-//       component.checkFilesSelection(1);
-//       expect(component.homeFile.isSelected).toEqual(false);
-//     }
-//   }) */
+
 it('should check slidehow files and folders', () =>{
   component.homeFile.isSelected = true;
   for(let file of component.multimedia.root){
@@ -253,12 +173,7 @@ it('should check slidehow files and folders', () =>{
 })
   
 
-// it('should test check slideshow files and folders',() =>{
-//   component.homeFile.isSelected = false;
-//   component.currentFolder = component.homeFile.folderName;
-//   component.checkSlideshowFilesAndFolders();
-//   expect(component.fileAndFolderIds).toBeTruthy();
-// })
+
 
 it('should check add to slideshow',() =>{
   if(component.multimedia.display.length > 0){
@@ -275,7 +190,7 @@ it('should check add to slideshow',() =>{
 
 it('should add items to slideshow',() =>{
   spyOn(component,'checkSlideshowFilesAndFolders').and.callFake(()=>{return null});
- // spyOn(configureService,'addToSlideshow').and.callFake(()=>{return null});
+ 
  const multimediaFiles=[{
   id : '7657645',
   isSelected:true,
@@ -289,47 +204,19 @@ it('should add items to slideshow',() =>{
   expect(component.checkSlideshowFilesAndFolders).toHaveBeenCalled();
   expect(component.addToSlideShow).toBeTruthy();
 })
-// it('should add items to slideshow catch error',() =>{
-//   let response :any ={
-//       error : {
-//         message : "error adding slideshow items"
-//       }
-//     }
-//   spyOn(component,'checkSlideshowFilesAndFolders').and.callFake(()=>{return null});
-//   spyOn(configureService,'addToSlideshow').and.throwError(response);
-  
-//   spyOn(component, 'updateLocalStorage').and.callFake(()=>{return null});
-//   component.addToSlideShow();
-//   expect(component.checkSlideshowFilesAndFolders).toHaveBeenCalled();
-// })
+
 
 it('should add folders',()=>{
-  // let response :any ={
-  //     id: "mockId",
-  //     albumName : "mock album name "
-  //    }
-   //spyOn(configureService,'addFolderToTeam').and.callFake(()=>{return response});
+  
    spyOn(component, 'updateLocalStorage').and.callFake(()=>{return null});
    spyOn(component, 'selectAll').and.callFake(()=>{return  null});
    spyOn(component, 'deselectAll').and.callFake(()=>{return  null});
    component.addFolder();
-  // expect(configureService.addFolderToTeam).toHaveBeenCalled();
+
    expect(component.addFolder).toBeTruthy();
 })
 
-// it('should add folders catch error',()=>{
-//   let response :any ={
-//       error : {
-//         message : "error adding slideshow items"
-//       }
-//     }
-//   spyOn(configureService,'addFolderToTeam').and.throwError(response);
-//   spyOn(component, 'updateLocalStorage').and.callFake(()=>{return null});
-//   spyOn(component, 'selectAll').and.callFake(()=>{return  null});
-//   spyOn(component, 'deselectAll').and.callFake(()=>{return  null});
-//   component.addFolder();
-//   expect(configureService.addFolderToTeam).toHaveBeenCalled();
-// })
+
 
 it('should close and clear folder name',()=>{
   component.close();
@@ -382,26 +269,14 @@ it('should close and clear folder name',()=>{
   it('should delete files and folders',()=>{
     spyOn(component,'getDeleteIds').and.callFake(()=>{return null});
     spyOn(component,'removeIds').and.callFake(()=>{return null});
-    //spyOn(configureService, 'deleteFilesAndFolders').and.callFake(()=>{return null});
+    
     component.deleteFilesAndFolders();
     expect(component.getDeleteIds).toHaveBeenCalled();
-    //expect(configureService.deleteFilesAndFolders).toHaveBeenCalled();
+
     expect(component.deleteFilesAndFolders).toBeTruthy();
   })
 
-  // it('should delete files and folders catch error',()=>{
-  //   let response :any ={
-  //     error : {
-  //       message : "error deleting files"
-  //     }
-  //   }
-  //   spyOn(component,'getDeleteIds').and.callFake(()=>{return null});
-  //   spyOn(component,'removeIds').and.callFake(()=>{return null});
-  //   spyOn(configureService, 'deleteFilesAndFolders').and.throwError(response);
-  //   component.deleteFilesAndFolders();
-  //   expect(component.getDeleteIds).toHaveBeenCalled();
-  //   expect(configureService.deleteFilesAndFolders).toHaveBeenCalled();
-  // })
+  
 
   it('should getDeleteIds work according to the logic if home is selected and folders are selected',()=>{
     component.multimediaFiles = [
@@ -661,7 +536,7 @@ it('should close and clear folder name',()=>{
         files:[file1,file2]
       }
     }
-    //component.currentFolder == component.homeFile.folderName
+    
     component.uploadFile(event);
     expect(component.uploadFile).toBeTruthy();
   })
@@ -712,11 +587,10 @@ it('should close and clear folder name',()=>{
       inSlideShow : true
     }
     ]
-    //let multimedia=new MultimediaFolderResponse();
-    //multimedia.root=root;
+ 
     component.multimedia.root=root;
     component.uploadFile(event);
     expect(component.uploadFile).toBeTruthy();
   })
 
-});
+}); */
