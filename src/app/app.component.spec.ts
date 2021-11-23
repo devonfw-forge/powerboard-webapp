@@ -2,12 +2,13 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ElectronService } from 'ngx-electron';
 import { AppComponent } from "./app.component";
 import { GeneralService } from './shared/services/general.service';
 import { NavigationService } from './shared/services/navigation.service';
 import { SlideshowService } from './teams/services/slideshow.service';
 import { TeamDetailsService } from './teams/services/team-details.service';
+import checkData from 'src/app/checkData.json'; 
+import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
 
 describe('AppComponent', () => {
   let app: AppComponent; 
@@ -94,6 +95,19 @@ beforeEach(async () => {
 });
 
 beforeEach(() => {
+  var store = {};
+  spyOn(localStorage, 'getItem').and.callFake(function (key) {
+       return store[key];
+     });
+     spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+       return store[key] = value + '';
+   });
+   spyOn(localStorage, 'clear').and.callFake(function () {
+       store = {};
+   });
+  
+        localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+       localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
   fixture = TestBed.createComponent(AppComponent);
   app = fixture.componentInstance;
   fixture.detectChanges();
@@ -103,12 +117,11 @@ it('should create', () => {
   expect(app).toBeTruthy();
 });
 
-it('should toggle properly', () => {
+/* it('should toggle properly', () => {
   var dummyElement = document.createElement('togglebtn');
 document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyElement);
 dummyElement.className="btn btn-sm btn-toggle";
   app.toggle();
- // expect(slideShowService.startSlideShow).toHaveBeenCalled();
 expect(app.toggle).toBeTruthy();
 });
 
@@ -117,36 +130,16 @@ it('should toggle properly', () => {
 document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyElement);
 dummyElement.className="btn btn-sm btn-toggle active";
   app.toggle();
- // expect(slideShowService.startSlideShow).toHaveBeenCalled();
 expect(app.toggle).toBeTruthy();
 });
 
-it('should get TeamName', () => {
-  //spyOn(generalService,'IsShowNavBarIcons').and.returnValue(true);
-  // spyOn(localStorage, 'getItem').and.callFake((key) => {
-  //   return key;
-  // });
-  app.getTeamName();
-  expect(app.getTeamName).toBeTruthy();
-})
-// fit('should get TeamName', () => {
-//   //spyOn(generalService,'IsShowNavBarIcons').and.returnValue(true);
-//   // spyOn(localStorage, 'getItem').and.callFake((key) => {
-//   //   return key;
-//   // });
-//   generalService.IsShowNavBarIcons=null
-//   app.getTeamName();
-//   expect(app.getTeamName).toBeTruthy();
- 
-// })
+
 it('should get highlight for dashboard', () => {
   var dummyDashboard = document.createElement('dashboard');
 document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
-//dummyDashboard .className="btn btn-sm btn-toggle active";
 
 var dummyMultimedia = document.createElement('multimedia');
 document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyMultimedia);
-//dummyMultimedia.className="btn btn-sm btn-toggle active";
 
 const btnName='dashboard'
 app.highlight(btnName);
@@ -156,11 +149,9 @@ expect(app.highlight).toBeTruthy();
 it('should get highlight for links', () => {
   var dummyDashboard = document.createElement('dashboard');
 document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
-//dummyDashboard .className="btn btn-sm btn-toggle active";
 
 var dummyMultimedia = document.createElement('multimedia');
 document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyMultimedia);
-//dummyMultimedia.className="btn btn-sm btn-toggle active";
 
 const btnName='links'
 app.highlight(btnName);
@@ -170,29 +161,55 @@ expect(app.highlight).toBeTruthy();
 it('should get highlight for multimedia', () => {
   var dummyDashboard = document.createElement('dashboard');
 document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
-//dummyDashboard .className="btn btn-sm btn-toggle active";
 
 var dummyMultimedia = document.createElement('multimedia');
 document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyMultimedia);
-//dummyMultimedia.className="btn btn-sm btn-toggle active";
 
 const btnName='multimedia'
 app.highlight(btnName);
 expect(app.highlight).toBeTruthy();
-})
+}) */
 
-it('should checkLocation() ', () => {
+ it('should checkLocation() for dashboard ', () => {
 
-  //app.location.path().includes("/dashboard")==true;
- //spyOn(app,'highlight').and.callThrough()
- var dummyDashboard = document.createElement('dashboard');
-document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
+   spyOn(app,'highLightDashBoard').and.callFake(()=>{return null});
+   spyOn(app,'unHighlightLinks').and.callFake(()=>{return null});
+   spyOn(app,'unHighlightMultimedia').and.callFake(()=>{return null});
+   spyOn(app.generalService,'IsShowNavBarIcons').and.callFake(()=>{return true});
 
-//spyOn(location,'path').and.returnValue(true);
-spyOn(app,'highlight').and.callFake;
+  spyOn(app.location,'path').and.callFake(()=>{return "/dashboard"});
   app.checkLocation();
-  expect(app.checkLocation).toBeTruthy();
+  expect(app.highLightDashBoard).toHaveBeenCalled();
+}) 
+it('should checkLocation() for Links', () => {
 
+  spyOn(app,'highlightLinks').and.callFake(()=>{return null});
+  spyOn(app,'UnHighLightDashBoard').and.callFake(()=>{return null});
+  spyOn(app,'unHighlightMultimedia').and.callFake(()=>{return null});
+  spyOn(app.generalService,'IsShowNavBarIcons').and.callFake(()=>{return true});
+
+ spyOn(app.location,'path').and.callFake(()=>{return "/links"});
+ app.checkLocation();
+ expect(app.highlightLinks).toHaveBeenCalled();
+})
+it('should checkLocation() for multimedia ', () => {
+
+  spyOn(app,'highlightMultimedia').and.callFake(()=>{return null});
+  spyOn(app,'unHighlightLinks').and.callFake(()=>{return null});
+  spyOn(app,'UnHighLightDashBoard').and.callFake(()=>{return null});
+  spyOn(app.generalService,'IsShowNavBarIcons').and.callFake(()=>{return true});
+
+ spyOn(app.location,'path').and.callFake(()=>{return "/multimedia"});
+ app.checkLocation();
+ expect(app.highlightMultimedia).toHaveBeenCalled();
+})
+it('should checkLocation() when nav bar is not present', () => {
+
+  spyOn(app.generalService,'IsShowNavBarIcons').and.callFake(()=>{return false});
+  spyOn(console,'log').and.callThrough();
+ spyOn(app.location,'path').and.callFake(()=>{return "/mock"});
+ app.checkLocation();
+ expect(console.log).toHaveBeenCalledTimes(3);
 })
 it('should go back ', () => {  
   app.back()
@@ -226,35 +243,97 @@ it('should onKeydownHandler ', () => {
   expect(app.onKeydownHandler).toBeTruthy();
 
 })
+
+it('should get team name',()=>{
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
+  app.getTeamName();
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+})
+it('should get team name as empty',()=>{
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(false);
+  app.getTeamName();
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
 })
 
-// import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-// import { TestBed } from '@angular/core/testing';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { ElectronService } from 'ngx-electron';
-// import { AppComponent } from './app.component';
-// import { GeneralService } from './shared/services/general.service';
-// import { SlideshowService } from './teams/services/slideshow.service';
-//  import checkData from 'src/app/checkData.json'
-// import TeamDetailsResponse from 'src/app/teamDetailsResponse.json' 
-// import { TeamDetailsService } from './teams/services/team-details.service';
 
-// describe('AppComponent', () => {
-//    let app: AppComponent; 
-//   let electronService: ElectronService;
-//   let slideshowService : SlideshowService;
-//   let generalService : GeneralService;
-//   let httpTestingController : HttpTestingController;
-//  let teamDetailService:TeamDetailsService;
-// // class MockSlideShowService{
-// //   stopSlideShow(){
 
-// //   }
 
-// //   startSlideShow(){
+ it('should check highlight logic for dashboard',()=>{
+  var newElement = document.createElement('div');
+  newElement.className = "mock name";
+  spyOn(document,'getElementById').and.returnValue(newElement);
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
+  spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
+  app.highlight("dashboard");
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+})
 
-// //   }
-// // }
+it('should check highlight logic for links',()=>{
+  var newElement = document.createElement('div');
+  newElement.className = "mock name";
+  spyOn(document,'getElementById').and.returnValue(newElement);
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
+  spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
+  app.highlight("links");
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+})
+ it('should check highlight logic for multimedia',()=>{
+  var newElement = document.createElement('div');
+  newElement.className = "mock name";
+  spyOn(document,'getElementById').and.returnValue(newElement);
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
+  spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
+  app.highlight("multimedia");
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+})  
+
+ it('should toggle properly to startslideshow', () => {
+   
+spyOn(app.slideShowService,'startSlideShow').and.callFake(()=>{return null});
+  var newElement = document.createElement('togglebtn');
+      newElement.className="btn btn-sm btn-toggle";
+      spyOn(document,'getElementById').and.returnValue(newElement);
+  app.toggle();
+  expect(app.slideShowService.startSlideShow).toHaveBeenCalled();
+});
+it('should toggle properly to stop slideshow', () => {
+   
+  spyOn(app.slideShowService,'stopSlideShow').and.callFake(()=>{return null});
+    var newElement = document.createElement('togglebtn');
+        newElement.className="btn btn-sm btn-toggle active";
+        spyOn(document,'getElementById').and.returnValue(newElement);
+    app.toggle();
+    expect(app.slideShowService.stopSlideShow).toHaveBeenCalled();
+  });
+
+
+
+
+
+
+
+it('move to settings if already in config',()=>{  
+  spyOn(console,'log').and.callThrough();
+  spyOn(app.location,'path').and.callFake(()=>{return "/config"});
+  app.moveToSetings();
+  expect(console.log).toHaveBeenCalled();
+})
+it('move to settings if not in config',()=>{
+  spyOn(app.router,'navigateByUrl');
+  spyOn(app.location,'path').and.callFake(()=>{return "/multi"});
+  app.moveToSetings();
+  expect(app.router.navigateByUrl).toHaveBeenCalled();
+})
+
+it('should go back',()=>{
+      spyOn(app.navigation,'back').and.callFake(()=>{return false});
+      spyOn(document.getElementById('openLogoutModal'),'click').and.callFake(()=>{return null});
+      app.back();
+      expect(app.navigation.back).toHaveBeenCalled();
+})
+
+})
+
 
 //  let currentTeam = {
 // teamId: "46455bf7-ada7-495c-8019-8d7ab76d488e",

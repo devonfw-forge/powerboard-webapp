@@ -115,41 +115,37 @@ export class AppComponent implements OnInit {
 
   public checkLocation() {
     if (this.location.path().includes("/dashboard") ) {
-      this.highlight('dashboard');
+      this.highLightDashBoard()
     }
     else {
-      if (this.generalService.showNavBarIcons) {
-        let dashboard = document.getElementById('dashboard');
-        dashboard.style.color = "#0070AD";
-        dashboard.style.backgroundColor = "#FEFEFE";
-        dashboard.style.border = "2px solid #0070AD";
+      if (this.generalService.IsShowNavBarIcons()){
+        this.UnHighLightDashBoard();
+      }
+      else{
+        console.log("not available");
       }
     }
     
     if(this.location.path().includes("/links") ){
-      this.highlight('links')
+      this.highlightLinks()
     }
     else{
-      if (this.generalService.showNavBarIcons) {
-        if (this.generalService.isLinksVisible) {
-          let links = document.getElementById('links');
-          links.style.color = "#0070AD";
-          links.style.backgroundColor = "#FEFEFE";
-          links.style.border = "2px solid #0070AD";
-
-        }
+      if (this.generalService.IsShowNavBarIcons()) {
+        this.unHighlightLinks();
+      }
+      else{
+        console.log("not available");
       }
     }
     if(this.location.path().includes("/multimedia")){
-      this.highlight('multimedia')
+      this.highlightMultimedia();
     }
-    else{
-      
-      if (this.generalService.showNavBarIcons) {
-        let multimedia = document.getElementById('multimedia');
-        multimedia.style.color = "#0070AD";
-        multimedia.style.backgroundColor = "#FEFEFE";
-        multimedia.style.border = "2px solid #0070AD";
+    else{   
+      if (this.generalService.IsShowNavBarIcons()) {
+        this.unHighlightMultimedia();
+      }
+      else{
+        console.log("not available");
       }
     }
   }

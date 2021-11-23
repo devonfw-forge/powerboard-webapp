@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SetupService } from 'src/app/config/services/setup.service';
-import { MultimediaFilesNew, MultimediaFolderResponse, rootNew } from 'src/app/shared/model/general.model';
+import { MultimediaFilesNew, MultimediaFolderResponse, RootNew } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
 import { ConfigureMultimediaComponent } from './configure-multimedia.component';
@@ -676,7 +676,7 @@ it('should close and clear folder name',()=>{
     }
     component.currentFolder='Festival';
     component.homeFile.folderName='Festival';
-    let root:rootNew[];
+    let root:RootNew[];
     root=[   
       {folderId : '',
       folderName : 'Mock', 
@@ -702,7 +702,7 @@ it('should close and clear folder name',()=>{
     }
     component.currentFolder='Festival';
     component.homeFile.folderName='Festival';
-    let root:rootNew[];
+    let root:RootNew[];
     root=[   
       {
       folderId : '123',
