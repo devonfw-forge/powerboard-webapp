@@ -15,7 +15,6 @@ import { ConfigureTeamLinksComponent } from './configure-team-links.component';
 describe('ConfigureTeamLinksComponent', () => {
   let component: ConfigureTeamLinksComponent;
   let fixture: ComponentFixture<ConfigureTeamLinksComponent>;
-  let notificationService : NotificationService;
 
   class MockSetupService{
     deleteLink(link:string){
@@ -54,7 +53,8 @@ describe('ConfigureTeamLinksComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule, FormsModule, NgxElectronModule, ReactiveFormsModule],
-      declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe, MockedAddLinksComponent ],
+      declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe,
+         MockedAddLinksComponent ],
       providers : [{provide : NotificationService, useClass:MockNotifyService}, ElectronService, ChangeDetectorRef,
         {provide:SetupService, useClass:MockSetupService}
       ]

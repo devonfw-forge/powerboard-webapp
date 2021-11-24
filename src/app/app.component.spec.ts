@@ -260,31 +260,36 @@ it('should get team name as empty',()=>{
 
  it('should check highlight logic for dashboard',()=>{
   var newElement = document.createElement('div');
-  newElement.className = "mock name";
-  spyOn(document,'getElementById').and.returnValue(newElement);
+  newElement.className = "mock name";/* 
+ var elementSpy = jasmine.createSpy(document);
+ elementSpy.getElementById.and.returnValue(newElement); */
+ document.getElementById = jasmine.createSpy().and.returnValue(newElement);
   spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
   spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
   app.highlight("dashboard");
   expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+  expect(document.getElementById).toHaveBeenCalled();
 })
 
 it('should check highlight logic for links',()=>{
   var newElement = document.createElement('div');
   newElement.className = "mock name";
-  spyOn(document,'getElementById').and.returnValue(newElement);
+  document.getElementById = jasmine.createSpy().and.returnValue(newElement);
   spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
   spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
   app.highlight("links");
   expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+  expect(document.getElementById).toHaveBeenCalled();
 })
  it('should check highlight logic for multimedia',()=>{
   var newElement = document.createElement('div');
   newElement.className = "mock name";
-  spyOn(document,'getElementById').and.returnValue(newElement);
+  document.getElementById = jasmine.createSpy().and.returnValue(newElement);
   spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
   spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
   app.highlight("multimedia");
   expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+  expect(document.getElementById).toHaveBeenCalled();
 })  
 
  it('should toggle properly to startslideshow', () => {
@@ -292,18 +297,18 @@ it('should check highlight logic for links',()=>{
 spyOn(app.slideShowService,'startSlideShow').and.callFake(()=>{return null});
   var newElement = document.createElement('togglebtn');
       newElement.className="btn btn-sm btn-toggle";
-      spyOn(document,'getElementById').and.returnValue(newElement);
+      document.getElementById = jasmine.createSpy().and.returnValue(newElement);
   app.toggle();
-  expect(app.slideShowService.startSlideShow).toHaveBeenCalled();
+  expect(document.getElementById).toHaveBeenCalled();
 });
 it('should toggle properly to stop slideshow', () => {
    
   spyOn(app.slideShowService,'stopSlideShow').and.callFake(()=>{return null});
     var newElement = document.createElement('togglebtn');
         newElement.className="btn btn-sm btn-toggle active";
-        spyOn(document,'getElementById').and.returnValue(newElement);
+        document.getElementById = jasmine.createSpy().and.returnValue(newElement);
     app.toggle();
-    expect(app.slideShowService.stopSlideShow).toHaveBeenCalled();
+    expect(document.getElementById).toHaveBeenCalled();
   });
 
 
