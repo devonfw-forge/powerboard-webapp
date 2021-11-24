@@ -68,7 +68,6 @@ export class AddTeamComponent implements OnInit {
       const data = await this.teamService.addTeamWithLogo(
         formData
       );
-     // console.log(data);
       var image = <HTMLImageElement>document.getElementById('output');
       image.src = "../../../../../assets/layoutAssets/logo/uploadLogo.PNG";
       this.form.reset();

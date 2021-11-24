@@ -13,7 +13,7 @@ import {
 
 import { AuthService } from './auth.service';
 
-describe('LoginService', () => {
+describe('AuthService', () => {
   let service: AuthService;
   let httpTestingController : HttpTestingController;
   let response : PowerboardLoginResponse;

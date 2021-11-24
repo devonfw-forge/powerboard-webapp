@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SetupService } from 'src/app/config/services/setup.service';
 import { LinksCategory } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
@@ -16,9 +16,9 @@ describe('AddLinksComponent', () => {
   let spy :any;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports :[HttpClientTestingModule],
+      imports :[HttpClientTestingModule, FormsModule, ReactiveFormsModule],
       declarations: [ AddLinksComponent ],
-      providers : [FormBuilder,SetupService, {provide: NotificationService, useValue: notifyService} ]
+      providers : [SetupService, {provide: NotificationService, useValue: notifyService} ]
     })
     .compileComponents();
   });

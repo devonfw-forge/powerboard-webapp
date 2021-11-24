@@ -135,7 +135,7 @@ describe('ConfigureTeamLinksComponent', () => {
   })
   it('should open meeting links on window if electron is running',()=>{
     spyOn(window,'open').and.callFake(()=>{return null});
-    spyOn(window,'close').and.callFake(()=>{return null});
+    /* spyOn(window,'close').and.callFake(()=>{return null}); */
     component.isElectronRunning= true;
     component.openMeetingLink("mockLink");
     expect(window.open).toHaveBeenCalled();
