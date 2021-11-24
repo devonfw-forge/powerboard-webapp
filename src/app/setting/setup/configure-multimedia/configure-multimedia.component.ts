@@ -80,12 +80,15 @@ export class ConfigureMultimediaComponent implements OnInit {
     if(this.multimediaFiles.length>0){
       for(let file of this.multimediaFiles){
         this.tempPath = file.urlName;
-        const isImage = this.isImage(file.urlName);
+        console.log(file.urlName);
+        let isImage = this.isImage(file.urlName);
+        console.log(isImage);
         if (!isImage) {
-          const video_thumbnail = this.tempPath + '#t=5';
-          file.urlName = video_thumbnail;
+          file.urlName = this.tempPath + '#t=5';
+          file.isImage=false;
         } else {
           file.urlName = this.tempPath;
+          file.isImage=true;
         }
       }
     }
