@@ -91,7 +91,9 @@
                           </vg-controls>
           
           
-                          <video #media [vgMedia]="media" [src]="realItem" id="singleVideo" autoplay="true" crossorigin></video>
+                          <video #media [vgMedia]="media" [src]="realItem" id="singleVideo" autoplay="true" crossorigin>
+                            <track label="English" kind="captions">
+                          </video>
                         </vg-player>
                       </div>
                       <div *ngIf="is_image">
@@ -126,7 +128,9 @@
                                     'selected': i===currentIndex}" alt="image thumbnail" src={{item}} />
                                 </ng-template>
                                 <ng-template #other_content> <video class="thumbnail video" [ngClass]="{
-                                    'selected': i===currentIndex}" src={{item}}></video>
+                                    'selected': i===currentIndex}" src={{item}}>
+                                    <track label="English" kind="captions" default>
+                                </video>
                                 </ng-template>
   
                             </div>

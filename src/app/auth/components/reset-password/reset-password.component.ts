@@ -17,7 +17,7 @@ fieldTextTypeNew: boolean = false;
 fieldTextTypeConfirm: boolean = false;
 resetForm : PasswordResetForm = new PasswordResetForm();
 resetPasswordForm: FormGroup;
-  constructor(private loginService : AuthService, private router :Router, private fb: FormBuilder, private generalService : GeneralService) { }
+  constructor(public authService : AuthService, private router :Router, private fb: FormBuilder, public generalService : GeneralService) { }
 
   ngOnInit(): void {
     this.resetPasswordForm = this.fb.group({
@@ -31,7 +31,7 @@ resetPasswordForm: FormGroup;
     try{
       this.resetForm.oldPassword = this.resetPasswordForm.controls['oldPassword'].value;
       this.resetForm.newPassword = this.resetPasswordForm.controls['newPassword'].value;
-      const data = await this.loginService.resetPassword(this.resetForm);
+      const data = await this.authService.resetPassword(this.resetForm);
       console.log(data);
       this.generalService.logout();
     }
