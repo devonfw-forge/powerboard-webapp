@@ -12,6 +12,7 @@ import { TeamDetailsService } from 'src/app/teams/services/team-details.service'
 import { GetTeamDetails } from 'src/app/teams/model/pbResponse.model';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { Component } from '@angular/core';
+import { TeamDetails } from 'src/app/auth/model/auth.model';
 
 describe('ViewAllTeamsComponent', () => {
 
@@ -93,7 +94,6 @@ describe('ViewAllTeamsComponent', () => {
       imports :[RouterTestingModule,  HttpClientTestingModule],
       declarations: [ ViewAllTeamsComponent ,MockedAddTeamComponent],
       providers : [{provide : NotificationService, useClass: MockedNotificationService}, 
-        //{provide : Router, useValue : router},
         {provide : TeamDetailsService, useClass: MockedTeamDetailsService},
         {provide: TeamService,useClass:MockedTeamService},
         {provide:GeneralService,useClass:MockedGeneralService},
@@ -168,15 +168,15 @@ describe('ViewAllTeamsComponent', () => {
   })
 
 it('should addTeam()', () => {
-
-    const centerName='Kolkata'
-    spyOn(component,'centerIdToname').and.returnValue(centerName);
+    component.ADC_Center='kolkata'
+    //const centerName='Kolkata'
+  const centerName=  spyOn(component,'centerIdToname').and.returnValue('kolkata');
     const data={
       id:"423223",
       name:"Test Team",
       teamCode:"65687",
       projectKey:"564",
-      ad_center: 'kolkata',
+      ad_center: centerName,
     }
     // const logo={}
     // component.addedTeam = {
@@ -186,8 +186,6 @@ it('should addTeam()', () => {
     //   projectKey: '564',
     //   adCenter: logo,
     // };
-       
-    component.ADC_Center='kolkata'
     component.ADCTeams=[
      {
         teamId: '123',
@@ -196,10 +194,13 @@ it('should addTeam()', () => {
         myRole : 'Team Member',
         teamStatus : 1
      }
-    ];  
+    ] as TeamDetails[]
   spyOn(component.child,'addTeamWithLogo').and.returnValue(data);
- 
+  // console.log("This is data  "+data.ad_center);
+  // console.log("AD Center  "+component.ADC_Center);
+  spyOn(localStorage,'getItem').and.callFake(()=>{return 'kolkata'});
   component.addTeam();
+  expect(component.child.addTeamWithLogo).toHaveBeenCalled();
   expect(component.addTeam).toBeTruthy();
   })
 

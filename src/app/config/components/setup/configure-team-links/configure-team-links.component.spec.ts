@@ -14,15 +14,20 @@ import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
 import { AddLinksComponent } from './add-links/add-links.component';
 import { ConfigureTeamLinksComponent } from './configure-team-links.component';
 import { WebviewTag } from 'electron';
-fdescribe('ConfigureTeamLinksComponent', () => {
+import { link } from 'fs';
+describe('ConfigureTeamLinksComponent', () => {
   let component: ConfigureTeamLinksComponent;
   let fixture: ComponentFixture<ConfigureTeamLinksComponent>;
   let webviewTag:WebviewTag;
 
   class MockSetupService{
     deleteLink(link:string){
-      console.log(link);
-      return null;
+      if(link==null){
+        return undefined;
+      }
+      else{
+        return 'deleted'
+      }
     }
   } 
   class MockWebViewTag{
@@ -44,24 +49,20 @@ fdescribe('ConfigureTeamLinksComponent', () => {
     }
   }
 
-  class MemberGroup{
-     reset(){
-
-     }
-  }
   @Component({
     selector: 'app-add-links',
     template: '',
     providers: [{ provide: AddLinksComponent, useClass: MockedAddLinksComponent  }]
   })
   class MockedAddLinksComponent {
-    //onSubmit = jasmine.createSpy('onSubmit');
-  public memberGroup:MemberGroup;
-
-    // constructor();
+   memberGroup:any={
+    reset(){
+      
+    }
+  }
     
-      onSubmit(){
-      }
+    onSubmit(){
+    }
      
   }
  
@@ -69,13 +70,11 @@ fdescribe('ConfigureTeamLinksComponent', () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule, FormsModule, NgxElectronModule, ReactiveFormsModule],
       declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe,MockedAddLinksComponent
-         //MockedAddLinksComponent 
+      
         ],
       providers : [{provide : NotificationService, useClass:MockNotifyService}, ElectronService, ChangeDetectorRef,
         {provide:SetupService, useClass:MockSetupService},
-        //{provide:AddLinksComponent,
-         // useClass:MockedAddLinksComponent
-        //},
+        
         {provide: webviewTag,useClass:MockWebViewTag},
       ]
     })
@@ -108,15 +107,11 @@ fdescribe('ConfigureTeamLinksComponent', () => {
   });
 
   it('should get links', ()=>{
-    component.getLinks();
-    expect(component.usefullLinks).toBeTruthy();
-  })
-  it('should get links', ()=>{
-    component.usefullLinks=[];
-    component.getLinks();
-    expect(component.usefullLinks).toBeTruthy();
-  })
 
+    component.getLinks();
+    expect(component.usefullLinks).toBeTruthy();
+  })
+ 
 
   it('should check save selected link', () =>{
     component.saveSeletedLink("104");
@@ -183,6 +178,21 @@ fdescribe('ConfigureTeamLinksComponent', () => {
    // expect(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks).toEqual(component.usefullLinks);
    expect(component.deleteLink).toBeDefined();
   })
+  it('should delete give error message',()=>{
+    component.selectedLinkId = null;
+    spyOn(component.notifyService,'showError');
+    try{
+      component.deleteLink();
+    }catch(e){
+      expect(e.error.message).toThrow();
+      expect(component.notifyService.showError).toHaveBeenCalled();
+    }
+  
+   // expect(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks).toEqual(component.usefullLinks);
+   
+   
+   
+  })
   
   it('should add link',()=>{
   const data={
@@ -201,11 +211,11 @@ fdescribe('ConfigureTeamLinksComponent', () => {
     expect(component.addLink).toBeTruthy();
   })
 
-  // it('should close',()=>{
-  //  // spyOn(component.child.memberGroup,'reset')
-  //   component.close();
-  //   expect(component.close).toBeTruthy();
-  //   expect(component.child.memberGroup.reset).toHaveBeenCalled();
-  // })
+  it('should close',()=>{
+    spyOn(component.child.memberGroup,'reset')
+    component.close();
+    expect(component.close).toBeTruthy();
+    expect(component.child.memberGroup.reset).toHaveBeenCalled();
+  })
 
 });
