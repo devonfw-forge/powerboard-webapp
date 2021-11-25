@@ -30,7 +30,9 @@
         </vg-controls>
   
   
-        <video #media [vgMedia]="media" [src]="currentItem" id="singleVideo" autoplay="true" crossorigin></video>
+        <video #media [vgMedia]="media" [src]="currentItem" id="singleVideo" autoplay="true" crossorigin>
+          <track kind="captions" default>
+        </video>
       </vg-player>
     </div>
   </div>

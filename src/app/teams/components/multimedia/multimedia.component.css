@@ -39,14 +39,6 @@
 }
 
 
-.mat-icon{
-  color: #0070AD;
-  font-size: 30px;
-  vertical-align: middle;
-  padding-bottom: 3px;
-  cursor: pointer;
-}
-
 .selected{
   /* border: 2px solid #0070AD; */
   border: 2px solid black;
