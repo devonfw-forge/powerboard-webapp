@@ -58,38 +58,36 @@ describe('ViewAllTeamsComponent', () => {
 
   }
 
-  @Component({selector: 'app-add-team', template: './add-team.component.html'})
-  class MockedAddTeamComponent{
+  @Component({
+    selector: 'app-add-team',
+    template: '',
+    providers: [{ provide: AddTeamComponent, useClass: MockedAddTeamComponent  }]
+  })
+  class MockedAddTeamComponent {
     addTeamWithLogo(){
-      const centerName='kolkata'
-      const logo:any={}
-      const data={
-        id:'43223',
-        name:'Test Team',
-        teamCode:'65687',
-        projectKey:'564',
-        ad_center:centerName,
-        logo:logo
-      }
-      return data;
     }
   }
+  // @Component({selector: 'app-add-team', template: './add-team.component.html'})
+  // class MockedAddTeamComponent{
+  //   addTeamWithLogo(){
+  //     const centerName='kolkata'
+  //     const logo:any={}
+  //     const data={
+  //       id:'43223',
+  //       name:'Test Team',
+  //       teamCode:'65687',
+  //       projectKey:'564',
+  //       ad_center:centerName,
+  //       logo:logo
+  //     }
+  //     return data;
+  //   }
+  // }
   let component: ViewAllTeamsComponent;
   let fixture: ComponentFixture<ViewAllTeamsComponent>;
   let addTeamComponent: MockedAddTeamComponent;
-  //let notificationService : NotificationService;
-  // let generalService : GeneralService;
-  // let httpTestingController : HttpTestingController;
-  // let spy : any;
-  // let spy2 : any;
-  // let spy3 : any;
-  // let spy4 : any;
-  // let teamService : TeamService;
-  // let teamDetailService : TeamDetailsService;
-  // let router = {
-  //   navigate: jasmine.createSpy('navigate')
-  // }
   let generalServiceSpy: jasmine.SpyObj<GeneralService>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule,  HttpClientTestingModule],
@@ -112,11 +110,9 @@ describe('ViewAllTeamsComponent', () => {
   });
 
   beforeEach(() => {
-     localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+    localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
     fixture = TestBed.createComponent(ViewAllTeamsComponent);
     component = fixture.componentInstance;
-    //spyOn(component, 'addTeam').and.callThrough();
-      //  httpTestingController = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
 
@@ -171,13 +167,17 @@ describe('ViewAllTeamsComponent', () => {
     
   })
 
-  it('should addTeam()', () => {
-    // id:'43223',
-    //     name:'Test Team',
-    //     teamCode:'65687',
-    //     projectKey:'564',
-    //     ad_center:centerName,
-    //     logo:logo
+it('should addTeam()', () => {
+
+    const centerName='Kolkata'
+    spyOn(component,'centerIdToname').and.returnValue(centerName);
+    const data={
+      id:"423223",
+      name:"Test Team",
+      teamCode:"65687",
+      projectKey:"564",
+      ad_center: 'kolkata',
+    }
     // const logo={}
     // component.addedTeam = {
     //   teamId: '43223',
@@ -186,16 +186,24 @@ describe('ViewAllTeamsComponent', () => {
     //   projectKey: '564',
     //   adCenter: logo,
     // };
-  //spyOn(addTeamComponent,'addTeamWithLogo').and.returnValue(data);
-  const centerName='Kolkata'
-  spyOn(component,'centerIdToname').and.returnValue(centerName)
-  component.ADC_Center='kolkata'
+       
+    component.ADC_Center='kolkata'
+    component.ADCTeams=[
+     {
+        teamId: '123',
+        teamLogo:'',
+        teamName : 'ABC',
+        myRole : 'Team Member',
+        teamStatus : 1
+     }
+    ];  
+  spyOn(component.child,'addTeamWithLogo').and.returnValue(data);
+ 
   component.addTeam();
   expect(component.addTeam).toBeTruthy();
   })
 
-
-  it('centerIdToname()', () => {
+it('centerIdToname()', () => {
   const id='23423';
   component.ADCList=[
   {

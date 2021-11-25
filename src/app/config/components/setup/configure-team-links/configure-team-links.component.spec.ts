@@ -11,10 +11,13 @@ import { SetupService } from 'src/app/config/services/setup.service';
 import { LinkResponse } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
+import { AddLinksComponent } from './add-links/add-links.component';
 import { ConfigureTeamLinksComponent } from './configure-team-links.component';
-describe('ConfigureTeamLinksComponent', () => {
+import { WebviewTag } from 'electron';
+fdescribe('ConfigureTeamLinksComponent', () => {
   let component: ConfigureTeamLinksComponent;
   let fixture: ComponentFixture<ConfigureTeamLinksComponent>;
+  let webviewTag:WebviewTag;
 
   class MockSetupService{
     deleteLink(link:string){
@@ -22,6 +25,11 @@ describe('ConfigureTeamLinksComponent', () => {
       return null;
     }
   } 
+  class MockWebViewTag{
+    setAttribute(qualifiedName: string, value: string){
+      console.log(qualifiedName);
+    }
+  }
   class MockNotifyService{
     showError(heading:string,message:string){
       console.log(heading,message);
@@ -36,27 +44,39 @@ describe('ConfigureTeamLinksComponent', () => {
     }
   }
 
-  @Component({selector: 'app-add-links', template: './add-links.component.html'})
-  class MockedAddLinksComponent{
-    onSubmit(){
-    let data={ 
-      linkName:'abc',
-      id:'353987',
-      linkType:{
-        title:'Mock'
-      },
-      link:'abc.com'
-    }
-      return data;
-    }
+  class MemberGroup{
+     reset(){
+
+     }
   }
+  @Component({
+    selector: 'app-add-links',
+    template: '',
+    providers: [{ provide: AddLinksComponent, useClass: MockedAddLinksComponent  }]
+  })
+  class MockedAddLinksComponent {
+    //onSubmit = jasmine.createSpy('onSubmit');
+  public memberGroup:MemberGroup;
+
+    // constructor();
+    
+      onSubmit(){
+      }
+     
+  }
+ 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule, FormsModule, NgxElectronModule, ReactiveFormsModule],
-      declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe,
-         MockedAddLinksComponent ],
+      declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe,MockedAddLinksComponent
+         //MockedAddLinksComponent 
+        ],
       providers : [{provide : NotificationService, useClass:MockNotifyService}, ElectronService, ChangeDetectorRef,
-        {provide:SetupService, useClass:MockSetupService}
+        {provide:SetupService, useClass:MockSetupService},
+        //{provide:AddLinksComponent,
+         // useClass:MockedAddLinksComponent
+        //},
+        {provide: webviewTag,useClass:MockWebViewTag},
       ]
     })
     .compileComponents();
@@ -64,17 +84,17 @@ describe('ConfigureTeamLinksComponent', () => {
 
   beforeEach(() => {
 
-    var store = {};
+    // var store = {};
 
-    spyOn(localStorage, 'getItem').and.callFake(function (key) {
-      return store[key];
-    });
-    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
-      return store[key] = value + '';
-    });
-    spyOn(localStorage, 'clear').and.callFake(function () {
-        store = {};
-    });
+    // spyOn(localStorage, 'getItem').and.callFake(function (key) {
+    //   return store[key];
+    // });
+    // spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+    //   return store[key] = value + '';
+    // });
+    // spyOn(localStorage, 'clear').and.callFake(function () {
+    //     store = {};
+    // });
 
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
     fixture = TestBed.createComponent(ConfigureTeamLinksComponent);
@@ -165,15 +185,27 @@ describe('ConfigureTeamLinksComponent', () => {
   })
   
   it('should add link',()=>{
-    component.addedLink={
-      linkName : 'abc',
-      teamLinkId : '67532',
-      linkType :'skype',
-      links : 'abc.com'
-    }
+  const data={
+    linkName:'abc',
+     id:'123',
+     linkType:{
+       title:'mock'
+     },
+     link:'abc.com'
+   }
+  const useFullLinks:LinkResponse[]=[];
+  component.usefullLinks=useFullLinks;
+   spyOn(component.child,'onSubmit').and.returnValue(data);
     component.addLink();
+    expect(component.child.onSubmit).toHaveBeenCalled();
     expect(component.addLink).toBeTruthy();
   })
- 
+
+  // it('should close',()=>{
+  //  // spyOn(component.child.memberGroup,'reset')
+  //   component.close();
+  //   expect(component.close).toBeTruthy();
+  //   expect(component.child.memberGroup.reset).toHaveBeenCalled();
+  // })
 
 });
