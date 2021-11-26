@@ -18,20 +18,24 @@ describe('SetupComponent', () => {
    return true;
     }
   }
+  class MockActivatedRouter{
+
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule],
       declarations: [ SetupComponent ],
       providers: [
-       // {provide:Router,  useClass:MockRouter}
+       {provide:Router,  useClass:MockRouter},
+       {provide:ActivatedRoute,  useClass:MockActivatedRouter},
       ]
     })
     .compileComponents()
-    .then(() => {
-      router = TestBed.inject(Router);
-      route = TestBed.inject(ActivatedRoute);
-    });
+    // .then(() => {
+    //   router = TestBed.inject(Router);
+    //   route = TestBed.inject(ActivatedRoute);
+    // });
   });
  
   beforeEach(() => {
@@ -42,30 +46,33 @@ describe('SetupComponent', () => {
     
   });
  
-  /* it('should create', () => {
+   it('should create', () => {
     expect(component).toBeTruthy();
   });
  
   it('should show team link',() =>{
     component.showTeamLink();
-    expect(router.navigate).toBeTruthy();
+    expect( component.showTeamLink).toBeTruthy();
   })
 
   it('should show multimedia',() =>{
     component.showMultimedia();
-    expect(router.navigate).toBeTruthy();
+    expect(component.showMultimedia).toBeTruthy();
   })
 
   it('should show view team member',() =>{
     component.showViewTeamMember();
-    expect(router.navigate).toBeTruthy();
+    expect(component.showViewTeamMember).toBeTruthy();
   })
 
   it('should show edit team',() =>{
     component.showEditTeam();
-    expect(router.navigate).toBeTruthy();
+    // let routing=new MockRouter();
+    // spyOn(routing,'navigate');
+    // expect(routing.navigate).toHaveBeenCalled();
+    expect(component.showEditTeam).toBeTruthy();
   })
- */
+ 
  it('should change active',() =>{
     component.changeActive(1);
     expect(component.changeActive).toBeTruthy();

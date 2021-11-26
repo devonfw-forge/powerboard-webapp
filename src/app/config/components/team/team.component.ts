@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./team.component.css'],
 })
 export class TeamComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, public route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.checkRoute();

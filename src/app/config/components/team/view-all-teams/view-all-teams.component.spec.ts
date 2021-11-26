@@ -1,6 +1,6 @@
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import checkData from 'src/app/checkData.json'; 
 import { RouterTestingModule } from '@angular/router/testing';
 import { GeneralService } from 'src/app/shared/services/general.service';
@@ -56,38 +56,32 @@ describe('ViewAllTeamsComponent', () => {
     setTeamDetailPermissions(){
       return null;
     }
+  }
 
+  class MockedRouter{
+    navigate(commands: any[], extras?: NavigationExtras){
+      console.log(commands);
+    }
   }
 
   @Component({
     selector: 'app-add-team',
     template: '',
-    providers: [{ provide: AddTeamComponent, useClass: MockedAddTeamComponent  }]
+    providers: [
+      { provide: AddTeamComponent, useClass: MockedAddTeamComponent  },
+      
+    ]
   })
   class MockedAddTeamComponent {
     addTeamWithLogo(){
     }
   }
-  // @Component({selector: 'app-add-team', template: './add-team.component.html'})
-  // class MockedAddTeamComponent{
-  //   addTeamWithLogo(){
-  //     const centerName='kolkata'
-  //     const logo:any={}
-  //     const data={
-  //       id:'43223',
-  //       name:'Test Team',
-  //       teamCode:'65687',
-  //       projectKey:'564',
-  //       ad_center:centerName,
-  //       logo:logo
-  //     }
-  //     return data;
-  //   }
-  // }
+ 
   let component: ViewAllTeamsComponent;
   let fixture: ComponentFixture<ViewAllTeamsComponent>;
-  let addTeamComponent: MockedAddTeamComponent;
-  let generalServiceSpy: jasmine.SpyObj<GeneralService>;
+  let teamService:MockedTeamService;
+  // let addTeamComponent: MockedAddTeamComponent;
+  // let generalServiceSpy: jasmine.SpyObj<GeneralService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -97,7 +91,7 @@ describe('ViewAllTeamsComponent', () => {
         {provide : TeamDetailsService, useClass: MockedTeamDetailsService},
         {provide: TeamService,useClass:MockedTeamService},
         {provide:GeneralService,useClass:MockedGeneralService},
-        
+        { provide: Router, useClass: MockedRouter },
       ]
     })
     .compileComponents()
@@ -118,6 +112,7 @@ describe('ViewAllTeamsComponent', () => {
 
   it('should getAllTeams', () => {
   component.getAllTeams();
+ 
   expect(component.getAllTeams).toBeTruthy();
 
   })
@@ -133,6 +128,7 @@ describe('ViewAllTeamsComponent', () => {
     const teamId='team T'
     spyOn(component,'getTeamDetails').and.resolveTo()
     component.viewTeam(teamId);
+    expect(component.getTeamDetails).toHaveBeenCalled();
     expect(component.viewTeam).toBeTruthy();
     
   })
@@ -196,9 +192,10 @@ it('should addTeam()', () => {
      }
     ] as TeamDetails[]
   spyOn(component.child,'addTeamWithLogo').and.returnValue(data);
-  // console.log("This is data  "+data.ad_center);
-  // console.log("AD Center  "+component.ADC_Center);
-  spyOn(localStorage,'getItem').and.callFake(()=>{return 'kolkata'});
+ //spyOn(JSON,'parse').and.returnValue(component.ADC_Center);
+ //spyOn(JSON,'parse').and.returnValue(component.ADCTeams);
+
+ // spyOn(localStorage,'getItem').and.callFake(()=>{return 'kolkata'});
   component.addTeam();
   expect(component.child.addTeamWithLogo).toHaveBeenCalled();
   expect(component.addTeam).toBeTruthy();

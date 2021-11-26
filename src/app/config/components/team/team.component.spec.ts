@@ -1,7 +1,9 @@
+import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router, Routes } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Observable } from 'rxjs';
 import { ConfigComponent } from '../config/config.component';
 
 import { TeamComponent } from './team.component';
@@ -12,25 +14,36 @@ describe('TeamComponent', () => {
   let fixture: ComponentFixture<TeamComponent>;
   let router : Router;
 
+  class MockRouter{
+    navigate(commands: any[], extras?: NavigationExtras){
+     console.log(commands);
+    }
+  }
 
-  const routes: Routes = [{
-    path: '',
-    component: ConfigComponent,
-    children: [
-      {
-        path: 'team', component: TeamComponent,
-        children: [
-          { path: '', redirectTo: 'viewAllTeams', pathMatch: 'full' },
-          { path: 'viewAllTeams', component: ViewAllTeamsComponent },
-        ]
-      }
-    ]
-  },]
+  class MockActivatedRout{
+
+  }
+  // const routes: Routes = [{
+  //   path: '',
+  //   component: ConfigComponent,
+  //   children: [
+  //     {
+  //       path: 'team', component: TeamComponent,
+  //       children: [
+  //         { path: '', redirectTo: 'viewAllTeams', pathMatch: 'full' },
+  //         { path: 'viewAllTeams', component: ViewAllTeamsComponent },
+  //       ]
+  //     }
+  //   ]
+  // },]
 
   beforeEach(async () => {
+   
     await TestBed.configureTestingModule({
-      imports :[RouterTestingModule.withRoutes(routes), HttpClientTestingModule],
-      declarations: [ TeamComponent ]
+      imports :[RouterTestingModule, HttpClientModule],
+      declarations: [ TeamComponent ],
+      providers:[{provide:Router,useClass:MockRouter},{provide:ActivatedRoute,useClass:MockActivatedRout}]
+
     })
     .compileComponents();
   });
@@ -42,13 +55,16 @@ describe('TeamComponent', () => {
   });
 
   it('should create', () => {
-    spyOn(component,'checkRoute').and.callFake(()=>{});
+   // spyOn(component,'checkRoute').and.callFake(()=>{});
     expect(component).toBeTruthy();
   });
 
   it('should check route',()=>{
-    router = TestBed.inject(Router);
-    spyOn(router,'navigate').and.returnValue(null);
+    //router = TestBed.inject(Router);
+   // spyOn(router,'navigate').and.returnValue(null);
+  //  let activatedRoute=new ActivatedRoute();
+  
+  //  component.route=activatedRoute;
     component.checkRoute();
     expect(component).toBeTruthy();
   })
