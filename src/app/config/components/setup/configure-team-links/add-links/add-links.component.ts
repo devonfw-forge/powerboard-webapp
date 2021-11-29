@@ -16,7 +16,7 @@ export class AddLinksComponent implements OnInit {
   error: boolean;
   addedLink : any;
   receiveAddedLink : any;
-  constructor( private fb: FormBuilder, private setupService: SetupService, private notifyService : NotificationService) {
+  constructor( private fb: FormBuilder, public setupService: SetupService, public notifyService : NotificationService) {
     this.selectedLinkType='Select Type';
     this.error=false;
    }

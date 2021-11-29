@@ -25,7 +25,7 @@ export class AddMemberComponent implements OnInit {
 teamMember : TeamMemberDetails = new TeamMemberDetails();
 
   roleName : string;
-  constructor(public configService : ConfigService, public generalService : GeneralService, private notifyService : NotificationService, private teamService : TeamService, private fb: FormBuilder,) {
+  constructor(public configService : ConfigService, public generalService : GeneralService, public notifyService : NotificationService, public teamService : TeamService, private fb: FormBuilder,) {
     this.roleName = "Select Role";
    }
 
@@ -39,32 +39,7 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
       team:['',[Validators.required]]
     });
   }
- /*  keyPressed() {
-    this.authError = false;
-  }
-
-  
-  getAuthError() {
-    return this.authError;
-  } */
-
-  /* async addMember(){
-    this.teamMember.team.id=  this.teamId;
-    this.memberGroup.controls.team.setValue(this.teamMember.team);
-
-
-    if(this.memberGroup.valid){
-      this.error=false;
-    console.log(this.memberGroup.value);
-    const result= await this.addTeamMember();
-    console.log(result);
-    return result;
-  }
-  else{
-    this.error=true;
-    return false;
-  }
-  } */
+ 
 
   
   async addTeamMember(){

@@ -13,32 +13,49 @@ import { AddMemberComponent } from './add-member.component';
 
 describe('AddMemberComponent', () => {
   let component: AddMemberComponent;
-  let configService : ConfigService;
   let fixture: ComponentFixture<AddMemberComponent>;
-  let notificationService : NotificationService;
-  let generalService : GeneralService;
-  let toastrService : ToastrService;
-  let teamService : TeamService;
-  let spy :any;
+  class MockConfigService{
+    roles = [];
+    teamMemberRole = "Mock team Member Role";
+    teamAdminRole = "Mock team Admin Role"
+  }
+  class MockNotifyService{
+    showError(heading:string,message:string){
+      console.log(heading,message);
+      return null;
+    }
+    showSuccess(heading:string,message:string){
+      console.log(heading,message);
+      return null;
+    }
+  }
+  class MockGeneralService{
+    getPermissions(){
+      return [];
+    }
+    addTeamMember ="Mock add team member";
+    addTeamAdmin ="Mock add team admin";
+  }
+  class MockTeamService{
+    addTeamMember(data:any){
+      return null;
+    }
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule, FormsModule, ReactiveFormsModule,ToastrModule.forRoot()],
       declarations: [ AddMemberComponent ],
-      providers:[ ConfigService,  NotificationService, GeneralService, TeamService, {provide : ToastrService, usevalue : toastrService}]
+      providers:[ {provide: ConfigService, useClass: MockConfigService}, 
+        {provide: NotificationService, useClass: MockNotifyService}, 
+        {provide:GeneralService, useClass:MockGeneralService },
+         {provide:TeamService,useClass:MockTeamService}]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
-    /* settingService = TestBed.inject(SettingService);
-    notificationService = TestBed.inject(NotificationService);
-    generalService = TestBed.inject(GeneralService);
-    teamService = TestBed.inject(TeamService); */
-    toastrService = TestBed.inject(ToastrService); 
-    teamService = TestBed.inject(TeamService); 
-    notificationService = TestBed.inject(NotificationService); 
     fixture = TestBed.createComponent(AddMemberComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -50,14 +67,13 @@ describe('AddMemberComponent', () => {
 
   it('should add team member', () =>{
     let response : any = "team member added successfully";
-    let checkResult : any = true;
-    spy = spyOn(teamService, 'addTeamMember').and.returnValue(response);
+    spyOn(component.teamService, 'addTeamMember').and.returnValue(response);
     component.memberGroup.controls.username.setValue(null)
     component.memberGroup.controls.email.setValue(null);
     component.memberGroup.controls.role.setValue(null);
     component.memberGroup.controls.team.setValue(null);
     component.addTeamMember();
-    expect(teamService.addTeamMember).toHaveBeenCalled();
+    expect(component.teamService.addTeamMember).toHaveBeenCalled();
   })
 
 
@@ -68,13 +84,13 @@ describe('AddMemberComponent', () => {
       }
     }
     let checkResult : any = true;
-    spy = spyOn(teamService, 'addTeamMember').and.throwError(reason);
+    spyOn(component.teamService, 'addTeamMember').and.throwError(reason);
     component.memberGroup.controls.username.setValue(null)
     component.memberGroup.controls.email.setValue(null);
     component.memberGroup.controls.role.setValue(null);
     component.memberGroup.controls.team.setValue(null);
     component.addTeamMember();
-    expect(teamService.addTeamMember).toHaveBeenCalled();
+    expect(component.teamService.addTeamMember).toHaveBeenCalled();
   })
 
   it('should update role', () =>{

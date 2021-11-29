@@ -11,27 +11,51 @@ import { AddLinksComponent } from './add-links.component';
 describe('AddLinksComponent', () => {
   let component: AddLinksComponent;
   let fixture: ComponentFixture<AddLinksComponent>;
-  let notifyService : NotificationService;
-  let setupService : SetupService;
-  let spy :any;
+
+  class MockNotifyService{
+    showError(heading:string,message:string){
+      console.log(heading,message);
+      return null;
+    }
+    showSuccess(heading:string,message:string){
+      console.log(heading,message);
+      return null;
+    }
+  }
+  class MockSetupService{
+    getLinkTypes(){
+      return null;
+    }
+    addLink(linkValue: any){
+      return null;
+    }
+  }
+ 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[HttpClientTestingModule, FormsModule, ReactiveFormsModule],
       declarations: [ AddLinksComponent ],
-      providers : [SetupService, {provide: NotificationService, useValue: notifyService} ]
+      providers : [{provide:SetupService, useClass: MockSetupService},
+         {provide: NotificationService, useClass: MockNotifyService} ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    setupService = TestBed.inject(SetupService);
+    var store = {};
+  spyOn(localStorage, 'getItem').and.callFake(function (key) {
+       return store[key];
+     });
+     spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+       return store[key] = value + '';
+   });
+   spyOn(localStorage, 'clear').and.callFake(function () {
+       store = {};
+   });
+  
     localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetailsResponse));
     fixture = TestBed.createComponent(AddLinksComponent);
     component = fixture.componentInstance;
-    notifyService = TestBed.inject(NotificationService);
-    const spyObj = jasmine.createSpyObj('notifyService',['showError','showSuccess']);
-    spyObj.showError.and.callThrough();
-    spyObj.showSuccess.and.callFake((data)=>{return data});
     fixture.detectChanges();
   });
 
@@ -40,13 +64,13 @@ describe('AddLinksComponent', () => {
   });
 
   it('should get link types', () => {
-    component.getLinkTypes().then(() =>{
-      expect(component.linkTypes).toBeTruthy();
-    })
-  
+    spyOn(component.setupService, 'getLinkTypes');
+    component.getLinkTypes();
+    expect(component.setupService.getLinkTypes).toHaveBeenCalled();
   });
 
   it('should  get error onsubmit data on adding link', () =>{
+    spyOn(component.setupService, 'addLink');
  component.onSubmit();
  expect(component.error).toEqual(true);
   })
@@ -59,7 +83,7 @@ describe('AddLinksComponent', () => {
       }
     }
     let result : any;
-    spy = spyOn(setupService, 'addLink').and.throwError(response);
+    spyOn(component.setupService, 'addLink').and.throwError(response);
     component.addLink.controls['linkName'].setValue("TestingLink");
        component.addLink.controls['linkType'].setValue("Meeting_Link");
        component.addLink.controls['links'].setValue("www.TestingLink.com");
@@ -67,12 +91,12 @@ describe('AddLinksComponent', () => {
     component.onSubmit().catch((error)=>{
       result = error;
     });
-    expect(setupService.addLink).toHaveBeenCalled();
+    expect(component.setupService.addLink).toHaveBeenCalled();
      })
 
      it('should submit data', () =>{
        let response: any = "newLink"
-      spy = spyOn(setupService, 'addLink').and.returnValue(response);
+      spyOn(component.setupService, 'addLink').and.returnValue(response);
        component.addLink.controls['linkName'].setValue("TestingLink");
        component.addLink.controls['linkType'].setValue("Meeting_Link");
        component.addLink.controls['links'].setValue("www.TestingLink.com");
