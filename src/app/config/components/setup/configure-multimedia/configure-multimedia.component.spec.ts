@@ -234,7 +234,7 @@ it('should add folders',()=>{
    spyOn(component, 'updateLocalStorage').and.callFake(()=>{return null});
    spyOn(component, 'selectAll').and.callFake(()=>{return  null});
    spyOn(component, 'deselectAll').and.callFake(()=>{return  null});
-   component.addFolder();
+   component.addFolder().catch(e => {});
 
    expect(component.addFolder).toBeTruthy();
 })

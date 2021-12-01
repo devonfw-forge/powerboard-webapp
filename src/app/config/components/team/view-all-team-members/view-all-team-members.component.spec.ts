@@ -95,7 +95,7 @@ describe('ViewAllTeamMembersComponent', () => {
 
   it('should  view all team members', () =>{
     spyOn(component.teamService,'viewTeamMembersOfTeam');
-    component.viewAllMembers();
+    component.viewAllMembers().catch(e => {});
     expect(component.teamService.viewTeamMembersOfTeam).toHaveBeenCalled();
     
   })
@@ -110,13 +110,13 @@ describe('ViewAllTeamMembersComponent', () => {
     let response :any = "deletedSuccessfully"
     component.deleteId = "mockDeleteId";
     spyOn(component.teamService,'deleteTeamMember');
-     component.deleteMember();
+     component.deleteMember().catch(e => {});
      expect(component.teamService.deleteTeamMember).toHaveBeenCalled();
   })
   it('should delete team member for null', () =>{
     component.deleteId = null;
     spyOn(component.teamService,'deleteTeamMember');
-     component.deleteMember();
+     component.deleteMember().catch(e => {});
      expect(component.teamService.deleteTeamMember).toHaveBeenCalled();
   })
  /*
@@ -142,13 +142,13 @@ describe('ViewAllTeamMembersComponent', () => {
   it('should add member',()=>{
     spyOn(component.child,'addTeamMember').and.callFake(()=>{return true});
     spyOn(component,'viewAllMembers').and.callFake(()=>{return null});
-    component.addMember();
+    component.addMember().catch(e => {});
     expect(component.child.addTeamMember).toHaveBeenCalled();
   })
 
   it('should not add member if returns false',()=>{
     spyOn(component.child,'addTeamMember').and.callFake(()=>{return false});
-    component.addMember();
+    component.addMember().catch(e => {});
     expect(component.child.addTeamMember).toHaveBeenCalled();
   })
 
@@ -164,7 +164,7 @@ describe('ViewAllTeamMembersComponent', () => {
       message : "mock"
     }
     spyOn(component.editChild,'editTeamMember').and.callFake(()=>{return response});
-    component.editTeamMember();
+    component.editTeamMember().catch(e => {});
     expect(component.editChild.editTeamMember).toHaveBeenCalled();
   })
 
@@ -175,7 +175,7 @@ describe('ViewAllTeamMembersComponent', () => {
       }
     }
     spyOn(component.editChild,'editTeamMember').and.throwError(response);
-    component.editTeamMember();
+    component.editTeamMember().catch(e => {});
     expect(component.editChild.editTeamMember).toHaveBeenCalled();
   })
 

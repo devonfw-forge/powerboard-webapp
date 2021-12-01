@@ -140,7 +140,7 @@ describe('AuthComponent', () => {
      component.loginForm.controls['id'].setValue("mock user id");
      component.loginForm.controls['password'].setValue("mock password");
      spyOn(component.authService,'Login').and.callFake(()=>{return response});
-     component.login();
+     component.login().catch(e => {});
      expect(component.authService.Login).toHaveBeenCalled();
    })
 
@@ -161,7 +161,7 @@ describe('AuthComponent', () => {
     component.loginForm.controls['id'].setValue("mock user id");
     component.loginForm.controls['password'].setValue("mock password");
     spyOn(component.authService,'Login').and.callFake(()=>{return response});
-    component.login();
+    component.login().catch(e => {});
     expect(component.authService.Login).toHaveBeenCalled();
   })
 
@@ -173,7 +173,7 @@ describe('AuthComponent', () => {
     }
     spyOn(component.authService,'Login').and.throwError(response);
     spyOn(window,'alert');
-   component.login()
+   component.login().catch(e => {});
    expect(component.authService.Login).toHaveBeenCalled();
    expect(window.alert).toHaveBeenCalled();
  })
@@ -211,7 +211,7 @@ describe('AuthComponent', () => {
       }
     }
     spyOn(component.authService,'guestLogin').and.callFake(()=>{return response});
-    component.GuestLogin();
+    component.GuestLogin().catch(e => {});
     expect(component.authService.guestLogin).toHaveBeenCalled();
     })  
 
@@ -221,7 +221,7 @@ describe('AuthComponent', () => {
       }
       spyOn(component.authService,'guestLogin').and.throwError(response);
       spyOn(window,'alert');
-      component.GuestLogin();
+      component.GuestLogin().catch(e => {});
       expect(component.authService.guestLogin).toHaveBeenCalled();
       expect(window.alert).toHaveBeenCalled();
       }) 
