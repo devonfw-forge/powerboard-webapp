@@ -233,7 +233,7 @@ checkVisibilityIfNavBarAndLoginTrue(){
 
   /* new end point call */
   async getProjectDetails(userId: string): Promise<HomeResponse> {
-    return await this.http
+    return this.http
       .get<HomeResponse>(environment.globalEndPoint + UrlPathConstants.getProjectDetailsEndpoint + userId)
       .toPromise();
   }
@@ -265,7 +265,7 @@ checkVisibilityIfNavBarAndLoginTrue(){
 
 
    async getAllFilesFromFolder(teamId: string, folderId : string): Promise<MultimediaFilesNew[]> {
-    return await this.http
+    return this.http
       .get<MultimediaFilesNew[]>(environment.globalEndPoint + UrlPathConstants.FilesFromFolderEndpoint + teamId + '/' + folderId)
       .toPromise();
   }

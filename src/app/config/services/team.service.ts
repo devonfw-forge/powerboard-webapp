@@ -15,12 +15,12 @@ export class TeamService {
   constructor(private http: HttpClient) { }
 
   /* async addTeam(team : TeamInfo):Promise<any>{
-    return await this.http.post<any>(
+    return  this.http.post<any>(
       'http://localhost:3001/v1/teams/team/addTeam',team ).toPromise();
   } */
 
   async addTeamWithLogo(formData : FormData):Promise<any>{
-    return await this.http.post<any>(
+    return  this.http.post<any>(
       environment.globalEndPoint + UrlPathConstants.addTeamEndPoint, formData).toPromise();
   }
   
@@ -31,12 +31,12 @@ export class TeamService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text' 
    }
-    return await this.http.delete<any>(
+    return  this.http.delete<any>(
       environment.globalEndPoint + UrlPathConstants.deleteTeamEndPoint+ teamId, requestOptions).toPromise();
   }
 
   async viewAllTeams():Promise<TeamsResponse[]>{
-    return await this.http.get<TeamsResponse[]>(
+    return  this.http.get<TeamsResponse[]>(
       environment.globalEndPoint + UrlPathConstants.viewAllTeamsEndPoint).toPromise();
   }
 
@@ -49,24 +49,24 @@ export class TeamService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       responseType: 'text' 
    }
-    return await this.http.post<any>(
+    return  this.http.post<any>(
       environment.globalEndPoint + UrlPathConstants.addTeamMemberEndPoint, teamMember, requestOptions
         
    ).toPromise();
   }
 
   async viewTeamMembersOfTeam(teamId : string):Promise<any>{
-    return await this.http.get<any>(
+    return  this.http.get<any>(
       environment.globalEndPoint + UrlPathConstants.viewAllMembersOfTeamEndPoint + teamId).toPromise();
   }
 
    async deleteTeamMember(userteamId : string):Promise<any>{
-    return await this.http.delete<any>(
+    return  this.http.delete<any>(
       environment.globalEndPoint + UrlPathConstants.deleteTeamMemberEndPoint + userteamId).toPromise();
   } 
 
   async updateAccessRole(updateRole : UpdateRoles):Promise<any>{
-    return await this.http.put<any>(
+    return  this.http.put<any>(
       environment.globalEndPoint + UrlPathConstants.updateUserRoleEndPoint,updateRole).toPromise();
   }
 }

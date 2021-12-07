@@ -10,7 +10,6 @@ import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TeamDetailsService } from 'src/app/teams/services/team-details.service';
-import { environment } from 'src/environments/environment';
 import { PowerboardLoginResponse } from '../../model/auth.model';
 import { AuthService } from '../../services/auth.service';
 
@@ -39,7 +38,6 @@ export class AuthComponent implements OnInit {
     private changeDetector: ChangeDetectorRef
   ) {
     this.authError = null;
-    /* this.localLoader = false; */
     this.imagePath = ""
   }
 

@@ -3,125 +3,143 @@
     <div class="row mb-2">
       <div class="col-md-2">
         <div class="row sel" style="margin-top: 8px;color: #0070AD;margin-left: 1px;">
-          <input class="checkbox pr-2" style="margin-top: 7px; margin-right: 4px; " id='selectAll' type="checkbox"
-            [checked]='isMasterSel' (click)="SelectAndDeselectAll()" />
+          <input class="checkbox pr-2" style="margin-top: 7px; margin-right: 4px; " id='selectAll'
+            type="checkbox"
+            [checked]='isMasterSel'
+            (click)="SelectAndDeselectAll()"
+          />
           <label for="selectAll">Select All</label>
         </div>
       </div>
       <div class="col-md-10">
         <div class="row">
           <div class="col-md-3 mt-2">
-            <span class="action-button" data-toggle="modal" data-target=".bd-example-modal-sm"
-              style="font-size: 16px; float: right">
+            <span
+              class="action-button"
+              data-toggle="modal"
+              data-target=".bd-example-modal-sm"
+              style="font-size: 16px; float: right"
+            >
               + New Folder
             </span>
           </div>
           <div class="col-md-3">
             <span class="btn btn-primary btn-file">
-              <span style="font-size: 16px"> + Add File </span>
-              <input type="file" (change)="uploadFile($event)" />
+            <span style="font-size: 16px"> + Add File </span>
+            <input type="file" (change)="uploadFile($event)" />
+          </span>
+        </div>
+        <div class="col-md-4 mt-2">
+          <span class="material-icons-outlined slideshowicon">
+            library_add
             </span>
+          <span class="action-button" (click)="addToSlideShow()" style="font-size: 16px">
+            Add To SlideShow
+          </span> 
+        </div>
+        <div class="col-md-2 mt-2 float-center">
+          <span class="material-icons mat-icon" (click)="deleteFilesAndFolders()"> delete_outline </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOLDERS AND FILES -->
+  <div class="col-md-12 row">
+    <div class="col-md-3">
+      <div class="pt-1">
+        <div class="text-left">
+          <div class="icon row" >
+            <input class="checkbox"
+              type="checkbox"
+              [checked]="homeFile.isSelected"
+              (click)="checkHomeIsSelected()"
+              style="margin-top: 7px;
+              margin-right: 4px;"
+            />
+            <span
+              class="material-icons-outlined mat-icon pr-1"
+              >
+              folder 
+            </span>
+            
+            <span class="pr-1" (click)="showHomeFiles()" *ngIf="currentFolder !== homeFile.folderName"  style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"  >Home</span>
+            <span class="pr-1"  *ngIf="currentFolder == homeFile.folderName"  style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; " >Home</span>
+            <div>
+              <span *ngIf="homeFile.inSlideShow" class="material-icons-outlined slideshowgreyicon" >
+                slideshow
+              </span>
+            </div>
+            
           </div>
-          <div class="col-md-4 mt-2">
-            <span class="material-icons-outlined slideshowicon">
-              library_add
+        </div>
+      </div>
+      <div class="pt-1" 
+        *ngFor="let album of multimedia.root; index as i"
+      >
+        <div class="text-left">
+          <div class="icon row" >
+            <input class="checkbox"
+              type="checkbox"
+              style="margin-top: 7px;
+              margin-right: 4px;"
+              [checked]='multimedia.root[i].isSelected'
+              (click) ="checkRootSelection(i)"
+            />
+            <span
+              class="material-icons-outlined mat-icon pr-1"
+              (click)="getFilesFromFolder(album.folderId, album.folderName)">
+              folder 
             </span>
-            <span class="action-button" (click)="addToSlideShow()" style="font-size: 16px">
-              Add To SlideShow
+            <span class="pr-1" *ngIf="currentFolder !== album.folderName"  
+              style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;" 
+              (click)="getFilesFromFolder(album.folderId, album.folderName)">
+              {{ album.folderName | titlecase }}
             </span>
-          </div>
-          <div class="col-md-2 mt-2 float-center">
-            <span class="material-icons mat-icon" (click)="deleteFilesAndFolders()"> delete_outline </span>
+            <span class="pr-1" *ngIf="currentFolder == album.folderName"  
+              style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; "
+              >
+              {{ album.folderName | titlecase }}
+            </span>
+            <div *ngIf="multimedia.root[i].inSlideShow">
+              <span class="material-icons-outlined slideshowgreyicon" >
+                slideshow
+              </span>
+            </div>
+            
           </div>
         </div>
       </div>
     </div>
-
-
-    <!-- FOLDERS AND FILES -->
-    <div class="col-md-12 row">
-      <div class="col-md-3">
-        <div class="pt-1">
-          <div class="text-left">
-            <div class="icon row">
-              <input class="checkbox" type="checkbox" [checked]="homeFile.isSelected" (click)="checkHomeIsSelected()"
-                style="margin-top: 7px;
-              margin-right: 4px;" />
-              <span class="material-icons-outlined mat-icon pr-1">
-                folder
-              </span>
-
-              <span class="pr-1" (click)="showHomeFiles()" *ngIf="currentFolder !== homeFile.folderName"
-                style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;">Home</span>
-              <span class="pr-1" *ngIf="currentFolder == homeFile.folderName"
-                style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; ">Home</span>
-              <div>
-                <span *ngIf="homeFile.inSlideShow" class="material-icons-outlined slideshowgreyicon">
-                  slideshow
-                </span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="pt-1" *ngFor="let album of multimedia.root; index as i">
-          <div class="text-left">
-            <div class="icon row">
-              <input class="checkbox" type="checkbox" style="margin-top: 7px;
-              margin-right: 4px;" [checked]='multimedia.root[i].isSelected' (click)="checkRootSelection(i)" />
-              <span class="material-icons-outlined mat-icon pr-1"
-                (click)="getFilesFromFolder(album.folderId, album.folderName)">
-                folder
-              </span>
-              <span class="pr-1" *ngIf="currentFolder !== album.folderName"
-                style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"
-                (click)="getFilesFromFolder(album.folderId, album.folderName)">
-                {{ album.folderName | titlecase }}
-              </span>
-              <span class="pr-1" *ngIf="currentFolder == album.folderName"
-                style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; ">
-                {{ album.folderName | titlecase }}
-              </span>
-              <div *ngIf="multimedia.root[i].inSlideShow">
-                <span class="material-icons-outlined slideshowgreyicon">
-                  slideshow
-                </span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-9">
-        <div *ngIf="multimediaFiles.length != 0">
-          <div class="col-md-12" style="padding-top: 12px;">
-            <div class="row">
-              <div class="col-md-4 mb-3" *ngFor="let file of multimediaFiles; let i=index">
-                <!-- <img
+    <div class="col-md-9" > 
+      <div *ngIf="multimediaFiles.length != 0">
+        <div class="col-md-12" style="padding-top: 12px;">
+          <div class="row">
+            <div
+              class="col-md-4 mb-3"
+              *ngFor="let file of multimediaFiles; index as i"
+            >
+              <img
                 id="bigImage"
                 alt="image thumbnail"
                 src="{{ file.urlName }}"
-                style="width: 150px; height: 100px" 
-              /> -->
-                <div *ngIf="file.isImage;then content else other_content">here is ignored</div>
-                <ng-template #content><img id="bigImage" alt="image thumbnail" src="{{ file.urlName }}"
-                    style="width: 150px; height: 100px" />
-                </ng-template>
-                <ng-template #other_content> <video id="bigImage" src="{{ file.urlName }}"
-                    style="width: 150px; height: 100px"></video>
-                </ng-template>
-                <div class="row">
-                  <div class="col-md-6 float-left">
-                    <div *ngIf="multimediaFiles[i].inSlideShow">
-                      <span class="material-icons-outlined slideshowgreyicon">
-                        slideshow
-                      </span>
-                    </div>
+                style="width: 150px; height: 100px"
+              />
+              <div class="row">
+                <div class="col-md-6 float-left">
+                  <div *ngIf="multimediaFiles[i].inSlideShow">
+                  <span class="material-icons-outlined slideshowgreyicon" >
+                    slideshow
+                    </span>
                   </div>
-                  <div class="col-md-6 float-right">
-                    <input class="checkbox" type="checkbox" [checked]='multimediaFiles[i].isSelected'
-                      (click)="checkFilesSelection(i)" />
-                  </div>
+                </div>
+                <div class="col-md-6 float-right">
+                  <input class="checkbox"
+                  type="checkbox"
+                  [checked]='multimediaFiles[i].isSelected'
+                  (click)="checkFilesSelection(i)"
+                />
                 </div>
               </div>
             </div>
@@ -129,38 +147,64 @@
         </div>
       </div>
     </div>
-
-
   </div>
+  
+  
+</div>
 </div>
 
 
 <!-- Add folder Modal -->
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade bd-example-modal-sm"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header pl-5">
         <h5 class="modal-title pl-5" id="exampleModalLabel">Add Folder</h5>
 
-        <button type="button" class="close icon" data-dismiss="modal" aria-label="Close" (click)="close()">
+        <button
+          type="button"
+          class="close icon"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="close()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body pt-3 pb-1">
         <div class="mt-2">
-          <input type="text" class="form-control" id="name" placeholder="Folder Name" [(ngModel)]="newFolderName" />
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Folder Name"
+            [(ngModel)]="newFolderName"
+          />
         </div>
       </div>
       <div class="footer pb-3 pt-4">
         <div>
-          <button type="button" class="btn btn-basic btn-custom btn-cg mr-2 ml-3" data-dismiss="modal"
-            (click)="close()">
+          <button
+            type="button"
+            class="btn btn-basic btn-custom btn-cg mr-2 ml-3"
+            data-dismiss="modal"
+            (click)="close()"
+          >
             Close
           </button>
-          <button type="button" class="btn btn-basic btn-custom btn-cg ml-2 mr-2" data-dismiss="modal"
-            (click)="addFolder()">
+          <button
+            type="button"
+            class="btn btn-basic btn-custom btn-cg ml-2 mr-2"
+            data-dismiss="modal"
+            (click)="addFolder()"
+          >
             Add
           </button>
         </div>

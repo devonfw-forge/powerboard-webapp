@@ -5,7 +5,6 @@ import { GeneralService } from 'src/app/shared/services/general.service';
 import { TeamsResponse, UpdateTeam } from '../../../model/config.model';
 import { SetupService } from '../../../services/setup.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { environment } from 'src/environments/environment';
 import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 
 @Component({

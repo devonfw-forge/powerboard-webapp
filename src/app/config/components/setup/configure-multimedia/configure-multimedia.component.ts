@@ -3,7 +3,6 @@ import { DeleteResponse } from 'src/app/config/model/config.model';
 import { MultimediaFilesNew, MultimediaFolderResponse, RootNew, TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { environment } from 'src/environments/environment';
 import { SetupService } from '../../../services/setup.service';
 
 @Component({
