@@ -81,6 +81,7 @@ export class ConfigureMultimediaComponent implements OnInit {
         console.log(file.urlName);
         let isImage = this.isImage(file.urlName);
         console.log(isImage);
+        console.log(isImage);
         if (!isImage) {
           file.urlName = this.tempPath + '#t=5';
           file.isImage=false;
