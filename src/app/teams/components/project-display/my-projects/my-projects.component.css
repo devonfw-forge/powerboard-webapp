@@ -71,7 +71,7 @@ hr {
 }
 .Logo{
    height: 60%;
-   width: fit-content;
+   width: auto;
    cursor: default; 
    align-self: center;
 }

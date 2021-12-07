@@ -109,18 +109,14 @@
         <div class="col-md-12" style="padding-top: 12px;">
           <div class="row">
             <div class="col-md-4 mb-3" *ngFor="let file of multimediaFiles; let i=index">
-              <!-- <img
-              id="bigImage"
-              alt="image thumbnail"
-              src="{{ file.urlName }}"
-              style="width: 150px; height: 100px" 
-            /> -->
               <div *ngIf="file.isImage;then content else other_content">here is ignored</div>
               <ng-template #content><img id="bigImage" alt="image thumbnail" src="{{ file.urlName }}"
                   style="width: 150px; height: 100px" />
               </ng-template>
               <ng-template #other_content> <video id="bigImage" src="{{ file.urlName }}"
-                  style="width: 150px; height: 100px"></video>
+                  style="width: 150px; height: 100px">
+                  <track label="English" kind="captions">
+                </video>
               </ng-template>
               <div class="row">
                 <div class="col-md-6 float-left">
