@@ -1,258 +1,505 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ElectronService } from 'ngx-electron';
-import { AppComponent } from './app.component';
-import { PowerboardLoginResponse } from './login/model/login.model';
-import { TeamDetailResponse } from './model/general.model';
-import { SlideshowService } from './slideshow/slideshow.service';
+import { AppComponent } from "./app.component";
+import { GeneralService } from './shared/services/general.service';
+import { NavigationService } from './shared/services/navigation.service';
+import { SlideshowService } from './teams/services/slideshow.service';
+import { TeamDetailsService } from './teams/services/team-details.service';
+import checkData from 'src/app/checkData.json'; 
+import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
 
 describe('AppComponent', () => {
-  var teamDetails : TeamDetailResponse;
-/*   let component: AppComponent; */
-  let electronService: ElectronService;
-  let slideshowService : SlideshowService;
+  let app: AppComponent; 
+  let fixture: ComponentFixture<AppComponent>;
   let httpTestingController : HttpTestingController;
-  var loginTestResponse : PowerboardLoginResponse;
-
-  beforeAll(() => {
-
-    /* teamDetails = new TeamDetailResponse();
-    loginTestResponse = new PowerboardLoginResponse();
-    teamDetails.powerboardResponse.teamLinks = [{
-      teamLinkId: "",
-    title: "",
-    links: ""
-    },
-    {
-      teamLinkId: "",
-    title: "",
-    links: ""
-    }],
-   
-    loginTestResponse.loginResponse.ADC_List =[{
-      centerId : "",
-    centerName : ""
-    }, 
-   
-   
-  ];*/
-
-
-  let loginResponse = {
-    "loginResponse": {
-        "userId": "10cf1dfd-43e9-4cc4-8257-a6ba5c70e33d",
-        "isPasswordChanged": true,
-        "My_Center": {
-            "centerId": "99055bf7-ada7-495c-8019-8d7ab62d488e",
-            "centerName": "ADCenter Bangalore"
-        },
-        "My_Team": [
-            {
-                "teamId": "46455bf7-ada7-495c-8019-8d7ab76d488e",
-                "teamName": " ",
-                "myRole": "team_member",
-                "teamStatus": 1
-            }
-        ],
-        "Teams_In_ADC": [
-            {
-                "teamId": "46455bf7-ada7-495c-8019-8d7ab76d488e",
-                "teamName": " ",
-                "teamStatus": 1
-            },
-            {
-                "teamId": "46455bf7-ada7-495c-8019-8d7ab76d489e",
-                "teamName": ""
-            },
-            {
-                "teamId": "46455bf7-ada7-495c-8019-8d7ab76d490e",
-                "teamName": "",
-                "teamStatus": 1
-            }
-        ],
-        "ADC_List": [
-            {
-                "centerId": "98655bf7-ada7-495c-8019-8d7ab62d488e",
-                "centerName": "ADCenter Valencia"
-            },
-            {
-                "centerId": "98755bf7-ada7-495c-8019-8d7ab62d488e",
-                "centerName": "ADCenter Mumbai"
-            },
-            {
-                "centerId": "98855bf7-ada7-495c-8019-8d7ab62d488e",
-                "centerName": "ADCenter Poland"
-            },
-            {
-                "centerId": "98955bf7-ada7-495c-8019-8d7ab62d488e",
-                "centerName": "ADCenter Murcia"
-            },
-            {
-                "centerId": "99055bf7-ada7-495c-8019-8d7ab62d488e",
-                "centerName": "ADCenter Bangalore"
-            }
-        ],
-        "privileges": []
-    },
-   
-};
-
-let teamResponse = {
-  "powerboardResponse": {
-      "team_id": "46455bf7-ada7-495c-8019-8d7ab76d488e",
-      "team_name": " ",
-      "center": "ADCenter Bangalore",
-      "team_code": "10012345",
-      "logo": null,
-      "dashboard": {
-          "teamId": "46455bf7-ada7-495c-8019-8d7ab76d488e",
-          "codeQuality": {
-              "bugs": 3,
-              "debt": 13,
-              "codeCoverage": 85,
-              "status": "PASSED"
-          },
-          "clientStatus": {
-              "clientSatisfactionRating": 5,
-              "sprintNumber": 10
-          },
-          "teamSpirit": {
-              "teamSpiritRating": 7
-          },
-          "burndown": {
-              "workUnit": "story point",
-              "remainingDays": 3,
-              "remainingWork": 122,
-              "count": 107,
-              "burndownStatus": "Behind Time"
-          },
-          "sprintDetail": {
-              "Sprint_current_day": 25,
-              "sprint_number": 11,
-              "Sprint_days": 28
-          },
-          "velocity": {
-              "Avg": 115,
-              "Committed": 140,
-              "Completed": 18
-          },
-          "teamStatus": 1
-      },
-      "meetingLinks": [
-          {
-              "dailyMeetingId": "43000bf7-ada7-495c-8019-8d7ab76d490e",
-              "type": "TEAMS",
-              "title": "Stand Up",
-              "links": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjY3MzIyNmYtZTg1YS00MzBjLTk0NmUtMTk4MWE0OWJjNjhl%40thread.v2/0?context=%7b%22Tid%22%3a%2276a2ae5a-9f00-4f6b-95ed-5d33d77c4d61%22%2c%22Oid%22%3a%22d6dd7c98-546f-4dcb-9c39-39c8eeff8a24%22%7d"
-          }
-      ],
-      "teamLinks": [
-          {
-              "teamLinkId": "51055bf7-ada6-495c-8019-8d7ab76d488e",
-              "title": "Jira Cloud",
-              "links": "https://powerboard-capgemini.atlassian.net/jira/software/projects/DUM/boards/3"
-          },
-          {
-              "teamLinkId": "51055bf8-ada5-495c-8019-8d7ab76d488e",
-              "title": "GitHub",
-              "links": "https://github.com/devonfw-forge/powerboard-api/blob/develop-0.0.1/"
-          }
-      ],
-      "images": [
-          {
-              "ImageId": "aaad19f7-1b66-44aa-a443-4fcdd173f385",
-              "ImagePath": "bannerd8a32383-b767-44e7-b48c-d15fbecc9a49.jpg"
-          },
-          {
-              "ImageId": "89cbb47b-5454-440d-a0e8-98b681ed6f83",
-              "ImagePath": "Capgeminie399d4d7-5119-4c2b-b238-4275d2f7c5da.jpg"
-          },
-          {
-              "ImageId": "fbf8ea11-62a2-433a-936f-9fddfb90b1c6",
-              "ImagePath": "chare72e95bb-b552-425a-a051-b7dfc69efa0b.jpg"
-          },
-          {
-              "ImageId": "dc6a6a55-23f9-4edf-90e5-a18c6b07a0be",
-              "ImagePath": "dataf74b26af-7a68-42c9-94b8-b4ebc378dce1.jpg"
-          },
-          {
-              "ImageId": "8c4f8d5d-b3b7-4efb-868e-4336474094b3",
-              "ImagePath": "france-capgeminic4ba8e67-c56d-446d-814e-9ab149521959.jpg"
-          }
-      ],
-      "videos": [
-          {
-              "videoId": "79b90a96-bd52-4fab-9b8f-e119cf4e66ab",
-              "videoPath": "CapgeminiPurpose1c42fff2-6884-40bd-a8f0-489552af140f.mp4"
-          },
-          {
-              "videoId": "0176b6eb-6336-4efc-9710-edfc4af25a31",
-              "videoPath": "CapgeminiValues499f846a-780c-4a9a-86c9-99d3055f7d1e.mp4"
-          }
-      ],
-      "privileges": [
-          "view_meeting_links",
-          "view_team_links"
-      ]
+  class MockSlideShowService{
+    isSlideshowRunning = false;
+    checkSlideshowArray(){
+      return null;
+    }
+    stopSlideShow(){
+      return null;
+    }
+    startSlideShow(){
+      return null;
+    }
   }
-};
- let currentTeam = {
-teamId: "46455bf7-ada7-495c-8019-8d7ab76d488e",
-teamName: " ",
-teamCode: "10012345",
-projectKey : "P1112222",
-adCenter: "ADCenter Bangalore"
- }
+  class MockGeneralService{
+    isDashboardVisible = true;
+    IsShowNavBarIcons(){
+      return null;
+    }
+    getIsLinksVisible(){
+      return true;
+    }
+    getLoginComplete(){
+      return true;
+    }
+    getLogoPath(){
+      return null;
+    }
+    logout(){
+      return null;
+    }
+    getisGuestLogin(){
+      return true;
+    }
+  }
+  class MockNavigationService{
+    back(){
+      return true;
+    }
+    clearRouterHistory(){
+      return null;
+    }
+    pushCurrentLocation(){
+      return null;
+    }
+  }
+  class MockTeamDetailsService{
+    resetTeamDetailPermissions(){
+      return null;
+    }
+  }
+ 
 
-    
-    localStorage.setItem('PowerboardDashboard', JSON.stringify(loginResponse));
-    localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamResponse));
-    localStorage.setItem('currentTeam', JSON.stringify(currentTeam));
+class MockRouter {
+  navigate(path:string){
+   return path;
+  }
+  navigateByUrl(path:string){
+    return path;
+  }
+}
+
+
+beforeEach(async () => {
+  await TestBed.configureTestingModule({
+    imports: [
+      RouterTestingModule, HttpClientTestingModule
+    ],
+    declarations: [
+      AppComponent
+    ],
+    providers:[
+     {provide : SlideshowService, useClass:MockSlideShowService},
+     {provide : GeneralService, useClass:MockGeneralService},
+     {provide : TeamDetailsService, useClass:MockTeamDetailsService},
+     {provide : NavigationService, useClass:MockNavigationService},
+     {provide : Router, useClass:MockRouter},
+    ]
+      
+  }).compileComponents();
+});
+
+beforeEach(() => {
+  var store = {};
+  spyOn(localStorage, 'getItem').and.callFake(function (key) {
+       return store[key];
+     });
+     spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+       return store[key] = value + '';
+   });
+   spyOn(localStorage, 'clear').and.callFake(function () {
+       store = {};
+   });
+  
+        localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+       localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
+  fixture = TestBed.createComponent(AppComponent);
+  app = fixture.componentInstance;
+  fixture.detectChanges();
+});
+
+it('should create', () => {
+  expect(app).toBeTruthy();
+});
+
+/* it('should toggle properly', () => {
+  var dummyElement = document.createElement('togglebtn');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyElement);
+dummyElement.className="btn btn-sm btn-toggle";
+  app.toggle();
+expect(app.toggle).toBeTruthy();
+});
+
+it('should toggle properly', () => {
+  var dummyElement = document.createElement('togglebtn');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyElement);
+dummyElement.className="btn btn-sm btn-toggle active";
+  app.toggle();
+expect(app.toggle).toBeTruthy();
+});
+
+
+it('should get highlight for dashboard', () => {
+  var dummyDashboard = document.createElement('dashboard');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
+
+var dummyMultimedia = document.createElement('multimedia');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyMultimedia);
+
+const btnName='dashboard'
+app.highlight(btnName);
+expect(app.highlight).toBeTruthy();
+})
+
+it('should get highlight for links', () => {
+  var dummyDashboard = document.createElement('dashboard');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
+
+var dummyMultimedia = document.createElement('multimedia');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyMultimedia);
+
+const btnName='links'
+app.highlight(btnName);
+expect(app.highlight).toBeTruthy();
+})
+
+it('should get highlight for multimedia', () => {
+  var dummyDashboard = document.createElement('dashboard');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyDashboard);
+
+var dummyMultimedia = document.createElement('multimedia');
+document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyMultimedia);
+
+const btnName='multimedia'
+app.highlight(btnName);
+expect(app.highlight).toBeTruthy();
+}) */
+
+ it('should checkLocation() for dashboard ', () => {
+
+   spyOn(app,'highLightDashBoard').and.callFake(()=>{return null});
+   spyOn(app,'unHighlightLinks').and.callFake(()=>{return null});
+   spyOn(app,'unHighlightMultimedia').and.callFake(()=>{return null});
+   spyOn(app.generalService,'IsShowNavBarIcons').and.callFake(()=>{return true});
+
+  spyOn(app.location,'path').and.callFake(()=>{return "/dashboard"});
+  app.checkLocation();
+  expect(app.highLightDashBoard).toHaveBeenCalled();
+}) 
+it('should checkLocation() for Links', () => {
+
+  spyOn(app,'highlightLinks').and.callFake(()=>{return null});
+  spyOn(app,'UnHighLightDashBoard').and.callFake(()=>{return null});
+  spyOn(app,'unHighlightMultimedia').and.callFake(()=>{return null});
+  spyOn(app.generalService,'IsShowNavBarIcons').and.callFake(()=>{return true});
+
+ spyOn(app.location,'path').and.callFake(()=>{return "/links"});
+ app.checkLocation();
+ expect(app.highlightLinks).toHaveBeenCalled();
+})
+it('should checkLocation() for multimedia ', () => {
+
+  spyOn(app,'highlightMultimedia').and.callFake(()=>{return null});
+  spyOn(app,'unHighlightLinks').and.callFake(()=>{return null});
+  spyOn(app,'UnHighLightDashBoard').and.callFake(()=>{return null});
+  spyOn(app.generalService,'IsShowNavBarIcons').and.callFake(()=>{return true});
+
+ spyOn(app.location,'path').and.callFake(()=>{return "/multimedia"});
+ app.checkLocation();
+ expect(app.highlightMultimedia).toHaveBeenCalled();
+})
+it('should checkLocation() when nav bar is not present', () => {
+
+  spyOn(app.generalService,'IsShowNavBarIcons').and.callFake(()=>{return false});
+  spyOn(console,'log').and.callThrough();
+ spyOn(app.location,'path').and.callFake(()=>{return "/mock"});
+ app.checkLocation();
+ expect(console.log).toHaveBeenCalledTimes(3);
+})
+it('should go back ', () => {  
+  app.back()
+  expect(app.back).toBeTruthy();
+
+})
+it('should confirm logout ', () => {
+  app.confirmLogout();
+  expect(app.confirmLogout).toBeTruthy();
+
+})
+
+it('should confirmStay ', () => {
+  app.confirmStay();
+  expect(app.confirmStay).toBeTruthy();
+
+})
+it('should moveToSetings() ', () => {
+  app.moveToSetings()
+  expect(app.moveToSetings).toBeTruthy();
+
+})
+it('should moveToSetings() ', () => {
+  app.moveToSetings()
+  expect(app.moveToSetings).toBeTruthy();
+
+})
+it('should onKeydownHandler ', () => {
+ let event: KeyboardEvent
+  app.onKeydownHandler(event);
+  expect(app.onKeydownHandler).toBeTruthy();
+
+})
+
+it('should get team name',()=>{
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
+  app.getTeamName();
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+})
+it('should get team name as empty',()=>{
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(false);
+  app.getTeamName();
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+})
+
+
+
+
+ it('should check highlight logic for dashboard',()=>{
+  var newElement = document.createElement('div');
+  newElement.className = "mock name";/* 
+ var elementSpy = jasmine.createSpy(document);
+ elementSpy.getElementById.and.returnValue(newElement); */
+ document.getElementById = jasmine.createSpy().and.returnValue(newElement);
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
+  spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
+  app.highlight("dashboard");
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+  expect(document.getElementById).toHaveBeenCalled();
+})
+
+it('should check highlight logic for links',()=>{
+  var newElement = document.createElement('div');
+  newElement.className = "mock name";
+  document.getElementById = jasmine.createSpy().and.returnValue(newElement);
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
+  spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
+  app.highlight("links");
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+  expect(document.getElementById).toHaveBeenCalled();
+})
+ it('should check highlight logic for multimedia',()=>{
+  var newElement = document.createElement('div');
+  newElement.className = "mock name";
+  document.getElementById = jasmine.createSpy().and.returnValue(newElement);
+  spyOn(app.generalService,'IsShowNavBarIcons').and.returnValue(true);
+  spyOn(app.generalService,'getIsLinksVisible').and.returnValue(true);
+  app.highlight("multimedia");
+  expect(app.generalService.IsShowNavBarIcons).toHaveBeenCalled();
+  expect(document.getElementById).toHaveBeenCalled();
+})  
+
+ it('should toggle properly to startslideshow', () => {
+   
+spyOn(app.slideShowService,'startSlideShow').and.callFake(()=>{return null});
+  var newElement = document.createElement('togglebtn');
+      newElement.className="btn btn-sm btn-toggle";
+      document.getElementById = jasmine.createSpy().and.returnValue(newElement);
+  app.toggle();
+  expect(document.getElementById).toHaveBeenCalled();
+});
+it('should toggle properly to stop slideshow', () => {
+   
+  spyOn(app.slideShowService,'stopSlideShow').and.callFake(()=>{return null});
+    var newElement = document.createElement('togglebtn');
+        newElement.className="btn btn-sm btn-toggle active";
+        document.getElementById = jasmine.createSpy().and.returnValue(newElement);
+    app.toggle();
+    expect(document.getElementById).toHaveBeenCalled();
   });
+
+
+
+
+
+
+
+it('move to settings if already in config',()=>{  
+  spyOn(console,'log').and.callThrough();
+  spyOn(app.location,'path').and.callFake(()=>{return "/config"});
+  app.moveToSetings();
+  expect(console.log).toHaveBeenCalled();
+})
+it('move to settings if not in config',()=>{
+  spyOn(app.router,'navigateByUrl');
+  spyOn(app.location,'path').and.callFake(()=>{return "/multi"});
+  app.moveToSetings();
+  expect(app.router.navigateByUrl).toHaveBeenCalled();
+})
+
+it('should go back',()=>{
+      spyOn(app.navigation,'back').and.callFake(()=>{return false});
+      spyOn(document.getElementById('openLogoutModal'),'click').and.callFake(()=>{return null});
+      app.back();
+      expect(app.navigation.back).toHaveBeenCalled();
+})
+
+})
+
+
+//  let currentTeam = {
+// teamId: "46455bf7-ada7-495c-8019-8d7ab76d488e",
+// teamName: " ",
+// teamCode: "10012345",
+// projectKey : "P1112222",
+// adCenter: "ADCenter Bangalore"
+//  }
+
+
+  // beforeEach(async () => {
+  //   await TestBed.configureTestingModule({
+  //     imports: [
+  //       RouterTestingModule, HttpClientTestingModule
+  //     ],
+  //     declarations: [
+  //       AppComponent
+  //     ],
+  //     providers:[{provide : ElectronService, useValue : electronService},
+  //      {provide : SlideshowService, useValue : slideshowService}
+  //     ]
+        
+  //   }).compileComponents();
+  // });
+
+
+  // beforeEach(() => {
+  //   var store = {};
+
+  // spyOn(localStorage, 'getItem').and.callFake(function (key) {
+  //   return store[key];
+  // });
+  // spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+  //   return store[key] = value + '';
+  // });
+  // spyOn(localStorage, 'clear').and.callFake(function () {
+  //     store = {};
+  // });
+
+//      localStorage.setItem('PowerboardDashboard', JSON.stringify(checkData));
+//     localStorage.setItem('TeamDetailsResponse', JSON.stringify(TeamDetailsResponse));
+//     /* localStorage.setItem('currentTeam', JSON.stringify(currentTeam)); */ 
+//     TestBed.configureTestingModule({});
+//     /* component = TestBed.inject(AppComponent); */
+//     httpTestingController = TestBed.inject(HttpTestingController);
+//     electronService = TestBed.inject(ElectronService);
+//     slideshowService = TestBed.inject(SlideshowService);
+//     generalService = TestBed.inject(GeneralService);
   
 
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule, HttpClientTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-      providers:[{provide : ElectronService, useValue : electronService},{provide : SlideshowService, useValue : slideshowService}]
-        
-    }).compileComponents();
-  });
+//     const fixture = TestBed.createComponent(AppComponent);
+//     app = fixture.componentInstance;
 
-
-  beforeEach(() => {
     
-    TestBed.configureTestingModule({});
-    /* component = TestBed.inject(AppComponent); */
-    httpTestingController = TestBed.inject(HttpTestingController);
-    electronService = TestBed.inject(ElectronService);
-    slideshowService = TestBed.inject(SlideshowService);
-  });
+//     // const spyObj = jasmine.createSpyObj(app.slideShowService,['stopSlideShow','startSlideShow']);
+//     // spyObj.startSlideShow.and.callFake(()=>{});
+//     // spyObj.stopSlideShow.and.callFake(()=>{});  
+// /*     spyOn(slideshowService,'startSlideShow').and.callFake(()=>{ return null});
+//     spyOn(slideshowService,'stopSlideShow').and.callFake(()=>{ return null}); */
+// /*     spyOn(app.slideShowService,'startSlideShow').and.callFake(()=>{ return null});
+//     spyOn(app.slideShowService,'stopSlideShow').and.callFake(()=>{ return null}); */
+//   });
 
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+//   it('should create the app', () => {   
+//     expect(app).toBeTruthy();
+//   });
 
-  it('should have as title PowerboardFW_new ', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('PowerboardFW_new');
-  });
+//   it('should have as title PowerboardFW_new ', () => {
+//     expect(app.title).toEqual('PowerboardFW_new');
+//   });
 
-  /* it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('PowerboardFW_new app is running!');
-  });  */
-});
+//   it('check toggle',()=>{
+//     var newElement = document.createElement('togglebtn');
+//     newElement.className = "btn btn-sm btn-toggle active";
+//     spyOn(document,'getElementById').and.returnValue(newElement);
+//    // dummyElement.className='btn btn-sm btn-toggle active'
+//    spyOn(slideshowService,'stopSlideShow').and.callThrough()
+//   app.toggle();
+//   expect(slideshowService.stopSlideShow).toHaveBeenCalled();
+//   expect(app.toggle).toBeTruthy();
+//   })
+//   /* it('check toggle',()=>{
+//     //uncomment when we can mock slideshow service
+//     var newElement = document.createElement('div');
+//     newElement.className = "mock name";
+//     spyOn(document,'getElementById').and.returnValue(newElement);
+//     app.toggle();
+//   }) */
+
+//   it('should get team name',()=>{
+    // spyOn(generalService,'IsShowNavBarIcons').and.returnValue(true);
+    // app.getTeamName();
+//     expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();
+//   })
+//   it('should get team name as empty',()=>{
+//     spyOn(generalService,'IsShowNavBarIcons').and.returnValue(false);
+//     app.getTeamName();
+//     expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();
+//   })
+
+
+//   /* it('should render title', () => {
+//     const fixture = TestBed.createComponent(AppComponent);
+//     fixture.detectChanges();
+//     const compiled = fixture.nativeElement;
+//     expect(compiled.querySelector('.content span').textContent).toContain('PowerboardFW_new app is running!');
+//   });  */
+  
+
+//   it('should check highlight logic for dashboard',()=>{
+//     var newElement = document.createElement('div');
+//     newElement.className = "mock name";
+//     spyOn(document,'getElementById').and.returnValue(newElement);
+//     spyOn(generalService,'IsShowNavBarIcons').and.returnValue(true);
+//     spyOn(generalService,'getIsLinksVisible').and.returnValue(true);
+//     app.highlight("dashboard");
+//     expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();
+//   })
+
+//   it('should check highlight logic for links',()=>{
+//     var newElement = document.createElement('div');
+//     newElement.className = "mock name";
+//     spyOn(document,'getElementById').and.returnValue(newElement);
+//     spyOn(generalService,'IsShowNavBarIcons').and.returnValue(true);
+//     spyOn(generalService,'getIsLinksVisible').and.returnValue(true);
+//     app.highlight("links");
+//     expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();
+//   })
+//   it('should check highlight logic for multimedia',()=>{
+//     var newElement = document.createElement('div');
+//     newElement.className = "mock name";
+//     spyOn(document,'getElementById').and.returnValue(newElement);
+//     spyOn(generalService,'IsShowNavBarIcons').and.returnValue(true);
+//     spyOn(generalService,'getIsLinksVisible').and.returnValue(true);
+//     app.highlight("multimedia");
+//     expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();
+//   })
+
+
+//   it('confirm logout ',()=>{ 
+//   app.confirmLogout();
+//   expect(generalService.logout).toHaveBeenCalled();
+//   //expect(teamDetailService.resetTeamDetailPermissions).toHaveBeenCalled();
+//   })
+
+
+
+
+//   it('move to settings ',()=>{  
+//     /* let loc
+//      const location = jasmine.createSpyObj(Location,["path"]);
+//     location.path.and.callFake(()=>{return "config"});  */
+//     /* let location : Location;
+//     location = TestBed.inject(Location);
+//     spyOn(location,'path(').and.returnValue("config");  */
+//     app.checklocationPath = "config";
+//     app.moveToSetings();
+    
+//   })
+
+  
+// });

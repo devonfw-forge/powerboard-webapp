@@ -1,42 +1,29 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Location } from '@angular/common';
-
-import { GeneralService } from './service/general.service';
-import { SlideshowService } from './slideshow/slideshow.service';
-import { TeamDetailsService } from './project-display/service/team-details.service';
-
-import { GlobalLoaderService } from './service/global-loader.service';
-import { NavigationService } from './service/navigation.service';
-
+import { GeneralService } from './shared/services/general.service';
+import { SlideshowService } from './teams/services/slideshow.service';
+import { NavigationService } from './shared/services/navigation.service';
+import { TeamDetailsService } from './teams/services/team-details.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   title = 'PowerboardFW_new';
-  teamName: string;/* 
-  isElectronRunning: boolean; */
+  teamName: string;
   checklocationPath : string;
   
  
-  constructor(public generalService: GeneralService, public slideShowService: SlideshowService,public navigation: NavigationService, public router: Router, public location: Location, public teamDetailService : TeamDetailsService, public globalLoader : GlobalLoaderService) {
+  constructor(public generalService: GeneralService, public slideShowService: SlideshowService,public navigation: NavigationService, public router: Router, public location: Location, public teamDetailService : TeamDetailsService) {
 
     this.teamName = "";
-    /* if (electronService.isElectronApp) {
-    
-      this.isElectronRunning = true;
-    } else {
-      
-      this.isElectronRunning = false;
-    } */
   }
 
   ngOnInit() {
-    this.router.navigate(['login']);
+    this.router.navigate(['auth/login']);
     
   }
 
@@ -55,108 +42,110 @@ export class AppComponent implements OnInit {
 
 
   getTeamName() {
-    if (this.generalService.showNavBarIcons) {
+    if (this.generalService.IsShowNavBarIcons()) {
       if (localStorage.getItem('TeamDetailsResponse') != null) {
-        return this.teamName = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_name;
+       this.teamName = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_name;
+       return this.teamName;
       }
     }
     return "";
   }
 
   highlight(btnName: string) {
-    if (this.generalService.showNavBarIcons) {
-      let dashboard = document.getElementById('dashboard');
-      let multimedia = document.getElementById('multimedia');
+    if (this.generalService.IsShowNavBarIcons()) {
       if (btnName == 'dashboard') {
-        dashboard.style.color = "white";
-        dashboard.style.backgroundColor = "#0070AD";
-        dashboard.style.border = "none";
-
-        multimedia.style.color = "#0070AD";
-        multimedia.style.backgroundColor = "#FEFEFE";
-        multimedia.style.border = "2px solid #0070AD";
-
-        if (this.generalService.isLinksVisible) {
-          let links = document.getElementById('links');
-          links.style.color = "#0070AD";
-          links.style.backgroundColor = "#FEFEFE";
-          links.style.border = "2px solid #0070AD";
-
-        }
+        this.highLightDashBoard();
       }
       if (btnName == 'links') {
-        dashboard.style.color = "#0070AD";
-        dashboard.style.backgroundColor = "#FEFEFE";
-        dashboard.style.border = "2px solid #0070AD";
-
-        multimedia.style.color = "#0070AD";
-        multimedia.style.backgroundColor = "#FEFEFE";
-        multimedia.style.border = "2px solid #0070AD";
-
-        if (this.generalService.isLinksVisible) {
-          let links = document.getElementById('links');
-          links.style.color = "white";
-          links.style.backgroundColor = "#0070AD";
-          links.style.border = "none";
-        }
+        this.highlightLinks();
       }
       if (btnName == 'multimedia') {
-        dashboard.style.color = "#0070AD";
-        dashboard.style.backgroundColor = "#FEFEFE";
-        dashboard.style.border = "2px solid #0070AD";
-
-        multimedia.style.color = "white";
-        multimedia.style.backgroundColor = "#0070AD";
-        multimedia.style.border = "none";
-
-        if (this.generalService.isLinksVisible) {
-          let links = document.getElementById('links');
-          links.style.color = "#0070AD";
-          links.style.backgroundColor = "#FEFEFE";
-          links.style.border = "2px solid #0070AD";
-
-        }
+        this.highlightMultimedia();
       }
     }
   }
-
-  public checkLocation() {
-    if (this.location.path() == "/dashboard") {
-      this.highlight('dashboard');
-    }
-    else {
-      if (this.generalService.showNavBarIcons) {
-        let dashboard = document.getElementById('dashboard');
-        dashboard.style.color = "#0070AD";
-        dashboard.style.backgroundColor = "#FEFEFE";
-        dashboard.style.border = "2px solid #0070AD";
-      }
-    }
-    
-    if(this.location.path() == "/links"){
-      this.highlight('links')
-    }
-    else{
-      if (this.generalService.showNavBarIcons) {
-        if (this.generalService.isLinksVisible) {
-          let links = document.getElementById('links');
+  highLightDashBoard(){
+    let dashboard = document.getElementById('dashboard');
+    dashboard.style.color = "white";
+    dashboard.style.backgroundColor = "#0070AD";
+    dashboard.style.border = "none";
+    this.unHighlightMultimedia();
+    this.unHighlightLinks();
+  }
+  UnHighLightDashBoard(){
+    let dashboard = document.getElementById('dashboard');
+    dashboard.style.color = "#0070AD";
+    dashboard.style.backgroundColor = "#FEFEFE";
+    dashboard.style.border = "2px solid #0070AD";
+  }
+  highlightMultimedia(){
+    let multimedia = document.getElementById('multimedia');
+    multimedia.style.color = "white";
+        multimedia.style.backgroundColor = "#0070AD";
+        multimedia.style.border = "none";
+        this.UnHighLightDashBoard();
+        this.unHighlightLinks();
+  }
+  unHighlightMultimedia(){
+    let multimedia = document.getElementById('multimedia');
+    multimedia.style.color = "#0070AD";
+        multimedia.style.backgroundColor = "#FEFEFE";
+        multimedia.style.border = "2px solid #0070AD";
+  }
+  highlightLinks(){
+    if (this.generalService.getIsLinksVisible()){
+      let links = document.getElementById('links');
+      links.style.color = "white";
+      links.style.backgroundColor = "#0070AD";
+      links.style.border = "none";
+    }  
+    this.UnHighLightDashBoard();
+    this.unHighlightMultimedia();
+  }
+  unHighlightLinks(){
+    if (this.generalService.getIsLinksVisible()){
+      let links = document.getElementById('links');
           links.style.color = "#0070AD";
           links.style.backgroundColor = "#FEFEFE";
           links.style.border = "2px solid #0070AD";
+    }  
+  }
 
-        }
+
+
+  public checkLocation() {
+    if (this.location.path().includes("/dashboard") ) {
+      this.highLightDashBoard()
+    }
+    else {
+      if (this.generalService.IsShowNavBarIcons()){
+        this.UnHighLightDashBoard();
+      }
+      else{
+        console.log("not available");
       }
     }
-    if(this.location.path() == "/multimedia"){
-      this.highlight('multimedia')
+    
+    if(this.location.path().includes("/links") ){
+      this.highlightLinks()
     }
     else{
-      
-      if (this.generalService.showNavBarIcons) {
-        let multimedia = document.getElementById('multimedia');
-        multimedia.style.color = "#0070AD";
-        multimedia.style.backgroundColor = "#FEFEFE";
-        multimedia.style.border = "2px solid #0070AD";
+      if (this.generalService.IsShowNavBarIcons()) {
+        this.unHighlightLinks();
+      }
+      else{
+        console.log("not available");
+      }
+    }
+    if(this.location.path().includes("/multimedia")){
+      this.highlightMultimedia();
+    }
+    else{   
+      if (this.generalService.IsShowNavBarIcons()) {
+        this.unHighlightMultimedia();
+      }
+      else{
+        console.log("not available");
       }
     }
   }
@@ -169,10 +158,6 @@ export class AppComponent implements OnInit {
       console.log("call modal");
       document.getElementById("openLogoutModal").click();
     }
-    /* if(this.location.path() == "/login" || this.location.path() == "/projects"){
-      this.location.forward();
-      this.moveToHome();
-    } */
    
   }
 confirmLogout(){
@@ -191,12 +176,12 @@ confirmStay(){
 
   public moveToSetings(){
    this.checklocationPath = this.location.path();
-    if(this.checklocationPath.includes("setting")){
-      console.log("already in setting");
+    if(this.checklocationPath.includes("config")){
+      console.log("already in config");
     }
     else{
-      this.router.navigateByUrl("/setting");
+      this.router.navigateByUrl("/config");
     }
   }
-}
 
+}

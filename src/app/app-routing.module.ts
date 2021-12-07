@@ -1,32 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { SlideshowMultimediaComponent } from './multimedia/slideshow-multimedia/slideshow-multimedia.component';
-import { ViewTeamComponent } from './setting/team/view-team/view-team.component';
-
-
+import { ViewTeamComponent } from './config/components/team/view-team/view-team.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  { path: 'projects', loadChildren: () => import('./project-display/project-display.module').then(m => m.ProjectDisplayModule) },
-  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
-
-  { path: 'links', loadChildren: () => import('./links/links.module').then(m => m.LinksModule) },
-  { path: 'multimedia', loadChildren: () => import('./multimedia/multimedia.module').then(m => m.MultimediaModule)},
-  { path: 'slideshow', loadChildren: () => import('./slideshow/slideshow.module').then(m => m.SlideshowModule)},
-
-  {path:'setting', loadChildren: () => import('./setting/setting.module').then(m=> m.SettingModule)},
-
+  
+  {path:'config', loadChildren: () => import('./config/config.module').then(m=> m.ConfigModule)},
+  { path:'teams', loadChildren: () => import('./teams/teams.module').then(m=> m.TeamsModule)},
+  
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)  },
+  
   { path: 'viewTeam', component: ViewTeamComponent },
-  { path: 'slideshow-multimedia', component: SlideshowMultimediaComponent},
-
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
-
+  
+  
+ 
+  { path: '**', redirectTo: '/auth', pathMatch: 'full'},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true }), NgxEchartsModule],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, {useHash : true}), NgxEchartsModule, BrowserAnimationsModule,],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

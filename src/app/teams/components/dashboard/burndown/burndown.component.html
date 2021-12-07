@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-12" style=" font-weight: 500;    margin-bottom: 5px;">Burndown</div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-3">
+          <div *ngIf="burnDown?.burndownStatus === 'Behind Time'">
+              <div class="text-danger">
+                  <h5>
+                      (<span>-</span>{{burnDown?.count}})&nbsp;{{burnDown?.burndownStatus}}
+                  </h5>
+              </div>
+          </div>
+          <div *ngIf="burnDown?.burndownStatus === 'Ahead Time' || burnDown?.burndownStatus === 'On Time'"> 
+              <div class="text-success">
+                  <h5>
+                      (<span>+</span>{{burnDown?.count}})&nbsp;{{burnDown?.burndownStatus}}
+                  </h5>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3">
+        <div class="row"><h5>{{burnDown?.remainingDays}}</h5> &nbsp; Days Remaining</div>
+      </div>
+      <div class="col">
+        <div class="row ml-1"><h5>{{burnDown?.remainingWork}}</h5>&nbsp; {{burnDown?.workUnit | titlecase}}&nbsp; Remaining</div>
+      </div>
+    </div>
+  </div>
+</div>

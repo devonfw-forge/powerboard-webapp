@@ -1,56 +1,45 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginModule } from './login/login.module';
-import { SlideshowModule } from './slideshow/slideshow.module';
-import { MultimediaModule } from './multimedia/multimedia.module';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { ProjectDisplayModule } from './project-display/project-display.module';
+import { AuthModule } from './auth/auth.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxElectronModule } from 'ngx-electron';
-import { SettingModule } from './setting/setting.module';
+import { ConfigModule } from './config/config.module';
+import { TeamsModule } from './teams/teams.module';
+import { SharedModule } from './shared/shared.module';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { ToastrModule } from 'ngx-toastr';
-import { LinksModule } from './links/links.module';
-
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-
-  ],
+  declarations: [AppComponent],
   imports: [
-
-
     BrowserModule,
     AppRoutingModule,
     CommonModule,
-    LoginModule,
+    AuthModule,
     ReactiveFormsModule,
-    SlideshowModule,
     FormsModule,
-    MultimediaModule,
-    DashboardModule,
-    LinksModule,
-    ProjectDisplayModule,
-    SettingModule,
- 
+    ConfigModule,
+    TeamsModule,
+    SharedModule,
     NgxFileDropModule,
     ToastrModule.forRoot({ timeOut: 3000, progressBar: true }),
     NgxElectronModule,
-
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
-    })
+    }),
 
-
+    /* NgxEchartsModule */
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [Location],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

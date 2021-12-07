@@ -7,7 +7,10 @@ export class UrlPathConstants{
     public static resetPasswordEndPonit = "auth/change-password";
 
     public static guestLoginEndPoint = "auth/login/guest";
-
+    
+    public static guestUserName = "guest";
+    
+    public static guestPassword ="guest";
 
 
 
