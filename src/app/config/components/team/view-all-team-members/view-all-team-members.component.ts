@@ -50,7 +50,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
     try{
       const data = await this.teamService.deleteTeamMember(this.deleteId);
       console.log(data);
-      this.notifyService.showSuccess("team member deleted successfully !!", "");
+      this.notifyService.showSuccess("Team member deleted successfully", "");
       this.viewAllMembers();
     }
     catch(reason){

@@ -93,7 +93,7 @@ if(JSON.parse(
     try{
     await this.setupService.deleteLogo(this.team.teamId);
     this.isLogo = false; 
-    this.notifyService.showSuccess("", "Logo Deleted Successfully");
+    this.notifyService.showSuccess("", "Logo deleted successfully");
     }
     catch(e){
       console.log(e.error.message);
@@ -116,7 +116,7 @@ if(JSON.parse(
      localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetail));
      var image = <HTMLImageElement>document.getElementById('output');
      image.src = URL.createObjectURL(file); 
-     this.notifyService.showSuccess("","Logo Uploaded Successfully");
+     this.notifyService.showSuccess("","Logo uploaded successfully");
     }catch(e){
       console.log(e);
       this.spinner = false;
@@ -140,7 +140,7 @@ if(JSON.parse(
     try {
       
       const data = await this.setupService.updateTeam(this.updateTeam, this.team.teamId);
-     this.notifyService.showSuccess("", "Team Updated Successfully");
+     this.notifyService.showSuccess("", "Team updated successfully");
     
       console.log(data);
     } catch (e) {

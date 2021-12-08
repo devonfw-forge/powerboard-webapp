@@ -80,7 +80,7 @@ export class ViewAllTeamsComponent implements OnInit {
         'PowerboardDashboard',
         JSON.stringify(this.powerboardLoginResponse)
       );
-      this.notifyService.showSuccess('team deleted successfully', '');
+      this.notifyService.showSuccess('Team deleted successfully', '');
       this.getAllTeams();
       console.log(data);
     } catch (e) {

@@ -181,7 +181,7 @@ export class ConfigureMultimediaComponent implements OnInit {
         this.updateUploadInSubFolder(data,folderId);
       }   
       this.updateComponent();
-      this.notifyService.showSuccess('', 'File Added Successfully');
+      this.notifyService.showSuccess('', 'File added successfully');
     } catch (e) {
       console.log(e.error.message);
       this.notifyService.showError('', e.error.message);
@@ -534,7 +534,7 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.getDeleteIds();
     try{
       await this.configureService.deleteFilesAndFolders(this.teamId, this.deleteFiles_Folders);
-      this.notifyService.showSuccess("", "File deleted Successfully"); 
+      this.notifyService.showSuccess("", "File deleted successfully"); 
       this.removeIds();
     }
     catch(e){
