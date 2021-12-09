@@ -43,6 +43,20 @@
 .spacing-2{
     margin-left: 25px;
 }
+.ul-style-links {
+  list-style: none; 
+  margin-left: 0px; 
+  padding:0; 
+  display:flex; 
+  flex-wrap:wrap;
+}
+.li-style-links{
+  margin-right: 0px; 
+  width:210px; 
+  color: #0070AD; 
+  text-decoration: underline; 
+  padding-top: 10px;
+}
 
 
 
