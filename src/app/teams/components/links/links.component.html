@@ -5,12 +5,12 @@
         <div class="team-sec-1">
             <strong class="title">Meeting Links</strong>
         </div>
-        <div class="team-sec-2 pt-3 inner-container">
+        <div class="div-style-links">
   
-            <ng-template let-link ngFor [ngForOf]="teamLinks" let-i="index" >
-                <ul>
-                <li class="text-left" [ngClass]="{'spacing-1':i==1}" *ngIf="link.linkType!='web_link'">
-                    <a class="spacing-2"  (click)="openMeetingLink(link.links)">
+            <ng-template let-link ngFor [ngForOf]="teamLinks" let-i="index">
+                <ul class="ul-style-links">
+                <li class="li-style-links" *ngIf="link.linkType!='web_link'">
+                    <a (click)="openMeetingLink(link.links)">
                         
                         <span >{{ link.linkName}}</span>
                     </a>
@@ -25,12 +25,12 @@
         <div class='web-sec-1' >
             <strong class="title">Web Links</strong> 
         </div>
-        <div class="web-sec-2 pt-3 inner-container" >
+        <div class="div-style-links" >
             
                 <ng-template let-link ngFor [ngForOf]="teamLinks" let-i="index">
-                    <ul>
-                    <li  [ngClass]="{'spacing-1':i==1}" *ngIf="link.linkType=='web_link'">
-                        <a class="spacing-2" [ngClass]="{'selected': src===link.links && isElectronRunning}" (click)="openLink(link.links)">
+                    <ul class="ul-style-links">
+                    <li *ngIf="link.linkType=='web_link'" class="li-style-links">
+                        <a [ngClass]="{'selected': src===link.links && isElectronRunning}" (click)="openLink(link.links)">
                             <span >{{ link.linkName}}</span>
                         </a>
                     </li>

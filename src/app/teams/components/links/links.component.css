@@ -1,6 +1,9 @@
 .bg-height{
   height: calc( 90vh - 50px );
+  background-color: #f4f8fb
 }
+
+
 
 
 #icon {
@@ -47,15 +50,17 @@
   list-style: none; 
   margin-left: 0px; 
   padding:0; 
-  display:flex; 
-  flex-wrap:wrap;
 }
 .li-style-links{
-  margin-right: 0px; 
   width:210px; 
   color: #0070AD; 
   text-decoration: underline; 
   padding-top: 10px;
+}
+.div-style-links{
+  display:flex;
+  flex-wrap:wrap;
+   padding:0px
 }
 
 
