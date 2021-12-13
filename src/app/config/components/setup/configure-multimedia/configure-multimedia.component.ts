@@ -622,6 +622,13 @@ export class ConfigureMultimediaComponent implements OnInit {
         folder.inSlideShow = false;
       }
     }
+    if(this.homeFile.isSelected){
+      this.homeFile.inSlideShow = true;
+      this.homeFile.isSelected = false;
+    }
+    else{
+      this.homeFile.inSlideShow = false;
+    }
     this.isMasterSel = false;
     this.updateLocalStorage();
   }
