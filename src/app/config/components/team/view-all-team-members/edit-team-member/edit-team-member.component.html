@@ -11,7 +11,7 @@
         <div class="dropdown">
           <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            {{roleName}}
+            {{roleName| removeUnderscore | titlecase}}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <div *ngFor="let list of configService.roles">
