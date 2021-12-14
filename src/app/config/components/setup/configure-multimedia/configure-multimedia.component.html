@@ -58,14 +58,21 @@
               style="margin-top: 7px;
               margin-right: 4px;"
             />
-            <span
-              class="material-icons-outlined mat-icon pr-1"
-              >
+            <div (click)="showHomeFiles()" class="pointer" *ngIf="currentFolder !== homeFile.folderName">
+              <span
+              class="material-icons-outlined mat-icon pr-1">
               folder 
             </span>
+            <span class="pr-1"  class="unhighlighted">Home</span>
+            </div>
             
-            <span class="pr-1" (click)="showHomeFiles()" *ngIf="currentFolder !== homeFile.folderName"  style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"  >Home</span>
-            <span class="pr-1"  *ngIf="currentFolder == homeFile.folderName"  style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; " >Home</span>
+              <div *ngIf="currentFolder == homeFile.folderName" class="highlighted">
+                 <span
+                 class="material-icons-outlined white-mat-icon pr-1">
+                 folder 
+                </span>
+                <span class="pr-1" class="highlightedText">Home</span>
+                </div>
             <div>
               <span *ngIf="homeFile.inSlideShow" class="material-icons-outlined slideshowgreyicon" >
                 slideshow
@@ -80,26 +87,28 @@
           <div class="icon row">
             <input class="checkbox" type="checkbox" style="margin-top: 7px;
             margin-right: 4px;" [checked]='multimedia.root[i].isSelected' (click)="checkRootSelection(i)" />
-            <span class="material-icons-outlined mat-icon pr-1"
-              (click)="getFilesFromFolder(album.folderId, album.folderName)">
-              folder
+            
+
+            <div (click)="getFilesFromFolder(album.folderId, album.folderName)"  class="pointer" *ngIf="currentFolder !== album.folderName">
+              <span
+              class="material-icons-outlined mat-icon pr-1">
+              folder 
             </span>
-            <span class="pr-1" *ngIf="currentFolder !== album.folderName"
-              style="font-size: 16px; font-weight: 500; color: #2b0a3d;cursor: pointer;"
-              (click)="getFilesFromFolder(album.folderId, album.folderName)">
-              {{ album.folderName | titlecase }}
-            </span>
-            <span class="pr-1" *ngIf="currentFolder == album.folderName"
-              style="font-size: 16px; font-weight: 500;color: #0070AD;cursor: pointer; ">
-              {{ album.folderName | titlecase }}
-            </span>
+            <span class="pr-1" class="unhighlighted">{{ album.folderName | titlecase }}</span>
+            </div>
+            
+              <div *ngIf="currentFolder == album.folderName" class="highlighted">
+                 <span
+                 class="material-icons-outlined white-mat-icon pr-1">
+                 folder 
+                </span>
+                <span class="pr-1" class="highlightedText">{{ album.folderName | titlecase }}</span>
+                </div>
             <div *ngIf="multimedia.root[i].inSlideShow">
               <span class="material-icons-outlined slideshowgreyicon">
                 slideshow
               </span>
             </div>
-
-            
           </div>
         </div>
       </div>
