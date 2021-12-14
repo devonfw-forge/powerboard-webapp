@@ -114,6 +114,9 @@
       </div>
     </div>
     <div class="col-md-9">
+      <div class="EmptyFolder"  *ngIf="multimediaFiles.length == 0">
+        This folder is empty
+      </div>
       <div *ngIf="multimediaFiles.length != 0">
         <div class="col-md-12" style="padding-top: 12px;">
           <div class="row">
