@@ -1,7 +1,7 @@
 <div>
   <form [formGroup]="addLink" autocomplete="off" (ngSubmit)="onSubmit()" class="my-3">
       <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-7">
               <div class="form-group required">
                   <input class="form-control" formControlName="linkName" placeholder="Link Name">
                   <label class="text-danger"
@@ -10,9 +10,9 @@
                   </label>
               </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
               <div class="dropdown">
-                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  <button class="btn btn-outline-secondary dropdown-toggle" style="width: 160px;" type="button" id="dropdownMenuButton"
                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{selectedLinkType | titlecase }}
                   </button>

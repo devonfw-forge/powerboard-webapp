@@ -20,7 +20,7 @@
        <span class="navbar-toggler-icon"></span>
      </button>
      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-       <a class="navbar-brand"><img src="assets/layoutAssets/navbar/logo1.png" alt="capgemini Logo" class="logo"></a>
+       <a class="navbar-brand"><img src="assets/layoutAssets/navbar/logo1.png" alt="" class="logo"></a>
        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="border-left: 2px solid #0070AD; padding-left: 5px; height: 30px; padding-bottom: 40px;">
          <li class="nav-item active" (click)="navigation.moveToHome()" >
            <a class="nav-link"><span class="material-icons-outlined mat-icon-home" >
@@ -65,7 +65,7 @@
          </span> <span class="text-style" style="color:#0070AD; font-weight: bold;"> Back </span></a>
        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="padding-left: 75px; font-size: 22px;">
          <li class="nav-item active">
-           <a class="nav-link"><strong style="margin-left: 5px; cursor: default;">{{getTeamName()}}</strong><img class="Logo_nav" alt="display Logo" *ngIf="generalService.getLogoPath()!= null" src="{{generalService.getLogoPath()}}"></a>
+           <a class="nav-link"><strong style="margin-left: 5px; cursor: default;">{{getTeamName()}}</strong><img class="Logo_nav" alt="" *ngIf="generalService.getLogoPath()!= null" src="{{generalService.getLogoPath()}}"></a>
            
          </li>
          <li style="margin-left: 130px;" *ngIf="generalService.isDashboardVisible">
