@@ -2,10 +2,16 @@
   <div class="m-5">
     <div class="row mb-2">
       <div class="col-md-2">
-        <div class="row sel" style="margin-top: 8px;color: #0070AD;margin-left: 1px;">
-          <input class="checkbox pr-2" style="margin-top: 7px; margin-right: 4px; " id='selectAll'
+        <div
+          class="row sel"
+          style="margin-top: 8px; color: #0070ad; margin-left: 1px"
+        >
+          <input
+            class="checkbox pr-2"
+            style="margin-top: 7px; margin-right: 4px"
+            id="selectAll"
             type="checkbox"
-            [checked]='isMasterSel'
+            [checked]="isMasterSel"
             (click)="SelectAndDeselectAll()"
           />
           <label for="selectAll">Select All</label>
@@ -25,122 +31,172 @@
           </div>
           <div class="col-md-3">
             <span class="btn btn-primary btn-file">
-            <span style="font-size: 16px"> + Add File </span>
-            <input type="file" (change)="uploadFile($event)" />
-          </span>
-        </div>
-        <div class="col-md-4 mt-2">
-          <span class="material-icons-outlined slideshowicon">
-            library_add
+              <span style="font-size: 16px"> + Add File </span>
+              <input type="file" (change)="uploadFile($event)" />
             </span>
-          <span class="action-button" (click)="addToSlideShow()" style="font-size: 16px">
-            Add To SlideShow
-          </span> 
-        </div>
-        <div class="col-md-2 mt-2 float-center">
-          <span class="material-icons mat-icon" (click)="deleteFilesAndFolders()"> delete_outline </span>
+          </div>
+          <div class="col-md-4 mt-2">
+            <span class="material-icons-outlined slideshowicon">
+              library_add
+            </span>
+            <span
+              class="action-button"
+              (click)="addToSlideShow()"
+              style="font-size: 16px"
+            >
+              Add To SlideShow
+            </span>
+          </div>
+          <div class="col-md-2 mt-2 float-center">
+            <span
+              class="material-icons mat-icon"
+              (click)="deleteFilesAndFolders()"
+            >
+              delete_outline
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
+    <!-- FOLDERS AND FILES -->
+    <div class="col-md-12 row">
+      <div class="col-md-3">
+        <div class="pt-1">
+          <div class="text-left">
+            <div class="icon row">
+              <input
+                class="checkbox"
+                type="checkbox"
+                [checked]="homeFile.isSelected"
+                (click)="checkHomeIsSelected()"
+                style="margin-top: 7px; margin-right: 4px"
+              />
+              <div
+                (click)="showHomeFiles()"
+                class="pointer"
+                *ngIf="currentFolder !== homeFile.folderName"
+              >
+                <span class="material-icons-outlined mat-icon pr-1">
+                  folder
+                </span>
+                <span class="pr-1" class="unhighlighted">Home</span>
+                <span *ngIf="homeFile.inSlideShow" class="material-icons-outlined slideshowgreyicon" >
+                  slideshow
+                </span>
+              </div>
 
-  <!-- FOLDERS AND FILES -->
-  <div class="col-md-12 row">
-    <div class="col-md-3">
-      <div class="pt-1">
-        <div class="text-left">
-          <div class="icon row" >
-            <input class="checkbox"
-              type="checkbox"
-              [checked]="homeFile.isSelected"
-              (click)="checkHomeIsSelected()"
-              style="margin-top: 7px;
-              margin-right: 4px;"
-            />
-            <div (click)="showHomeFiles()" class="pointer" *ngIf="currentFolder !== homeFile.folderName">
-              <span
-              class="material-icons-outlined mat-icon pr-1">
-              folder 
-            </span>
-            <span class="pr-1"  class="unhighlighted">Home</span>
-            </div>
-            
-              <div *ngIf="currentFolder == homeFile.folderName" class="highlighted">
-                 <span
-                 class="material-icons-outlined white-mat-icon pr-1">
-                 folder 
+              <div
+                *ngIf="currentFolder == homeFile.folderName"
+                class="highlighted"
+              >
+                <span class="material-icons-outlined white-mat-icon pr-1">
+                  folder
                 </span>
                 <span class="pr-1" class="highlightedText">Home</span>
-                </div>
-            <div>
-              <span *ngIf="homeFile.inSlideShow" class="material-icons-outlined slideshowgreyicon" >
-                slideshow
-              </span>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-      <div class="pt-1" *ngFor="let album of multimedia.root; index as i">
-        <div class="text-left">
-          <div class="icon row">
-            <input class="checkbox" type="checkbox" style="margin-top: 7px;
-            margin-right: 4px;" [checked]='multimedia.root[i].isSelected' (click)="checkRootSelection(i)" />
-            
-
-            <div (click)="getFilesFromFolder(album.folderId, album.folderName)"  class="pointer" *ngIf="currentFolder !== album.folderName">
-              <span
-              class="material-icons-outlined mat-icon pr-1">
-              folder 
-            </span>
-            <span class="pr-1" class="unhighlighted">{{ album.folderName | titlecase }}</span>
-            </div>
-            
-              <div *ngIf="currentFolder == album.folderName" class="highlighted">
-                 <span
-                 class="material-icons-outlined white-mat-icon pr-1">
-                 folder 
+                <span *ngIf="homeFile.inSlideShow" class="material-icons-outlined slideshowWhiteicon" >
+                  slideshow
                 </span>
-                <span class="pr-1" class="highlightedText">{{ album.folderName | titlecase }}</span>
-                </div>
-            <div *ngIf="multimedia.root[i].inSlideShow">
-              <span class="material-icons-outlined slideshowgreyicon">
-                slideshow
-              </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pt-1" *ngFor="let album of multimedia.root; index as i">
+          <div class="text-left">
+            <div class="icon row">
+              <input
+                class="checkbox"
+                type="checkbox"
+                style="margin-top: 7px; margin-right: 4px"
+                [checked]="multimedia.root[i].isSelected"
+                (click)="checkRootSelection(i)"
+              />
+
+              <div
+                (click)="getFilesFromFolder(album.folderId, album.folderName)"
+                class="pointer"
+                *ngIf="currentFolder !== album.folderName"
+              >
+                <span class="material-icons-outlined mat-icon pr-1">
+                  folder
+                </span>
+                <span class="pr-1" class="unhighlighted">{{
+                  album.folderName | titlecase
+                }}</span>
+               
+                  <span *ngIf="multimedia.root[i].inSlideShow" class="material-icons-outlined slideshowgreyicon">
+                    slideshow
+                  </span>
+              </div>
+
+              <div
+                *ngIf="currentFolder == album.folderName"
+                class="highlighted"
+              >
+                <span class="material-icons-outlined white-mat-icon pr-1">
+                  folder
+                </span>
+                <span class="pr-1" class="highlightedText">{{
+                  album.folderName | titlecase
+                }}</span>
+                
+                  <span *ngIf="multimedia.root[i].inSlideShow" class="material-icons-outlined slideshowWhiteicon">
+                    slideshow
+                  </span>
+               
+              </div>
+              
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-9">
-      <div class="EmptyFolder"  *ngIf="multimediaFiles.length == 0">
-        This folder is empty
-      </div>
-      <div *ngIf="multimediaFiles.length != 0">
-        <div class="col-md-12" style="padding-top: 12px;">
-          <div class="row">
-            <div class="col-md-4 mb-3" *ngFor="let file of multimediaFiles; let i=index">
-              <div *ngIf="file.isImage;then content else other_content">here is ignored</div>
-              <ng-template #content><img id="bigImage" alt="image thumbnail" src="{{ file.urlName }}"
-                  style="width: 150px; height: 100px" />
-              </ng-template>
-              <ng-template #other_content> <video id="bigImage" src="{{ file.urlName }}"
-                  style="width: 150px; height: 100px">
-                  <track label="English" kind="captions">
-                </video>
-              </ng-template>
-              <div class="row">
-                <div class="col-md-6 float-left">
-                  <div *ngIf="multimediaFiles[i].inSlideShow">
-                    <span class="material-icons-outlined slideshowgreyicon">
-                      slideshow
-                    </span>
-                  </div>
+      <div class="col-md-9">
+        <div class="EmptyFolder" *ngIf="multimediaFiles.length == 0">
+          This folder is empty
+        </div>
+        <div *ngIf="multimediaFiles.length != 0">
+          <div class="col-md-12" style="padding-top: 12px">
+            <div class="row">
+              <div
+                class="col-md-4 mb-3"
+                *ngFor="let file of multimediaFiles; let i = index"
+              >
+                <div *ngIf="file.isImage; then content; else other_content">
+                  here is ignored
                 </div>
-                <div class="col-md-6 float-right">
-                  <input class="checkbox" type="checkbox" [checked]='multimediaFiles[i].isSelected'
-                    (click)="checkFilesSelection(i)" />
+                <ng-template #content
+                  ><img
+                    id="bigImage"
+                    alt=""
+                    src="{{ file.urlName }}"
+                    style="width: 150px; height: 100px"
+                  />
+                </ng-template>
+                <ng-template #other_content>
+                  <video
+                    id="bigImage"
+                    src="{{ file.urlName }}"
+                    style="width: 150px; height: 100px"
+                  >
+                    <track label="English" kind="captions" />
+                  </video>
+                </ng-template>
+                <div class="row">
+                  <div class="col-md-6 float-left">
+                    <div *ngIf="multimediaFiles[i].inSlideShow">
+                      <span class="material-icons-outlined slideshowgreyicon">
+                        slideshow
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 float-right">
+                    <input
+                      class="checkbox"
+                      type="checkbox"
+                      [checked]="multimediaFiles[i].isSelected"
+                      (click)="checkFilesSelection(i)"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -149,11 +205,7 @@
       </div>
     </div>
   </div>
-  
-  
 </div>
-</div>
-
 
 <!-- Add folder Modal -->
 

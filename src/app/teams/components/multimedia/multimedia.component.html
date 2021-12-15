@@ -125,7 +125,7 @@
                             <div class="d-flex flex-row" >
                                 <div *ngIf="thumbnailIsImage[i];then content else other_content">here is ignored</div>
                                 <ng-template #content><img class="thumbnail image" [ngClass]="{
-                                    'selected': i===currentIndex}" alt="image thumbnail" src={{item}} />
+                                    'selected': i===currentIndex}" alt="" src={{item}} />
                                 </ng-template>
                                 <ng-template #other_content> <video class="thumbnail video" [ngClass]="{
                                     'selected': i===currentIndex}" src={{item}}>

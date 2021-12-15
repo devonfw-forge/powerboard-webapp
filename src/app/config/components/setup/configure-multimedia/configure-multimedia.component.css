@@ -116,12 +116,24 @@
 }
 
 .slideshowgreyicon{
-font-size: 17px;
-color: gray;
-margin-top: 5px;
-margin-right: 3px;
+  font-size: 17px;
+  color: grey;
+  margin-top: 4px;
+  margin-right: 3px;
+  margin-left: 3px;
+  vertical-align: middle;
+  padding-bottom: 4px;
 }
 
+.slideshowWhiteicon{
+  font-size: 17px;
+  color: white;
+  margin-top: 4px;
+  margin-right: 3px;
+  margin-left: 3px;
+  vertical-align: middle;
+  padding-bottom: 4px;
+}
 .highlightTextArea{
   width: 160px;
   color: white;
