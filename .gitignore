@@ -48,3 +48,6 @@ Thumbs.db
 #Scanner File
 /.scannerwork
 sonar-project.properties
+
+# env
+**/.env
