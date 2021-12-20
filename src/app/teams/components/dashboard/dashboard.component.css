@@ -1,7 +1,7 @@
 .container{
   margin-left: 7%; 
   margin-right: 7%; 
-  width: 86%;  
+  width: 86%;
   margin-bottom: 2%;
   padding-top: 1%;
 }
@@ -14,7 +14,7 @@
 
 .bg-height{
   height: 78vh;
-}
+} 
 
 .dot
   {
@@ -42,3 +42,16 @@
       font-size: 15px;
   }
  
+.webHeight{
+  min-height: calc( 90vh - 40px );
+  background-color: #f4f8fb;
+}
+.slideshowHeight{
+  background-color: #f4f8fb;
+  height: 100vh;
+}
+
+.TextAlign{
+  text-align: center;
+  padding-top: 10%;
+}

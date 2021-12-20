@@ -8,6 +8,7 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 import { TeamService } from 'src/app/config/services/team.service';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { EditTeamMemberComponent } from './edit-team-member/edit-team-member.component';
+import { RemoveUnderscorePipe } from 'src/app/config/pipes/remove-underscore.pipe';
 
 describe('ViewAllTeamMembersComponent', () => {
   let component: ViewAllTeamMembersComponent;
@@ -58,7 +59,7 @@ describe('ViewAllTeamMembersComponent', () => {
   beforeEach(async () => {    
     await TestBed.configureTestingModule({      
       imports :[RouterTestingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
-      declarations: [ ViewAllTeamMembersComponent ,AddMemberComponent,EditTeamMemberComponent],      
+      declarations: [ ViewAllTeamMembersComponent ,AddMemberComponent,EditTeamMemberComponent, RemoveUnderscorePipe],      
       providers : [{provide : NotificationService, useClass : MockNotifyService},
       {provide:TeamService,useClass:MockTeamService}]    
     }).compileComponents();

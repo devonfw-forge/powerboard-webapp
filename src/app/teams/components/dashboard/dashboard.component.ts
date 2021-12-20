@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UrlPathConstants } from 'src/app/UrlPaths';
-import { SprintDetailResponse } from '../../../shared/model/general.model';
+import { Dashboard, SprintDetailResponse } from '../../../shared/model/general.model';
 import { SlideshowService } from '../../services/slideshow.service';
 
 @Component({
@@ -14,11 +14,18 @@ export class DashboardComponent implements OnInit {
   intervalID: any; 
   interval= UrlPathConstants.slideshowInterval;
   constructor(public slideshowService: SlideshowService) { }
-
+  noData : boolean = false;
+  dashboard : Dashboard = new Dashboard();
   ngOnInit(): void {
-    this.sprintDetails = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.sprintDetail;
-    this.teamStatus = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.teamStatus;
- 
+    this.dashboard = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard;
+    this.sprintDetails = this.dashboard.sprintDetail;
+    this.teamStatus = this.dashboard.teamStatus;
+    if(this.dashboard.burndown || this.dashboard.codeQuality || this.dashboard.clientStatus || this.dashboard.velocity || this.dashboard.teamSpirit){
+      this.noData = false;
+    }
+    else{
+      this.noData = true;
+    }
   }
   ngAfterViewInit(){
     if(this.slideshowService.getSlideShow()){

@@ -211,10 +211,10 @@ describe('ConfigureTeamLinksComponent', () => {
     expect(component.addLink).toBeTruthy();
   })
 
-  it('should close',()=>{
+  /* it('should close',()=>{
     spyOn(component.child.memberGroup,'reset')
     component.close();
     expect(component.child.memberGroup.reset).toHaveBeenCalled();
-  })
+  }) */
 
 });
