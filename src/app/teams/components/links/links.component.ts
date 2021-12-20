@@ -21,6 +21,8 @@ export class LinksComponent implements OnInit {
   webLinksIndex: number[];
   intervalID: any;
   interval= UrlPathConstants.slideshowInterval;
+  webLinkCount = 0;
+  meetingLinkCount = 0;
 
   constructor(private electronService: ElectronService, private ref: ChangeDetectorRef, public slideshowService: SlideshowService) {
     this.src = '';
@@ -35,6 +37,16 @@ export class LinksComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLinks();
+    this.webLinkCount = 0;
+    this.meetingLinkCount = 0;
+    for(let link of this.teamLinks){
+      if (link.linkType === 'web_link'){
+        this.webLinkCount = this.webLinkCount + 1;
+      }
+      else{
+        this.meetingLinkCount = this.meetingLinkCount + 1;
+      }
+    }
 
   }
 

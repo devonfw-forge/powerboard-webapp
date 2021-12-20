@@ -95,16 +95,6 @@ export class GuestDetails{
   isPasswordChanged: boolean
 }
 
-import { Pipe, PipeTransform } from '@angular/core';
- 
-@Pipe({ name: 'removeUnderscore' })
-export class RemoveUnderscorePipe implements PipeTransform {
-  transform(value: any, args?: any): any {
-    return value.replace(/_/g, " ");
-  }
-}
-
-
 export class ReceiveAddLink{
   id : string
 link :string;

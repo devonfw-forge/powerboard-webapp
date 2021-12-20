@@ -1,6 +1,6 @@
 .bg-height{
-  height: calc( 90vh - 50px );
-  background-color: #f4f8fb
+  min-height: calc( 90vh - 40px );
+  background-color: #f4f8fb;
 }
 
 
@@ -79,7 +79,9 @@ a {
 
   margin-left: 5%;
   margin-right: 5%;
-  background: white;
+  background-color: #f4f8fb;
+  padding-bottom: 5%;
+
 }
 
 .slideshow-frame{
@@ -124,4 +126,9 @@ a {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.noData{
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
