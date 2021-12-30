@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { EChartsOption } from "echarts";
 import { ClientStatusResponse } from "src/app/shared/model/general.model";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: "app-client-satisfaction",
@@ -9,6 +10,7 @@ import { ClientStatusResponse } from "src/app/shared/model/general.model";
 })
 export class ClientSatisfactionComponent implements OnInit {
   public chartOption: EChartsOption = {};
+  aws_asset: string;
   colour: string;
   componentReady:boolean;
   clientStatus: ClientStatusResponse = new ClientStatusResponse();
@@ -17,6 +19,7 @@ export class ClientSatisfactionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.aws_asset= environment.AWS_ASSETS_URL as string;
     this.clientStatus = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.dashboard.clientStatus;

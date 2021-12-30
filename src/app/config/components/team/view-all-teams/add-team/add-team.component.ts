@@ -5,6 +5,7 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 import { TeamInfo } from 'src/app/config/model/config.model';
 import { ConfigService } from 'src/app/config/services/config.service';
 import { TeamService } from '../../../../services/team.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-team',
@@ -12,6 +13,7 @@ import { TeamService } from '../../../../services/team.service';
   styleUrls: ['./add-team.component.css'],
 })
 export class AddTeamComponent implements OnInit {
+  aws_asset: string;
   centerId :string;
   team:TeamInfo = new TeamInfo();
   ADCList: ADCListDetails[] = [];
@@ -30,7 +32,7 @@ export class AddTeamComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+    this.aws_asset= environment.AWS_ASSETS_URL as string;
     this.ADCList = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.ADC_List;
   }
 
@@ -69,7 +71,7 @@ export class AddTeamComponent implements OnInit {
         formData
       );
       var image = <HTMLImageElement>document.getElementById('output');
-      image.src = "../../../../../assets/layoutAssets/logo/uploadLogo.PNG";
+      image.src = this.aws_asset+"layoutAssets/logo/uploadLogo.PNG";
       this.form.reset();
       this.team = new TeamInfo();
       this.centerName = 'Select Center';

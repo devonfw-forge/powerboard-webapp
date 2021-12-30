@@ -14,6 +14,7 @@ const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
    globalEndPoint: "${process.env.API_URL}",
+   AWS_ASSETS_URL: "${process.env.AWS_URL}"
 
 };
 `;

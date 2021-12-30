@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { TeamSpiritResponse } from 'src/app/shared/model/general.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-team-spirit',
@@ -9,6 +10,7 @@ import { TeamSpiritResponse } from 'src/app/shared/model/general.model';
 })
 export class TeamSpiritComponent implements OnInit {
   public chartOption: EChartsOption = {};
+  aws_asset: string; 
 
   teamSpirit: TeamSpiritResponse = new TeamSpiritResponse();
 
@@ -16,6 +18,7 @@ export class TeamSpiritComponent implements OnInit {
   componentReady: boolean;
 
   ngOnInit(): void {
+    this.aws_asset= environment.AWS_ASSETS_URL as string;
     this.teamSpirit = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.dashboard.teamSpirit;
