@@ -17,7 +17,8 @@
                 </li>
             </ul>
             </ng-template>
-  
+
+            <div class="noData" *ngIf="meetingLinkCount < 1" > No Meeting Links Available</div>
         </div>
   
     </div>
@@ -36,7 +37,7 @@
                     </li>
                 </ul>
                 </ng-template>
-            
+                <div class="noData" *ngIf="webLinkCount < 1" > No Web Links Available</div>
         </div>
         
         <div class="web-sec-3 pt-4" >
@@ -62,7 +63,7 @@
         <webview class="frame" [ngClass]="{'slideshow-frame':slideshowService.isSlideshowRunning}" src="" allowpopups partition="persist:frame" autosize="on" style="min-width:900px; min-height:420px"
             *ngIf="isElectronRunning">
         </webview>
-    </div>
+    </div> 
     <div class="spinner pt-5" *ngIf="loading">
         <div class="spinner-border" style="height: 50px; width: 50px;" role="status">
             <span class="sr-only">Loading...</span>

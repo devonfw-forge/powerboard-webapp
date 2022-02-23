@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TeamMemberDetailsResponse, UpdateRoles } from 'src/app/config/model/config.model';
+import { RemoveUnderscorePipe } from 'src/app/config/pipes/remove-underscore.pipe';
 import { ConfigService } from 'src/app/config/services/config.service';
 import { TeamService } from 'src/app/config/services/team.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
@@ -39,7 +40,7 @@ describe('EditTeamMemberComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[RouterTestingModule, HttpClientTestingModule],
-      declarations: [ EditTeamMemberComponent ],
+      declarations: [ EditTeamMemberComponent, RemoveUnderscorePipe ],
       providers:[{provide : GeneralService, useClass: MockGeneralService},
         {provide: ConfigService, useClass : MockConfigureServcie},
         {provide : TeamService, useClass: MockTeamService} ] 

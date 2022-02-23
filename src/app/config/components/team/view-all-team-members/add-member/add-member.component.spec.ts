@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { RemoveUnderscorePipe } from 'src/app/config/pipes/remove-underscore.pipe';
 import { ConfigService } from 'src/app/config/services/config.service';
 import { TeamService } from 'src/app/config/services/team.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
@@ -45,7 +46,7 @@ describe('AddMemberComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule, FormsModule, ReactiveFormsModule,ToastrModule.forRoot()],
-      declarations: [ AddMemberComponent ],
+      declarations: [ AddMemberComponent, RemoveUnderscorePipe ],
       providers:[ {provide: ConfigService, useClass: MockConfigService}, 
         {provide: NotificationService, useClass: MockNotifyService}, 
         {provide:GeneralService, useClass:MockGeneralService },

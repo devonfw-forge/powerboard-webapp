@@ -38,7 +38,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
      }
      catch(e){
       console.log("error viewing team members", e);
-      this.notifyService.showError(e.error.message,'');
+      this.notifyService.showInfo(e.error.message,'');
      }
   }
    

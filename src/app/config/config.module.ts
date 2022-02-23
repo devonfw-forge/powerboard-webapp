@@ -18,7 +18,7 @@ import { ViewAllTeamMembersComponent } from './components/team/view-all-team-mem
 
 
 import { EditTeamComponent } from './components/setup/edit-team/edit-team.component';
-import { RemoveUnderscorePipe } from './model/config.model';
+
 import { AddMemberComponent } from './components/team/view-all-team-members/add-member/add-member.component';
 import { ShortUrlPipe } from './pipes/short-url.pipe';
 import { LinkTypeFilterPipe } from './pipes/link-type-filter.pipe';
@@ -27,6 +27,7 @@ import { AddTeamComponent } from './components/team/view-all-teams/add-team/add-
 import { ADcenterFilterPipe } from './pipes/adcenter-filter.pipe';
 import { ConfigureMultimediaComponent } from './components/setup/configure-multimedia/configure-multimedia.component';
 import { EditTeamMemberComponent } from './components/team/view-all-team-members/edit-team-member/edit-team-member.component';
+import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
 
 
 const routes: Routes = [{
