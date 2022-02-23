@@ -10,8 +10,10 @@ import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TeamDetailsService } from 'src/app/teams/services/team-details.service';
+import { environment } from 'src/environments/environment';
 import { PowerboardLoginResponse } from '../../model/auth.model';
 import { AuthService } from '../../services/auth.service';
+
 
 
 @Component({
@@ -27,6 +29,7 @@ export class AuthComponent implements OnInit {
 
   imagePath : string;
   teamDetails : TeamDetailResponse = new TeamDetailResponse();
+  asset_url: string;
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +45,7 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.asset_url= environment.AWS_ASSETS_URL as string;
     this.loginForm = this.fb.group({
       id: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(3)]],
@@ -118,4 +122,5 @@ export class AuthComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
   }
+
 }

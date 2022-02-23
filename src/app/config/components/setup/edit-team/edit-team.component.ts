@@ -6,6 +6,7 @@ import { TeamsResponse, UpdateTeam } from '../../../model/config.model';
 import { SetupService } from '../../../services/setup.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TeamDetailResponse } from 'src/app/shared/model/general.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-team',
@@ -14,6 +15,7 @@ import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 })
 export class EditTeamComponent implements OnInit {
   isLogo: boolean;
+  aws_asset: string;
   spinner: boolean;
   teamDetail : TeamDetailResponse = new TeamDetailResponse();
   team: TeamsResponse = new TeamsResponse();
@@ -43,6 +45,7 @@ export class EditTeamComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.aws_asset= environment.AWS_ASSETS_URL as string;
     this.team.teamId = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.team_id;

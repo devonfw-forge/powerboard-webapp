@@ -5,6 +5,7 @@ import { GeneralService } from './shared/services/general.service';
 import { SlideshowService } from './teams/services/slideshow.service';
 import { NavigationService } from './shared/services/navigation.service';
 import { TeamDetailsService } from './teams/services/team-details.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   title = 'PowerboardFW_new';
   teamName: string;
   checklocationPath : string;
+  aws_asset: string;
   
  
   constructor(public generalService: GeneralService, public slideShowService: SlideshowService,public navigation: NavigationService, public router: Router, public location: Location, public teamDetailService : TeamDetailsService) {
@@ -23,6 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.aws_asset= environment.AWS_ASSETS_URL as string;
     this.router.navigate(['auth/login']);
     
   }

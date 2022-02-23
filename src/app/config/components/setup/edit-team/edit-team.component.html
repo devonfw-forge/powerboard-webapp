@@ -92,7 +92,7 @@
               class="logo"
               alt=""
               *ngIf="!isLogo"
-              src="assets/layoutAssets/logo/noLogo.png"
+              [src]="aws_asset+'layoutAssets/logo/noLogo.png' "
             />
             <div class="spinnerPosition" *ngIf="spinner">
             <div class="spinner-border"></div>
