@@ -19,9 +19,9 @@ resetForm : PasswordResetForm = new PasswordResetForm();
 resetPasswordForm: FormGroup;
   constructor(public authService : AuthService, private router :Router, private fb: FormBuilder, public generalService : GeneralService) { }
 /**
- * we create a form group
- * and set validations for user
- * get the userId from the local storage
+ * form group is created
+ * set validations for user
+ * get userId from the local storage
  */
   ngOnInit(): void {
     this.resetPasswordForm = this.fb.group({
@@ -32,7 +32,7 @@ resetPasswordForm: FormGroup;
     this.resetForm.userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
   }
   /**
-   * This method sends a reset password form containing 
+   * sends a reset password form containing 
    * old password, new password and userID to the auth service
    */
   async resetPassword(){
@@ -49,31 +49,22 @@ resetPasswordForm: FormGroup;
      
     }
   }
-/**
- * This method checks if there is any projects in the local storage
- * and routes accordingly
- */
+
   public gotoHome(){
   
     this.generalService.checkLastLoggedIn();
   }
 
-/**
- * This method allows the user to toggle the visibility of the old password input field
- */
+
   toggleFieldTextTypeOld() {
     this.fieldTextTypeOld = !this.fieldTextTypeOld;
   }
 
-  /**
-   * This method allows the user to toggle the visibility of the new password input field
-   */
+  
   toggleFieldTextTypeNew() {
     this.fieldTextTypeNew = !this.fieldTextTypeNew;
   }
-/**
- * This method allows the user to toggle the visibility of the confirm password field
- */
+
   toggleFieldTextTypeConfirm() {
     this.fieldTextTypeConfirm = !this.fieldTextTypeConfirm;
   }

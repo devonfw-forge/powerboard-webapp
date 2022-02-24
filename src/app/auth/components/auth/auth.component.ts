@@ -45,7 +45,7 @@ export class AuthComponent implements OnInit {
     this.imagePath = ""
   }
 /**
- * we create a form group
+ * form group is created
  * and set validations for user
  */
   ngOnInit(): void {
@@ -56,9 +56,8 @@ export class AuthComponent implements OnInit {
     });
   }
 /**
- * This method takes id and password as input and logs into the application
- * as per the response from api it gets the privileges,
- * if it is first time login, it navigates to reset passowrd screen
+ *
+ * for the first time login, it navigates to reset passowrd screen
  * else it checks for last logged in project(if any) and routes accordingly
  * 
  */
@@ -95,27 +94,21 @@ export class AuthComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
   }
-  /**
-   * This method allows the user to toggle the visibility of password input field
-   */
+  
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
-/**
- * checks if input field is touched or not 
- */
+
   keyPressed() {
     this.authError = false;
   }
-/**
- * returns auth error variable
- */
+
   getAuthError() {
     return this.authError;
   }
 /**
- * This login method is for a guest user, who has no privileges and logs in anonymously
- * and is navigated to the project display screen
+ * 
+ * it logs the guest user and routes to the teams screen
  */
   async GuestLogin(){
 
