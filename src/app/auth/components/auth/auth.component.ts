@@ -21,6 +21,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
+
 export class AuthComponent implements OnInit {
   private authError: boolean;
   fieldTextType: boolean = false;
@@ -43,7 +44,10 @@ export class AuthComponent implements OnInit {
     this.authError = null;
     this.imagePath = ""
   }
-
+/**
+ * we create a form group
+ * and set validations for user
+ */
   ngOnInit(): void {
     this.asset_url= environment.AWS_ASSETS_URL as string;
     this.loginForm = this.fb.group({
@@ -51,7 +55,13 @@ export class AuthComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
-
+/**
+ * This method takes id and password as input and logs into the application
+ * as per the response from api it gets the privileges,
+ * if it is first time login, it navigates to reset passowrd screen
+ * else it checks for last logged in project(if any) and routes accordingly
+ * 
+ */
   async login() {
     try {
       this.powerboardLoginResponse = new PowerboardLoginResponse();
@@ -85,18 +95,28 @@ export class AuthComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
   }
+  /**
+   * This method allows the user to toggle the visibility of password input field
+   */
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
-
+/**
+ * checks if input field is touched or not 
+ */
   keyPressed() {
     this.authError = false;
   }
-
+/**
+ * returns auth error variable
+ */
   getAuthError() {
     return this.authError;
   }
-
+/**
+ * This login method is for a guest user, who has no privileges and logs in anonymously
+ * and is navigated to the project display screen
+ */
   async GuestLogin(){
 
     try {
