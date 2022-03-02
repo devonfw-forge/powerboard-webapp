@@ -47,8 +47,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
      }
   }
    /**
-    * it stores the id of a team member in a deleteId varialbe
-    * @param userteamId 
+    * it stores the id of a team member in a deleteId varialbe 
     */
   public storeDeleteId(userteamId : string){
     this.deleteId = userteamId;

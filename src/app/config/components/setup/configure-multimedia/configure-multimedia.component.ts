@@ -42,6 +42,12 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.updateComponent();
   }
 
+  /**
+   * get multimedia data of the team using team id from local storage
+   * check files at root level if files found display in "home" folder
+   * else display next folder containing files
+   *
+   */
   updateComponent() {
     this.homeFile.folderName = 'Home';
     this.homeFile.folderId ='';
@@ -74,6 +80,9 @@ export class ConfigureMultimediaComponent implements OnInit {
     } 
   }
 
+  /**
+   * iterate multimedia files if file is a video modify path 
+   */
   checkImagesAndVideos(){
     if(this.multimediaFiles.length>0){
       for(let file of this.multimediaFiles){
@@ -92,6 +101,14 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
   }
+   
+  /**
+   * check if current folder is home
+   * iterate all files in home folder, if all files are added in slideshow then 
+   * make the slideshow status true for home folder
+   * else status is false
+   * 
+   */
   checkHomeInslideShowStatus(){
     if(this.currentFolder == this.homeFile.folderName){
       this.checkStatus = true;
@@ -109,6 +126,10 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.checkStatus = false;
     }
   }
+
+  /**
+   * Display all root files in home folder
+   */
   showHomeFiles(){
     this.deselectAll();
     this.multimediaFiles = [];
@@ -132,6 +153,10 @@ export class ConfigureMultimediaComponent implements OnInit {
     
   }
 
+  /**
+   * Get all files of a folder by calling general service using teamId and folderId
+   *
+   */
   async getFilesFromFolder(folderId:string,folderName:string){
     this.deselectAll();
     console.log(folderName);
@@ -146,7 +171,11 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
   }
 
-
+/**
+ * If url is of an image it returns true
+ * else if url is of a video then return false
+ *  
+ */
   isImage(url: string) {
     const images = ['jpg', 'jpeg', 'gif', 'png'];
     const videos = ['mp4', '3gp', 'ogg'];
@@ -161,7 +190,13 @@ export class ConfigureMultimediaComponent implements OnInit {
   }
 
 
-
+/**
+ * If current folder is home folder add file in root level
+ * if current folder is sub folder, add file in respective current folder
+ * if file added successfully, update files and display success message
+ * else if error while adding files display error message
+ *  
+ */
   async uploadFile(event) { 
      try {
       const file = (event.target as HTMLInputElement).files[0];
@@ -187,6 +222,11 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.notifyService.showError('', e.error.message);
     }
   }
+
+  /**
+   * If file added in home folder then update multimedia files and local storage
+   * 
+   */
   updateUploadInHome(data){
     let newFile = {
       id: data.id,
@@ -214,6 +254,10 @@ export class ConfigureMultimediaComponent implements OnInit {
     
     this.updateLocalStorage();
   }
+
+  /**
+   * If file added in sub folder then update multimedia files and local storage
+   */
   updateUploadInSubFolder(data,folderId){
     let newFile = {
       id : data.id,
@@ -243,6 +287,10 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * Toggle between select and deselect check box
+   */
   SelectAndDeselectAll(){
     if(this.isMasterSel){
       this.deselectAll()
@@ -251,6 +299,10 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.selectAll();
     }  
   }
+  /**
+   * If current folder is home folder then it selects all the files and folders including home folder
+   * If current folder is sub folder, it selects all the files in that folder 
+   */
   selectAll(){
     this.isMasterSel = true;
       if(this.currentFolder == this.homeFile.folderName){
@@ -266,6 +318,9 @@ export class ConfigureMultimediaComponent implements OnInit {
         file.isSelected = true;
       }
   }
+  /**
+   * All checked boxed are unchecked
+   */
   deselectAll(){
     this.isMasterSel = false;
       this.homeFile.isSelected = false;
@@ -280,6 +335,10 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
   }
 
+  /**
+   * 
+   * 
+   */
   checkRootSelection(i:number){
     if(this.multimedia.root[i].isSelected){
       this.isMasterSel = false;

@@ -17,6 +17,13 @@ export class TeamSpiritComponent implements OnInit {
   colour: string;
   componentReady: boolean;
 
+  /**
+   * Get team spirit details from local storage
+   * Check the team spirit rating
+   * If rating < 3.3, set colour to red
+   * else if rating > 3.3 & rating < 6.7, set colour to orange
+   * else set colour to green
+   */
   ngOnInit(): void {
     this.aws_asset= environment.AWS_ASSETS_URL as string;
     this.teamSpirit = JSON.parse(
@@ -40,6 +47,10 @@ export class TeamSpiritComponent implements OnInit {
     }
   }
 
+  /**
+   * Sets the properties for team spirit gauge
+   * Set colour for gauge according to the rating value
+   */
   initChart() {
     this.chartOption = {
       series: [

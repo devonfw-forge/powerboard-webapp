@@ -33,6 +33,10 @@ export class ProjectsComponent implements OnInit {
     this.getFromLocalStorage();  
   }
 
+  /**
+   * Get ADC Team and ADC List from local storage
+   * 
+   */
   getFromLocalStorage(){
     this.ADCTeams = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.Teams_In_ADC;
     this.ADCList = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.ADC_List;
@@ -47,6 +51,10 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * Get all teams under a particular ADC
+   */
   async getTeamsInADC(adcenter: ADCDetails) {
     try {
       this.updatedCenter=adcenter;
@@ -64,6 +72,12 @@ export class ProjectsComponent implements OnInit {
 
   }
 
+  /**
+   * 
+   * Get teams in ADC details from local storage
+   * Update teams in ADC
+   * Set updated teams in local storage
+   */
   public updateTeamsInADC(teamsInADC: ProjectTeamDetail[]) {
     this.powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
     this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = [];
@@ -74,6 +88,10 @@ export class ProjectsComponent implements OnInit {
 
   }
 
+  /**
+   * 
+   * Get team details using team id by calling team detail service
+   */
   async getTeamDetails(teamId:string){
 
     try{

@@ -19,7 +19,10 @@ export class ConfigService {
   currentTeam: TeamsResponse = new TeamsResponse();
   public teamDetails: TeamDetailResponse = new TeamDetailResponse();
 
-
+/**
+ * Get all roles of a user, when config component is called
+ * 
+ */
     constructor(private http: HttpClient) { 
       this.roles = [];
       this.getRoles().then(

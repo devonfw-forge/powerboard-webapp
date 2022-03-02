@@ -28,6 +28,10 @@ export class EditTeamMemberComponent implements OnInit {
   ngOnInit(): void {
     this.roleName = 'Select Role';
   }
+  /**
+   * get current role of a team member
+   * 
+   */
   getCurrentTeamMember(member){
     this.currentMember = member;
  
@@ -39,11 +43,19 @@ export class EditTeamMemberComponent implements OnInit {
       }
     }
   }
+  /**
+   * 
+   * updates the role of a members using role id
+   */
   updateRole(roleId : string, roleName : string){
     this.roleName = roleName;
     this.updateRoleOfMember.roleId = roleId;
   }
  
+  /**
+   * 
+   * edit and update the role of member, if role of the member is changed
+   */
   public async editTeamMember(){
     if(this.currentMember.roleId != this.updateRoleOfMember.roleId){
       try{

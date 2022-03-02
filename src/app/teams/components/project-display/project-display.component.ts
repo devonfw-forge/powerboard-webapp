@@ -17,7 +17,9 @@ export class ProjectDisplayComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.checkMyProjects();
   }
-
+/**
+ * 
+ */
   checkMyProjects(){
     this.generalService.isSettingsVisible=false;
     this.generalService.showNavBarIcons = false;

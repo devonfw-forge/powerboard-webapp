@@ -12,15 +12,12 @@ import {
 })
 export class AuthService {
   /**
-   * 
-   * @param http 
-   * we inject HTTPClient to send various HTTP requests
+   *  
+   * Inject HTTPClient to send various HTTP requests
    */
   constructor(private http: HttpClient) {}
 /**
  * Sends HTTP POST request to rest API to log into the application
- * @param userName 
- * @param password 
  * 
  */
   public async Login(
@@ -46,7 +43,8 @@ export class AuthService {
   }
 
   /**
-   * Sends HTTP POST request to rest API for guest user to log into the application anonymously
+   * Sends HTTP POST request to rest API for guest user to log into the application
+   * 
    */
   public async guestLogin(): Promise<PowerboardLoginResponse> {
     return this.http

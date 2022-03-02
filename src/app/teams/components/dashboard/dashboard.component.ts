@@ -16,6 +16,12 @@ export class DashboardComponent implements OnInit {
   constructor(public slideshowService: SlideshowService) { }
   noData : boolean = false;
   dashboard : Dashboard = new Dashboard();
+
+  /**
+   * Get dashboard details from local storage
+   * If details found for atleast  1 KPI, set noData varialbe to false
+   * else set the noData variable to true
+   */
   ngOnInit(): void {
     this.dashboard = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard;
     this.sprintDetails = this.dashboard.sprintDetail;
@@ -27,6 +33,9 @@ export class DashboardComponent implements OnInit {
       this.noData = true;
     }
   }
+  /**
+   * If slideshow is running, set time interval and move to next screen
+   */
   ngAfterViewInit(){
     if(this.slideshowService.getSlideShow()){
       this.intervalID = setTimeout(()=>{
@@ -39,6 +48,9 @@ export class DashboardComponent implements OnInit {
        console.log(" slideshow is not running");
      }
   }
+  /**
+   * If interval id exists, clear interval id
+   */
   ngOnDestroy() {
     if (this.intervalID) {
       window.clearInterval(this.intervalID);

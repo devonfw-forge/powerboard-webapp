@@ -43,7 +43,10 @@ export class EditTeamComponent implements OnInit {
     });
     this.spinner = false;
   }
-
+/**
+ * get team details from local storage
+ * 
+ */
   ngOnInit(): void {
     this.aws_asset= environment.AWS_ASSETS_URL as string;
     this.team.teamId = JSON.parse(
@@ -90,7 +93,11 @@ if(JSON.parse(
     this.team.adCenter = centerName;
   }
 
-
+/**
+ * Delete logo using teamId
+ * If logo deleted successfully, display success message
+ * If error while deleting logo, display error message
+ */
   async setDeleteLogo() {
     
     try{
@@ -105,6 +112,12 @@ if(JSON.parse(
    
   }
 
+  /**
+   * Upload logo for a team
+   * If logo uploaded successfully, update in list of teams and local storage, display success message
+   * If error while uploading logo, display error message
+   * 
+   */
   async uploadFile(event){
     const file = (event.target as HTMLInputElement).files[0];
     try{
@@ -129,12 +142,13 @@ if(JSON.parse(
 
   }
 
+  /**
+   * Update team using form group
+   * If team updated successfully, display success message
+   * If error while updating team, display error message
+   * 
+   */
   async submitForm() {
-    var formData: any = new FormData();
-    formData.append('teamName', this.form.get('teamName').value);
-    formData.append('projectKey', this.form.get('projectKey').value);
-    formData.append('teamId', this.team.teamId);
-    formData.append('teamCode', this.form.get('teamCode').value);
     this.updateTeam.teamId = this.team.teamId;
     this.updateTeam.teamName = this.form.get('teamName').value;
     this.updateTeam.projectKey = this.form.get('projectKey').value;

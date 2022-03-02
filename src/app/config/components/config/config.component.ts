@@ -19,7 +19,7 @@ export class ConfigComponent implements OnInit {
     this.checkNextRoute();
   }
   /**
-   * This methods check if you are inside a team then it routes to the setup screen(team configuration), where one can configure team details
+   * Checks if you are inside a team then it routes to the setup screen(team configuration)
    * else it will route to the teams screen which displays all teams present
    */
   checkNextRoute(){

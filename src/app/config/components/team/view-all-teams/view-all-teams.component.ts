@@ -50,6 +50,10 @@ export class ViewAllTeamsComponent implements OnInit {
       localStorage.getItem('PowerboardDashboard')
     ).loginResponse.userId;
   }
+
+  /**
+   * get all teams from team service
+   */
   async getAllTeams() {
     try {
       const data = await this.teamService.viewAllTeams();
@@ -58,9 +62,15 @@ export class ViewAllTeamsComponent implements OnInit {
       console.log(e);
     }
   }
+  
   public storeDeleteId(teamId: string) {
     this.deleteId = teamId;
   }
+
+  /**
+   * if team deleted successfully, update details in list and local storage, display success message
+   * if error while deleting team, display error message
+   */
   async deleteTeam() {
     try {
       const data = await this.teamService.deleteTeam(this.deleteId);
@@ -93,6 +103,10 @@ export class ViewAllTeamsComponent implements OnInit {
     this.getTeamDetails(teamId);
   }
 
+  /**
+   * if details of a team  received, update in team details variable and local storage
+   * 
+   */
   async getTeamDetails(teamId: string) {
     try {
       this.UserIdTeamIdDetails.teamId = teamId;
@@ -113,7 +127,10 @@ export class ViewAllTeamsComponent implements OnInit {
       console.log(e.error.message);
     }
   }
-
+/**
+ * if team added successfully update details in list and local storage, display success message
+ * if error while adding team, display error message
+ */
   async addTeam() {
     try {
       const data = await this.child.addTeamWithLogo();
@@ -152,7 +169,10 @@ export class ViewAllTeamsComponent implements OnInit {
       console.log(e);
     }
   }
-
+/**
+ * 
+ * get center name using center id
+ */
   centerIdToname(id: string) {
     for (let list of this.ADCList) {
       if (list.centerId == id) {

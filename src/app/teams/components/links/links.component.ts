@@ -35,6 +35,7 @@ export class LinksComponent implements OnInit {
     }
   }
 
+
   ngOnInit(): void {
     this.getLinks();
     this.webLinkCount = 0;

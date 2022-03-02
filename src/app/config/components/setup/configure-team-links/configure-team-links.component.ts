@@ -44,6 +44,10 @@ export class ConfigureTeamLinksComponent implements OnInit {
   }
 
 
+  /**
+   * Get all links from local storage
+   * If links are unavailable, display "links not available" message
+   */
   public getLinks(){
     
     this.usefullLinks = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks;
@@ -57,6 +61,10 @@ export class ConfigureTeamLinksComponent implements OnInit {
    
   }
 
+  /**
+   * opens meeting link or team links as per the input
+   *  
+   */
   openLink(link: LinkResponse){
     if(link.linkType==='meeting_link'){
       this.openMeetingLink(link.links);
@@ -66,6 +74,10 @@ export class ConfigureTeamLinksComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * 
+   */
   openMeetingLink(meetingLink: string) {
     if (!this.isElectronRunning) {
       window.open(meetingLink, '_blank');
@@ -93,6 +105,11 @@ export class ConfigureTeamLinksComponent implements OnInit {
     this.selectedLinkId=id; 
   }
 
+  /**
+   * Delete link using link id
+   * If link deleted successfully, display success message and update in links list and local storage
+   * If error while deleting link, display error message
+   */
   async deleteLink(){
     try{
       console.log(this.selectedLinkId);
@@ -111,6 +128,9 @@ export class ConfigureTeamLinksComponent implements OnInit {
     }
   }
 
+  /**
+   * If link added, append the links in link list and local storage 
+   */
    async addLink(){
    
     const data = await this.child.onSubmit();
@@ -119,11 +139,8 @@ export class ConfigureTeamLinksComponent implements OnInit {
       linkName : data.linkName,
       teamLinkId : data.id,
       linkType : data.linkType.title,
-      links : data.link
-
-      
+      links : data.link 
     }
-    
     this.usefullLinks.push(this.addedLink);
     console.log(this.usefullLinks);
     this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
