@@ -19,9 +19,9 @@ resetForm : PasswordResetForm = new PasswordResetForm();
 resetPasswordForm: FormGroup;
   constructor(public authService : AuthService, private router :Router, private fb: FormBuilder, public generalService : GeneralService) { }
 /**
- * form group is created
- * set validations for user
- * get userId from the local storage
+ * Form group is created
+ * Set validations for user
+ * Get userId from the local storage
  */
   ngOnInit(): void {
     this.resetPasswordForm = this.fb.group({
@@ -32,7 +32,7 @@ resetPasswordForm: FormGroup;
     this.resetForm.userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
   }
   /**
-   * sends a reset password form containing 
+   * Sends a reset password form containing 
    * old password, new password and userID to the auth service
    */
   async resetPassword(){

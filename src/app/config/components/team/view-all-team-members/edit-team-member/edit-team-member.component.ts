@@ -29,7 +29,7 @@ export class EditTeamMemberComponent implements OnInit {
     this.roleName = 'Select Role';
   }
   /**
-   * get current role of a team member
+   * Get current role of a team member
    * 
    */
   getCurrentTeamMember(member){
@@ -45,7 +45,7 @@ export class EditTeamMemberComponent implements OnInit {
   }
   /**
    * 
-   * updates the role of a members using role id
+   * Updates the role of a member using role id
    */
   updateRole(roleId : string, roleName : string){
     this.roleName = roleName;
@@ -54,7 +54,7 @@ export class EditTeamMemberComponent implements OnInit {
  
   /**
    * 
-   * edit and update the role of member, if role of the member is changed
+   * Edit and update the role of member, if role of the member is changed
    */
   public async editTeamMember(){
     if(this.currentMember.roleId != this.updateRoleOfMember.roleId){

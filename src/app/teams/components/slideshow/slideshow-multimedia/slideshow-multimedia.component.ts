@@ -37,6 +37,10 @@ export class SlideshowMultimediaComponent implements OnInit {
     await this.updateComponent(); 
   }
 
+
+  /**
+   * 
+   */
    async updateComponent() {
      try{
     this.componentReady = false;
@@ -71,6 +75,11 @@ export class SlideshowMultimediaComponent implements OnInit {
     }
   } 
   
+  /**
+     * 
+     * If url is of image, return true
+     * if url is of video, return false
+     */
   isImage(url: string) {
     const images = ["jpg", "jpeg", "gif", "png"];
     const videos = ["mp4", "3gp", "ogg"];
@@ -164,7 +173,10 @@ this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe({
   }
 
 
-
+/**
+ * If currrent index reaches to max and slideshow is running , move to next component
+ * else move to next file in the array
+ */
   nextVideo() {
     this.currentIndex++;
     if (this.currentIndex === this.slideshowFiles.length) {
@@ -182,6 +194,9 @@ this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe({
     this.api.play();
   }
 
+  /**
+   * Toggle between play and pause for a video
+   */
   onTap() {
     if (this.api.state === 'playing') {
       this.api.pause();

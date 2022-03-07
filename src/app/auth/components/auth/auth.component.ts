@@ -45,8 +45,8 @@ export class AuthComponent implements OnInit {
     this.imagePath = ""
   }
 /**
- * form group is created
- * and set validations for user
+ * Form group is created
+ * Set validations for user
  */
   ngOnInit(): void {
     this.asset_url= environment.AWS_ASSETS_URL as string;
@@ -57,7 +57,7 @@ export class AuthComponent implements OnInit {
   }
 /**
  *
- * for the first time login, it navigates to reset passowrd screen
+ * For the first time login, it navigates to reset passowrd screen
  * else it checks for last logged in project(if any) and routes accordingly
  * 
  */
@@ -108,7 +108,7 @@ export class AuthComponent implements OnInit {
   }
 /**
  * 
- * it logs the guest user and routes to the teams screen
+ * Logs-in guest user and routes to the teams screen
  */
   async GuestLogin(){
 

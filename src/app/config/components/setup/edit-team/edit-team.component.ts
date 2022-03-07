@@ -44,7 +44,7 @@ export class EditTeamComponent implements OnInit {
     this.spinner = false;
   }
 /**
- * get team details from local storage
+ * Get team details from local storage
  * 
  */
   ngOnInit(): void {

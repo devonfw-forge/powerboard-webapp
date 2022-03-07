@@ -41,7 +41,10 @@ export class MultimediaComponent implements OnInit {
     ngOnInit() {
       this.updateComponent(); 
     }
-  
+  /**
+   * Get all Multimedia files using teamId from local storage
+   * Segregate files and folders
+   */
      updateComponent() {
       this.componentReady = false;
       this.currentFolder = '';
@@ -60,6 +63,12 @@ export class MultimediaComponent implements OnInit {
       }
       this.processFiles();
     } 
+
+    /**
+     * Check multimedia folders status
+     * If atleast one folder status is true, set home files is empty
+     * else all multimedia files are home files
+     */
     showHomeFiles(){
       this.multimediaFiles = [];
       this.checkStatus = false;
@@ -81,6 +90,10 @@ export class MultimediaComponent implements OnInit {
       }
       
     }
+
+    /**
+     * Get files of a particular folder using folder Id and folder name 
+     */
     async getFilesFromFolder(folderId:string,folderName:string){
       
       console.log(folderName);
@@ -101,7 +114,7 @@ export class MultimediaComponent implements OnInit {
     }
   
     
-  
+
     processFiles(){
     this.thumbnailData = [];
     this.thumbnailIsImage = [];
@@ -122,6 +135,11 @@ export class MultimediaComponent implements OnInit {
     }
   
   
+    /**
+     * If item is image, display image
+     * else display actual video url
+     *  
+     */
     onClickPlaylistItem(item: string, index: number) {
   
       if (this.thumbnailIsImage[index]) {
@@ -143,6 +161,11 @@ export class MultimediaComponent implements OnInit {
   
     }
   
+    /**
+     * If url is of image, return true
+     * if url is of video, return false
+     * 
+     */
     isImage(url: string) {
       const images = ["jpg", "jpeg", "gif", "png"];
       const videos = ["mp4", "3gp", "ogg"];
@@ -157,6 +180,8 @@ export class MultimediaComponent implements OnInit {
       }
     }
   
+
+    
     onPlayerReady(api: VgApiService) {
       console.log("api value");
       console.log(api);
@@ -168,7 +193,9 @@ export class MultimediaComponent implements OnInit {
   
   
     }
-  
+  /**
+   * toggle between play and pause for a video
+   */
     onTap() {
       if (this.api.state === 'playing') {
         this.api.pause();
@@ -182,6 +209,9 @@ export class MultimediaComponent implements OnInit {
       this.api.fsAPI.toggleFullscreen();
     }
   
+    /**
+     * Move to the previous multimedia item in the list
+     */
     previousItem() {
       console.log("previous");
       this.counter = this.counter - 1;
@@ -189,6 +219,9 @@ export class MultimediaComponent implements OnInit {
       this.onClickPlaylistItem(this.thumbnailData[this.currentIndex - 1], this.currentIndex - 1);
   
     }
+    /**
+     * Move to the next multimedia item in the list
+     */
     nextItem() {
       console.log("Next");
       this.counter = this.counter + 1;
@@ -202,10 +235,6 @@ export class MultimediaComponent implements OnInit {
       }
     }
   
-  
-  
-  
-  
     scrollLeft(){
       this.widgetsContent.nativeElement.scrollLeft -= 150;
     }
@@ -214,7 +243,9 @@ export class MultimediaComponent implements OnInit {
       this.widgetsContent.nativeElement.scrollLeft += 150;
     }
   
-  
+  /**
+   * Get all multimedia files froma team using team Id
+   */
     async seeAll(){
       try{
         const data = await this.generalService.getAllFilesFromTeam(this.teamId);

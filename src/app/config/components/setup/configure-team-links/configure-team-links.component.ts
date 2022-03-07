@@ -62,7 +62,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
   }
 
   /**
-   * opens meeting link or team links as per the input
+   * Opens meeting link or team links as per the input
    *  
    */
   openLink(link: LinkResponse){
@@ -74,10 +74,11 @@ export class ConfigureTeamLinksComponent implements OnInit {
     }
   }
 
-  /**
-   * 
-   * 
-   */
+/**
+ * If electron running, open meeting link in same window
+ * else, open in new tab
+ *  
+ */
   openMeetingLink(meetingLink: string) {
     if (!this.isElectronRunning) {
       window.open(meetingLink, '_blank');
@@ -89,6 +90,11 @@ export class ConfigureTeamLinksComponent implements OnInit {
     }
   }
 
+  /**
+ * If electron running, open team link in same window
+ * else, open in new tab
+ *  
+ */
   openTeamLink(link: string) {
     console.log(link);
     if (!this.isElectronRunning) {

@@ -52,7 +52,7 @@ export class ViewAllTeamsComponent implements OnInit {
   }
 
   /**
-   * get all teams from team service
+   * Get all teams from team service
    */
   async getAllTeams() {
     try {
@@ -68,8 +68,8 @@ export class ViewAllTeamsComponent implements OnInit {
   }
 
   /**
-   * if team deleted successfully, update details in list and local storage, display success message
-   * if error while deleting team, display error message
+   * If team deleted successfully, update details in list and local storage, display success message
+   * If error while deleting team, display error message
    */
   async deleteTeam() {
     try {
@@ -104,7 +104,7 @@ export class ViewAllTeamsComponent implements OnInit {
   }
 
   /**
-   * if details of a team  received, update in team details variable and local storage
+   * If details of a team  received, update in team details variable and local storage
    * 
    */
   async getTeamDetails(teamId: string) {
@@ -128,8 +128,8 @@ export class ViewAllTeamsComponent implements OnInit {
     }
   }
 /**
- * if team added successfully update details in list and local storage, display success message
- * if error while adding team, display error message
+ * If team added successfully update details in list and local storage, display success message
+ * If error while adding team, display error message
  */
   async addTeam() {
     try {
@@ -171,7 +171,7 @@ export class ViewAllTeamsComponent implements OnInit {
   }
 /**
  * 
- * get center name using center id
+ * Get center name using center id
  */
   centerIdToname(id: string) {
     for (let list of this.ADCList) {

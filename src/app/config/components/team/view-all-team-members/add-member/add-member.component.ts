@@ -29,8 +29,8 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
     this.roleName = "Select Role";
    }
 /**
- * get teamId and team Name from local storage
- * form group is created and set validations
+ * Get teamId and team Name from local storage
+ * Form group is created and set validations
  */
   ngOnInit(): void {
     this.teamId = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id;
@@ -45,9 +45,9 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
  
 
   /**
-   * getting team member details from form group
-   * if team member added successfully, display success message and reset form group
-   * if error while adding team member, display error message
+   * Get team member details from form group
+   * If team member added successfully, display success message and reset form group
+   * If error while adding team member, display error message
    */
   async addTeamMember(){
     
@@ -76,7 +76,7 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
   }
 /**
  * 
- * update role of member in form group using role id and name 
+ * Update role of member in form group using role id and name 
  */
   updateRole(roleId : string, roleName : string){
     this.roleName = roleName;
