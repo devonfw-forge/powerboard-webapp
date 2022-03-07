@@ -38,9 +38,6 @@ export class SlideshowMultimediaComponent implements OnInit {
   }
 
 
-  /**
-   * 
-   */
    async updateComponent() {
      try{
     this.componentReady = false;

@@ -336,8 +336,8 @@ export class ConfigureMultimediaComponent implements OnInit {
   }
 
   /**
-   * 
-   * 
+   * Toggle between select and deselect for a folder of a given index 
+   * If current folder is not home folder, then deselect all files and folders
    */
   checkRootSelection(i:number){
     if(this.multimedia.root[i].isSelected){
@@ -359,6 +359,11 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
     
   }
+
+  /**
+   * Select all checkbox is checked, if all the folders are selected
+   * else uncheck, if any folder is not selected 
+   */
   checkMasterForRootSelection(){
     this.checkStatus = true;
       for(let folder of this.multimedia.root){
@@ -376,6 +381,10 @@ export class ConfigureMultimediaComponent implements OnInit {
         this.isMasterSel = false;
       }
   }
+
+  /**
+   * Uncheck home folder, select all chckbox, all files
+   */
   deSelectFilesIfHomeSelected(){
     this.isMasterSel = false;
     this.homeFile.isSelected = false;
@@ -386,6 +395,11 @@ export class ConfigureMultimediaComponent implements OnInit {
       file.isSelected = false;
     }
   }
+  /**
+   * Check home folder checkbox
+   * If current folder is home folder, select all multimedia files
+   * else deselect all multimedia files
+   */
   selectFilesHomeSelectionTurnTrue(){
     this.homeFile.isSelected = true;
     if(this.currentFolder == this.homeFile.folderName){
@@ -404,6 +418,11 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * If home folder is selcted, deselect all files and home folder
+   * else select all home files and folder
+   */
   checkHomeIsSelected(){
     if(this.homeFile.isSelected){
      this.deSelectFilesIfHomeSelected();
@@ -413,6 +432,14 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.checkMasterForRootSelection();
     }
   }
+
+  /**
+   * Check multimedia files, if all files are selected, then check status is true
+   * If check status is true, select home folder and check all folders
+   *    If all folders are selected then select all checkbox is true
+   *      else, select all checkbox is false
+   * else,home folder checkbox, select all checkbox is false
+   */
   checkFilesSelectionIfCurrentFolderIsHome(){
     this.checkStatus = true;
     for(let file of this.multimediaFiles){
@@ -439,6 +466,12 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.isMasterSel = false;
     }
   }
+  /**
+   * Select multimedia file checkbox of a given index, set home folder to false
+   * If current folder is home folder, check all files
+   * else if all fles are selected , check select all checkbox
+   *    else uncheck select all checkbox
+   */
   checkFilesSelectionIfHomeIsNotCurrentFolder(i:number){
     this.multimediaFiles[i].isSelected = true;
       this.homeFile.isSelected = false;
@@ -461,6 +494,11 @@ export class ConfigureMultimediaComponent implements OnInit {
         }
       }
   }
+  /**
+   * If current folder is not home folder, deselct all folders 
+   * If multimedia file of given index is selected, 
+   * deslect given multimedia file index checkbox, selct all checkbox and home folder
+   */
   checkFilesSelection(i:number){
     if(this.currentFolder!== this.homeFile.folderName){
       for(let folder of this.multimedia.root){
@@ -480,7 +518,9 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
   }
 
-
+/**
+ * Push selected file ids and folder ids into delete files object
+ */
   getDeleteIdsIfHomeIsSelected(){
     console.log("if home is selected");
       this.deleteFiles_Folders.filesId = [];
@@ -505,6 +545,10 @@ export class ConfigureMultimediaComponent implements OnInit {
         }
       }
   }
+
+  /**
+   * Push selected file ids and folder ids into delete files object
+   */
   getDeleteIdsIfHomeIsCurrentFolder(){
     console.log("if current folder is home");
         this.deleteFiles_Folders.filesId = [];
@@ -522,7 +566,9 @@ export class ConfigureMultimediaComponent implements OnInit {
           }
         }
   }
-
+/**
+ * 
+ */
   getDeleteIdsIfHomeIsNotCurrentFolder(){
     this.deleteFiles_Folders.filesId = [];
         this.deleteFiles_Folders.foldersId = [];
