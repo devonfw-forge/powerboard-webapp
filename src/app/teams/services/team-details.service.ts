@@ -34,7 +34,10 @@ export class TeamDetailsService {
     {
       return this.teamDetailPermissions;
     }
-  
+  /**
+   * Remove team details permissions and 
+   * set them as per new permissions received from the local storage
+   */
     public setTeamDetailPermissions()
     {
       console.log(this.teamDetailPermissions);
@@ -61,7 +64,13 @@ export class TeamDetailsService {
     }
   
   
-  
+  /**
+   * Get team details using user id and team id
+   * Set permissions in local storage
+   * Update visibility of features of the user
+   * Navigate to dashboard
+   *
+   */
   
     public async processTeamDetails(teamId:string){
       this.userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;

@@ -28,7 +28,12 @@ export class NavigationService {
     this.lastLocation = '';
     this.currentLocation = '';
   }
-
+/**
+ * Navigate to last location 
+ * If history is present, move to last location
+ * If location is config or inside config module, move to location previous to config
+ * 
+ */
   back(): boolean {
     this.currentLocation = this.history.pop();
 
@@ -64,6 +69,10 @@ export class NavigationService {
     this.history = [];
   }
 
+  /**
+   * Move to projects screen, if home reponse exists
+   * else get home response from general service, and move to project screen
+   */
   async moveToHome() {
     if (
       JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse
