@@ -50,6 +50,7 @@ export class BurndownResponse{
   remainingWork: number;
   count: number;
   burndownStatus: string;
+  updatedAt? : Date;
 }
 export class SprintDetailResponse{
   Sprint_current_day: number;
@@ -60,6 +61,7 @@ export class VelocityResponse{
   Avg: number;
   Committed: number;
   Completed: number;
+  updatedAt? : Date;
 }
 
 export class LinkResponse{

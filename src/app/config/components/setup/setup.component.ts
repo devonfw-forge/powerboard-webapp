@@ -27,6 +27,10 @@ export class SetupComponent implements OnInit {
     this.router.navigate(['view-members'], {relativeTo:this.route});
   }
 
+  public showDataUpload(){
+    this.router.navigate(['upload-data'], {relativeTo:this.route});
+  }
+
   public changeActive(index:number){
     let list = document.querySelectorAll('.list');
     let j=0;

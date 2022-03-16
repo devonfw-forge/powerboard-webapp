@@ -59,7 +59,7 @@ export class AuthComponent implements OnInit {
         this.loginForm.controls['id'].value,
         this.loginForm.controls['password'].value
       );
-      
+      console.log(data);
       this.powerboardLoginResponse = data;
      
       this.generalService.setPermissions(
