@@ -567,7 +567,8 @@ export class ConfigureMultimediaComponent implements OnInit {
         }
   }
 /**
- * 
+ * If folders selected, Get all delected folder ids into delete folder id array
+ * else get selected files into delete files id array
  */
   getDeleteIdsIfHomeIsNotCurrentFolder(){
     this.deleteFiles_Folders.filesId = [];
@@ -593,6 +594,10 @@ export class ConfigureMultimediaComponent implements OnInit {
           this.getDeleteIdsFilesFromSubFolder();
         }
   }
+  /**
+   * Get current folder id into delete sub folder id and
+   * Get all selected files into delete files id array
+   */
   getDeleteIdsFilesFromSubFolder(){
     for(let file of this.multimediaFiles){
       if(file.isSelected){
@@ -605,6 +610,9 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
   }
+  /**
+   * Get all selected ids of both folders and files
+   */
   getDeleteIds(){
     this.deleteFiles_Folders.filesId = [];
     this.deleteFiles_Folders.foldersId = [];
@@ -634,7 +642,11 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
     console.log(this.deleteFiles_Folders);
   }
-
+/**
+ * Call configure service to delete files and folders
+ * If deleted successfully, show success message, update values 
+ * else show error message
+ */
   async deleteFilesAndFolders() {
     this.getDeleteIds();
     try{
@@ -653,6 +665,9 @@ export class ConfigureMultimediaComponent implements OnInit {
    
     console.log('delete');
   }
+  /**
+   * filter all delete ids in multimedia files and local storage
+   */
  removeIds(){
   for(let file of this.deleteFiles_Folders.filesId){
     this.multimedia.display = this. multimedia.display.filter(displayFile => displayFile.id!= file);
@@ -665,6 +680,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   }
   this.updateLocalStorage();
  }
+ 
  updateLocalStorage(){
   this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
   this.teamDetail.powerboardResponse.multimedia = this.multimedia;
@@ -674,7 +690,11 @@ export class ConfigureMultimediaComponent implements OnInit {
   close() {
     this.newFolderName = '';
   }
-
+/**
+ * Call configure service to add a folder
+ * If folder added successfully, update in multimedia folder and local storage
+ * 
+ */
   async addFolder() {
     try{
       this.newSubFolder = new RootNew();
@@ -703,7 +723,10 @@ export class ConfigureMultimediaComponent implements OnInit {
     console.log(this.newFolderName);
   }
 
-  
+  /**
+   * Call configure service to add files and folders to slideshow
+   * If added successfully, show success message and update in slideshow
+   */
  async addToSlideShow(){
   this.checkSlideshowFilesAndFolders();
   try{
