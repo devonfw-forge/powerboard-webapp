@@ -19,7 +19,11 @@ export class DataUploadComponent implements OnInit {
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.team_id;
   }
-
+/**
+ * upload xlsx file
+ * show success message if uploaded successfully
+ * else show error message
+ */
   async uploadFile(event, type:string) {
     try {
       const file = (event.target as HTMLInputElement).files[0];
