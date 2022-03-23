@@ -1,28 +1,45 @@
-<div class="col-md-10 mt-5 pt-5">
-  <div class="col-md-12 row pl-0">
-    <div class="col-md-3 radioButton ">
-  <input type="radio" id="jira" [checked] = "selected === 1 " value= "1" (change) = "changeSelected(1)">
-  <label for="html">JIRA</label>
-</div>
-<div class="col-md-2 radioButton">
-  <input type="radio" id="sonar" [checked] = "selected === 2 " value= "2" (change) = "changeSelected(2)">
-  <label for="html">SONAR</label><br>
-</div>
-<div class="uploadbtn">
-  <span class="btn btn-primary btn-file" *ngIf = "selected === 1">
-    <span class='material-icons mat-icon'>file_upload</span>
-    <span style="font-size: 16px"> Upload Jira</span>
-    <input type="file" accept=".xlsx , .xls , .csv" (change)="uploadFile($event)" />
-  </span>
+<div class="col-md-10 pt-5">
+  <div class="mt-5 text-left">
+    <input
+      type="radio"
+      class="ml-5"
+      id="jira"
+      [checked]="selected === 1"
+      value="1"
+      (change)="changeSelected(1)"
+    />
+    <label style="color:#0070AD;" for="html">JIRA</label>
 
+    <input
+      type="radio"
+      class="ml-5"
+      id="sonar"
+      [checked]="selected === 2"
+      value="2"
+      (change)="changeSelected(2)"
+    />
+    <label style="color:#0070AD;" for="html">SONAR</label>
+  </div>
 
+  <div class="mt-5">
+    <span class="btn btn-primary btn-file" *ngIf="selected === 1">
+      <span class="material-icons mat-icon">file_upload</span>
+      <span style="font-size: 16px"> Upload Jira</span>
+      <input
+        type="file"
+        accept=".xlsx , .xls , .csv"
+        (change)="uploadFile($event)"
+      />
+    </span>
 
-  <span class="btn btn-primary btn-file" *ngIf = "selected === 2">
-    <span class='material-icons mat-icon'>file_upload</span>
-    <span style="font-size: 16px"> Upload Sonar</span>
-    <input type="file" accept=".xlsx , .xls , .csv" (change)="uploadFile($event)" />
-  </span>
+    <span class="btn btn-primary btn-file" *ngIf="selected === 2">
+      <span class="material-icons mat-icon">file_upload</span>
+      <span style="font-size: 16px"> Upload Sonar</span>
+      <input
+        type="file"
+        accept=".xlsx , .xls , .csv"
+        (change)="uploadFile($event)"
+      />
+    </span>
   </div>
 </div>
-</div>
-
