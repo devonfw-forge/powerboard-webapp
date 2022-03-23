@@ -80,4 +80,6 @@ export class UrlPathConstants{
 
     public static slideshowInterval = 3000;
 
+    public static uploadXLSXEndPoint = "teams/uploadXLSXFile/";
+
 }
