@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-upload.component.css']
 })
 export class DataUploadComponent implements OnInit {
-
+selected : number;
   constructor() { }
 
   ngOnInit(): void {
@@ -22,5 +22,9 @@ export class DataUploadComponent implements OnInit {
    
    }
  }
- 
+  
+
+ changeSelected(num : number){
+   this.selected = num;
+ }
 }

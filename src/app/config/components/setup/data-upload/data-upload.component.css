@@ -22,3 +22,20 @@
     cursor: inherit;
     display: block;
   }
+
+  .mat-icon{
+    color: #0070AD;
+    cursor: pointer;
+    font-size: inherit;
+    vertical-align: middle;
+    padding-bottom: 3px;
+
+  }
+
+  .radioButton{
+    color: #0070AD;
+  }
+  .uploadbtn{
+    margin-left: 107px;
+   margin-top: 80px;
+  }
