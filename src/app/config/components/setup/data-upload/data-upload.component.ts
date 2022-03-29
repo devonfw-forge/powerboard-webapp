@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SetupService } from 'src/app/config/services/setup.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
@@ -9,16 +10,29 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 })
 export class DataUploadComponent implements OnInit {
   selected: number;
-
+  form: FormGroup;
   teamId: string;
 
-  constructor(public setupService: SetupService,  private notifyService: NotificationService,) {}
+  constructor(public setupService: SetupService,  private notifyService: NotificationService, public fb: FormBuilder) {
+    
+
+    this.form = this.fb.group({
+      clientRating: ['', [Validators.required]]
+      
+    });
+  }
 
   ngOnInit(): void {
     this.teamId = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.team_id;
+
+
+    
   }
+
+
+  
 /**
  * upload xlsx file
  * show success message if uploaded successfully

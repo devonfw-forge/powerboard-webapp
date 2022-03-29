@@ -40,3 +40,30 @@
     margin-left: 107px;
    margin-top: 80px;
   }
+
+
+  .btn-cg{
+
+
+    Width :157px;
+    Height :36px;
+    
+    
+    /* Primary/Capgemini blue */
+    color: #0070AD;
+    border: 2px solid #0070AD;
+    
+    border-radius: 30px;
+    
+    }
+    
+    .btn-cg:hover{
+    color: white;
+    background-color: #0070AD;
+    border: none;
+    }
+    
+    .disabled {
+    pointer-events: none;
+    }
+    

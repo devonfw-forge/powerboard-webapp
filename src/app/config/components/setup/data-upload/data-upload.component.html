@@ -1,4 +1,4 @@
-<div class="col-md-10 pt-5">
+<div class="pt-5">
   <div class="mt-5 text-left">
     <input
       type="radio"
@@ -8,7 +8,7 @@
       value="1"
       (change)="changeSelected(1)"
     />
-    <label style="color:#0070AD;" for="html">JIRA</label>
+    <label style="color: #0070ad" for="html">Jira</label>
 
     <input
       type="radio"
@@ -18,7 +18,17 @@
       value="2"
       (change)="changeSelected(2)"
     />
-    <label style="color:#0070AD;" for="html">SONAR</label>
+    <label style="color: #0070ad" for="html">Sonar</label>
+
+    <input
+      type="radio"
+      class="ml-5"
+      id="jira"
+      [checked]="selected === 3"
+      value="1"
+      (change)="changeSelected(3)"
+    />
+    <label style="color: #0070ad" for="html">Client Satisfaction</label>
   </div>
 
   <div class="mt-5">
@@ -41,5 +51,54 @@
         (change)="uploadFile($event, 'sonar')"
       />
     </span>
+
+    <form [formGroup]="form" autocomplete="off" *ngIf="selected === 3" >
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th id="Team_code">Client satisfaction rating</th>
+            <td>
+              <div class="row">
+                <div class="form-group input-field">
+                  <input
+                    class="form-control"
+                    formControlName="clientRating"
+                    type="number"
+                    
+                  />
+                  <div style="min-height: 40px;">
+
+                  
+                  <label
+                    class="text-danger"
+                    *ngIf="
+                      form.get('clientRating').touched &&
+                      form.get('clientRating').errors?.required
+                    "
+                  >
+                    Required Field
+                  </label>
+                </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div style="display: flex; justify-content: center">
+                <div class="button">
+                  <button
+                    class="btn btn-outline btn-cg"
+                    [ngClass]="{ disabled: !form.valid }"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
   </div>
 </div>
