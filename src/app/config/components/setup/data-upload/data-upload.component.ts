@@ -56,4 +56,18 @@ export class DataUploadComponent implements OnInit {
   changeSelected(num: number) {
     this.selected = num;
   }
+
+  async uploadClientRating() {
+    try {
+      const data = await this.setupService.uploadClientRating(
+        this.form.get('clientRating').value,
+        "clientstatus",
+        this.teamId
+      );
+      this.notifyService.showSuccess('', 'Client Rating updated successfully');
+    } catch (e) {
+      console.log(e.error.message);
+      this.notifyService.showError('', e.error.message);
+    }
+  }
 }

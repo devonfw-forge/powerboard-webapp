@@ -118,6 +118,16 @@ export class SetupService {
     .post<any>(environment.globalEndPoint + UrlPathConstants.uploadXLSXEndPoint + type + '/' + teamId, formData).toPromise();
 
   }
+
+  
+  async uploadClientRating(clientRating, type, teamId):Promise<any>{
+    console.log({clientRating});
+    console.log(type);
+    console.log(teamId);
+    return this.http
+    .post<any>(environment.globalEndPoint + UrlPathConstants.uploadClientRatingEndPoint + type + '/' + teamId, {clientRating}).toPromise();
+
+  }
 }
 
 

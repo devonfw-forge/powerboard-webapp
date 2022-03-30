@@ -14,58 +14,61 @@ export class AddLinksComponent implements OnInit {
   linkTypes: LinksCategory[];
   selectedLinkType: string;
   error: boolean;
-  addedLink : any;
-  receiveAddedLink : any;
-  constructor( private fb: FormBuilder, public setupService: SetupService, public notifyService : NotificationService) {
-    this.selectedLinkType='Select Type';
-    this.error=false;
-   }
+  addedLink: any;
+  receiveAddedLink: any;
+  constructor(
+    private fb: FormBuilder,
+    public setupService: SetupService,
+    public notifyService: NotificationService
+  ) {
+    this.selectedLinkType = 'Select Type';
+    this.error = false;
+  }
 
-  async ngOnInit(){
+  async ngOnInit() {
     this.addLink = this.fb.group({
       linkName: ['', [Validators.required]],
       linkType: ['', [Validators.required]],
       links: ['', [Validators.required]],
-      teamId: ['']
+      teamId: [''],
     });
     await this.getLinkTypes();
   }
 
-  async getLinkTypes(){
-    this.linkTypes= await this.setupService.getLinkTypes(); 
+  async getLinkTypes() {
+    this.linkTypes = await this.setupService.getLinkTypes();
   }
 
-  async onSubmit(){
-    if(this.addLink.valid){
+  async onSubmit() {
+    if (this.addLink.valid) {
       this.receiveAddedLink = [];
       this.addedLink = null;
-    this.addLink.controls.teamId.setValue(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.team_id);
-    console.log(this.addLink.value);
-    try{
-    const data= await this.setupService.addLink(this.addLink.value);
-    this.receiveAddedLink =  data;
-    this.addLink.reset();
-    this.error=false;
-    this.selectedLinkType='select Type';
-    this.notifyService.showSuccess("Link added successfully","");
-    console.log(data);
-    return this.receiveAddedLink;
+      this.addLink.controls.teamId.setValue(
+        JSON.parse(localStorage.getItem('TeamDetailsResponse'))
+          .powerboardResponse.team_id
+      );
+      console.log(this.addLink.value);
+      try {
+        const data = await this.setupService.addLink(this.addLink.value);
+        this.receiveAddedLink = data;
+        this.addLink.reset();
+        this.error = false;
+        this.selectedLinkType = 'select Type';
+        this.notifyService.showSuccess('Link added successfully', '');
+        console.log(data);
+        return this.receiveAddedLink;
+      } catch (e) {
+        this.notifyService.showError(e.error.message, '');
+      }
+    } else {
+      this.error = true;
+    }
   }
-  catch(e){
-    
-    this.notifyService.showError(e.error.message,'');
 
-  }
-}
-else{
-  this.error=true;
-}
-  }
-
-  updateLinkType(link: LinksCategory){
-    const type=link.linkTitle.split('_');
-    const outcome= type[0]+' ' +type[1];
-    this.selectedLinkType=outcome;
+  updateLinkType(link: LinksCategory) {
+    const type = link.linkTitle.split('_');
+    const outcome = type[0] + ' ' + type[1];
+    this.selectedLinkType = outcome;
     this.addLink.controls['linkType'].setValue(link.linkId);
   }
 }

@@ -8,7 +8,7 @@
       value="1"
       (change)="changeSelected(1)"
     />
-    <label style="color: #0070ad" for="html">Jira</label>
+    <label style="color: #0070ad" for="html"> Jira</label>
 
     <input
       type="radio"
@@ -18,7 +18,7 @@
       value="2"
       (change)="changeSelected(2)"
     />
-    <label style="color: #0070ad" for="html">Sonar</label>
+    <label style="color: #0070ad" for="html"> Sonar</label>
 
     <input
       type="radio"
@@ -28,7 +28,7 @@
       value="1"
       (change)="changeSelected(3)"
     />
-    <label style="color: #0070ad" for="html">Client Satisfaction</label>
+    <label style="color: #0070ad" for="html"> Client Satisfaction</label>
   </div>
 
   <div class="mt-5">
@@ -42,7 +42,7 @@
       />
     </span>
 
-    <span class="btn btn-primary btn-file" *ngIf="selected === 2">
+    <span class="btn btn-primary btn-file" *ngIf="selected === 5">
       <span class="material-icons mat-icon">file_upload</span>
       <span style="font-size: 16px"> Upload Sonar</span>
       <input
@@ -52,19 +52,20 @@
       />
     </span>
 
-    <form [formGroup]="form" autocomplete="off" *ngIf="selected === 3" >
+    <form style="margin-left: 100px;" class="col-md-8" [formGroup]="form" autocomplete="off" *ngIf="selected === 3" >
       <table class="table table-borderless">
         <tbody>
           <tr>
             <th id="Team_code">Client satisfaction rating</th>
             <td>
-              <div class="row">
+              <div>
                 <div class="form-group input-field">
-                  <input
+                  <input style="min-width: 200px;"
                     class="form-control"
                     formControlName="clientRating"
                     type="number"
-                    
+                    max="10"
+                    min="1"
                   />
                   <div style="min-height: 40px;">
 
@@ -90,6 +91,7 @@
                   <button
                     class="btn btn-outline btn-cg"
                     [ngClass]="{ disabled: !form.valid }"
+                    (click)="uploadClientRating()"
                   >
                     Submit
                   </button>
