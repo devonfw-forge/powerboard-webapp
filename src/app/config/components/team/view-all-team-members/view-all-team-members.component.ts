@@ -9,7 +9,7 @@ import { ConfigService } from '../../../services/config.service';
 import { TeamService } from '../../../services/team.service';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { EditTeamMemberComponent } from './edit-team-member/edit-team-member.component';
-
+//testing
 @Component({
   selector: 'app-view-all-team-members',
   templateUrl: './view-all-team-members.component.html',
