@@ -39,7 +39,10 @@ export class AddTeamComponent implements OnInit {
 
 
    
-
+/**
+ * update center in form using center name, center id
+ *  
+ */
   public updateCenter(centerId , centerName){
     this.centerName = centerName;
     this.team.ad_center.id = centerId;
@@ -47,7 +50,10 @@ export class AddTeamComponent implements OnInit {
   this.form.controls['ad_center'].setValue(centerId);
   }
 
-
+/**
+ * if event is triggered get logo from event in form
+ *  
+ */
   uploadFile(event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({
@@ -59,6 +65,11 @@ export class AddTeamComponent implements OnInit {
   image.src = URL.createObjectURL(event.target.files[0]);
   }
 
+  /**
+   * form data created using form group
+   * if team is added with logo successfully, return team details
+   * rest form
+   */
   async addTeamWithLogo() {
     var formData: any = new FormData();
     formData.append('teamName', this.form.get('teamName').value);

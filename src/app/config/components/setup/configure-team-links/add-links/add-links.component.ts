@@ -21,6 +21,10 @@ export class AddLinksComponent implements OnInit {
     this.error=false;
    }
 
+   /**
+    * Form group created
+    * set validators for link details
+    */
   async ngOnInit(){
     this.addLink = this.fb.group({
       linkName: ['', [Validators.required]],
@@ -35,6 +39,13 @@ export class AddLinksComponent implements OnInit {
     this.linkTypes= await this.setupService.getLinkTypes(); 
   }
 
+
+  /**
+   * Get TeamId from local storage and set value in add link form
+   * Add link using setup service
+   * If links added successfully,rest form and display success message
+   * If error while adding link, display error message
+   */
   async onSubmit(){
     if(this.addLink.valid){
       this.receiveAddedLink = [];
@@ -62,6 +73,9 @@ else{
 }
   }
 
+  /**
+   * Update the link type in form using link id and title
+   */
   updateLinkType(link: LinksCategory){
     const type=link.linkTitle.split('_');
     const outcome= type[0]+' ' +type[1];

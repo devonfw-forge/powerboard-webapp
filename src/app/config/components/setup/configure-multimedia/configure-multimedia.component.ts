@@ -42,6 +42,12 @@ export class ConfigureMultimediaComponent implements OnInit {
     this.updateComponent();
   }
 
+  /**
+   * get multimedia data of the team using team id from local storage
+   * check files at root level if files found display in "home" folder
+   * else display next folder containing files
+   *
+   */
   updateComponent() {
     this.homeFile.folderName = 'Home';
     this.homeFile.folderId ='';
@@ -74,6 +80,9 @@ export class ConfigureMultimediaComponent implements OnInit {
     } 
   }
 
+  /**
+   * iterate multimedia files if file is a video modify path 
+   */
   checkImagesAndVideos(){
     if(this.multimediaFiles.length>0){
       for(let file of this.multimediaFiles){
@@ -92,6 +101,14 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
   }
+   
+  /**
+   * check if current folder is home
+   * iterate all files in home folder, if all files are added in slideshow then 
+   * make the slideshow status true for home folder
+   * else status is false
+   * 
+   */
   checkHomeInslideShowStatus(){
     if(this.currentFolder == this.homeFile.folderName){
       this.checkStatus = true;
@@ -109,6 +126,10 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.checkStatus = false;
     }
   }
+
+  /**
+   * Display all root files in home folder
+   */
   showHomeFiles(){
     this.deselectAll();
     this.multimediaFiles = [];
@@ -132,6 +153,10 @@ export class ConfigureMultimediaComponent implements OnInit {
     
   }
 
+  /**
+   * Get all files of a folder by calling general service using teamId and folderId
+   *
+   */
   async getFilesFromFolder(folderId:string,folderName:string){
     this.deselectAll();
     console.log(folderName);
@@ -146,7 +171,11 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
   }
 
-
+/**
+ * If url is of an image it returns true
+ * else if url is of a video then return false
+ *  
+ */
   isImage(url: string) {
     const images = ['jpg', 'jpeg', 'gif', 'png'];
     const videos = ['mp4', '3gp', 'ogg'];
@@ -161,7 +190,13 @@ export class ConfigureMultimediaComponent implements OnInit {
   }
 
 
-
+/**
+ * If current folder is home folder add file in root level
+ * if current folder is sub folder, add file in respective current folder
+ * if file added successfully, update files and display success message
+ * else if error while adding files display error message
+ *  
+ */
   async uploadFile(event) { 
      try {
       const file = (event.target as HTMLInputElement).files[0];
@@ -187,6 +222,11 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.notifyService.showError('', e.error.message);
     }
   }
+
+  /**
+   * If file added in home folder then update multimedia files and local storage
+   * 
+   */
   updateUploadInHome(data){
     let newFile = {
       id: data.id,
@@ -214,6 +254,10 @@ export class ConfigureMultimediaComponent implements OnInit {
     
     this.updateLocalStorage();
   }
+
+  /**
+   * If file added in sub folder then update multimedia files and local storage
+   */
   updateUploadInSubFolder(data,folderId){
     let newFile = {
       id : data.id,
@@ -243,6 +287,10 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * Toggle between select and deselect check box
+   */
   SelectAndDeselectAll(){
     if(this.isMasterSel){
       this.deselectAll()
@@ -251,6 +299,10 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.selectAll();
     }  
   }
+  /**
+   * If current folder is home folder then it selects all the files and folders including home folder
+   * If current folder is sub folder, it selects all the files in that folder 
+   */
   selectAll(){
     this.isMasterSel = true;
       if(this.currentFolder == this.homeFile.folderName){
@@ -266,6 +318,9 @@ export class ConfigureMultimediaComponent implements OnInit {
         file.isSelected = true;
       }
   }
+  /**
+   * All checked boxed are unchecked
+   */
   deselectAll(){
     this.isMasterSel = false;
       this.homeFile.isSelected = false;
@@ -280,6 +335,10 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
   }
 
+  /**
+   * Toggle between select and deselect for a folder of a given index 
+   * If current folder is not home folder, then deselect all files and folders
+   */
   checkRootSelection(i:number){
     if(this.multimedia.root[i].isSelected){
       this.isMasterSel = false;
@@ -300,6 +359,11 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
     
   }
+
+  /**
+   * Select all checkbox is checked, if all the folders are selected
+   * else uncheck, if any folder is not selected 
+   */
   checkMasterForRootSelection(){
     this.checkStatus = true;
       for(let folder of this.multimedia.root){
@@ -317,6 +381,10 @@ export class ConfigureMultimediaComponent implements OnInit {
         this.isMasterSel = false;
       }
   }
+
+  /**
+   * Uncheck home folder, select all chckbox, all files
+   */
   deSelectFilesIfHomeSelected(){
     this.isMasterSel = false;
     this.homeFile.isSelected = false;
@@ -327,6 +395,11 @@ export class ConfigureMultimediaComponent implements OnInit {
       file.isSelected = false;
     }
   }
+  /**
+   * Check home folder checkbox
+   * If current folder is home folder, select all multimedia files
+   * else deselect all multimedia files
+   */
   selectFilesHomeSelectionTurnTrue(){
     this.homeFile.isSelected = true;
     if(this.currentFolder == this.homeFile.folderName){
@@ -345,6 +418,11 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * If home folder is selcted, deselect all files and home folder
+   * else select all home files and folder
+   */
   checkHomeIsSelected(){
     if(this.homeFile.isSelected){
      this.deSelectFilesIfHomeSelected();
@@ -354,6 +432,14 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.checkMasterForRootSelection();
     }
   }
+
+  /**
+   * Check multimedia files, if all files are selected, then check status is true
+   * If check status is true, select home folder and check all folders
+   *    If all folders are selected then select all checkbox is true
+   *      else, select all checkbox is false
+   * else,home folder checkbox, select all checkbox is false
+   */
   checkFilesSelectionIfCurrentFolderIsHome(){
     this.checkStatus = true;
     for(let file of this.multimediaFiles){
@@ -380,6 +466,12 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.isMasterSel = false;
     }
   }
+  /**
+   * Select multimedia file checkbox of a given index, set home folder to false
+   * If current folder is home folder, check all files
+   * else if all fles are selected , check select all checkbox
+   *    else uncheck select all checkbox
+   */
   checkFilesSelectionIfHomeIsNotCurrentFolder(i:number){
     this.multimediaFiles[i].isSelected = true;
       this.homeFile.isSelected = false;
@@ -402,6 +494,11 @@ export class ConfigureMultimediaComponent implements OnInit {
         }
       }
   }
+  /**
+   * If current folder is not home folder, deselct all folders 
+   * If multimedia file of given index is selected, 
+   * deslect given multimedia file index checkbox, selct all checkbox and home folder
+   */
   checkFilesSelection(i:number){
     if(this.currentFolder!== this.homeFile.folderName){
       for(let folder of this.multimedia.root){
@@ -421,7 +518,9 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
   }
 
-
+/**
+ * Push selected file ids and folder ids into delete files object
+ */
   getDeleteIdsIfHomeIsSelected(){
     console.log("if home is selected");
       this.deleteFiles_Folders.filesId = [];
@@ -446,6 +545,10 @@ export class ConfigureMultimediaComponent implements OnInit {
         }
       }
   }
+
+  /**
+   * Push selected file ids and folder ids into delete files object
+   */
   getDeleteIdsIfHomeIsCurrentFolder(){
     console.log("if current folder is home");
         this.deleteFiles_Folders.filesId = [];
@@ -463,7 +566,10 @@ export class ConfigureMultimediaComponent implements OnInit {
           }
         }
   }
-
+/**
+ * If folders selected, Get all delected folder ids into delete folder id array
+ * else get selected files into delete files id array
+ */
   getDeleteIdsIfHomeIsNotCurrentFolder(){
     this.deleteFiles_Folders.filesId = [];
         this.deleteFiles_Folders.foldersId = [];
@@ -488,6 +594,10 @@ export class ConfigureMultimediaComponent implements OnInit {
           this.getDeleteIdsFilesFromSubFolder();
         }
   }
+  /**
+   * Get current folder id into delete sub folder id and
+   * Get all selected files into delete files id array
+   */
   getDeleteIdsFilesFromSubFolder(){
     for(let file of this.multimediaFiles){
       if(file.isSelected){
@@ -500,6 +610,9 @@ export class ConfigureMultimediaComponent implements OnInit {
       }
     }
   }
+  /**
+   * Get all selected ids of both folders and files
+   */
   getDeleteIds(){
     this.deleteFiles_Folders.filesId = [];
     this.deleteFiles_Folders.foldersId = [];
@@ -529,7 +642,11 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
     console.log(this.deleteFiles_Folders);
   }
-
+/**
+ * Call configure service to delete files and folders
+ * If deleted successfully, show success message, update values 
+ * else show error message
+ */
   async deleteFilesAndFolders() {
     this.getDeleteIds();
     try{
@@ -548,6 +665,9 @@ export class ConfigureMultimediaComponent implements OnInit {
    
     console.log('delete');
   }
+  /**
+   * filter all delete ids in multimedia files and local storage
+   */
  removeIds(){
   for(let file of this.deleteFiles_Folders.filesId){
     this.multimedia.display = this. multimedia.display.filter(displayFile => displayFile.id!= file);
@@ -560,6 +680,7 @@ export class ConfigureMultimediaComponent implements OnInit {
   }
   this.updateLocalStorage();
  }
+ 
  updateLocalStorage(){
   this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
   this.teamDetail.powerboardResponse.multimedia = this.multimedia;
@@ -569,7 +690,11 @@ export class ConfigureMultimediaComponent implements OnInit {
   close() {
     this.newFolderName = '';
   }
-
+/**
+ * Call configure service to add a folder
+ * If folder added successfully, update in multimedia folder and local storage
+ * 
+ */
   async addFolder() {
     try{
       this.newSubFolder = new RootNew();
@@ -598,7 +723,10 @@ export class ConfigureMultimediaComponent implements OnInit {
     console.log(this.newFolderName);
   }
 
-  
+  /**
+   * Call configure service to add files and folders to slideshow
+   * If added successfully, show success message and update in slideshow
+   */
  async addToSlideShow(){
   this.checkSlideshowFilesAndFolders();
   try{

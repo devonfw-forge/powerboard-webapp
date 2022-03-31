@@ -21,6 +21,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
+
 export class AuthComponent implements OnInit {
   private authError: boolean;
   fieldTextType: boolean = false;
@@ -43,7 +44,10 @@ export class AuthComponent implements OnInit {
     this.authError = null;
     this.imagePath = ""
   }
-
+/**
+ * Form group is created
+ * Set validations for user
+ */
   ngOnInit(): void {
     this.asset_url= environment.AWS_ASSETS_URL as string;
     this.loginForm = this.fb.group({
@@ -51,7 +55,12 @@ export class AuthComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
-
+/**
+ *
+ * For the first time login, it navigates to reset passowrd screen
+ * else it checks for last logged in project(if any) and routes accordingly
+ * 
+ */
   async login() {
     try {
       this.powerboardLoginResponse = new PowerboardLoginResponse();
@@ -85,6 +94,7 @@ export class AuthComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
   }
+  
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
@@ -96,7 +106,10 @@ export class AuthComponent implements OnInit {
   getAuthError() {
     return this.authError;
   }
-
+/**
+ * 
+ * Logs-in guest user and routes to the teams screen
+ */
   async GuestLogin(){
 
     try {

@@ -18,6 +18,10 @@ export class ConfigComponent implements OnInit {
   ngOnInit(): void {
     this.checkNextRoute();
   }
+  /**
+   * Checks if you are inside a team then it routes to the setup screen(team configuration)
+   * else it will route to the teams screen which displays all teams present
+   */
   checkNextRoute(){
     if(this.generalService.IsShowNavBarIcons()){
       this.router.navigate(['setup'], {relativeTo:this.route});

@@ -17,7 +17,11 @@ export class ProjectDisplayComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.checkMyProjects();
   }
-
+/**
+ * Check if user is assigned to a project
+ * If user is assigned, set isMyProject variable to true
+ * else set isMyProject variable to false
+ */
   checkMyProjects(){
     this.generalService.isSettingsVisible=false;
     this.generalService.showNavBarIcons = false;

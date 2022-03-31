@@ -51,7 +51,11 @@ export class SlideshowService {
         win.maximize();
       }
     } */
-  
+  /**
+   * Push dashboard and slideshow multimedia into sildeshow array
+   * If permission to view links is available and electron is running, push links to slideshow array
+   * Vavigate to slideshow component
+   */
     public checkSlideshowArray(){
       this.slideshowIndex = 0;
       this.slideshowArray = [];
@@ -68,7 +72,11 @@ export class SlideshowService {
         this.router.navigateByUrl("teams/slideshow");
       }
     }
-  
+  /**
+   * If slideshow is running 
+   * slide show index reaches to 0, move index to start of array
+   * else move to next index
+   */
     public moveSlideshowNextComponent(){
       if(this.isSlideshowRunning){
       if(this.slideshowIndex == this.slideshowArray.length-1){
@@ -79,7 +87,12 @@ export class SlideshowService {
       this.router.navigateByUrl(this.slideshowArray[this.slideshowIndex]);
     }
     }
-  
+  /**
+   * If slideshow is running 
+   * slide show index reaches to 0, move index to end of array
+   * else move to previous index
+   *
+   */
     public moveSlideshowPreviousComponent(){
       if(this.isSlideshowRunning){
       if(this.slideshowIndex == 0){

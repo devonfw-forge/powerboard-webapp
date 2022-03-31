@@ -25,6 +25,10 @@ export class MyProjectsComponent implements OnInit {
     console.log(this.myTeams);
   }
 
+  /**
+   * 
+   * Get team details using teamId by calling team detail service
+   */
   async getTeamDetails(teamId: string) {
     try {
       await this.teamDetailsService.processTeamDetails(teamId);
