@@ -35,6 +35,7 @@ export class LinksComponent implements OnInit {
     }
   }
 
+
   ngOnInit(): void {
     this.getLinks();
     this.webLinkCount = 0;
@@ -49,7 +50,12 @@ export class LinksComponent implements OnInit {
     }
 
   }
-
+/**
+ * If electron is running, set attribute to web view
+ *  If slideshow running, check web link index
+ * If web link index length = 1, move slideshow to next component
+ * else if length not equal to 1, automate webLinks
+ */
   ngAfterViewInit() {
     if (this.isElectronRunning) {
       console.log("I am not suppose to be present here");
@@ -81,6 +87,11 @@ export class LinksComponent implements OnInit {
   }
 
 
+  /**
+   * Get all team links from local storage
+   * Seperate web links in a new array
+   * If erc is empty, set src to first web link
+   */
   public getLinks() {
     this.webLinksIndex = [];
     this.teamLinks = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks;
@@ -96,12 +107,21 @@ export class LinksComponent implements OnInit {
     }
     console.log(this.webLinksIndex.length);
   }
-
+/**
+ * Automate all web links with specified time internal
+ *  
+ */
   automateWebLinks(interval: number) {
 
     this.intervalID = setInterval(() => this.openLink(this.teamLinks[this.webLinksIndex[this.counter]].links), interval);
   }
 
+
+  /**
+ * If electron running, open meeting link in same window
+ * else, open in new tab
+ *  
+ */
   openMeetingLink(meetingLink: string) {
     if (!this.isElectronRunning) {
       window.open(meetingLink, '_blank');
@@ -113,6 +133,12 @@ export class LinksComponent implements OnInit {
     }
   }
 
+  /**
+   * If electron not running, open link in same window
+   * else set attribute to web view
+   *    if slideshow running, automate the links 
+   * 
+   */
   openLink(link: string) {
     console.log(link);
     console.log(this.webLinksIndex[this.counter]);
@@ -145,7 +171,9 @@ export class LinksComponent implements OnInit {
       }
     }
   }
-
+/**
+ * If interval id is defined, clear interval and set counter to 0
+ */
   ngOnDestroy() {
     if (this.intervalID) {
       this.counter = 0;

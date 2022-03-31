@@ -19,7 +19,10 @@ export class ConfigService {
   currentTeam: TeamsResponse = new TeamsResponse();
   public teamDetails: TeamDetailResponse = new TeamDetailResponse();
 
-
+/**
+ * Get all roles of a user, when config component is called
+ * 
+ */
     constructor(private http: HttpClient) { 
       this.roles = [];
       this.getRoles().then(
@@ -54,6 +57,10 @@ export class ConfigService {
     }
   
   
+    /** 
+     * Get all team details from local storage
+     * 
+    */
     public getTeamDetails(){
       this.teamDetails = new TeamDetailResponse();
       this.teamDetails = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
@@ -63,6 +70,9 @@ export class ConfigService {
       localStorage.setItem('TeamDetailsResponse',JSON.stringify(this.teamDetails));
     }
   
+    /**
+     * Get all user roles from local storage
+     */
     async getRoles():Promise<RolesResponse[]>{
       return this.http.get<RolesResponse[]>(
         environment.globalEndPoint + UrlPathConstants.viewAllUserRolesEndPoint ).toPromise();

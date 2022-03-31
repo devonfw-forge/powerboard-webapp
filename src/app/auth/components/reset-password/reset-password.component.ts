@@ -18,7 +18,11 @@ fieldTextTypeConfirm: boolean = false;
 resetForm : PasswordResetForm = new PasswordResetForm();
 resetPasswordForm: FormGroup;
   constructor(public authService : AuthService, private router :Router, private fb: FormBuilder, public generalService : GeneralService) { }
-
+/**
+ * Form group is created
+ * Set validations for user
+ * Get userId from the local storage
+ */
   ngOnInit(): void {
     this.resetPasswordForm = this.fb.group({
       oldPassword: ['', [Validators.required, Validators.minLength(3)]],
@@ -27,6 +31,10 @@ resetPasswordForm: FormGroup;
     });
     this.resetForm.userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
   }
+  /**
+   * Sends a reset password form containing 
+   * old password, new password and userID to the auth service
+   */
   async resetPassword(){
     try{
       this.resetForm.oldPassword = this.resetPasswordForm.controls['oldPassword'].value;
@@ -52,6 +60,7 @@ resetPasswordForm: FormGroup;
     this.fieldTextTypeOld = !this.fieldTextTypeOld;
   }
 
+  
   toggleFieldTextTypeNew() {
     this.fieldTextTypeNew = !this.fieldTextTypeNew;
   }

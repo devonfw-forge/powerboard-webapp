@@ -20,5 +20,7 @@
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
-  }
+  },
+  "entryPoints": ["src/main.ts"],
+        "out": "docs"
 }

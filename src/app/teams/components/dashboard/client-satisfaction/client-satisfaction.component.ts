@@ -18,6 +18,13 @@ export class ClientSatisfactionComponent implements OnInit {
       this.componentReady=false;
   }
 
+  /**
+   * Get client status details from local storage
+   * Check the client status rating
+   * If rating < 3.3, set colour to red
+   * else if rating > 3.3 & rating < 6.7, set colour to orange
+   * else set colour to green
+   */
   ngOnInit(): void {
     this.aws_asset= environment.AWS_ASSETS_URL as string;
     this.clientStatus = JSON.parse(
@@ -42,6 +49,10 @@ export class ClientSatisfactionComponent implements OnInit {
     }
   }
 
+  /**
+   * Sets the properties for client satisfaction gauge
+   * Set colour for gauge according to the rating value
+   */
   initChart() {
     this.chartOption = {
         series: [

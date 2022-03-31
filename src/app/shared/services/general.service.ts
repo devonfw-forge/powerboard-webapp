@@ -92,21 +92,22 @@ export class GeneralService {
     }
     console.log(this.permissions);
   }
-
+/**
+ * Filter value from permissions
+ * 
+ */
   public removeTeamDetailsPermissions(value: string[]) {
-    console.log('filter teams per value');
-    console.log(value);
-    console.log('all permissions begore filter');
-    console.log(this.permissions);
     if (this.permissions && value) {
       this.permissions = this.permissions.filter(
         (ar) => !value.find((rm) => rm === ar)
       );
     }
-
-    console.log('all permissions after filter');
-    console.log(this.permissions);
   }
+  /**
+   * Check current team or project
+   * Remove permissions and response 
+   * Navigate to login screen
+   */
   public logout() {
     this.sendLastLoggedIn();
     localStorage.removeItem('PowerboardDashboard');
@@ -119,6 +120,9 @@ export class GeneralService {
     this.checkVisibility();
     this.router.navigate(['/']);
   }
+  /**
+   * Check pemissions and set them, if permissions exists
+   */
 checkVisibilityIfLoginComplete(){
   this.isHomeVisible = true;
       this.isLogoutVisible = true;
@@ -132,6 +136,9 @@ checkVisibilityIfLoginComplete(){
         
       }
 }
+/**
+ * Check Permission for visiblity and set them accordingly for second nav bar
+ */
 checkVisibilityIfNavBarAndLoginTrue(){
   this.isDashboardVisible = true;
       this.isMultimediaVisible = true;
@@ -150,6 +157,9 @@ checkVisibilityIfNavBarAndLoginTrue(){
         
       }
 }
+/**
+ * If login completed, check permissions and set accordingly
+ */
   checkVisibility() {
     if (this.getLoginComplete()) {
        this.checkVisibilityIfLoginComplete();
@@ -191,7 +201,10 @@ checkVisibilityIfNavBarAndLoginTrue(){
   public setisGuestLogin(value: boolean) {
     this.isGuestLogin = value;
   }
-
+/**
+ * If last logged in project details exists, navigate directly to the dashboard on next login
+ * else navigated to project display screen
+ */
   public checkLastLoggedIn() {
     if (this.powerboardLoginResponse.loginResponse.powerboardResponse) {
       this.teamDetails.powerboardResponse = this.powerboardLoginResponse.loginResponse.powerboardResponse;
@@ -209,6 +222,9 @@ checkVisibilityIfNavBarAndLoginTrue(){
     }
   }
 
+  /**
+   * Store the last checked in project details 
+   */
   storeLastLoggedIn() {
     this.userIdTeamIdDetails.userId = JSON.parse(
       localStorage.getItem('PowerboardDashboard')
@@ -246,7 +262,11 @@ checkVisibilityIfNavBarAndLoginTrue(){
       )
       .toPromise();
   }
-
+/**
+ * Check if logo path is null or undefined
+ * If it is null or undefined, return null
+ * else extract logo path and return the path
+ */
   public getLogoPath(){
     if(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo){
       const path = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.logo;

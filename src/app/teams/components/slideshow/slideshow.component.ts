@@ -10,8 +10,6 @@ import { SlideshowService } from '../../services/slideshow.service';
 export class SlideshowComponent implements OnInit {
     constructor(public router: Router, public slideShowService : SlideshowService) 
       {
-  
-    
        }
   
     ngOnInit(): void {
