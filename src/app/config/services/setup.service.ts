@@ -107,4 +107,27 @@ export class SetupService {
     return this.http
     .post<any>(environment.globalEndPoint + UrlPathConstants.addToSlideshowEndPoint + teamId, {fileAndFolderIds}).toPromise();
   }
+
+
+
+  async uploadXLSXFile(file:File, type, teamId):Promise<any>{
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    console.log(formData);
+    return this.http
+    .post<any>(environment.globalEndPoint + UrlPathConstants.uploadXLSXEndPoint + type + '/' + teamId, formData).toPromise();
+
+  }
+
+  
+  async uploadClientRating(clientRating, type, teamId):Promise<any>{
+    console.log({clientRating});
+    console.log(type);
+    console.log(teamId);
+    return this.http
+    .post<any>(environment.globalEndPoint + UrlPathConstants.uploadClientRatingEndPoint + type + '/' + teamId, {clientRating}).toPromise();
+
+  }
 }
+
+

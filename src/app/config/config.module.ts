@@ -28,6 +28,7 @@ import { ADcenterFilterPipe } from './pipes/adcenter-filter.pipe';
 import { ConfigureMultimediaComponent } from './components/setup/configure-multimedia/configure-multimedia.component';
 import { EditTeamMemberComponent } from './components/team/view-all-team-members/edit-team-member/edit-team-member.component';
 import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
+import { DataUploadComponent } from './components/setup/data-upload/data-upload.component';
 
 
 const routes: Routes = [{
@@ -49,6 +50,7 @@ const routes: Routes = [{
         { path: 'configure-multimedia', component: ConfigureMultimediaComponent,},
         { path: 'configure-links', component: ConfigureTeamLinksComponent },
         { path: 'view-members', component: ViewAllTeamMembersComponent },
+        { path: 'upload-data', component: DataUploadComponent },
       ]
     }
   ]
@@ -73,6 +75,7 @@ const routes: Routes = [{
     ADcenterFilterPipe,
     ConfigureMultimediaComponent,
     EditTeamMemberComponent,
+    DataUploadComponent,
   ],
   imports: [
     CommonModule,

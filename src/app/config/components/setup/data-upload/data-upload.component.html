@@ -1,0 +1,106 @@
+<div class="pt-5">
+  <div class="mt-5 text-left">
+    <input
+      type="radio"
+      class="ml-5"
+      id="jira"
+      [checked]="selected === 1"
+      value="1"
+      (change)="changeSelected(1)"
+    />
+    <label style="color: #0070ad; margin-left: 5px;" for="html"> Jira</label>
+
+    <input
+      type="radio"
+      class="ml-5"
+      id="sonar"
+      [checked]="selected === 2"
+      value="2"
+      (change)="changeSelected(2)"
+    />
+    <label style="color: #0070ad; margin-left: 5px;" for="html"> Sonar</label>
+
+    <input
+      type="radio"
+      class="ml-5"
+      id="jira"
+      [checked]="selected === 3"
+      value="1"
+      (change)="changeSelected(3)"
+    />
+    <label style="color: #0070ad; margin-left: 5px;" for="html"> Client Satisfaction</label>
+  </div>
+
+  <div class="mt-5">
+    <span class="btn btn-primary btn-file" *ngIf="selected === 1">
+      <span class="material-icons mat-icon">file_upload</span>
+      <span style="font-size: 16px"> Upload Jira</span>
+      <input
+        type="file"
+        accept=".xlsx , .xls , .csv"
+        (change)="uploadFile($event, 'jira')"
+      />
+    </span>
+
+    <span class="btn btn-primary btn-file" *ngIf="selected === 5">
+      <span class="material-icons mat-icon">file_upload</span>
+      <span style="font-size: 16px"> Upload Sonar</span>
+      <input
+        type="file"
+        accept=".xlsx , .xls , .csv"
+        (change)="uploadFile($event, 'sonar')"
+      />
+    </span>
+
+    <form style="margin-left: 100px;" class="col-md-8" [formGroup]="form" autocomplete="off" *ngIf="selected === 3" >
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th id="Team_code">Client satisfaction rating</th>
+            <td>
+              <div>
+                <div class="form-group input-field">
+                  <input style="min-width: 200px;"
+                    class="form-control"
+                    formControlName="clientRating"
+                    type="number"
+                    max="10"
+                    min="1"
+                  />
+                  <div style="min-height: 40px;">
+
+                  
+                  <label
+                    class="text-danger"
+                    *ngIf="
+                      form.get('clientRating').touched &&
+                      form.get('clientRating').errors?.required
+                    "
+                  >
+                    Required Field
+                  </label>
+                </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div style="display: flex; justify-content: center">
+                <div class="button">
+                  <button
+                    class="btn btn-outline btn-cg"
+                    [ngClass]="{ disabled: !form.valid }"
+                    (click)="uploadClientRating()"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>
