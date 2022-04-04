@@ -40,6 +40,8 @@
         accept=".xlsx , .xls , .csv"
         (change)="uploadFile($event, 'jira')"
       />
+
+      <div *ngIf="errorMsg != ''" class="text-danger" >{{errorMsg}}</div>
     </span>
 
     <span class="btn btn-primary btn-file" *ngIf="selected === 5">

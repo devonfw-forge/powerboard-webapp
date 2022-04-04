@@ -12,6 +12,7 @@ export class DataUploadComponent implements OnInit {
   selected: number;
   form: FormGroup;
   teamId: string;
+  errorMsg:string = "";
 
   constructor(public setupService: SetupService,  private notifyService: NotificationService, public fb: FormBuilder) {
     
@@ -40,6 +41,7 @@ export class DataUploadComponent implements OnInit {
  */
   async uploadFile(event, type:string) {
     try {
+      this.errorMsg="";
       const file = (event.target as HTMLInputElement).files[0];
       const data = await this.setupService.uploadXLSXFile(
         file,
@@ -48,8 +50,13 @@ export class DataUploadComponent implements OnInit {
       );
       this.notifyService.showSuccess('', 'File uploaded successfully');
     } catch (e) {
+      console.log(e);
       console.log(e.error.message);
-      this.notifyService.showError('', e.error.message);
+      this.errorMsg=e.error.message;
+      let errors = e.error.message.split(",");
+      for(let error of errors){
+        this.notifyService.showError('', error);
+      }  
     }
   }
 
@@ -67,6 +74,7 @@ export class DataUploadComponent implements OnInit {
       this.notifyService.showSuccess('', 'Client Rating updated successfully');
     } catch (e) {
       console.log(e.error.message);
+      console.log(e);
       this.notifyService.showError('', e.error.message);
     }
   }

@@ -1,7 +1,7 @@
 
  <div class="row">
   <div class="col-md-12" style=" font-weight: 500;">Client Satisfaction</div>
-  <div class="col-md-12  mt-1" style="height:120px; overflow: hidden;">
+  <div *ngIf="clientStatus?.clientSatisfactionRating" class="col-md-12  mt-1" style="height:120px; overflow: hidden;">
     <div class="row">
       <div class="col-md-6">
         <div *ngIf="clientStatus?.clientSatisfactionRating < 6.6">
@@ -44,10 +44,11 @@
               <div *ngIf="clientStatus?.clientSatisfactionRating > 6.5">
                 <div ><img class="emoji" alt="" [src]="aws_asset+'Images/green.jpeg' "></div>
               </div>
-              <div *ngIf="!componentReady">
-                <h3>Data unavailable</h3>
-              </div>
+             
         </div>
     </div>
+  </div>
+  <div class="mt-5" *ngIf="!componentReady">
+    <span class="ml-4">Data unavailable</span>
   </div>
 </div>
