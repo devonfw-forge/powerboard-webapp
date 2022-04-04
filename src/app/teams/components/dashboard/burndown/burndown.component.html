@@ -11,23 +11,23 @@
           <div *ngIf="burnDown?.burndownStatus === 'Behind Time'">
               <div class="text-danger">
                   <h5>
-                      (<span>-</span>{{burnDown?.count}})&nbsp;{{burnDown?.burndownStatus}}
+                      (<span>-</span>{{burnDown?.count | number : '1.0-0'}})&nbsp;{{burnDown?.burndownStatus}}
                   </h5>
               </div>
           </div>
           <div *ngIf="burnDown?.burndownStatus === 'Ahead Time' || burnDown?.burndownStatus === 'On Time'"> 
               <div class="text-success">
                   <h5>
-                      (<span>+</span>{{burnDown?.count}})&nbsp;{{burnDown?.burndownStatus}}
+                      (<span>+</span>{{burnDown?.count | number : '1.0-0'}})&nbsp;{{burnDown?.burndownStatus}}
                   </h5>
               </div>
           </div>
       </div>
       <div class="col-md-3">
-        <div class="row"><h5>{{burnDown?.remainingDays}}</h5> &nbsp; Days Remaining</div>
+        <div class="row"><h5>{{burnDown?.remainingDays | number : '1.0-0'}}</h5> &nbsp; Days Remaining</div>
       </div>
       <div class="col">
-        <div class="row ml-1"><h5>{{burnDown?.remainingWork}}</h5>&nbsp; {{burnDown?.workUnit | titlecase}}&nbsp; Remaining</div>
+        <div class="row ml-1"><h5>{{burnDown?.remainingWork | number : '1.0-0'}}</h5>&nbsp; {{burnDown?.workUnit | titlecase}}&nbsp; Remaining</div>
       </div>
     </div>
   </div>

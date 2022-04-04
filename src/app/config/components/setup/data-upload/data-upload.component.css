@@ -68,3 +68,27 @@
       margin: 0px;
       padding:0px
     }
+    .spinnerPosition{
+      position: absolute;
+      width: 53%;
+      bottom: 230px;
+      left:30%;
+      height: 104px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      backdrop-filter: blur(1px);
+      z-index: 1;
+  }
+  .spinner-border {
+    display: inline-block;
+    color: #0070AD;
+    width: 2rem;
+    height: 2rem;
+    margin-top: 34px;
+    vertical-align: text-bottom;
+    border: .25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border .75s linear infinite;
+  }

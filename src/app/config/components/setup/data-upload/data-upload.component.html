@@ -10,7 +10,7 @@
     />
     <label style="color: #0070ad; margin-left: 5px;" for="html"> Jira</label>
 
-    <input
+    <!-- <input
       type="radio"
       class="ml-5"
       id="sonar"
@@ -18,7 +18,7 @@
       value="2"
       (change)="changeSelected(2)"
     />
-    <label style="color: #0070ad; margin-left: 5px;" for="html"> Sonar</label>
+    <label style="color: #0070ad; margin-left: 5px;" for="html"> Sonar</label> -->
 
     <input
       type="radio"
@@ -32,6 +32,9 @@
   </div>
 
   <div class="mt-5">
+    <div class="spinnerPosition" *ngIf="spinner" >
+      <div class="spinner-border"></div>
+    </div>
     <span class="btn btn-primary btn-file" *ngIf="selected === 1">
       <span class="material-icons mat-icon">file_upload</span>
       <span style="font-size: 16px"> Upload Jira</span>
@@ -40,6 +43,8 @@
         accept=".xlsx , .xls , .csv"
         (change)="uploadFile($event, 'jira')"
       />
+
+      <div *ngIf="errorMsg != ''" class="text-danger" >{{errorMsg}}</div>
     </span>
 
     <span class="btn btn-primary btn-file" *ngIf="selected === 5">
