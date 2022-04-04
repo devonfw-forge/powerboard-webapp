@@ -43,7 +43,7 @@
         accept=".xlsx , .xls , .csv"
         (change)="uploadFile($event, 'jira')"
       />
-      
+
       <div *ngIf="errorMsg != ''" class="text-danger" >{{errorMsg}}</div>
     </span>
 
@@ -51,7 +51,6 @@
       <span class="material-icons mat-icon">file_upload</span>
       <span style="font-size: 16px"> Upload Sonar</span>
       <input
-      id="uploadFile"
         type="file"
         accept=".xlsx , .xls , .csv"
         (change)="uploadFile($event, 'sonar')"

@@ -34,54 +34,53 @@ export class DataUploadComponent implements OnInit {
   }
 
 
-
   
 /**
  * upload xlsx file
  * show success message if uploaded successfully
  * else show error message
  */
-  async uploadFile(event, type:string) {
-    const file = (event.target as HTMLInputElement).files[0];
-    try {
-      this.errorMsg="";
-      this.spinner = true;
-      const data = await this.setupService.uploadXLSXFile(
-        file,
-        type,
-        this.teamId
-      );
-      this.spinner = false;
-      event.target.value= null;
-      this.notifyService.showSuccess('', 'File uploaded successfully');
-    } catch (e) {
-      this.spinner = false;
-      event.target.value= null;
-      console.log(e.error.message);
-      this.errorMsg=e.error.message;
-      let errors = e.error.message.split(",");
-      for(let error of errors){
-        this.notifyService.showError('', error);
-      }  
-    }
+async uploadFile(event, type:string) {
+  const file = (event.target as HTMLInputElement).files[0];
+  try {
+    this.errorMsg="";
+    this.spinner = true;
+    const data = await this.setupService.uploadXLSXFile(
+      file,
+      type,
+      this.teamId
+    );
+    this.spinner = false;
+    event.target.value= null;
+    this.notifyService.showSuccess('', 'File uploaded successfully');
+  } catch (e) {
+    this.spinner = false;
+    event.target.value= null;
+    console.log(e.error.message);
+    this.errorMsg=e.error.message;
+    let errors = e.error.message.split(",");
+    for(let error of errors){
+      this.notifyService.showError('', error);
+    }  
   }
+}
 
-  changeSelected(num: number) {
-    this.selected = num;
-  }
+changeSelected(num: number) {
+  this.selected = num;
+}
 
-  async uploadClientRating() {
-    try {
-      const data = await this.setupService.uploadClientRating(
-        this.form.get('clientRating').value,
-        "clientstatus",
-        this.teamId
-      );
-      this.notifyService.showSuccess('', 'Client Rating updated successfully');
-    } catch (e) {
-      console.log(e.error.message);
-      console.log(e);
-      this.notifyService.showError('', e.error.message);
-    }
+async uploadClientRating() {
+  try {
+    const data = await this.setupService.uploadClientRating(
+      this.form.get('clientRating').value,
+      "clientstatus",
+      this.teamId
+    );
+    this.notifyService.showSuccess('', 'Client Rating updated successfully');
+  } catch (e) {
+    console.log(e.error.message);
+    console.log(e);
+    this.notifyService.showError('', e.error.message);
   }
+}
 }
