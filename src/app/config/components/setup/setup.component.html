@@ -1,52 +1,57 @@
+<div [ngClass]="setupService.admin_setup ? 'full-container' : 'no-container'">
+  <div class="row mt-1">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div *ngIf="setupService.admin_setup" class="row">
+        <a><img [src]="aws_asset+'layoutAssets/navbar/logo1.png' " alt="" class="navbar-logo"></a>
+        <span  style="border-left: 2px solid #0070AD; padding-left: 5px; height: 35px;">
+            <strong style="margin-left: 5px; font-size: 20px;color: #0070AD;">Powerboard</strong>
+        </span>
+      </div>
+      
+    </div>
+  </div>
 
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-       
+  <div class="main-container" >
+    <div [ngClass]="setupService.admin_setup ? 'nowrapper' : 'wrapper'" class="row">
+      <div [ngClass]="setupService.admin_setup ? 'whiteHeader' : 'blueHeader'" ></div>
+      <div *ngIf="!setupService.admin_setup"  id="side-menu">
+        <div class="navigation">
+          <ul>
+            <li class="list active" (click)="changeActive(1); showEditTeam()">
+              <a>
+                <span class="title">Edit Team</span>
+              </a>
+            </li> 
+            <li class="list" (click)="changeActive(2); showViewTeamMember()">
+              <a>
+                <span class="title">View Members</span>
+              </a>
+            </li>
+
+            <li class="list" (click)="changeActive(3); showTeamLink()">
+              <a>
+                <span class="title">Links</span>
+              </a>
+            </li>
+
+            <li class="list" (click)="changeActive(4); showMultimedia()">
+              <a>
+                <span class="title">Multimedia</span>
+              </a>
+            </li>
+
+            <li class="list" (click)="changeActive(5); showDataUpload()">
+              <a>
+                <span class="title">Data Upload</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div [ngClass]="setupService.admin_setup ? 'popup' : 'side-container'" >
+        <router-outlet></router-outlet>
       </div>
     </div>
-    
-    <div style="background-color: white">
-      <div id="wrapper" class="row">
-        <div style="height: 40px; width: 100%; background-color: #f1f8fc">
-        </div>
-        <div id="side-menu">
-          <div class="navigation">
-            <ul>
-              <li class="list active" (click)="changeActive(1); showEditTeam()">
-                <a>
-                  <span class="title">Edit Team</span>
-                </a>
-              </li>
-              <li class="list" (click)="changeActive(2); showViewTeamMember()">
-                <a>
-                  <span class="title">View Members</span>
-                </a>
-              </li>
-    
-              <li class="list" (click)="changeActive(3); showTeamLink()">
-                <a>
-                  <span class="title">Links</span>
-                </a>
-              </li>
-    
-              <li class="list" (click)="changeActive(4);showMultimedia()">
-                <a>
-                  <span class="title">Multimedia</span>
-                </a>
-              </li>
-
-              <li class="list" (click)="changeActive(5);showDataUpload()">
-                <a>
-                  <span class="title">Data Upload</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div id="side-container">
-          <router-outlet></router-outlet>
-        </div>
-      </div>
-    </div>
-    
+  </div>
+</div>

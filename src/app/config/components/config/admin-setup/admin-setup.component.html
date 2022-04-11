@@ -1,0 +1,72 @@
+<div class="modal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header pl-4">
+        <h5 class="modal-title pl-2" id="exampleModalLabel">Admin Config</h5>
+      </div>
+      <div class="modal-body pb-1">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+             
+            </div>
+          </div>
+          
+          <div style="background-color: white">
+            <div id="wrapper" class="row">
+              <div style="height: 40px; width: 100%; background-color: #f1f8fc">
+              </div>
+              <div id="side-menu">
+                <div class="navigation">
+                  <ul>
+                    <li class="list active" (click)="changeActive(1)">
+                      <a>
+                        <span class="title">Edit Team</span>
+                      </a>
+                    </li>
+                    <li class="list" (click)="changeActive(2)">
+                      <a>
+                        <span class="title">View Members</span>
+                      </a>
+                    </li>
+          
+                    <li class="list" (click)="changeActive(3)">
+                      <a>
+                        <span class="title">Links</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="side-container">
+               
+              </div>
+            </div>
+          </div>
+          
+      </div>
+      <div class="footer pt-2 pb-4">
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-8">
+            <button
+              type="button"
+              class="btn btn-basic btn-custom btn-cg mr-2 ml-3"
+              data-dismiss="modal"
+            >
+              Skip
+            </button>
+            <button
+              type="button"
+              class="btn btn-basic btn-custom btn-cg ml-2 mr-2"
+              data-dismiss="modal"
+              
+            >
+              Save & Continue
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

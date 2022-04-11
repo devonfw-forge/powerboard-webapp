@@ -1,6 +1,8 @@
 
+<div>
 
-<div class="hoverContainer col-md-12" *ngIf="slideShowService.isSlideshowRunning">
+
+<div class="hoverContainer col-md-12" *ngIf="slideShowService.isSlideshowRunning ">
   <div (click)="slideShowService.stopSlideShow()" style="color: grey; cursor: pointer;" class="text-right">
    <span style="font-size: 30px;" class="material-icons-outlined">
      cancel
@@ -15,7 +17,7 @@
  
  
  
-   <nav aria-label="navbar" class="navbar navbar-expand-lg navbar-light" *ngIf="generalService.getLoginComplete() && !slideShowService.isSlideshowRunning" id="navbarborder">
+   <nav aria-label="navbar" class="navbar navbar-expand-lg navbar-light" *ngIf="generalService.getLoginComplete() && !slideShowService.isSlideshowRunning && !setupSerive.admin_setup" id="navbarborder">
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
@@ -55,7 +57,7 @@
      </div>
    </nav>
  
-   <nav aria-label="second navbar" class="navbar navbar-expand-lg navbar-light" *ngIf="generalService.IsShowNavBarIcons()  && !slideShowService.isSlideshowRunning" id="subnavbar">
+   <nav aria-label="second navbar" class="navbar navbar-expand-lg navbar-light" *ngIf="generalService.IsShowNavBarIcons()  && !slideShowService.isSlideshowRunning && !setupSerive.admin_setup" id="subnavbar">
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
@@ -144,3 +146,6 @@
  </div>
    
    <button data-toggle="modal" data-target=".bd-example-modal-sm" style="display: none;" id="openLogoutModal"></button>
+
+
+  </div>

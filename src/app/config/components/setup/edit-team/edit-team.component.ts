@@ -7,6 +7,7 @@ import { SetupService } from '../../../services/setup.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-team',
@@ -29,9 +30,10 @@ export class EditTeamComponent implements OnInit {
   form: FormGroup;
   constructor(
     public generalService: GeneralService,
-    private setupService: SetupService,
+    public setupService: SetupService,
     private notifyService : NotificationService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private router:Router
   ) {
     this.isLogo = false;
    
@@ -165,5 +167,9 @@ if(JSON.parse(
       console.log(e);
       this.notifyService.showError("", e);
     }
+  }
+
+  saveAndNext(){
+    this.router.navigate(['config/setup/view-members']);
   }
 }

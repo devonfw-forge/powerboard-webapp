@@ -6,6 +6,7 @@ import { SlideshowService } from './teams/services/slideshow.service';
 import { NavigationService } from './shared/services/navigation.service';
 import { TeamDetailsService } from './teams/services/team-details.service';
 import { environment } from 'src/environments/environment';
+import { SetupService } from './config/services/setup.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ export class AppComponent implements OnInit {
     public navigation: NavigationService,
     public router: Router,
     public location: Location,
-    public teamDetailService: TeamDetailsService
+    public teamDetailService: TeamDetailsService,
+    public setupSerive: SetupService
   ) {
     this.teamName = '';
   }

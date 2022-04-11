@@ -1,3 +1,22 @@
+.main-container{
+  text-align: center; 
+  width: 95%; 
+  margin-top: 7%;
+  justify-content: center;
+}
+.popup-container{
+  text-align: center; 
+  margin-top: 2%;
+  justify-content: center;
+}
+.popup-heading{
+  color: #0070AD; 
+  font-size: 25px; 
+  font-weight: 400; 
+  margin-bottom: 2%;
+}
+
+
 .input-field input {
   background: transparent;
  /*  background-color: white; */

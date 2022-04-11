@@ -1,5 +1,24 @@
 
-
+.container{
+  background-color: white;
+}
+.full-container{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width:100%;
+  background-color: white;
+  overflow: hidden;
+}
+.navbar-logo{
+  height: 30px;
+  margin: 4px;
+  margin-right: 9px;
+}
+.no-container{
+  background-color: white;
+}
 .navigation{
   position: relative;
   /* top: 10px;
@@ -132,21 +151,36 @@
      border-width: 1px;
    }
 
-.sideMenu{
- height: 200px;
+   .main-container{
+    background-color: white; 
+    height: 100%;
+   }
 
-}
-.sideContainer{
- height: 200px;
-}
 
-#wrapper {
+.wrapper {
  width: 83.33%;
  margin: 0 auto;
  height: 72vh;
  display: flex;
  box-shadow: 0px 0px 12.0119px rgba(0, 0, 0, 0.102);
 }
+.nowrapper {
+  width: 83.33%;
+  margin: 0 auto;
+  height: 72vh;
+  display: flex;
+  margin-top: 2%;
+ }
+
+ .blueHeader{
+  height: 40px; 
+  width: 100%; 
+  background-color: #f1f8fc;
+ }
+ .whiteHeader{
+  height: 40px; 
+  width: 100%; 
+ }
 #side-menu{
  height: 100%;
  background: #F1F8FC;
@@ -155,7 +189,7 @@
  text-align: center;
  
 }
-#side-container{
+.side-container{
  overflow: auto;
  height: 100%;
  width:84%;
@@ -166,4 +200,16 @@ border-left: 0;
  text-align: center;
  box-shadow: 0px 0px 12.0119px rgba(0, 0, 0, 0.102);
 }
+.popup{
+  overflow: hidden;
+  height: 100%;
+  width: 84%;
+  border: 2px solid #F1F8FC;
+  margin-left: 9%;
+  border-left: 0px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0px 0px 24.0119px rgb(0 0 0 / 75%);
+}
+
 
