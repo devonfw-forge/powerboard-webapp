@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { HostListener, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TeamDetails, PowerboardLoginResponse, HomeResponse } from 'src/app/auth/model/auth.model';
+import { SetupService } from 'src/app/config/services/setup.service';
 import { UrlPathConstants } from 'src/app/UrlPaths';
 import { environment } from '../../../environments/environment';
 
@@ -48,7 +49,8 @@ export class GeneralService {
 
   public showNavBarIcons: boolean;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient,
+    private setupService: SetupService) {
     this.isHomeVisible = false;
     this.isLogoutVisible = false;
     this.isDashboardVisible = false;
@@ -207,16 +209,18 @@ checkVisibilityIfNavBarAndLoginTrue(){
  */
   public checkLastLoggedIn() {
     if (this.powerboardLoginResponse.loginResponse.powerboardResponse) {
+       /* Remove and mention condition */
+      this.setupService.activeAdminSetup();
       this.teamDetails.powerboardResponse = this.powerboardLoginResponse.loginResponse.powerboardResponse;
       localStorage.setItem(
         'TeamDetailsResponse',
         JSON.stringify(this.teamDetails)
       );
-
+      
       this.showNavBarIcons = true;
       this.checkVisibility();
-
-      this.router.navigate(['teams/dashboard']);
+      /* Remove and mention condition and change to dashboard*/
+      this.router.navigate(['config']);
     } else {
       this.router.navigate(['teams/projects']);
     }

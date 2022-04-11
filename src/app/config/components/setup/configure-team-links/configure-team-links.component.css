@@ -3,6 +3,29 @@
   text-align: initial;
 }
 
+.main-container{
+  height:100%;
+  padding-top: 5%;
+  padding-left: 3%;
+  width:98%;
+}
+.popup-container{
+  height: 86%;
+  padding-top: 2%;
+  padding-left: 3%;
+}
+.popup-heading{
+  color: #0070AD; 
+  font-size: 25px; 
+  font-weight: 400; 
+  margin-bottom: 2%;
+}
+
+.subHeading{
+  margin-left: 11%;
+  color:#0070AD;
+}
+
 .alignment{
   text-align: initial;
 }
@@ -62,17 +85,37 @@
 }
 
 
-.btn-cg{
+.btn-cg-color{
   
   color: #0070AD;
   border-color:  #0070AD;
 
   }
 
-  .btn-cg:hover{
+  .btn-cg-color:hover{
     background-color: #0070AD;
     color: white;
   }
   .title{
     color: #525151;
   }
+
+  .btn-cg{
+ 
+    Width :157px;
+    Height :36px;
+    margin-left: 10px;
+    
+    /* Primary/Capgemini blue */
+    color: #0070AD;
+    border: 2px solid #0070AD;
+    
+    border-radius: 30px;
+    padding-top: 2%;
+    }
+    
+    .btn-cg:hover{
+      color: white;
+      background-color: #0070AD;
+      border: none;
+    }

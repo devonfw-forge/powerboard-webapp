@@ -13,6 +13,7 @@ import {
 })
 export class SetupService {
 
+  admin_setup: boolean = false;
   
   viewSubFolder: boolean= false;
   selectedSubFolderId: string='';
@@ -20,7 +21,12 @@ export class SetupService {
 
   constructor(private http: HttpClient) { }
 
-
+  activeAdminSetup(){
+    this.admin_setup = true;
+  }
+  deactiveAdminSetup(){
+    this.admin_setup = false;
+  }
 
  
   async addLogoToTeam(teamId, file:File):Promise<any>{

@@ -43,8 +43,6 @@
         accept=".xlsx , .xls , .csv"
         (change)="uploadFile($event, 'jira')"
       />
-
-      <div *ngIf="errorMsg != ''" class="text-danger" >{{errorMsg}}</div>
     </span>
 
     <span class="btn btn-primary btn-file" *ngIf="selected === 5">
@@ -107,5 +105,16 @@
         </tbody>
       </table>
     </form>
+
+    <div *ngIf="errors.length>0" class="text-danger col-md-12" >
+     
+      <div class="row">
+        <div class="col-md-5"></div>
+        <div class="text-left ml-4">
+          <div class="mt-3 mb-2 text-dark"><b> Errors Found : </b></div>
+          <div *ngFor="let error of errors">{{error}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

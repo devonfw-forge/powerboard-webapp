@@ -12,8 +12,8 @@ export class DataUploadComponent implements OnInit {
   selected: number;
   form: FormGroup;
   teamId: string;
-  errorMsg:string = "";
   spinner: boolean;
+  errors:string[]= [];
 
   constructor(public setupService: SetupService,  private notifyService: NotificationService, public fb: FormBuilder) {
     
@@ -41,9 +41,9 @@ export class DataUploadComponent implements OnInit {
  * else show error message
  */
 async uploadFile(event, type:string) {
+  this.errors = [];
   const file = (event.target as HTMLInputElement).files[0];
   try {
-    this.errorMsg="";
     this.spinner = true;
     const data = await this.setupService.uploadXLSXFile(
       file,
@@ -57,11 +57,8 @@ async uploadFile(event, type:string) {
     this.spinner = false;
     event.target.value= null;
     console.log(e.error.message);
-    this.errorMsg=e.error.message;
-    let errors = e.error.message.split(",");
-    for(let error of errors){
-      this.notifyService.showError('', error);
-    }  
+    this.errors = e.error.message.split(",");
+    this.notifyService.showError('', 'File not uploaded'); 
   }
 }
 
