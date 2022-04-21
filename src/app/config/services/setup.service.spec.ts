@@ -40,7 +40,7 @@ describe('SetupService', () => {
       result = error;
       expect(error.statusText).toEqual("Something went wrong, Please try again in some moment");
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/uploadLogo/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/uploadLogo/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -56,7 +56,7 @@ describe('SetupService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/deleteLogo/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/deleteLogo/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -71,7 +71,7 @@ describe('SetupService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/deleteLogo/");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/deleteLogo/");
     req.flush("400 Bad Request",{
       status : 400,
       statusText : "Invalid param id. Number expected"
@@ -86,7 +86,7 @@ describe('SetupService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/team/update/");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/team/update/");
     req.flush("404 Not Found",{
       status : 404,
       statusText : "Cannot PUT /v1/teams/team/update/"
@@ -101,7 +101,7 @@ describe('SetupService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/team/update/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/team/update/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -118,7 +118,7 @@ describe('SetupService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/team-links/delete/");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/team-links/delete/");
     req.flush("400 Bad Request",{
       status : 400,
       statusText : "Invalid param id. Number expected"
@@ -134,7 +134,7 @@ describe('SetupService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/team-links/delete/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/team-links/delete/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -150,7 +150,7 @@ describe('SetupService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/team-links/getLinksCategory");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/team-links/getLinksCategory");
     expect(req.request.method).toEqual('GET'); 
   });
 
@@ -161,7 +161,7 @@ describe('SetupService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/team-links/teamId/create");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/team-links/teamId/create");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -180,7 +180,7 @@ describe('SetupService', () => {
       result = error;
       expect(error.statusText).toEqual("Something went wrong, Please try again in some moment");
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/uploadFile/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/uploadFile/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -196,7 +196,7 @@ it('add folder to team should get error for null value', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/addFolder/null");
+  let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/addFolder/null");
   req.flush("500 Internal Server Error",{
     status : 500,
     statusText : "Something went wrong, Please try again in some moment"
@@ -215,7 +215,7 @@ it('add files in subfolder should get error for null', () =>{
     result = error;
     expect(error.statusText).toEqual("Something went wrong, Please try again in some moment");
   })
-  let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/uploadFileToFolder/null/null");
+  let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/uploadFileToFolder/null/null");
   req.flush("500 Internal Server Error",{
     status : 500,
     statusText : "Something went wrong, Please try again in some moment"
@@ -232,7 +232,7 @@ it('delete files and folders should get error for null value', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/deleteFilesAndFolders/null");
+  let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/deleteFilesAndFolders/null");
   req.flush("500 Internal Server Error",{
     status : 500,
     statusText : "Something went wrong, Please try again in some moment"
@@ -249,7 +249,7 @@ it('add to slideshow should get error for null value', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/addToSlideshow/null");
+  let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/addToSlideshow/null");
   req.flush("500 Internal Server Error",{
     status : 500,
     statusText : "Something went wrong, Please try again in some moment"
@@ -267,7 +267,7 @@ it('add to slideshow should get error for null value', () =>{
       result = data;
     });
     let req = httpTestingController.expectOne(
-      'http://localhost:3001/v1/team-links/teamId/create'
+      'http://localhost:3000/v1/team-links/teamId/create'
     );
     req.flush('Internal Server Error', {
       status: 500,
@@ -286,7 +286,7 @@ it('add to slideshow should get error for null value', () =>{
         result = error;
       });
     let req = httpTestingController.expectOne(
-      'http://localhost:3001/v1/daily-meeting/teamId/create'
+      'http://localhost:3000/v1/daily-meeting/teamId/create'
     );
     req.flush('Internal Server Error', {
       status: 500,
@@ -302,7 +302,7 @@ result = data;
     }​​​​​​​​).catch((error)=>{​​​​​​​​
 result = error;
     }​​​​​​​​);
-let req = httpTestingController.expectOne("http://localhost:3001/v1/images/uploadImage/");
+let req = httpTestingController.expectOne("http://localhost:3000/v1/images/uploadImage/");
 req.flush("Not Found",{​​​​​​​​
 status :404,
 statusText :"Cannot POST /v1/images/uploadImage"
@@ -320,7 +320,7 @@ statusText :"Cannot POST /v1/images/uploadImage"
         result = error;
       });
     let req = httpTestingController.expectOne(
-      'http://localhost:3001/v1/admin/team/update'
+      'http://localhost:3000/v1/admin/team/update'
     );
     req.flush('Not Found', {
       status: 404,
@@ -340,13 +340,13 @@ statusText :"Cannot POST /v1/images/uploadImage"
       .then((data) => {
         result = data;
         let req = httpTestingController.expectOne(
-          'http://localhost:3001/v1/team-links/teamId/create'
+          'http://localhost:3000/v1/team-links/teamId/create'
         );
         service
           .deleteTeamLink(result.id)
           .then((deleteData) => {
             httpTestingController.expectOne(
-              'http://localhost:3001/v1/team-links/delete/' + result.id
+              'http://localhost:3000/v1/team-links/delete/' + result.id
             );
           })
           .catch((error) => {
@@ -371,13 +371,13 @@ statusText :"Cannot POST /v1/images/uploadImage"
       .then((data) => {
         result = data;
         let req = httpTestingController.expectOne(
-          'http://localhost:3001/v1/daily-meeting/teamId/create'
+          'http://localhost:3000/v1/daily-meeting/teamId/create'
         );
         service
           .deleteMeetingLink(result.id)
           .then((deleteData) => {
             httpTestingController.expectOne(
-              'http://localhost:3001/v1/daily-meeting/delete/' + result.id
+              'http://localhost:3000/v1/daily-meeting/delete/' + result.id
             );
           })
           .catch((error) => {
@@ -409,13 +409,13 @@ statusText :"Cannot POST /v1/images/uploadImage"
     .then((data) => {
       result = data;
       let req = httpTestingController.expectOne(
-        'http://localhost:3001/v1/images/uploadImage/'
+        'http://localhost:3000/v1/images/uploadImage/'
       );
     })
     .catch((error) => {
       result = error;
       let req = httpTestingController.expectOne(
-        'http://localhost:3001/v1/images/uploadImage/'
+        'http://localhost:3000/v1/images/uploadImage/'
       );
     });
 }); */
@@ -442,7 +442,7 @@ statusText :"Cannot POST /v1/images/uploadImage"
       result = error;
     });
     let req = httpTestingController.expectOne(
-      'http://localhost:3001/v1/teams/uploadLogo/null'
+      'http://localhost:3000/v1/teams/uploadLogo/null'
     );
     req.flush("500 Internal Server Error",{
       status : 500,
@@ -475,7 +475,7 @@ statusText :"Cannot POST /v1/images/uploadImage"
       console.log(error);
     });
     let req = httpTestingController.expectOne(
-      'http://localhost:3001/v1/videos/uploadVideo/null'
+      'http://localhost:3000/v1/videos/uploadVideo/null'
     );
     req.flush("404 Not Found",{
       status : 404,

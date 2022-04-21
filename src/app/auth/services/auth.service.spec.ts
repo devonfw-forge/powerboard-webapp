@@ -49,7 +49,7 @@ describe('AuthService', () => {
     const req = httpTestingController.expectOne(
       {
       method: "POST",
-      url :   'http://localhost:3001/v1/auth/login'
+      url :   'http://localhost:3000/v1/auth/login'
       });
     req.flush([response]);
     expect(result).toEqual(response);
@@ -62,7 +62,7 @@ describe('AuthService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/auth/login");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/auth/login");
     req.flush("Unauthorized",{
       status : 401,
       statusText : "Wrong username or password, Please try again"
@@ -76,7 +76,7 @@ describe('AuthService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/auth/login");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/auth/login");
     req.flush("Unauthorized",{
       status : 401,
       statusText : "Wrong username or password, Please try again"
@@ -98,7 +98,7 @@ describe('AuthService', () => {
     ).catch(error => {
       result = error;
     });
-      let req = httpTestingController.expectOne("http://localhost:3001/v1/auth/change-password");
+      let req = httpTestingController.expectOne("http://localhost:3000/v1/auth/change-password");
     req.flush("internal server error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -117,7 +117,7 @@ describe('AuthService', () => {
     const req = httpTestingController.expectOne(
       {
       method: "POST",
-      url :   'http://localhost:3001/v1/auth/login/guest'
+      url :   'http://localhost:3000/v1/auth/login/guest'
       });
     req.flush([response]);
     

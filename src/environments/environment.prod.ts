@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  restPathRoot: 'http://localhost:3001/',
+  restPathRoot: 'http://localhost:3000/',
 };

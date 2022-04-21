@@ -96,7 +96,7 @@ class MockRouter{
     const req = httpTestingController.expectOne(
       {
       method: "POST",
-      url :   'http://localhost:3001/v1/teams/powerboard/team'
+      url :   'http://localhost:3000/v1/teams/powerboard/team'
       });
     
    
@@ -111,7 +111,7 @@ it('get team details should throw error for null values', () =>{
     }).catch(error => {
       result = error;
     });
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/powerboard/team");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/powerboard/team");
     req.flush("Not Found",{
       status : 404,
       statusText : "Team Not Found"
@@ -129,7 +129,7 @@ it('get team details should throw error for incorrect values', () =>{
     .catch(error => {
       result = error;
     });
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/powerboard/team");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/powerboard/team");
     req.flush("Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -144,7 +144,7 @@ it('get teams in ADCenter should throw error for null values', () =>{
     }).catch(error => {
       result = error;
     });
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/center/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/center/null");
     req.flush("Bad Request",{
       status : 400,
       statusText : "Invalid param id. Number expected"
@@ -158,7 +158,7 @@ it('get teams in ADCenter should throw error for incorrect values', () =>{
     }).catch(error => {
       result = error;
     });
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/teams/center/2121212121212");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/center/2121212121212");
     req.flush("Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -173,7 +173,7 @@ it('get teams in ADCenter should return data', () =>{
     }).catch(error => {
       result = error;
     });
-   httpTestingController.expectOne("http://localhost:3001/v1/teams/center/99055bf7-ada7-495c-8019-8d7ab62d488e");
+   httpTestingController.expectOne("http://localhost:3000/v1/teams/center/99055bf7-ada7-495c-8019-8d7ab62d488e");
    
 })
 
