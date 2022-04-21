@@ -1,6 +1,7 @@
 export class PowerboardResponse{
   team_id: string;
   team_name: string;
+  project_key: string;
   center: string;
   team_code: string;
   logo: string;
@@ -10,7 +11,7 @@ export class PowerboardResponse{
   privileges : string[];
   videos? : VideoResponse[];
   multimedia : MultimediaFolderResponse;
-
+  isTeamConfigured : boolean;
 }
 
 export class TeamDetailResponse{

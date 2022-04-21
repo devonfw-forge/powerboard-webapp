@@ -152,13 +152,20 @@ if(JSON.parse(
    */
   async submitForm() {
     this.updateTeam.teamId = this.team.teamId;
-    this.updateTeam.teamName = this.form.get('teamName').value;
+    this.updateTeam.teamName = this.team.teamName;
     this.updateTeam.projectKey = this.form.get('projectKey').value;
     this.updateTeam.teamCode = this.form.get('teamCode').value;
 
     try {
       
       const data = await this.setupService.updateTeam(this.updateTeam, this.team.teamId);
+      this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+      this.teamDetail.powerboardResponse.project_key = this.updateTeam.projectKey;
+      this.teamDetail.powerboardResponse.team_code = this.updateTeam.teamCode;
+      localStorage.setItem(
+        'TeamDetailsResponse',
+        JSON.stringify(this.teamDetail)
+      );
      this.notifyService.showSuccess("", "Team updated successfully");
     
       console.log(data);
@@ -168,8 +175,11 @@ if(JSON.parse(
       this.notifyService.showError("", e);
     }
   }
-
-  saveAndNext(){
+  skip(){
+    this.router.navigate(['config/setup/view-members']);
+  }
+  async saveAndNext(){
+   await this.submitForm();
     this.router.navigate(['config/setup/view-members']);
   }
 }

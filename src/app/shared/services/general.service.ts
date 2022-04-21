@@ -209,8 +209,6 @@ checkVisibilityIfNavBarAndLoginTrue(){
  */
   public checkLastLoggedIn() {
     if (this.powerboardLoginResponse.loginResponse.powerboardResponse) {
-       /* Remove and mention condition */
-      this.setupService.activeAdminSetup();
       this.teamDetails.powerboardResponse = this.powerboardLoginResponse.loginResponse.powerboardResponse;
       localStorage.setItem(
         'TeamDetailsResponse',
@@ -219,12 +217,30 @@ checkVisibilityIfNavBarAndLoginTrue(){
       
       this.showNavBarIcons = true;
       this.checkVisibility();
-      /* Remove and mention condition and change to dashboard*/
-      this.router.navigate(['config']);
+      this.checkIsTeamConfigured();
     } else {
       this.router.navigate(['teams/projects']);
     }
   }
+
+
+  checkIsTeamConfigured(){
+    if (this.powerboardLoginResponse.loginResponse.powerboardResponse) {
+     let isTeamConfigured = this.powerboardLoginResponse.loginResponse.powerboardResponse.isTeamConfigured;
+     this.checkDashboardOrConfig(isTeamConfigured);
+    }
+  }
+
+  checkDashboardOrConfig(isTeamConfigured:boolean){
+    if(isTeamConfigured){
+      this.router.navigate(['teams/dashboard']);
+     }
+     else{
+      this.router.navigate(['config']);
+     }
+  }
+  
+
 
   /**
    * Store the last checked in project details 
