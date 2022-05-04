@@ -6,6 +6,7 @@ import {
 } from 'src/app/config/model/config.model';
 import { ConfigService } from 'src/app/config/services/config.service';
 import { TeamService } from '../../../../services/team.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-edit-team-member',
@@ -20,7 +21,8 @@ export class EditTeamMemberComponent implements OnInit {
   constructor(
     public configService: ConfigService,
     public generalService: GeneralService,
-    public teamService: TeamService
+    public teamService: TeamService,
+    public notifyService: NotificationService,
   ) {
     this.roleName = 'Select Role';
   }
@@ -34,7 +36,6 @@ export class EditTeamMemberComponent implements OnInit {
    */
   getCurrentTeamMember(member){
     this.currentMember = member;
- 
     this.updateRoleOfMember.teamId = this.currentMember.teamId;
     this.updateRoleOfMember.userId = this.currentMember.userId;
     for(let role of this.configService.roles){
@@ -59,14 +60,13 @@ export class EditTeamMemberComponent implements OnInit {
   public async editTeamMember(){
     if(this.currentMember.roleId != this.updateRoleOfMember.roleId){
       try{
-        return await this.teamService.updateAccessRole(this.updateRoleOfMember);
+        const data = await this.teamService.updateAccessRole(this.updateRoleOfMember);
+        this.notifyService.showSuccess('', 'team member updated successfully');
+        return data;
       }
       catch(e){
-        console.log(e.error.message);
+        this.notifyService.showError('', e.error.message);
       }
-    }
-    else{
-      console.log("no changes made");
     }
   }
 }

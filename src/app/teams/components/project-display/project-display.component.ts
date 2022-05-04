@@ -23,11 +23,7 @@ export class ProjectDisplayComponent implements OnInit {
  * else set isMyProject variable to false
  */
   checkMyProjects(){
-    this.generalService.isSettingsVisible=false;
-    this.generalService.showNavBarIcons = false;
-    localStorage.removeItem('TeamDetailsResponse');
-    this.teamDetailService.setTeamDetailPermissions();
-    this.teamDetailService.setPermissionsOfTeamDetails([]);
+    this.setVisibilityProperties();
     if ((JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.homeResponse.My_Team).length == 0) {
       this.isMyProjects = false;
     }
@@ -35,5 +31,13 @@ export class ProjectDisplayComponent implements OnInit {
       this.isMyProjects = true;
     }
     this.generalService.checkVisibility();
+  }
+
+  setVisibilityProperties(){
+    this.generalService.isSettingsVisible=false;
+    this.generalService.showNavBarIcons = false;
+    localStorage.removeItem('TeamDetailsResponse');
+    this.teamDetailService.setTeamDetailPermissions();
+    this.teamDetailService.setPermissionsOfTeamDetails([]);
   }
 }

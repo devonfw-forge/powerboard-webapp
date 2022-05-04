@@ -68,36 +68,41 @@ export class ViewAllTeamsComponent implements OnInit {
   }
 
   /**
-   * If team deleted successfully, update details in list and local storage, display success message
+   * If team deleted successfully, display success message
    * If error while deleting team, display error message
    */
   async deleteTeam() {
     try {
       const data = await this.teamService.deleteTeam(this.deleteId);
-
-      this.ADCTeams = JSON.parse(
-        localStorage.getItem('PowerboardDashboard')
-      ).loginResponse.homeResponse.Teams_In_ADC;
-      this.ADCTeams = this.ADCTeams.filter(
-        (team) => team.teamId != this.deleteId
-      );
-      this.powerboardLoginResponse = new PowerboardLoginResponse();
-      this.powerboardLoginResponse = JSON.parse(
-        localStorage.getItem('PowerboardDashboard')
-      );
-      this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = this.ADCTeams;
-      localStorage.setItem(
-        'PowerboardDashboard',
-        JSON.stringify(this.powerboardLoginResponse)
-      );
+      this.removeTeamFromStorage();
       this.notifyService.showSuccess('Team deleted successfully', '');
       this.getAllTeams();
-      console.log(data);
     } catch (e) {
-      console.log(e.error.message);
       this.notifyService.showError('', e.error.message);
     }
   }
+
+/** 
+ * update details in list and local storage,
+*/
+removeTeamFromStorage(){
+  this.ADCTeams = JSON.parse(
+    localStorage.getItem('PowerboardDashboard')
+  ).loginResponse.homeResponse.Teams_In_ADC;
+  this.ADCTeams = this.ADCTeams.filter(
+    (team) => team.teamId != this.deleteId
+  );
+  this.powerboardLoginResponse = new PowerboardLoginResponse();
+  this.powerboardLoginResponse = JSON.parse(
+    localStorage.getItem('PowerboardDashboard')
+  );
+  this.powerboardLoginResponse.loginResponse.homeResponse.Teams_In_ADC = this.ADCTeams;
+  localStorage.setItem(
+    'PowerboardDashboard',
+    JSON.stringify(this.powerboardLoginResponse)
+  );
+}
+
 
   public viewTeam(teamId: string) {
     this.getTeamDetails(teamId);
@@ -164,7 +169,7 @@ export class ViewAllTeamsComponent implements OnInit {
           JSON.stringify(this.powerboardLoginResponse)
         );
       }
-      console.log(data);
+      
     } catch (e) {
       console.log(e);
     }

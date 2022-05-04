@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TeamDetailsService } from 'src/app/teams/services/team-details.service';
 import { GeneralService } from '../../../shared/services/general.service';
+import { PowerboardLoginResponse } from '../../model/auth.model';
 import { AuthService } from '../../services/auth.service';
 
 import { AuthComponent } from './auth.component';
@@ -211,7 +212,7 @@ describe('AuthComponent', () => {
       }
     }
     spyOn(component.authService,'guestLogin').and.callFake(()=>{return response});
-    component.GuestLogin().catch(e => {});
+    component.guestLogin().catch(e => {});
     expect(component.authService.guestLogin).toHaveBeenCalled();
     })  
 
@@ -221,9 +222,14 @@ describe('AuthComponent', () => {
       }
       spyOn(component.authService,'guestLogin').and.throwError(response);
       spyOn(window,'alert');
-      component.GuestLogin().catch(e => {});
+      component.guestLogin().catch(e => {});
       expect(component.authService.guestLogin).toHaveBeenCalled();
       expect(window.alert).toHaveBeenCalled();
       }) 
 
+      it('should check set properties',() =>{ 
+        component.powerboardLoginResponse = new  PowerboardLoginResponse();
+        component.setProperties();
+        expect(localStorage.setItem).toHaveBeenCalled();
+        })  
 })

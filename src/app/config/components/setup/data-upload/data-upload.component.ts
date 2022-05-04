@@ -50,15 +50,15 @@ async uploadFile(event, type:string) {
       type,
       this.teamId
     );
-    this.spinner = false;
-    event.target.value= null;
     this.notifyService.showSuccess('', 'File uploaded successfully');
   } catch (e) {
-    this.spinner = false;
-    event.target.value= null;
     console.log(e.error.message);
     this.errors = e.error.message.split(",");
     this.notifyService.showError('', 'File not uploaded'); 
+  }
+  finally{
+    this.spinner = false;
+    event.target.value= null;
   }
 }
 
@@ -76,7 +76,6 @@ async uploadClientRating() {
     this.notifyService.showSuccess('', 'Client Rating updated successfully');
   } catch (e) {
     console.log(e.error.message);
-    console.log(e);
     this.notifyService.showError('', e.error.message);
   }
 }

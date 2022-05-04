@@ -5,6 +5,7 @@ import {
   TeamDetailResponse
 } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 
 import { ADCListDetails, ProjectTeamDetail } from '../../../model/team.model';
@@ -21,10 +22,11 @@ export class ProjectsComponent implements OnInit {
   updatedCenter: ADCDetails;
   ADC_Center: string;
   newAdCenter : ADCDetails;
+  
 
   teamDetails: TeamDetailResponse = new TeamDetailResponse();
   private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
-  constructor(public teamDetailsService: TeamDetailsService, private router: Router, public generalService: GeneralService) {
+  constructor(public teamDetailsService: TeamDetailsService, private router: Router, public generalService: GeneralService, public notifyService: NotificationService) {
     this.ADC_Center = "Select center";
     this.newAdCenter = new ADCDetails();
   }
@@ -52,7 +54,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   /**
-   * 
    * Get all teams under a particular ADC
    */
   async getTeamsInADC(adcenter: ADCDetails) {
@@ -62,14 +63,11 @@ export class ProjectsComponent implements OnInit {
       const data = await this.teamDetailsService.getTeamsInADCenter(adcenter.centerId);
       this.ADCTeams = data;
       this.updateTeamsInADC(this.ADCTeams);
-
     }
     catch (e) {
-
+      this.notifyService.showError('', "Error getting teams");
       console.log(e);
-
     }
-
   }
 
   /**
@@ -98,7 +96,7 @@ export class ProjectsComponent implements OnInit {
       await this.teamDetailsService.processTeamDetails(teamId); 
     }
     catch(e){
-      console.log(e.error.message);
+      this.notifyService.showError('', e.error.message);
     }
   }
 }

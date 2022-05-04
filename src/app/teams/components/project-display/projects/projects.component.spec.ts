@@ -7,6 +7,7 @@ import checkData from 'src/app/checkData.json';
 import { ProjectsComponent } from './projects.component';
 import { GetTeamDetails } from 'src/app/teams/model/pbResponse.model';
 import { ADCDetails } from 'src/app/auth/model/auth.model';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -106,7 +107,16 @@ let powerboardDashboardNew : any = {
   },
 }
 }
-
+class MockNotifyService{
+  showError(heading:string,message:string){
+    console.log(heading,message);
+    return null;
+  }
+  showSuccess(heading:string,message:string){
+    console.log(heading,message);
+    return null;
+  }
+}
 
 class MockTeamDetailsService{
   getTeamsInADCenter(centerId:string){
@@ -140,7 +150,7 @@ class MockTeamDetailsService{
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule],
       declarations: [ ProjectsComponent ],
-      providers : [{provide  : TeamDetailsService, useClass : MockTeamDetailsService},{provide  : GeneralService, useValue : generalService}]
+      providers : [{provide  : TeamDetailsService, useClass : MockTeamDetailsService},{provide : NotificationService, useClass: MockNotifyService} ,{provide  : GeneralService, useValue : generalService}]
     })
     .compileComponents();
   });
@@ -219,6 +229,19 @@ class MockTeamDetailsService{
     component.getTeamDetails("mock");
     expect(component.teamDetailsService.processTeamDetails).toHaveBeenCalled();
   })
+
+
+  it('should catch error for get Team Details',()=>{
+    let response : any ={
+           error : {
+             message : "Unable to get team details"
+          }
+        }
+    spyOn(component.teamDetailsService,'processTeamDetails').and.throwError(response);
+    component.getTeamDetails("mock");
+    expect(component.teamDetailsService.processTeamDetails).toHaveBeenCalled();
+  })
+
   it('should catch error for get Team Details',()=>{
     spyOn(component.teamDetailsService,'processTeamDetails');
     component.getTeamDetails(undefined);

@@ -6,6 +6,7 @@ import { RemoveUnderscorePipe } from 'src/app/config/pipes/remove-underscore.pip
 import { ConfigService } from 'src/app/config/services/config.service';
 import { TeamService } from 'src/app/config/services/team.service';
 import { GeneralService } from 'src/app/shared/services/general.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 import { EditTeamMemberComponent } from './edit-team-member.component';
 
@@ -31,11 +32,26 @@ describe('EditTeamMemberComponent', () => {
       return null;
     }
   }
+
+  
   class MockGeneralService{
     getPermissions(){
       return null;
     }
   }
+
+
+class MockNotifyService{
+  showError(heading:string,message:string){
+    console.log(heading,message);
+    return null;
+  }
+  showSuccess(heading:string,message:string){
+    console.log(heading,message);
+    return null;
+  }
+ 
+}
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -43,6 +59,7 @@ describe('EditTeamMemberComponent', () => {
       declarations: [ EditTeamMemberComponent, RemoveUnderscorePipe ],
       providers:[{provide : GeneralService, useClass: MockGeneralService},
         {provide: ConfigService, useClass : MockConfigureServcie},
+        {provide : NotificationService, useClass: MockNotifyService} ,
         {provide : TeamService, useClass: MockTeamService} ] 
     })
     .compileComponents();
@@ -138,10 +155,12 @@ it('should catch error for edit team member', () =>{
     teamId:  null,
     roleId: "sampleRoleId"
   }
+  let response :any ={
+    error : {message:"error logging in"}
+  }
   component.currentMember = currentMemberDetails;
   component.updateRoleOfMember = updateMemberDetails;
-  spyOn(console,'log');
+  spyOn(component.teamService, 'updateAccessRole').and.throwError(response);
   component.editTeamMember();
-  expect(console.log).toHaveBeenCalled();
 })
 });
