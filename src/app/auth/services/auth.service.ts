@@ -26,8 +26,8 @@ export class AuthService {
   ): Promise<PowerboardLoginResponse> {
     return this.http
     .post<PowerboardLoginResponse>(environment.globalEndPoint+ UrlPathConstants.loginEndPoint, {
-      username: userName, //'raj11',
-      password: password, //'password'
+      username: userName,
+      password: password, 
     })
     .toPromise();
   }

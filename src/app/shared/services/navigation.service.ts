@@ -5,7 +5,7 @@ import { SlideshowService } from 'src/app/teams/services/slideshow.service';
 import { GeneralService } from './general.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   public history: string[] = [];
@@ -18,48 +18,38 @@ export class NavigationService {
     private slideshowService: SlideshowService
   ) {
     this.history = [];
+    this.subscribeRouterEvents();
+    this.lastLocation = '';
+    this.currentLocation = '';
+  }
+
+  subscribeRouterEvents() {
     this.router.events.subscribe((event) => {
-      if(!this.slideshowService.getSlideShow()){
+      if (!this.slideshowService.getSlideShow()) {
         if (event instanceof NavigationEnd) {
           this.history.push(event.urlAfterRedirects);
         }
       }
     });
-    this.lastLocation = '';
-    this.currentLocation = '';
   }
-/**
- * Navigate to last location 
- * If history is present, move to last location
- * If location is config or inside config module, move to location previous to config
- * 
- */
+  /**
+   * Navigate to last location
+   * If history is present, move to last location
+   * If location is config or inside config module, move to location previous to config
+   *
+   */
   back(): boolean {
     this.currentLocation = this.history.pop();
-
     if (this.history.length > 1) {
-      console.log('inside if');
-      console.log(this.history);
       this.lastLocation = this.history.pop();
-      console.log(this.lastLocation);
-      if (this.lastLocation.includes('/config')) {
-        while (
-          this.lastLocation.includes('/config') ||
-          this.lastLocation.includes('/viewTeam')
-        ) {
-          console.log(this.history);
-          this.lastLocation = this.history.pop();
-        }
-      }
+      this.popFromConfig();
       if (this.lastLocation.includes('teams/projects')) {
         this.moveToHome();
       } else {
         this.router.navigateByUrl('/' + this.lastLocation);
       }
-
       this.router.navigateByUrl('/' + this.lastLocation);
     } else {
-      console.log('reached end');
       return false; //reached end of the navigation
     }
     return true; //array is there to go back
@@ -67,6 +57,17 @@ export class NavigationService {
 
   public clearRouterHistory() {
     this.history = [];
+  }
+
+  popFromConfig() {
+    if (this.lastLocation.includes('/config')) {
+      while (
+        this.lastLocation.includes('/config') ||
+        this.lastLocation.includes('/viewTeam')
+      ) {
+        this.lastLocation = this.history.pop();
+      }
+    }
   }
 
   /**
@@ -78,17 +79,23 @@ export class NavigationService {
       JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse
         .homeResponse === undefined
     ) {
-      const userId = JSON.parse(localStorage.getItem('PowerboardDashboard')).loginResponse.userId;
-      this.powerboardLoginResponse = JSON.parse(localStorage.getItem('PowerboardDashboard'));
-      const data = await this.generalService.getProjectDetails(userId); 
+      const userId = JSON.parse(localStorage.getItem('PowerboardDashboard'))
+        .loginResponse.userId;
+      this.powerboardLoginResponse = JSON.parse(
+        localStorage.getItem('PowerboardDashboard')
+      );
+      const data = await this.generalService.getProjectDetails(userId);
       this.powerboardLoginResponse.loginResponse.homeResponse = data;
-      localStorage.setItem('PowerboardDashboard',JSON.stringify(this.powerboardLoginResponse));
+      localStorage.setItem(
+        'PowerboardDashboard',
+        JSON.stringify(this.powerboardLoginResponse)
+      );
     }
     this.generalService.showNavBarIcons = false;
     this.router.navigateByUrl('teams/projects');
   }
 
-  pushCurrentLocation(){
+  pushCurrentLocation() {
     this.history.push(this.currentLocation);
   }
 }
