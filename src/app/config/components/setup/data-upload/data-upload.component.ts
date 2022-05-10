@@ -45,7 +45,7 @@ async uploadFile(event, type:string) {
   const file = (event.target as HTMLInputElement).files[0];
   try {
     this.spinner = true;
-    const data = await this.setupService.uploadXLSXFile(
+    await this.setupService.uploadXLSXFile(
       file,
       type,
       this.teamId
@@ -68,7 +68,7 @@ changeSelected(num: number) {
 
 async uploadClientRating() {
   try {
-    const data = await this.setupService.uploadClientRating(
+     await this.setupService.uploadClientRating(
       this.form.get('clientRating').value,
       "clientstatus",
       this.teamId

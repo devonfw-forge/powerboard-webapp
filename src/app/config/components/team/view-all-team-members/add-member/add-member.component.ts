@@ -52,7 +52,7 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
     
     try{
       this.getTeamMemberDetailsFromForm();
-      const data = await this.teamService.addTeamMember(this.teamMember);
+     await this.teamService.addTeamMember(this.teamMember);
       this.notifyService.showSuccess("Team member added successfully","");
       this.memberGroup.reset();
       this.roleName="Select Role";

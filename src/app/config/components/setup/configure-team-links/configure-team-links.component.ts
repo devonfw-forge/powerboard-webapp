@@ -187,7 +187,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
 
  async finishConfiguration() {
     try {
-      const data = await this.setupService.updateTeamConfigured(this.teamId,true);
+      await this.setupService.updateTeamConfigured(this.teamId,true);
       this.notifyService.showSuccess('Team Configured successfully !!', '');
       this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
       this.teamDetail.powerboardResponse.isTeamConfigured = true;

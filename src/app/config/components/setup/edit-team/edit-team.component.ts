@@ -7,7 +7,7 @@ import { SetupService } from '../../../services/setup.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-team',

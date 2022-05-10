@@ -39,7 +39,7 @@ resetPasswordForm: FormGroup;
     try{
       this.resetForm.oldPassword = this.resetPasswordForm.controls['oldPassword'].value;
       this.resetForm.newPassword = this.resetPasswordForm.controls['newPassword'].value;
-      const data = await this.authService.resetPassword(this.resetForm);
+      await this.authService.resetPassword(this.resetForm);
       this.generalService.logout();
     }
     catch(e){

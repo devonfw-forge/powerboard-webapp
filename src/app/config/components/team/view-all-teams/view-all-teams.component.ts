@@ -73,7 +73,7 @@ export class ViewAllTeamsComponent implements OnInit {
    */
   async deleteTeam() {
     try {
-      const data = await this.teamService.deleteTeam(this.deleteId);
+      await this.teamService.deleteTeam(this.deleteId);
       this.removeTeamFromStorage();
       this.notifyService.showSuccess('Team deleted successfully', '');
       this.getAllTeams();
