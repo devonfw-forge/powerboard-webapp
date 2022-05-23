@@ -14,6 +14,16 @@
       type="radio"
       class="ml-5"
       id="jira"
+      [checked]="selected === 2"
+      value="1"
+      (change)="changeSelected(2)"
+    />
+    <label style="color: #0070ad; margin-left: 5px;" for="html"> Sonar</label>
+
+    <input
+      type="radio"
+      class="ml-5"
+      id="jira"
       [checked]="selected === 3"
       value="1"
       (change)="changeSelected(3)"
@@ -35,13 +45,13 @@
       />
     </span>
 
-    <span class="btn btn-primary btn-file" *ngIf="selected === 5">
+    <span class="btn btn-primary btn-file" *ngIf="selected === 2">
       <span class="material-icons mat-icon">file_upload</span>
       <span style="font-size: 16px"> Upload Sonar</span>
       <input
         type="file"
-        accept=".xlsx , .xls , .csv"
-        (change)="uploadFile($event, 'sonar')"
+        accept=".xlsx , .xls , .csv, .json"
+        (change)="uploadJSONFile($event, 'sonar')"
       />
     </span>
 

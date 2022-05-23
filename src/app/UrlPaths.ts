@@ -82,6 +82,8 @@ export class UrlPathConstants{
 
     public static uploadXLSXEndPoint = "teams/uploadXLSXFile/";
 
+    public static uploadJSONFileEndPoint = "teams/uploadJSONFile/";
+
     public static uploadClientRatingEndPoint = "teams/updateClientRating/";
 
 }

@@ -125,6 +125,13 @@ export class SetupService {
     .post<any>(environment.globalEndPoint + UrlPathConstants.uploadXLSXEndPoint + type + '/' + teamId, formData).toPromise();
   }
 
+  async uploadJSONFile(file:File, type, teamId):Promise<any>{
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http
+    .post<any>(environment.globalEndPoint + UrlPathConstants.uploadJSONFileEndPoint + type + '/' + teamId, formData).toPromise();
+  }
+
   
   async uploadClientRating(clientRating, type, teamId):Promise<any>{
     return this.http

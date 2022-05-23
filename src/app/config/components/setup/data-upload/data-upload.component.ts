@@ -62,6 +62,28 @@ async uploadFile(event, type:string) {
   }
 }
 
+async uploadJSONFile(event, type:string) {
+  this.errors = [];
+  const file = (event.target as HTMLInputElement).files[0];
+  try {
+    this.spinner = true;
+    await this.setupService.uploadJSONFile(
+      file,
+      type,
+      this.teamId
+    );
+    this.notifyService.showSuccess('', 'File uploaded successfully');
+  } catch (e) {
+    console.log(e.error.message);
+    this.errors = e.error.message.split(",");
+    this.notifyService.showError('', 'File not uploaded'); 
+  }
+  finally{
+    this.spinner = false;
+    event.target.value= null;
+  }
+}
+
 changeSelected(num: number) {
   this.selected = num;
 }
