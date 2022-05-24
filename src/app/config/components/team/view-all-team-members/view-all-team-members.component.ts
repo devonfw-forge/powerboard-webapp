@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SetupService } from 'src/app/config/services/setup.service';
+import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import {
@@ -22,6 +23,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
   deleteId: string;
   teamMembers: TeamMemberDetailsResponse[] = [];
   updateRole: UpdateRoles = new UpdateRoles();
+  teamDetail: TeamDetailResponse = new TeamDetailResponse();
   @ViewChild(AddMemberComponent) child;
   @ViewChild(EditTeamMemberComponent) editChild;
 
@@ -111,5 +113,28 @@ export class ViewAllTeamMembersComponent implements OnInit {
   }
   previous(){
     this.router.navigate(['config/setup/editTeam']);
+  }
+  skip(){
+    this.setupService.deactiveAdminSetup();
+    this.router.navigate(['teams/dashboard']);
+  }
+
+  async finishConfiguration() {
+    try {
+      await this.setupService.updateTeamConfigured(this.teamId,true);
+      this.notifyService.showSuccess('Team Configured successfully !!', '');
+      this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+      this.teamDetail.powerboardResponse.isTeamConfigured = true;
+      localStorage.setItem(
+        'TeamDetailsResponse',
+        JSON.stringify(this.teamDetail)
+      );
+    } catch (e) {
+      console.log(e.error.message);
+      this.notifyService.showError('', e.error.message);
+    }finally{
+      this.setupService.deactiveAdminSetup();
+      this.router.navigate(['teams/dashboard']);
+    }
   }
 }

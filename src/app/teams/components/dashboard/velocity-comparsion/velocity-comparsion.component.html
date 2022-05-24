@@ -8,7 +8,7 @@
       <div class="row">
           <div class="col-md-3">
               <div class="row"  >
-                  <h5 style="margin-left: 15px; color: #0070AD;">{{velocity?.Avg}}&nbsp;Average Velocity</h5></div>
+                  <h5 style="margin-left: 15px; color: #0070AD;">{{velocity?.Avg | number : '1.0-0'}}&nbsp;Average Velocity</h5></div>
           </div>
           <div class="col-md-3">
               <div class="row"><h5>{{velocity?.Committed}}</h5>&nbsp;{{workUnit | titlecase}} Committed</div>
