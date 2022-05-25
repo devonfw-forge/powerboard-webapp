@@ -16,10 +16,11 @@ export class DataUploadComponent implements OnInit {
   errors:string[]= [];
 
   constructor(public setupService: SetupService,  private notifyService: NotificationService, public fb: FormBuilder) {
-    
+   const maxNumber = 10;
+   const minNumber = 1;
 
     this.form = this.fb.group({
-      clientRating: ['', [Validators.required]]
+      clientRating: ['', [Validators.required, Validators.min(minNumber), Validators.max(maxNumber)]]
       
     });
   }
@@ -101,4 +102,5 @@ async uploadClientRating() {
     this.notifyService.showError('', e.error.message);
   }
 }
+
 }

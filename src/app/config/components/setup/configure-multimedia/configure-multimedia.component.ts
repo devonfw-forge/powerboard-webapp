@@ -650,8 +650,19 @@ export class ConfigureMultimediaComponent implements OnInit {
   async deleteFilesAndFolders() {
     this.getDeleteIds();
     try{
+      var successMessage = "";
+    
       await this.configureService.deleteFilesAndFolders(this.teamId, this.deleteFiles_Folders);
-      this.notifyService.showSuccess("", "File deleted successfully"); 
+      if(this.deleteFiles_Folders.foldersId.length > 0 && this.deleteFiles_Folders.filesId.length > 0){
+        successMessage = "Folders and files deleted successfully"
+      }
+      else if(this.deleteFiles_Folders.foldersId.length > 0){
+        successMessage = "Folder deleted successfully"
+      }
+     else if(this.deleteFiles_Folders.filesId.length > 0){
+        successMessage = "File deleted successfully"
+      }
+      this.notifyService.showSuccess("", successMessage); 
       this.removeIds();
       this.deselectAll();
       if(this.deleteFiles_Folders.foldersId.length > 0){
