@@ -137,7 +137,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
     try {
       console.log(this.selectedLinkId);
       const data = await this.setupService.deleteLink(this.selectedLinkId);
-      this.notifyService.showSuccess('Team link deleted successfully !!', '');
+      this.notifyService.showSuccess('Team link deleted successfully', '');
       console.log(data);
       this.usefullLinks = this.usefullLinks.filter(
         (link) => link.teamLinkId != this.selectedLinkId
@@ -188,7 +188,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
  async finishConfiguration() {
     try {
       await this.setupService.updateTeamConfigured(this.teamId,true);
-      this.notifyService.showSuccess('Team Configured successfully !!', '');
+      this.notifyService.showSuccess('Team configured successfully', '');
       this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
       this.teamDetail.powerboardResponse.isTeamConfigured = true;
       localStorage.setItem(

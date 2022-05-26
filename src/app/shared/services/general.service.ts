@@ -245,6 +245,7 @@ export class GeneralService {
     if (isTeamConfigured) {
       this.router.navigate(['teams/dashboard']);
     } else {
+      this.setupService.activeAdminSetup();
       this.router.navigate(['config']);
     }
   }

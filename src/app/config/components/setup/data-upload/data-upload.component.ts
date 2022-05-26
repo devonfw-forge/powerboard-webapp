@@ -87,6 +87,7 @@ async uploadJSONFile(event, type:string) {
 
 changeSelected(num: number) {
   this.selected = num;
+  this.errors = [];
 }
 
 async uploadClientRating() {
@@ -96,7 +97,7 @@ async uploadClientRating() {
       "clientstatus",
       this.teamId
     );
-    this.notifyService.showSuccess('', 'Client Rating updated successfully');
+    this.notifyService.showSuccess('', 'Client satisfaction rating updated successfully');
   } catch (e) {
     console.log(e.error.message);
     this.notifyService.showError('', e.error.message);

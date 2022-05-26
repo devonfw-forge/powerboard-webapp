@@ -73,6 +73,7 @@ export class AddTeamComponent implements OnInit {
     try {
       var formData: any = this.getTeamFromForm();
       const data = await this.teamService.addTeamWithLogo(formData);
+      this.notifyService.showSuccess('', 'Team added successfully');
       var image = <HTMLImageElement>document.getElementById('output');
       image.src = this.aws_asset+"layoutAssets/logo/uploadLogo.PNG";
       this.form.reset();

@@ -61,7 +61,7 @@ export class EditTeamMemberComponent implements OnInit {
     if(this.currentMember.roleId != this.updateRoleOfMember.roleId){
       try{
         const data = await this.teamService.updateAccessRole(this.updateRoleOfMember);
-        this.notifyService.showSuccess('', 'team member updated successfully');
+        this.notifyService.showSuccess('', 'Team member updated successfully');
         return data;
       }
       catch(e){

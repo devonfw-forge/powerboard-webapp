@@ -165,9 +165,22 @@ export class ConfigureMultimediaComponent implements OnInit {
       this.multimediaFiles = data;
       this.currentFolder = folderName;
       this.checkImagesAndVideos();
+      this.showSlideshowIconToFilesInSubFolder(folderId);
     }
     catch(e){
       console.log(e.error.message);
+    }
+  }
+
+  showSlideshowIconToFilesInSubFolder(folderId:string){
+    for(let folder of this.multimedia.root){
+      if(folder.folderId == folderId){
+        if(folder.inSlideShow){
+          for(let file of this.multimediaFiles){
+            file.inSlideShow = true;
+          }
+        }
+      }
     }
   }
 
@@ -741,8 +754,10 @@ export class ConfigureMultimediaComponent implements OnInit {
  async addToSlideShow(){
   this.checkSlideshowFilesAndFolders();
   try{
+    console.log("=================selected slide show files=====");
+    console.log(this.fileAndFolderIds);
   await this.configureService.addToSlideshow(this.teamId, this.fileAndFolderIds);
-   this.notifyService.showSuccess("", "Files & folders added to slide show successfully"); 
+   this.notifyService.showSuccess("", "Files & folders added to slideshow successfully"); 
     for(let file of this.multimedia.display){
       if(file.isSelected){
        file.inSlideShow = true;
@@ -770,6 +785,11 @@ export class ConfigureMultimediaComponent implements OnInit {
     }
     this.isMasterSel = false;
     this.updateLocalStorage();
+    for(let folder of this.multimedia.root){
+      if(folder.folderName == this.currentFolder){
+        this.showSlideshowIconToFilesInSubFolder(folder.folderId);
+      }
+    }
   }
   catch(e){
     console.log(e.error.message);

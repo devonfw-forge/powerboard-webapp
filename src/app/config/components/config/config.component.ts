@@ -26,7 +26,7 @@ export class ConfigComponent implements OnInit {
   checkNextRoute(){
     if(this.generalService.IsShowNavBarIcons()){
       if (localStorage.getItem('TeamDetailsResponse') != null) {
-        this.toggleAdminSetup();
+      /*   this.toggleAdminSetup(); */
       }
       this.router.navigate(['setup'], {relativeTo:this.route});
     }else{
