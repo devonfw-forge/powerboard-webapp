@@ -92,12 +92,30 @@ export class TeamDetailsService {
         'TeamDetailsResponse',
         JSON.stringify(this.teamDetails)
       );
+      this.updateCurrentTeamStatus(this.teamDetails.powerboardResponse);
+  
       this.checkTeamPermissionsAndVisibility();
       this.generalService.storeLastLoggedIn();
+      
     } catch (e) {
       console.log(e.error.message);
     }
   }
+  updateCurrentTeamStatus(currentTeam){
+
+  var team = currentTeam;
+  var powerboardDashboard = JSON.parse(localStorage.getItem('PowerboardDashboard'));
+  for(let adcTeam of powerboardDashboard.loginResponse.homeResponse.Teams_In_ADC ){
+   if(adcTeam.teamId == team.team_id){
+     adcTeam.teamStatus = team.dashboard.teamStatus;
+   }
+  }
+  localStorage.setItem(
+    'PowerboardDashboard',
+    JSON.stringify(powerboardDashboard)
+  );
+  }
+
 
   checkTeamPermissionsAndVisibility(){
     this.setTeamDetailPermissions();
