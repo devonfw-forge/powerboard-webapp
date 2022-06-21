@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SetupService } from 'src/app/config/services/setup.service';
+import { Dashboard, TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
@@ -46,11 +47,15 @@ async uploadFile(event, type:string) {
   const file = (event.target as HTMLInputElement).files[0];
   try {
     this.spinner = true;
-    await this.setupService.uploadXLSXFile(
+   const data = await this.setupService.uploadXLSXFile(
       file,
       type,
       this.teamId
     );
+    console.log(data);
+    if(data){
+      this.updateDashboard(data);
+    }
     this.notifyService.showSuccess('', 'File uploaded successfully');
   } catch (e) {
     console.log(e.error.message);
@@ -68,11 +73,15 @@ async uploadJSONFile(event, type:string) {
   const file = (event.target as HTMLInputElement).files[0];
   try {
     this.spinner = true;
-    await this.setupService.uploadJSONFile(
+    const data = await this.setupService.uploadJSONFile(
       file,
       type,
       this.teamId
     );
+    console.log(data);
+    if(data){
+      this.updateDashboard(data);
+    }
     this.notifyService.showSuccess('', 'File uploaded successfully');
   } catch (e) {
     console.log(e.error.message);
@@ -92,11 +101,14 @@ changeSelected(num: number) {
 
 async uploadClientRating() {
   try {
+    const data  =
      await this.setupService.uploadClientRating(
       this.form.get('clientRating').value,
       "clientstatus",
       this.teamId
     );
+    console.log(data);
+    this.updateDashboard(data);
     this.notifyService.showSuccess('', 'Client satisfaction rating updated successfully');
   } catch (e) {
     console.log(e.error.message);
@@ -104,4 +116,10 @@ async uploadClientRating() {
   }
 }
 
+updateDashboard(dashboard){
+  let teamDetails : TeamDetailResponse = new TeamDetailResponse();
+ teamDetails = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+ teamDetails.powerboardResponse.dashboard = dashboard;
+ localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
+}
 }

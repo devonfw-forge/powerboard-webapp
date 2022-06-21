@@ -16,6 +16,12 @@
           <div class="col">
               <div class="row ml-1"><h5>{{velocity?.Completed}}</h5>&nbsp;{{workUnit | titlecase}} Completed</div>
           </div>
+          <div class="col" *ngIf="velocity.jiraLink">
+            <div class="row ml-1" style=" font-weight: 400; font-size: small;   margin-bottom: 5px;">Jira:&nbsp; 
+                <a class="link" style="color: #0070AD; cursor: pointer;" (click)="openJiraLink(velocity.jiraLink)">    
+                <span >{{velocity.jiraLink|shortURL}}</span>
+            </a></div>
+        </div>
       </div>
   </div>
 </div>
