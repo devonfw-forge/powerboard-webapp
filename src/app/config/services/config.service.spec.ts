@@ -31,7 +31,7 @@ describe('ConfigService', () => {
 
   // it('should be created', () => {
   //   httpTestingController.match(
-  //     'http://localhost:3001/v1/admin/viewAllUserRoles'
+  //     'http://localhost:3000/v1/admin/viewAllUserRoles'
   //   );
   //   expect(service).toBeTruthy();
   // });
@@ -41,7 +41,7 @@ describe('ConfigService', () => {
       expect(data).toBeDefined();
     });
     httpTestingController.match(
-      'http://localhost:3001/v1/admin/viewAllUserRoles'
+      'http://localhost:3000/v1/admin/viewAllUserRoles'
     );
   });
 

@@ -1,8 +1,8 @@
-<div [ngClass]="setupService.admin_setup ? 'full-container' : 'no-container'">
+<div [ngClass]="setupService.isTeamConfigured ? 'no-container' : 'full-container'">
   <div class="row mt-1">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-      <div *ngIf="setupService.admin_setup" class="row">
+      <div *ngIf="!setupService.isTeamConfigured" class="row">
         <a><img [src]="aws_asset+'layoutAssets/navbar/logo1.png' " alt="" class="navbar-logo"></a>
         <span  style="border-left: 2px solid #0070AD; padding-left: 5px; height: 35px;">
             <strong style="margin-left: 5px; font-size: 20px;color: #0070AD;">Powerboard</strong>
@@ -13,9 +13,9 @@
   </div>
 
   <div class="main-container" >
-    <div [ngClass]="setupService.admin_setup ? 'nowrapper' : 'wrapper'" class="row">
-      <div [ngClass]="setupService.admin_setup ? 'whiteHeader' : 'blueHeader'" ></div>
-      <div *ngIf="!setupService.admin_setup"  id="side-menu">
+    <div [ngClass]="setupService.isTeamConfigured ? 'wrapper' : 'nowrapper'" class="row">
+      <div [ngClass]="setupService.isTeamConfigured ? 'blueHeader' : 'whiteHeader'" ></div>
+      <div *ngIf="setupService.isTeamConfigured"  id="side-menu">
         <div class="navigation">
           <ul>
             <li class="list active" (click)="changeActive(1); showEditTeam()">
@@ -49,7 +49,7 @@
           </ul>
         </div>
       </div>
-      <div [ngClass]="setupService.admin_setup ? 'popup' : 'side-container'" >
+      <div [ngClass]="setupService.isTeamConfigured ? 'side-container' : 'popup'" >
         <router-outlet></router-outlet>
       </div>
     </div>

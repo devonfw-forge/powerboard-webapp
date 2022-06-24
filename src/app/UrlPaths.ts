@@ -56,7 +56,7 @@ export class UrlPathConstants{
 
     public static deleteLogoEndPoint = "teams/deleteLogo/";
 
-
+    public static updateTeamConfigurationEndPoint = "teams/teamConfigured/";
 
     public static updateTeamEndPoint = "teams/team/update/";
 

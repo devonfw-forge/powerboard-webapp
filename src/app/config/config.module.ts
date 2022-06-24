@@ -29,7 +29,6 @@ import { ConfigureMultimediaComponent } from './components/setup/configure-multi
 import { EditTeamMemberComponent } from './components/team/view-all-team-members/edit-team-member/edit-team-member.component';
 import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
 import { DataUploadComponent } from './components/setup/data-upload/data-upload.component';
-import { AdminSetupComponent } from './components/config/admin-setup/admin-setup.component';
 import { AddAggregatorLinksComponent } from './components/setup/configure-team-links/add-aggregator-links/add-aggregator-links.component';
 
 
@@ -55,9 +54,6 @@ const routes: Routes = [{
         { path: 'upload-data', component: DataUploadComponent },
       ]
     },
-    {
-      path: 'admin-setup', component: AdminSetupComponent
-    }
   ]
 },]
 
@@ -81,7 +77,6 @@ const routes: Routes = [{
     ConfigureMultimediaComponent,
     EditTeamMemberComponent,
     DataUploadComponent,
-    AdminSetupComponent,
     AddAggregatorLinksComponent,
   ],
   imports: [

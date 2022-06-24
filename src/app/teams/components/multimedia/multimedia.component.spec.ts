@@ -132,7 +132,7 @@ describe('MultimediaComponent', () => {
     }).catch(e => {
       expect(e).toEqual('Cannot GET /v1/auth/home/');
     })
-    let req = httpTestingController.expectOne("http://localhost:3001/v1/multimedia/getAllFilesInFolder/");
+    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/getAllFilesInFolder/");
     req.flush("404 Not Found",{
       status : 404,
       statusText : "Cannot GET /v1/auth/home/"

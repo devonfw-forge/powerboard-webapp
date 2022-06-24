@@ -25,6 +25,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
   aggregationLinks: LinkResponse[];
   selectedLinkId: string;
   addedLink: any;
+  teamId:string;
   teamDetail: TeamDetailResponse = new TeamDetailResponse();
   @ViewChild(AddLinksComponent) child;
 
@@ -44,6 +45,9 @@ export class ConfigureTeamLinksComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.teamId = JSON.parse(
+      localStorage.getItem('TeamDetailsResponse')
+    ).powerboardResponse.team_id;
     this.getLinks();
   }
 
@@ -181,9 +185,23 @@ export class ConfigureTeamLinksComponent implements OnInit {
     this.router.navigate(['teams/dashboard']);
   }
 
-  saveAndNext() {
-    this.setupService.deactiveAdminSetup();
-    this.router.navigate(['teams/dashboard']);
+ async finishConfiguration() {
+    try {
+      const data = await this.setupService.updateTeamConfigured(this.teamId,true);
+      this.notifyService.showSuccess('Team Configured successfully !!', '');
+      this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+      this.teamDetail.powerboardResponse.isTeamConfigured = true;
+      localStorage.setItem(
+        'TeamDetailsResponse',
+        JSON.stringify(this.teamDetail)
+      );
+    } catch (e) {
+      console.log(e.error.message);
+      this.notifyService.showError('', e.error.message);
+    }finally{
+      this.setupService.deactiveAdminSetup();
+      this.router.navigate(['teams/dashboard']);
+    }
   }
   previous(){
     this.router.navigate(['config/setup/view-members']);

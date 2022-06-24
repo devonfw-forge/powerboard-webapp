@@ -1,11 +1,11 @@
 <div
-  [ngClass]="setupService.admin_setup ? 'popup-container' : 'main-container'"
+  [ngClass]="setupService.isTeamConfigured ? 'main-container' : 'popup-container'"
 >
 <div class="col-md-12 text-center">
-  <div *ngIf="setupService.admin_setup" class="popup-heading">Aggregation Links Configuration</div>
+  <div *ngIf="!setupService.isTeamConfigured" class="popup-heading">Aggregation Links Configuration</div>
 </div>
   <!-- Team Links -->
-  <div *ngIf="!setupService.admin_setup">
+  <div *ngIf="setupService.isTeamConfigured">
     <div class="row">
       <div class="col-md-8 text-left">
         <b class="subHeading">Team Links</b>
@@ -69,7 +69,7 @@
   <div>
     <div class="row">
       <div class="col-md-8 text-left">
-        <b *ngIf="!setupService.admin_setup" class="subHeading">Aggregation Service Links</b>
+        <b *ngIf="setupService.isTeamConfigured" class="subHeading">Aggregation Service Links</b>
       </div>
       <div class="col-md-4 float-right">
         <a class="icon" data-toggle="modal" data-target="#addAggregationLinkModel">
@@ -130,14 +130,14 @@
 
 
 <!-- Save and next buttons -->
-<div *ngIf="setupService.admin_setup" class="row justify-content-end mt-2 mr-2">
+<div *ngIf="!setupService.isTeamConfigured" class="row justify-content-end mt-2 mr-2">
   <div class="button mr-4" (click)="previous()">
     <button class="btn btn-outline btn-cg">Previous</button>
   </div>
   <div class="button mr-4" data-toggle="modal" data-target="#skipModel">
     <button class="btn btn-outline btn-cg">Skip</button>
   </div>
-  <div class="button mr-4" (click)="saveAndNext()">
+  <div class="button mr-4" (click)="finishConfiguration()">
     <button class="btn btn-outline btn-cg">Finish</button>
   </div>
 </div>
@@ -313,7 +313,7 @@
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header pl-5">
-        <h5 class="modal-title pl-5" id="skipModelLabel">Delete Link</h5>
+        <h5 class="modal-title pl-5" id="skipModelLabel">Team Setup</h5>
 
         <button
           type="button"
