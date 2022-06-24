@@ -37,10 +37,10 @@ resetPasswordForm: FormGroup;
    */
   async resetPassword(){
     try{
+      console.log("coming inside method............................................................................................................");
       this.resetForm.oldPassword = this.resetPasswordForm.controls['oldPassword'].value;
       this.resetForm.newPassword = this.resetPasswordForm.controls['newPassword'].value;
-      const data = await this.authService.resetPassword(this.resetForm);
-      console.log(data);
+      await this.authService.resetPassword(this.resetForm);
       this.generalService.logout();
     }
     catch(e){

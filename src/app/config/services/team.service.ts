@@ -12,6 +12,12 @@ import {
   providedIn: 'root',
 })
 export class TeamService {
+
+  requestOptions: Object = {
+    headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    responseType: 'text' 
+ }
+
   constructor(private http: HttpClient) { }
 
   /* async addTeam(team : TeamInfo):Promise<any>{
@@ -26,13 +32,8 @@ export class TeamService {
   
 
   async deleteTeam(teamId : string):Promise<any>{
-    const requestOptions: Object = {
-      
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text' 
-   }
     return  this.http.delete<any>(
-      environment.globalEndPoint + UrlPathConstants.deleteTeamEndPoint+ teamId, requestOptions).toPromise();
+      environment.globalEndPoint + UrlPathConstants.deleteTeamEndPoint+ teamId, this.requestOptions).toPromise();
   }
 
   async viewAllTeams():Promise<TeamsResponse[]>{
@@ -44,13 +45,9 @@ export class TeamService {
 
 
   async addTeamMember(teamMember : TeamMemberDetails):Promise<any>{
-    const requestOptions: Object = {
-      
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      responseType: 'text' 
-   }
+    
     return  this.http.post<any>(
-      environment.globalEndPoint + UrlPathConstants.addTeamMemberEndPoint, teamMember, requestOptions
+      environment.globalEndPoint + UrlPathConstants.addTeamMemberEndPoint, teamMember, this.requestOptions
         
    ).toPromise();
   }

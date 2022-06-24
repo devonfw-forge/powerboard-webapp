@@ -10,15 +10,15 @@
     />
     <label style="color: #0070ad; margin-left: 5px;" for="html"> Jira</label>
 
-    <!-- <input
+    <input
       type="radio"
       class="ml-5"
-      id="sonar"
+      id="jira"
       [checked]="selected === 2"
-      value="2"
+      value="1"
       (change)="changeSelected(2)"
     />
-    <label style="color: #0070ad; margin-left: 5px;" for="html"> Sonar</label> -->
+    <label style="color: #0070ad; margin-left: 5px;" for="html"> Sonar</label>
 
     <input
       type="radio"
@@ -37,7 +37,7 @@
     </div>
     <span class="btn btn-primary btn-file" *ngIf="selected === 1">
       <span class="material-icons mat-icon">file_upload</span>
-      <span style="font-size: 16px"> Upload Jira</span>
+      <span style="font-size: 16px"> Upload Jira Data</span>
       <input
         type="file"
         accept=".xlsx , .xls , .csv"
@@ -45,34 +45,32 @@
       />
     </span>
 
-    <span class="btn btn-primary btn-file" *ngIf="selected === 5">
+    <span class="btn btn-primary btn-file" *ngIf="selected === 2">
       <span class="material-icons mat-icon">file_upload</span>
-      <span style="font-size: 16px"> Upload Sonar</span>
+      <span style="font-size: 16px"> Upload Sonar Data</span>
       <input
         type="file"
-        accept=".xlsx , .xls , .csv"
-        (change)="uploadFile($event, 'sonar')"
+        accept=".xlsx , .xls , .csv, .json"
+        (change)="uploadJSONFile($event, 'sonar')"
       />
     </span>
 
     <form style="margin-left: 100px;" class="col-md-8" [formGroup]="form" autocomplete="off" *ngIf="selected === 3" >
       <table class="table table-borderless">
+        <caption></caption>
         <tbody>
           <tr>
             <th id="Team_code">Client satisfaction rating</th>
             <td>
               <div>
                 <div class="form-group input-field">
-                  <input style="min-width: 200px;"
+                  <input style="width: 300px; "
                     class="form-control"
                     formControlName="clientRating"
                     type="number"
-                    max="10"
-                    min="1"
                   />
-                  <div style="min-height: 40px;">
-
-                  
+                </div>
+                <div style="min-height: 40px; margin-right: 40px;">
                   <label
                     class="text-danger"
                     *ngIf="
@@ -82,7 +80,16 @@
                   >
                     Required Field
                   </label>
-                </div>
+                  <label
+                  class="text-danger"
+                  *ngIf="
+                    form.get('clientRating').errors?.min ||
+                    form.get('clientRating').errors?.max
+                  "
+                >
+                  Client rating must be between 1 - 10
+                </label>
+
                 </div>
               </div>
             </td>
@@ -111,7 +118,7 @@
       <div class="row">
         <div class="col-md-5"></div>
         <div class="text-left ml-4">
-          <div class="mt-3 mb-2 text-dark"><b> Errors Found : </b></div>
+          <div class="mt-3 mb-2 text-dark"><strong> Errors Found : </strong></div>
           <div *ngFor="let error of errors">{{error}}</div>
         </div>
       </div>

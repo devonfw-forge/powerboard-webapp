@@ -6,8 +6,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { SetupComponent } from '../setup/setup.component';
 import { TeamComponent } from '../team/team.component';
-
+import TeamDetailsResponseJSON from 'src/app/teamDetailsResponse.json';
 import { ConfigComponent } from './config.component';
+import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 
 describe('ConfigComponent', () => {
   let component: ConfigComponent;
@@ -40,6 +41,26 @@ describe('ConfigComponent', () => {
   });
 
   beforeEach(() => {
+
+
+    var store = {};
+    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+      return store[key];
+    });
+    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
+      return (store[key] = value + '');
+    });
+    spyOn(localStorage, 'clear').and.callFake(function () {
+      store = {};
+    });
+
+    localStorage.setItem(
+      'TeamDetailsResponse',
+      JSON.stringify(TeamDetailsResponseJSON)
+    );
+
+
+
     router = TestBed.inject(Router);
     generalService = TestBed.inject(GeneralService);
     fixture = TestBed.createComponent(ConfigComponent);
@@ -67,4 +88,29 @@ it('should navigate to setup',() =>{
   component.checkNextRoute();
   expect(generalService.IsShowNavBarIcons).toHaveBeenCalled();
 })
+
+
+it('should activate admin setup',() =>{
+ let teamDetails : TeamDetailResponse = new TeamDetailResponse();
+ teamDetails = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+ teamDetails.powerboardResponse.isTeamConfigured = true;
+ localStorage.setItem(
+  'TeamDetailsResponse',
+  JSON.stringify(teamDetails)
+);
+  component.toggleAdminSetup();
+  expect(localStorage.getItem).toHaveBeenCalled();
+})
+
+it('should deactivate admin setup',() =>{
+  let teamDetails : TeamDetailResponse = new TeamDetailResponse();
+  teamDetails = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+  teamDetails.powerboardResponse.isTeamConfigured = false;
+  localStorage.setItem(
+   'TeamDetailsResponse',
+   JSON.stringify(teamDetails)
+ );
+   component.toggleAdminSetup();
+   expect(localStorage.getItem).toHaveBeenCalled();
+ })
 });

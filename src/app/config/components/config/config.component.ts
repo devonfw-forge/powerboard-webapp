@@ -26,19 +26,27 @@ export class ConfigComponent implements OnInit {
   checkNextRoute(){
     if(this.generalService.IsShowNavBarIcons()){
       if (localStorage.getItem('TeamDetailsResponse') != null) {
-        if(JSON.parse(
-          localStorage.getItem('TeamDetailsResponse')
-        ).powerboardResponse.isTeamConfigured){
-          this.setupService.deactiveAdminSetup();
-        }
-        else{
-          this.setupService.activeAdminSetup();
-        }
-       
+      /*   this.toggleAdminSetup(); */
       }
       this.router.navigate(['setup'], {relativeTo:this.route});
     }else{
       this.router.navigate(['team'], {relativeTo:this.route});
     }
+  }
+
+/**
+ * If team is configured then deactivate admin setup
+ * else activate admin setup
+ */
+  toggleAdminSetup(){
+    if(JSON.parse(
+      localStorage.getItem('TeamDetailsResponse')
+    ).powerboardResponse.isTeamConfigured){
+      this.setupService.deactiveAdminSetup();
+    }
+    else{
+      this.setupService.activeAdminSetup();
+    }
+   
   }
 }

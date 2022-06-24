@@ -25,7 +25,7 @@ import { AuthService } from '../../services/auth.service';
 export class AuthComponent implements OnInit {
   private authError: boolean;
   fieldTextType: boolean = false;
-  private powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
+  public powerboardLoginResponse: PowerboardLoginResponse = new PowerboardLoginResponse();
   loginForm: FormGroup;
 
   imagePath : string;
@@ -74,19 +74,8 @@ export class AuthComponent implements OnInit {
       this.generalService.setPermissions(
         this.powerboardLoginResponse.loginResponse.privileges
       );
-      localStorage.setItem(
-        'PowerboardDashboard',
-        JSON.stringify(this.powerboardLoginResponse)
-      );
-      this.generalService.setLoginComplete(true);
-      this.generalService.setpowerboardLoginResponse(this.powerboardLoginResponse);
-      if (this.powerboardLoginResponse.loginResponse.isPasswordChanged) {   
-        this.generalService.checkLastLoggedIn();
-      } else {
-        this.router.navigateByUrl('auth/resetpassword');
-      }
-      this.teamDetailsService.setTeamDetailPermissions();
-      this.generalService.checkVisibility();
+      this.setProperties();
+      this.checkAndNavigate();
       this.changeDetector.detectChanges();
       this.notificationService.showSuccess("", "Login Successful");
     } catch (e) {
@@ -110,7 +99,7 @@ export class AuthComponent implements OnInit {
  * 
  * Logs-in guest user and routes to the teams screen
  */
-  async GuestLogin(){
+  async guestLogin(){
 
     try {
       const data:any = await this.authService.guestLogin();
@@ -121,12 +110,7 @@ export class AuthComponent implements OnInit {
         
         null
       );
-      localStorage.setItem(
-        'PowerboardDashboard',
-        JSON.stringify(this.powerboardLoginResponse)
-      );
-     
-      this.generalService.setLoginComplete(true);
+     this.setProperties();
       this.changeDetector.detectChanges();
       this.router.navigate(['teams/projects']);
   
@@ -136,4 +120,30 @@ export class AuthComponent implements OnInit {
     }
   }
 
+/**
+ * Save login respose in local storage 
+ * set login to true
+ */
+  setProperties(){
+    localStorage.setItem(
+      'PowerboardDashboard',
+      JSON.stringify(this.powerboardLoginResponse)
+    );
+    this.generalService.setLoginComplete(true);
+  }
+
+/**
+ * If password already changed, check for last logged in project
+ * else route to reset password
+ */
+  checkAndNavigate(){
+    this.generalService.setpowerboardLoginResponse(this.powerboardLoginResponse);
+      if (this.powerboardLoginResponse.loginResponse.isPasswordChanged) {   
+        this.generalService.checkLastLoggedIn();
+      } else {
+        this.router.navigateByUrl('auth/resetpassword');
+      }
+      this.teamDetailsService.setTeamDetailPermissions();
+      this.generalService.checkVisibility();
+  }
 }

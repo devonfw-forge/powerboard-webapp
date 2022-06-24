@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GeneralService } from './shared/services/general.service';
@@ -26,7 +26,8 @@ export class AppComponent implements OnInit {
     public router: Router,
     public location: Location,
     public teamDetailService: TeamDetailsService,
-    public setupSerive: SetupService
+    public setupSerive: SetupService,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.teamName = '';
   }
@@ -178,6 +179,8 @@ export class AppComponent implements OnInit {
     if (this.checklocationPath.includes('config')) {
       console.log('already in config');
     } else {
+      this.setupSerive.deactiveAdminSetup();
+      
       this.router.navigateByUrl('/config');
     }
   }

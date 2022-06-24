@@ -18,36 +18,44 @@ export class ClientSatisfactionComponent implements OnInit {
       this.componentReady=false;
   }
 
-  /**
+  
+  ngOnInit(): void {
+    this.aws_asset= environment.AWS_ASSETS_URL as string;
+    this.checkClientRating();
+  }
+
+/**
    * Get client status details from local storage
    * Check the client status rating
    * If rating < 3.3, set colour to red
    * else if rating > 3.3 & rating < 6.7, set colour to orange
    * else set colour to green
    */
-  ngOnInit(): void {
-    this.aws_asset= environment.AWS_ASSETS_URL as string;
-    this.clientStatus = JSON.parse(
-      localStorage.getItem('TeamDetailsResponse')
-    ).powerboardResponse.dashboard.clientStatus;
-    if (this.clientStatus) {
-      if (this.clientStatus.clientSatisfactionRating < 3.3) {
-        this.colour = '#c40000';
-      } else if (
-        this.clientStatus.clientSatisfactionRating > 3.3 &&
-        this.clientStatus.clientSatisfactionRating < 6.7
-      ) {
-        this.colour = '#e09b3a';
-      } else {
-        this.colour = '#2ab02f';
-      }
-      this.componentReady = true;
-      this.initChart();
+checkClientRating(){
+  this.clientStatus = JSON.parse(
+    localStorage.getItem('TeamDetailsResponse')
+  ).powerboardResponse.dashboard.clientStatus;
+  if (this.clientStatus) {
+    if (this.clientStatus.clientSatisfactionRating < 3.3) {
+      this.colour = '#c40000';
+    } else if (
+      this.clientStatus.clientSatisfactionRating > 3.3 &&
+      this.clientStatus.clientSatisfactionRating < 6.7
+    ) {
+      this.colour = '#e09b3a';
+    } else {
+      this.colour = '#2ab02f';
     }
-    else{
-        this.componentReady = false;
-    }
+    this.componentReady = true;
+    this.initChart();
   }
+  else{
+      this.componentReady = false;
+  }
+
+}
+
+
 
   /**
    * Sets the properties for client satisfaction gauge

@@ -33,6 +33,7 @@ import {
 } from '../shared/model/general.model';
 import { SlideshowMultimediaComponent } from './components/slideshow/slideshow-multimedia/slideshow-multimedia.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ShortURLPipe } from './pipes/short-url.pipe';
 
 const routes: Routes = [
   { path: '', component: ProjectDisplayComponent },
@@ -58,6 +59,7 @@ const routes: Routes = [
     MyProjectsComponent,
     ProjectDisplayComponent,
     SlideshowMultimediaComponent,
+    ShortURLPipe,
   ],
   providers: [
     Dashboard,

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SetupService } from 'src/app/config/services/setup.service';
+import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import {
@@ -11,7 +12,7 @@ import { ConfigService } from '../../../services/config.service';
 import { TeamService } from '../../../services/team.service';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { EditTeamMemberComponent } from './edit-team-member/edit-team-member.component';
-//testing
+
 @Component({
   selector: 'app-view-all-team-members',
   templateUrl: './view-all-team-members.component.html',
@@ -22,6 +23,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
   deleteId: string;
   teamMembers: TeamMemberDetailsResponse[] = [];
   updateRole: UpdateRoles = new UpdateRoles();
+  teamDetail: TeamDetailResponse = new TeamDetailResponse();
   @ViewChild(AddMemberComponent) child;
   @ViewChild(EditTeamMemberComponent) editChild;
 
@@ -35,22 +37,20 @@ export class ViewAllTeamMembersComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.teamId = JSON.parse(
+      localStorage.getItem('TeamDetailsResponse')
+    ).powerboardResponse.team_id;
     await this.viewAllMembers();
   }
   /**
-   * Get the team Id from the local storage
    * Fetch team member details from teamService using teamId
    * If data not fetched it gives a error message
    */
   async viewAllMembers() {
     try {
-      this.teamId = JSON.parse(
-        localStorage.getItem('TeamDetailsResponse')
-      ).powerboardResponse.team_id;
       const data = await this.teamService.viewTeamMembersOfTeam(this.teamId);
       this.teamMembers = data;
     } catch (e) {
-      console.log('error viewing team members', e);
       this.notifyService.showInfo(e.error.message, '');
     }
   }
@@ -65,12 +65,10 @@ export class ViewAllTeamMembersComponent implements OnInit {
    */
   async deleteMember() {
     try {
-      const data = await this.teamService.deleteTeamMember(this.deleteId);
-      console.log(data);
+      await this.teamService.deleteTeamMember(this.deleteId);
       this.notifyService.showSuccess('Team member deleted successfully', '');
-      this.viewAllMembers();
+      this.teamMembers = this.teamMembers.filter(member => member.userTeamId!= this.deleteId);
     } catch (reason) {
-      console.log('error deleting team member', reason);
       this.notifyService.showError('', reason.error.message);
     }
   }
@@ -82,9 +80,7 @@ export class ViewAllTeamMembersComponent implements OnInit {
     const result = await this.child.addTeamMember();
     if (result) {
       await this.viewAllMembers();
-    } else {
-      console.log('failed to add member');
-    }
+    } 
   }
   /**
    * Reset the add member form
@@ -117,5 +113,28 @@ export class ViewAllTeamMembersComponent implements OnInit {
   }
   previous(){
     this.router.navigate(['config/setup/editTeam']);
+  }
+  skip(){
+    this.setupService.deactiveAdminSetup();
+    this.router.navigate(['teams/dashboard']);
+  }
+
+  async finishConfiguration() {
+    try {
+      await this.setupService.updateTeamConfigured(this.teamId,true);
+      this.notifyService.showSuccess('Team configured successfully !!', '');
+      this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+      this.teamDetail.powerboardResponse.isTeamConfigured = true;
+      localStorage.setItem(
+        'TeamDetailsResponse',
+        JSON.stringify(this.teamDetail)
+      );
+    } catch (e) {
+      console.log(e.error.message);
+      this.notifyService.showError('', e.error.message);
+    }finally{
+      this.setupService.deactiveAdminSetup();
+      this.router.navigate(['teams/dashboard']);
+    }
   }
 }

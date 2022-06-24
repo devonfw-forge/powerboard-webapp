@@ -8,7 +8,7 @@
       <div class="row">
           <div class="col-md-3">
               <div class="row"  >
-                  <h5 style="margin-left: 15px; color: #0070AD;">{{velocity?.Avg}}&nbsp;Average Velocity</h5></div>
+                  <h5 style="margin-left: 15px; color: #0070AD;">{{velocity?.Avg | number : '1.0-0'}}&nbsp;Average Velocity</h5></div>
           </div>
           <div class="col-md-3">
               <div class="row"><h5>{{velocity?.Committed}}</h5>&nbsp;{{workUnit | titlecase}} Committed</div>
@@ -16,6 +16,12 @@
           <div class="col">
               <div class="row ml-1"><h5>{{velocity?.Completed}}</h5>&nbsp;{{workUnit | titlecase}} Completed</div>
           </div>
+          <div class="col" *ngIf="velocity.jiraLink">
+            <div class="row ml-1" style=" font-weight: 400; font-size: small;   margin-bottom: 5px;">Jira:&nbsp; 
+                <a class="link" style="color: #0070AD; cursor: pointer;" (click)="openJiraLink(velocity.jiraLink)">    
+                <span >{{velocity.jiraLink|shortURL}}</span>
+            </a></div>
+        </div>
       </div>
   </div>
 </div>

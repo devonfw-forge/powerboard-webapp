@@ -50,7 +50,9 @@
           <div class="col-md-2 mt-2 float-center">
             <span
               class="material-icons mat-icon"
-              (click)="deleteFilesAndFolders()"
+              data-toggle="modal"
+              data-target="#deleteFileFolderModal"
+             
             >
               delete_outline
             </span>
@@ -261,6 +263,41 @@
             Add
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete-Folder Modal -->
+<div class="modal fade bd-example-modal-sm" id="deleteFileFolderModal" tabindex="-1" role="dialog" aria-labelledby="deleteFileFolderModalLable"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header pl-5">
+  
+
+          
+        <h5 class="modal-title pl-5" id="deleteFileFolderModalLable">Delete</h5>
+       
+        <button type="button" class="close icon" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+     
+      
+      </div>
+      <div class="modal-body pt-3 pb-1">
+        <p>Are you sure you want to delete?</p>
+      </div>
+      <div class="footer pb-4">
+
+          <div>
+
+            <button type="button" class="btn btn-basic btn-custom btn-cg-color mr-2 ml-3"
+              data-dismiss="modal">No,go back</button>
+            <button type="button" class="btn btn-basic btn-custom btn-cg-color ml-2 mr-2 " data-dismiss="modal" (click)="deleteFilesAndFolders()">Yes,delete</button>
+          </div>
+        
       </div>
     </div>
   </div>

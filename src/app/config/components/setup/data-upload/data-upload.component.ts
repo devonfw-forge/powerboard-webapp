@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SetupService } from 'src/app/config/services/setup.service';
+import { Dashboard, TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
@@ -16,10 +17,11 @@ export class DataUploadComponent implements OnInit {
   errors:string[]= [];
 
   constructor(public setupService: SetupService,  private notifyService: NotificationService, public fb: FormBuilder) {
-    
+   const maxNumber = 10;
+   const minNumber = 1;
 
     this.form = this.fb.group({
-      clientRating: ['', [Validators.required]]
+      clientRating: ['', [Validators.required, Validators.min(minNumber), Validators.max(maxNumber)]]
       
     });
   }
@@ -45,39 +47,79 @@ async uploadFile(event, type:string) {
   const file = (event.target as HTMLInputElement).files[0];
   try {
     this.spinner = true;
-    const data = await this.setupService.uploadXLSXFile(
+   const data = await this.setupService.uploadXLSXFile(
       file,
       type,
       this.teamId
     );
-    this.spinner = false;
-    event.target.value= null;
+    console.log(data);
+    if(data){
+      this.updateDashboard(data);
+    }
     this.notifyService.showSuccess('', 'File uploaded successfully');
   } catch (e) {
-    this.spinner = false;
-    event.target.value= null;
     console.log(e.error.message);
     this.errors = e.error.message.split(",");
     this.notifyService.showError('', 'File not uploaded'); 
+  }
+  finally{
+    this.spinner = false;
+    event.target.value= null;
+  }
+}
+
+async uploadJSONFile(event, type:string) {
+  this.errors = [];
+  const file = (event.target as HTMLInputElement).files[0];
+  try {
+    this.spinner = true;
+    const data = await this.setupService.uploadJSONFile(
+      file,
+      type,
+      this.teamId
+    );
+    console.log(data);
+    if(data){
+      this.updateDashboard(data);
+    }
+    this.notifyService.showSuccess('', 'File uploaded successfully');
+  } catch (e) {
+    console.log(e.error.message);
+    this.errors = e.error.message.split(",");
+    this.notifyService.showError('', 'File not uploaded'); 
+  }
+  finally{
+    this.spinner = false;
+    event.target.value= null;
   }
 }
 
 changeSelected(num: number) {
   this.selected = num;
+  this.errors = [];
 }
 
 async uploadClientRating() {
   try {
-    const data = await this.setupService.uploadClientRating(
+    const data  =
+     await this.setupService.uploadClientRating(
       this.form.get('clientRating').value,
       "clientstatus",
       this.teamId
     );
-    this.notifyService.showSuccess('', 'Client Rating updated successfully');
+    console.log(data);
+    this.updateDashboard(data);
+    this.notifyService.showSuccess('', 'Client satisfaction rating updated successfully');
   } catch (e) {
     console.log(e.error.message);
-    console.log(e);
     this.notifyService.showError('', e.error.message);
   }
+}
+
+updateDashboard(dashboard){
+  let teamDetails : TeamDetailResponse = new TeamDetailResponse();
+ teamDetails = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+ teamDetails.powerboardResponse.dashboard = dashboard;
+ localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
 }
 }

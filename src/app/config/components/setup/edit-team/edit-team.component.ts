@@ -7,7 +7,7 @@ import { SetupService } from '../../../services/setup.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-team',
@@ -105,7 +105,7 @@ if(JSON.parse(
     try{
     await this.setupService.deleteLogo(this.team.teamId);
     this.isLogo = false; 
-    this.notifyService.showSuccess("", "Logo deleted successfully");
+    this.notifyService.showSuccess("", "Team logo deleted successfully");
     }
     catch(e){
       console.log(e.error.message);
@@ -134,7 +134,7 @@ if(JSON.parse(
      localStorage.setItem('TeamDetailsResponse', JSON.stringify(this.teamDetail));
      var image = <HTMLImageElement>document.getElementById('output');
      image.src = URL.createObjectURL(file); 
-     this.notifyService.showSuccess("","Logo uploaded successfully");
+     this.notifyService.showSuccess("","Team logo uploaded successfully");
     }catch(e){
       console.log(e);
       this.spinner = false;

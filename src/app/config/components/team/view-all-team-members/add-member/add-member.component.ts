@@ -45,34 +45,32 @@ teamMember : TeamMemberDetails = new TeamMemberDetails();
  
 
   /**
-   * Get team member details from form group
    * If team member added successfully, display success message and reset form group
    * If error while adding team member, display error message
    */
   async addTeamMember(){
     
     try{
-      console.log("teamMemberDetails");
-      this.teamMember.team.id = this.teamId;
-      this.teamMember.username = this.memberGroup.get('username').value;
-      this.teamMember.email = this.memberGroup.get('email').value;
-      this.teamMember.role = this.memberGroup.get('role').value;
-      console.log(this.teamMember);
-      const data = await this.teamService.addTeamMember(this.teamMember);
+      this.getTeamMemberDetailsFromForm();
+     await this.teamService.addTeamMember(this.teamMember);
       this.notifyService.showSuccess("Team member added successfully","");
       this.memberGroup.reset();
       this.roleName="Select Role";
-      console.log(data);
       return true;
-      
     }
     catch(e){
-      console.log(e.error.message);
       this.notifyService.showError("", e.error.message);
       return false;
-     
     }   
-
+  }
+/**
+ *  Get team member details from form group
+ */
+  getTeamMemberDetailsFromForm(){
+    this.teamMember.team.id = this.teamId;
+    this.teamMember.username = this.memberGroup.get('username').value;
+    this.teamMember.email = this.memberGroup.get('email').value;
+    this.teamMember.role = this.memberGroup.get('role').value;
   }
 /**
  * 

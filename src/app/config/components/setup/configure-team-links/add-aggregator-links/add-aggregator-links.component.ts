@@ -41,7 +41,6 @@ export class AddAggregatorLinksComponent implements OnInit {
 
   async getLinkTypes() {
     this.linkTypes = [];
-    /* this.linkTypes = await this.setupService.getLinkTypes(); */
     let jiraLink:LinksCategory = new LinksCategory();
     jiraLink.linkId= "jiraID";
     jiraLink.linkTitle="jira_link";

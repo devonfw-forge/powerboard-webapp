@@ -30,7 +30,6 @@ export class SetupService {
  
  
   async addLogoToTeam(teamId, file:File):Promise<any>{
-    // Headers
     const formData = new FormData();
     formData.append('logo', file, file.name);
     return this.http
@@ -77,7 +76,6 @@ export class SetupService {
 
   
   async addFilesToTeam(teamId, file:File):Promise<any>{
-    // Headers
     const formData = new FormData();
     formData.append('file', file, file.name);
     return this.http
@@ -87,7 +85,6 @@ export class SetupService {
 
 
    async addFolderToTeam(teamId: string, name :string):Promise<any>{
-    // Headers
     return this.http
     .post<any>(environment.globalEndPoint + UrlPathConstants.addFolderEndPoint + teamId, {name}).toPromise();
   }
@@ -95,7 +92,6 @@ export class SetupService {
 
 
   async addFileInSubFolder(folderId, teamId, file:File):Promise<any>{
-    // Headers
     const formData = new FormData();
     formData.append('file', file, file.name);
     return this.http
@@ -110,14 +106,12 @@ export class SetupService {
       }),
       body: deleteResponse,
     };
-    
     return this.http.delete<any>(
       environment.globalEndPoint + UrlPathConstants.deleteFilesAndFoldersEndPoint + teamId , options).toPromise();
   }
 
 
   async addToSlideshow(teamId: string,  fileAndFolderIds : string[]):Promise<any>{
-    // Headers
     return this.http
     .post<any>(environment.globalEndPoint + UrlPathConstants.addToSlideshowEndPoint + teamId, {fileAndFolderIds}).toPromise();
   }
@@ -127,20 +121,21 @@ export class SetupService {
   async uploadXLSXFile(file:File, type, teamId):Promise<any>{
     const formData = new FormData();
     formData.append('file', file, file.name);
-    console.log(formData);
     return this.http
     .post<any>(environment.globalEndPoint + UrlPathConstants.uploadXLSXEndPoint + type + '/' + teamId, formData).toPromise();
+  }
 
+  async uploadJSONFile(file:File, type, teamId):Promise<any>{
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http
+    .post<any>(environment.globalEndPoint + UrlPathConstants.uploadJSONFileEndPoint + type + '/' + teamId, formData).toPromise();
   }
 
   
   async uploadClientRating(clientRating, type, teamId):Promise<any>{
-    console.log({clientRating});
-    console.log(type);
-    console.log(teamId);
     return this.http
     .post<any>(environment.globalEndPoint + UrlPathConstants.uploadClientRatingEndPoint + type + '/' + teamId, {clientRating}).toPromise();
-
   }
 }
 

@@ -66,21 +66,14 @@ export class AddTeamComponent implements OnInit {
   }
 
   /**
-   * form data created using form group
    * if team is added with logo successfully, return team details
    * rest form
    */
   async addTeamWithLogo() {
-    var formData: any = new FormData();
-    formData.append('teamName', this.form.get('teamName').value);
-    formData.append('projectKey', this.form.get('projectKey').value);
-    formData.append('ad_center', this.form.get('ad_center').value);
-    formData.append('teamCode', this.form.get('teamCode').value);
-    formData.append('logo', this.form.get('logo').value);
     try {
-      const data = await this.teamService.addTeamWithLogo(
-        formData
-      );
+      var formData: any = this.getTeamFromForm();
+      const data = await this.teamService.addTeamWithLogo(formData);
+      this.notifyService.showSuccess('', 'Team added successfully');
       var image = <HTMLImageElement>document.getElementById('output');
       image.src = this.aws_asset+"layoutAssets/logo/uploadLogo.PNG";
       this.form.reset();
@@ -91,5 +84,17 @@ export class AddTeamComponent implements OnInit {
     } catch (e) {
       console.log(e);
     }
+  }
+/**
+ *  form data created using form group
+ */
+  getTeamFromForm(): FormData{
+    var formData: any = new FormData();
+    formData.append('teamName', this.form.get('teamName').value);
+    formData.append('projectKey', this.form.get('projectKey').value);
+    formData.append('ad_center', this.form.get('ad_center').value);
+    formData.append('teamCode', this.form.get('teamCode').value);
+    formData.append('logo', this.form.get('logo').value);
+    return formData;
   }
 }

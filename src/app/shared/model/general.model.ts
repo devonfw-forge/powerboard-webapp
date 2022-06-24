@@ -62,6 +62,7 @@ export class VelocityResponse{
   Avg: number;
   Committed: number;
   Completed: number;
+  jiraLink?: string;
   updatedAt? : Date;
 }
 
