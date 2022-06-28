@@ -107,9 +107,14 @@ async uploadClientRating() {
       "clientstatus",
       this.teamId
     );
+   
     console.log(data);
-    this.updateDashboard(data);
+    if(data){
+      this.updateDashboard(data);
+    }
+    
     this.notifyService.showSuccess('', 'Client satisfaction rating updated successfully');
+    
   } catch (e) {
     console.log(e.error.message);
     this.notifyService.showError('', e.error.message);
@@ -119,6 +124,7 @@ async uploadClientRating() {
 updateDashboard(dashboard){
   let teamDetails : TeamDetailResponse = new TeamDetailResponse();
  teamDetails = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+ console.log(dashboard);
  teamDetails.powerboardResponse.dashboard = dashboard;
  localStorage.setItem('TeamDetailsResponse', JSON.stringify(teamDetails));
 }
