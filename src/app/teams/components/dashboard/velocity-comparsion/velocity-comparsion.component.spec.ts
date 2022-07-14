@@ -1,6 +1,8 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SetupService } from 'src/app/config/services/setup.service';
 import {
   Dashboard,
   PowerboardResponse,
@@ -78,6 +80,12 @@ describe('VelocityComparsionComponent', () => {
             'https://github.com/devonfw-forge/powerboard-api/blob/develop-0.0.1/',
         },
       ],
+      aggregationLinks:[
+        {
+          name: "128384848392028374839202",
+          url: "https://dummyurl.com"
+        }
+      ],
       images: [
         {
           ImageId: 'aaad19f7-1b66-44aa-a443-4fcdd173f385',
@@ -113,11 +121,26 @@ describe('VelocityComparsionComponent', () => {
       privileges: ['view_meeting_links', 'view_team_links'],
     },
   };
+  class MockSetupService{
+    goToConfigureLinks(){}
+    deactiveAdminSetup(){}
+    showAddAggregationLinkModal(){}
+  }
 
+  class MockRouter {
+    navigate(path:string){
+     return path;
+    }
+    navigateByUrl(path:string){
+      return path;
+    }
+  }
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientModule],
       declarations: [VelocityComparsionComponent],
+      providers:[{provide:SetupService,useClass:MockSetupService},
+        {provide : Router, useClass:MockRouter}]
     }).compileComponents();
   });
 
@@ -162,4 +185,29 @@ describe('VelocityComparsionComponent', () => {
       expect(component.velocity).toEqual(velocity);
     }
   ));
+
+  it('it should move to setting if location is not in settings',()=>{
+    spyOn(component.location,'path').and.callFake(()=>{return "null"});
+    spyOn(component.setupSerive,'goToConfigureLinks').and.returnValue(null);
+    component.moveToSetings();
+    expect(component.location.path).toHaveBeenCalled();
+    expect(component.setupSerive.goToConfigureLinks).toHaveBeenCalled();
+  })
+
+  it('it should not move to setting if location is in settings',()=>{
+    spyOn(component.location,'path').and.callFake(()=>{return "config"});
+    component.moveToSetings();
+    expect(component.location.path).toHaveBeenCalled();
+    expect(component.checklocationPath).toEqual("config");
+  })
+
+
+  it('it should open add aggregation links modal',()=>{
+    spyOn(component,'moveToSetings').and.returnValue(null);
+    spyOn(component.setupSerive,'showAddAggregationLinkModal').and.returnValue(null);
+    component.openAddAggregationLinkModal();
+    expect(component.moveToSetings).toHaveBeenCalled();
+    expect(component.setupSerive.showAddAggregationLinkModal).toHaveBeenCalled();
+  })
+
 });

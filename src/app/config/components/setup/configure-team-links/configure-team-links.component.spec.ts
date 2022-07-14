@@ -8,13 +8,14 @@ import { ElectronService, NgxElectronModule } from 'ngx-electron';
 import { LinkTypeFilterPipe } from 'src/app/config/pipes/link-type-filter.pipe';
 import { ShortUrlPipe } from 'src/app/config/pipes/short-url.pipe';
 import { SetupService } from 'src/app/config/services/setup.service';
-import { LinkResponse } from 'src/app/shared/model/general.model';
+import { AggregationLinkResponse, LinkResponse } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
 import { AddLinksComponent } from './add-links/add-links.component';
 import { ConfigureTeamLinksComponent } from './configure-team-links.component';
 import { WebviewTag } from 'electron';
-import { link } from 'fs';
+import { AddAggregatorLinksComponent } from './add-aggregator-links/add-aggregator-links.component';
+import { Router } from '@angular/router';
 describe('ConfigureTeamLinksComponent', () => {
   let component: ConfigureTeamLinksComponent;
   let fixture: ComponentFixture<ConfigureTeamLinksComponent>;
@@ -28,6 +29,33 @@ describe('ConfigureTeamLinksComponent', () => {
       else{
         return 'deleted'
       }
+    }
+
+    getOpenConfigureLinks(){
+      return true;
+    }
+
+    getIsShowAddAggregationLinkModal(){
+      return true;
+    }
+    openConfigureLinksTab = false;
+    openAddAggregationLinkModal = false;
+    setOpenConfigureLinksToFalse(){
+      this.openConfigureLinksTab = true;
+    }
+
+    hideAddAggregationLinkModal(){
+      this.openAddAggregationLinkModal = false;
+    }
+
+    deleteAggregationLink(link){
+      return link;
+    }
+
+    updateTeamConfigured(first,second){
+    }
+
+    deactiveAdminSetup(){
     }
   } 
   class MockWebViewTag{
@@ -65,17 +93,49 @@ describe('ConfigureTeamLinksComponent', () => {
     }
      
   }
+
+  @Component({
+    selector: 'app-add-aggregator-links',
+    template: '',
+    providers: [{ provide: AddAggregatorLinksComponent, useClass: MockedAddAggregationLinksComponent  }]
+  })
+  class MockedAddAggregationLinksComponent {
+    memberGroup:any={
+     reset(){
+       
+     }
+   }
+     
+     onSubmit(){
+     }
+      
+   }
+  class MockChangeDetectorRef{
+    detectChanges(){
+      return null;
+    }
+  }
+
+  class MockRouter {
+    navigate(path:any[]){
+     return path;
+    }
+    navigateByUrl(path:string){
+      return path;
+    }
+  }
  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports :[RouterTestingModule, HttpClientModule, FormsModule, NgxElectronModule, ReactiveFormsModule],
-      declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe,MockedAddLinksComponent
-      
+      declarations: [ ConfigureTeamLinksComponent,ShortUrlPipe,LinkTypeFilterPipe,MockedAddLinksComponent,
+        MockedAddAggregationLinksComponent
         ],
-      providers : [{provide : NotificationService, useClass:MockNotifyService}, ElectronService, ChangeDetectorRef,
-        {provide:SetupService, useClass:MockSetupService},
-        
-        {provide: webviewTag,useClass:MockWebViewTag},
+      providers : [{provide : NotificationService, useClass:MockNotifyService}, ElectronService, 
+        {provide: ChangeDetectorRef, useClass: MockChangeDetectorRef},
+        {provide: SetupService, useClass:MockSetupService},
+        {provide : Router, useClass:MockRouter},
+        {provide: webviewTag, useClass:MockWebViewTag},
       ]
     })
     .compileComponents();
@@ -216,5 +276,79 @@ describe('ConfigureTeamLinksComponent', () => {
     component.close();
     expect(component.child.memberGroup.reset).toHaveBeenCalled();
   }) */
+
+  it('should open aggregation links on window',()=>{
+    spyOn(window,'open').and.callFake(()=>{return null});
+    component.isElectronRunning= false;
+    component.openAggregationLink("dummyLink");
+    expect(window.open).toHaveBeenCalled();
+  })
+  it('should open aggregation links on window if electron is running',()=>{
+    spyOn(window,'open').and.callFake(()=>{return null});
+    /* spyOn(window,'close').and.callFake(()=>{return null}); */
+    component.isElectronRunning= true;
+    component.openAggregationLink("dummyLink");
+    expect(window.open).toHaveBeenCalled();
+    component.isElectronRunning= true;
+  })
+
+  it('should delete aggregation link',()=>{
+    component.selectedLinkId = "mock link id";
+
+    component.deleteAggregationLink();
+   // expect(JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.teamLinks).toEqual(component.usefullLinks);
+   expect(component.deleteAggregationLink).toBeDefined();
+  })
+  it('should delete give error message',()=>{
+    component.selectedLinkId = null;
+    spyOn(component.notifyService,'showError');
+    try{
+      component.deleteAggregationLink();
+    }catch(e){
+      expect(e.error.message).toThrow();
+      expect(component.notifyService.showError).toHaveBeenCalled();
+    }
+  })
+
+
+  it('should add aggregation link',()=>{
+    const data={
+      id:"dummyId",
+      url:"dummyurl",
+      startDate:"Date",
+      isActive:true,
+      name:{
+        title:"name"
+      },
+      aggregationFrequency:12,
+      team:{
+        id:"dummyId"
+      }
+     }
+    const aggregationLinks:AggregationLinkResponse[]=[];
+    component.aggregationLinks=aggregationLinks;
+     spyOn(component.aggregationChild,'onSubmit').and.returnValue(data);
+      component.addAggregationLink();
+      expect(component.aggregationChild.onSubmit).toHaveBeenCalled();
+      expect(component.addAggregationLink).toBeTruthy();
+    })
+
+    it('should call finish configuration',()=>{
+      spyOn(component.setupService,'updateTeamConfigured').and.returnValue(null);
+      component.finishConfiguration();
+      expect(component.setupService.updateTeamConfigured).toHaveBeenCalled();
+    })
+
+    it('should skip',()=>{
+      spyOn(component.setupService,'deactiveAdminSetup').and.returnValue(null);
+      component.skip();
+      expect(component.setupService.deactiveAdminSetup).toHaveBeenCalled();
+    })
+
+    it('should goto previous',()=>{
+      spyOn(component.router,'navigate').and.returnValue(null);
+      component.previous();
+      expect(component.router.navigate).toHaveBeenCalled();
+    })
 
 });

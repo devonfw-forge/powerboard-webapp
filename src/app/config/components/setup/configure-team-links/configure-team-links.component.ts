@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { WebviewTag } from 'electron';
 import { ElectronService } from 'ngx-electron';
 import {
+  AggregationLinkResponse,
   LinkResponse,
   TeamDetailResponse,
 } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { SetupService } from '../../../services/setup.service';
+import { AddAggregatorLinksComponent } from './add-aggregator-links/add-aggregator-links.component';
 import { AddLinksComponent } from './add-links/add-links.component';
 
 @Component({
@@ -22,19 +24,21 @@ export class ConfigureTeamLinksComponent implements OnInit {
   isElectronRunning: boolean;
   url: FormControl;
   usefullLinks: LinkResponse[];
-  aggregationLinks: LinkResponse[];
+  aggregationLinks: AggregationLinkResponse[];
   selectedLinkId: string;
   addedLink: any;
+  addedAggregationLink: any;
   teamId:string;
   teamDetail: TeamDetailResponse = new TeamDetailResponse();
   @ViewChild(AddLinksComponent) child;
+  @ViewChild(AddAggregatorLinksComponent) aggregationChild;
 
   constructor(
     public setupService: SetupService,
     private ref: ChangeDetectorRef,
     private electronService: ElectronService,
     public notifyService: NotificationService,
-    private router:Router
+    public router:Router
   ) {
     this.usefullLinks = [];
     if (electronService.isElectronApp) {
@@ -44,12 +48,22 @@ export class ConfigureTeamLinksComponent implements OnInit {
     }
   }
 
+
   ngOnInit(): void {
     this.teamId = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.team_id;
     this.getLinks();
   }
+
+  ngAfterViewInit(){
+    if(this.setupService.getOpenConfigureLinks() && this.setupService.getIsShowAddAggregationLinkModal()){
+      document.getElementById("addAggregationLinkButton").click();
+      this.setupService.setOpenConfigureLinksToFalse();
+      this.setupService.hideAddAggregationLinkModal();
+    }
+  }
+  
 
   /**
    * Get all links from local storage
@@ -63,21 +77,17 @@ export class ConfigureTeamLinksComponent implements OnInit {
     if (this.usefullLinks.length > 0) {
       console.log(this.usefullLinks);
     } else {
-      this.notifyService.showInfo('', 'No links are available');
+      this.notifyService.showInfo('', 'No Team links are available');
     }
-    this.aggregationLinks =[];
-    let newJiraLink : LinkResponse = new LinkResponse();
-    newJiraLink.linkName="";
-    newJiraLink.linkType="jira_link";
-    newJiraLink.links="https://e-3d-jira2.capgemini.com/jira2/secure/RapidBoard.jspa?rapidView=15074&projectKey=P002659";
-    newJiraLink.teamLinkId="";
-    this.aggregationLinks.push(newJiraLink);
-    let newSonarLink : LinkResponse = new LinkResponse();
-    newSonarLink.linkName="";
-    newSonarLink.linkType="sonar_link";
-    newSonarLink.links="https://docs.sonarqube.org/latest/analysis/coverage/";
-    newSonarLink.teamLinkId="";
-    this.aggregationLinks.push(newSonarLink);
+    this.aggregationLinks = JSON.parse(
+      localStorage.getItem('TeamDetailsResponse')
+    ).powerboardResponse.aggregationLinks;
+
+    if (this.aggregationLinks.length > 0) {
+      console.log(this.aggregationLinks);
+    } else {
+      this.notifyService.showInfo('', 'No Aggregation links are available');
+    }
   }
 
   /**
@@ -102,6 +112,22 @@ export class ConfigureTeamLinksComponent implements OnInit {
       window.open(meetingLink, '_blank');
     } else {
       let myWindow = window.open(meetingLink, '_system');
+      setTimeout(() => {
+        myWindow.close();
+      }, 5000);
+    }
+  }
+
+  /**
+   * If electron running, open aggregation link in same window
+   * else, open in new tab
+   *
+   */
+  openAggregationLink(aggregationLink: string) {
+    if (!this.isElectronRunning) {
+      window.open(aggregationLink, '_blank');
+    } else {
+      let myWindow = window.open(aggregationLink, '_system');
       setTimeout(() => {
         myWindow.close();
       }, 5000);
@@ -155,6 +181,38 @@ export class ConfigureTeamLinksComponent implements OnInit {
   }
 
   /**
+   * Delete Aggregation link using link id
+   * If link deleted successfully, display success message and update in links list and local storage
+   * If error while deleting link, display error message
+   */
+  async deleteAggregationLink() {
+    try {
+      console.log(this.selectedLinkId);
+      const data = await this.setupService.deleteAggregationLink(this.selectedLinkId);
+      let linkName:string = '';
+      for(let link of this.aggregationLinks){
+        if(link.id == this.selectedLinkId){
+          linkName = link.name;
+        }
+      }
+      this.notifyService.showSuccess(linkName+' link deleted successfully', '');
+      console.log(data);
+      this.aggregationLinks = this.aggregationLinks.filter(
+        (link) => link.id != this.selectedLinkId
+      );
+      this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+      this.teamDetail.powerboardResponse.aggregationLinks = this.aggregationLinks;
+      localStorage.setItem(
+        'TeamDetailsResponse',
+        JSON.stringify(this.teamDetail)
+      );
+    } catch (e) {
+      console.log(e.error.message);
+      this.notifyService.showError('', e.error.message);
+    }
+  }
+
+  /**
    * If link added, append the links in link list and local storage
    */
   async addLink() {
@@ -170,6 +228,31 @@ export class ConfigureTeamLinksComponent implements OnInit {
     console.log(this.usefullLinks);
     this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
     this.teamDetail.powerboardResponse.teamLinks = this.usefullLinks;
+    localStorage.setItem(
+      'TeamDetailsResponse',
+      JSON.stringify(this.teamDetail)
+    );
+  }
+
+  /**
+   * If aggregation link added, append the links in link list and local storage
+   */
+  async addAggregationLink() {
+    const data = await this.aggregationChild.onSubmit();
+    console.log(data);
+    this.addedAggregationLink = {
+      id: data.id,
+      url : data.url,
+      teamId: data.team.id,
+      name: data.name.title,
+      aggregationFrequency: data.aggregationFrequency,
+      startDate: data.startDate,
+      isActive: data.isActive
+    };
+    this.aggregationLinks.push(this.addedAggregationLink);
+    console.log(this.aggregationLinks);
+    this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
+    this.teamDetail.powerboardResponse.aggregationLinks = this.aggregationLinks;
     localStorage.setItem(
       'TeamDetailsResponse',
       JSON.stringify(this.teamDetail)

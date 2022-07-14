@@ -179,8 +179,8 @@ export class AppComponent implements OnInit {
     if (this.checklocationPath.includes('config')) {
       console.log('already in config');
     } else {
+      this.setupSerive.setOpenConfigureLinksToFalse();
       this.setupSerive.deactiveAdminSetup();
-      
       this.router.navigateByUrl('/config');
     }
   }

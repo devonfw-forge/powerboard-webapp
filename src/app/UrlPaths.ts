@@ -86,4 +86,11 @@ export class UrlPathConstants{
 
     public static uploadClientRatingEndPoint = "teams/updateClientRating/";
 
+    public static getAggregationLinksCategoryEndPoint = "team-links/getAggregationLinksCategory";
+
+    public static deleteAggregationLinkEndPoint = "team-links/deleteAggregationLink/";
+
+    public static addAggregationLinkEndPoint = "team-links/aggregationLink/create";
+
+    public static jiraLinkCategoryTitle ="jira";
 }

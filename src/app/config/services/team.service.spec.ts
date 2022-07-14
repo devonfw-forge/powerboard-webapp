@@ -50,7 +50,7 @@ describe('TeamService', () => {
   }).catch(error => {
     result = error;
   });
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/auth/register");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/auth/register");
       req.flush("Internal Server Error",{
         status : 500,
         statusText : "Something went wrong, Please try again in some moment"
@@ -77,7 +77,7 @@ describe('TeamService', () => {
   }).catch(error => {
     result = error;
   });
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/user/viewAllMemberOfTeam/null" );
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/user/viewAllMemberOfTeam/null" );
       req.flush("Internal Server Error",{
         status : 500,
         statusText : "Something went wrong, Please try again in some moment"
@@ -93,7 +93,7 @@ describe('TeamService', () => {
     }).catch((error)=>{
       result = error;
     });
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/user/update/userRole");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/user/update/userRole");
     req.flush("Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -113,10 +113,10 @@ describe('TeamService', () => {
     }
   service.addTeamMember(teamMember).then((data) => {
   result = data;
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/auth/register");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/auth/register");
   service.deleteTeamMember(result.id).then((deleteData) => {
   
-  httpTestingController.expectOne("http://localhost:3000/v1/admin/delete/userTeam/" + result.id);
+  httpTestingController.expectOne("http://localhost:3000/bapi/v1/admin/delete/userTeam/" + result.id);
   }
   ).catch(error => {
     result = error;
@@ -140,7 +140,7 @@ describe('TeamService', () => {
   }).catch(error => {
     result = error;
   });
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/team/addTeam");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/teams/team/addTeam");
       req.flush("Internal Server Error",{
         status : 500,
         statusText : "Something went wrong, Please try again in some moment"
@@ -168,10 +168,10 @@ it('should add and delete team', async () =>{
     formData.append('logo', null);
 service.addTeamWithLogo(formData).then((data) => {
 result = data;
-let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/team/addTeam");
+let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/teams/team/addTeam");
 service.deleteTeam(result.id).then((deleteData) => {
 
-httpTestingController.expectOne("http://localhost:3000/v1/teams/team/delete/" + result.id);
+httpTestingController.expectOne("http://localhost:3000/bapi/v1/teams/team/delete/" + result.id);
 }
 ).catch(error => {
   result = error;
@@ -190,7 +190,7 @@ it('delete team member should get error for null value', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/user/delete/userTeam/null");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/user/delete/userTeam/null");
   req.flush("500 Internal Server Error",{
     status : 500,
     statusText : "Something went wrong, Please try again in some moment"
@@ -207,10 +207,10 @@ it('update  access role should get error for empty team id', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/user/update/userRole");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/user/update/userRole");
   req.flush("404 Not Found",{
     status : 404,
-    statusText : "Cannot PUT /v1/teams/team/update/"
+    statusText : "Cannot PUT /bapi/v1/teams/team/update/"
   });
   expect(req.request.method).toEqual('PUT'); 
 });
@@ -223,7 +223,7 @@ it('view team members of team types should return data', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/user/viewAllMemberOfTeam/null");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/user/viewAllMemberOfTeam/null");
   expect(req.request.method).toEqual('GET'); 
 });
 
@@ -235,7 +235,7 @@ it('delete team should get error for null value', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/team/delete/null");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/teams/team/delete/null");
   req.flush("500 Internal Server Error",{
     status : 500,
     statusText : "Something went wrong, Please try again in some moment"
@@ -251,7 +251,7 @@ it('add team member should get error for null value', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/auth/register");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/auth/register");
   req.flush("500 Internal Server Error",{
     status : 500,
     statusText : "Something went wrong, Please try again in some moment"
@@ -267,7 +267,7 @@ it('view all teams should get error for null data', () =>{
   }).catch(error => {
     result = error;
   })
-  let req = httpTestingController.expectOne("http://localhost:3000/v1/teams/team/viewAllTeams");
+  let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/teams/team/viewAllTeams");
   expect(req.request.method).toEqual('GET'); 
 });
 });

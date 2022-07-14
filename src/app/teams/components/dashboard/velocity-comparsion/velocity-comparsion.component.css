@@ -1,3 +1,17 @@
 h5 {
   margin-bottom: 1rem;
 }
+.icon{
+  color: #0070AD;
+  cursor: pointer;
+}
+
+
+.mat-icon{
+  color: #0070AD;
+  font-size: inherit;
+  vertical-align: middle;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-top: 5px;
+}

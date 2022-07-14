@@ -1,27 +1,78 @@
 <div class="row">
     <div class="col-md-12 row p-0 m-0">
-        <div class="col-md-9" style=" font-weight: 500;    margin-bottom: 5px;">Velocity</div>
-        <div class="col-md-3" style=" font-weight: 400; color: gray; font-size: small;   margin-bottom: 5px;">Last updated: {{velocity?.updatedAt | date: 'mediumDate' }}</div>
+      <div class="col-md-9" style="font-weight: 500; margin-bottom: 5px">
+        Velocity
       </div>
-
-  <div class="col-md-12 ">
+      <div
+        class="col-md-3"
+        style="
+          font-weight: 400;
+          color: gray;
+          font-size: small;
+          margin-bottom: 5px;
+        "
+      >
+        Last updated: {{ velocity?.updatedAt | date: "mediumDate" }}
+      </div>
+    </div>
+  
+    <div class="col-md-12">
       <div class="row">
-          <div class="col-md-3">
-              <div class="row"  >
-                  <h5 style="margin-left: 15px; color: #0070AD;">{{velocity?.Avg | number : '1.0-0'}}&nbsp;Average Velocity</h5></div>
+        <div class="col-md-3">
+          <div class="row">
+            <h5 style="margin-left: 15px; color: #0070ad">
+              {{ velocity?.Avg | number: "1.0-0" }}&nbsp;Average Velocity
+            </h5>
           </div>
-          <div class="col-md-3">
-              <div class="row"><h5>{{velocity?.Committed}}</h5>&nbsp;{{workUnit | titlecase}} Committed</div>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <h5>{{ velocity?.Committed }}</h5>
+            &nbsp;{{ workUnit | titlecase }} Committed
           </div>
-          <div class="col">
-              <div class="row ml-1"><h5>{{velocity?.Completed}}</h5>&nbsp;{{workUnit | titlecase}} Completed</div>
+        </div>
+        <div class="col">
+          <div class="row ml-1">
+            <h5>{{ velocity?.Completed }}</h5>
+            &nbsp;{{ workUnit | titlecase }} Completed
           </div>
-          <div class="col" *ngIf="velocity.jiraLink">
-            <div class="row ml-1" style=" font-weight: 400; font-size: small;   margin-bottom: 5px;">Jira:&nbsp; 
-                <a class="link" style="color: #0070AD; cursor: pointer;" (click)="openJiraLink(velocity.jiraLink)">    
-                <span >{{velocity.jiraLink|shortURL}}</span>
-            </a></div>
+        </div>
+        <div class="col" *ngIf="jiraLink">
+          <div
+            class="row ml-1"
+            style="font-weight: 400; font-size: small; margin-bottom: 5px"
+          >
+            Jira:&nbsp;
+            <a
+              class="link"
+              style="color: #0070ad; cursor: pointer"
+              (click)="openJiraLink(jiraLink)"
+            >
+              <span>{{ jiraLink | shortURL }}</span>
+            </a>
+            <span
+              *ngIf="generalService.isSettingsVisible"
+              class="material-icons-outlined mat-icon"
+              (click)="moveToSetings()"
+            >
+              edit
+            </span>
+          </div>
+        </div>
+        <div
+          class="col"
+          style="font-weight: 400; font-size: small; margin-bottom: 5px"
+          *ngIf="!jiraLink && generalService.isSettingsVisible"
+        >
+          <a
+            class="link"
+            style="color: #0070ad; cursor: pointer"
+            (click)="openAddAggregationLinkModal()"
+          >
+            <span>Add Jira Link</span>
+          </a>
         </div>
       </div>
+    </div>
   </div>
-</div>
+  

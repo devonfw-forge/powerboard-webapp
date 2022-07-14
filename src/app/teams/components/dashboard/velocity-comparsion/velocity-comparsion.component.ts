@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { SetupService } from 'src/app/config/services/setup.service';
 import { VelocityResponse } from 'src/app/shared/model/general.model';
+import { GeneralService } from 'src/app/shared/services/general.service';
+import { UrlPathConstants } from 'src/app/UrlPaths';
 
 @Component({
   selector: 'app-velocity-comparsion',
@@ -9,17 +14,48 @@ import { VelocityResponse } from 'src/app/shared/model/general.model';
 export class VelocityComparsionComponent implements OnInit {
   velocity:VelocityResponse = new VelocityResponse();
   workUnit : string;
-  jiraLink : string;
+  checklocationPath: string;
+  jiraLink: string;
   
+  constructor(
+    public router: Router,
+    public location: Location,
+    public setupSerive: SetupService,
+    public generalService: GeneralService
+  ){
+
+  }
   ngOnInit(): void {
     this.velocity = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.velocity;
     this.workUnit =  JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.sprintWorkUnit;
-    this.jiraLink = "https://e-3d-jira2.capgemini.com/jira2/secure/RapidBoard.jspa?rapidView=15074&projectKey=P002659&view=detail&selectedIssue=P002659-1171";
+    let links = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.aggregationLinks;
+    for(let link of links){
+      if(link.name == UrlPathConstants.jiraLinkCategoryTitle){
+        this.jiraLink = link.url;
+      }
+    }
   }
 
   openJiraLink(jiraLink: string) {
     
       window.open(jiraLink, '_blank');
+  }
+
+  public moveToSetings() {
+    this.checklocationPath = this.location.path();
+    if (this.checklocationPath.includes('config')) {
+      console.log('already in config');
+    } else {
+      this.setupSerive.goToConfigureLinks();
+      this.setupSerive.deactiveAdminSetup();
+      
+      this.router.navigateByUrl('/config');
+    }
+  }
+
+  openAddAggregationLinkModal(){
+    this.setupSerive.showAddAggregationLinkModal();
+    this.moveToSetings();
   }
 
 }
