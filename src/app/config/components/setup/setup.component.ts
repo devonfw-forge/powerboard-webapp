@@ -14,7 +14,19 @@ export class SetupComponent implements OnInit {
   ngOnInit(): void {
     this.aws_asset = environment.AWS_ASSETS_URL as string;
     console.log("reached setup .................................");
-    this.router.navigate(['editTeam'], {relativeTo:this.route});
+    
+  }
+  ngAfterViewInit(){
+    if(this.setupService.getOpenConfigureLinks()){
+      let index:number = 3;
+      this.changeActive(index);
+      this.showTeamLink();
+    }
+    else{
+      let index:number = 1;
+      this.changeActive(index);
+      this.router.navigate(['editTeam'], {relativeTo:this.route});
+    }
   }
   
   public showTeamLink(){

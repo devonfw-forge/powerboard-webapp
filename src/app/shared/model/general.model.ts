@@ -8,6 +8,7 @@ export class PowerboardResponse{
   dashboard: Dashboard = new Dashboard();
   images? : ImageResponse[];
   teamLinks: LinkResponse[];
+  aggregationLinks?: AggregationLinkResponse[];
   privileges : string[];
   videos? : VideoResponse[];
   multimedia : MultimediaFolderResponse;
@@ -62,7 +63,6 @@ export class VelocityResponse{
   Avg: number;
   Committed: number;
   Completed: number;
-  jiraLink?: string;
   updatedAt? : Date;
 }
 
@@ -71,10 +71,24 @@ export class LinkResponse{
   linkName: string;
   linkType: string;
   links: string;
-
 }
 
+export class AggregationLinkResponse{
+  id?: string;
+  url: string;
+  startDate: string;
+  isActive: boolean;
+  aggregationFrequency: number;
+  linkType: string;
+  teamId: string;
+}
+
+
 export class LinksCategory {
+  linkId: string;
+  linkTitle: string;
+}
+export class AggregationLinkType {
   linkId: string;
   linkTitle: string;
 }

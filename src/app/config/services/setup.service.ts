@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LinksCategory } from 'src/app/shared/model/general.model';
 import { UrlPathConstants } from 'src/app/UrlPaths';
 import { environment } from '../../../environments/environment';
 import {
@@ -18,7 +17,8 @@ export class SetupService {
   viewSubFolder: boolean= false;
   selectedSubFolderId: string='';
   selectedSubFolderName: string= '';
-
+  openConfigureLinks: boolean = false;
+  isShowAddAggregationLinkModal:boolean = false;
   constructor(private http: HttpClient) { }
 
   activeAdminSetup(){
@@ -26,6 +26,26 @@ export class SetupService {
   }
   deactiveAdminSetup(){
     this.isTeamConfigured = true;
+  }
+
+  goToConfigureLinks(){
+    this.openConfigureLinks = true;
+  }
+  getOpenConfigureLinks(){
+    return this.openConfigureLinks;
+  }
+  setOpenConfigureLinksToFalse(){
+    this.openConfigureLinks = false;
+  }
+
+  showAddAggregationLinkModal(){
+    this.isShowAddAggregationLinkModal = true;
+  }
+  hideAddAggregationLinkModal(){
+    this.isShowAddAggregationLinkModal = false;
+  }
+  getIsShowAddAggregationLinkModal(){
+    return this.isShowAddAggregationLinkModal;
   }
  
  
@@ -68,7 +88,7 @@ export class SetupService {
   }
 
 
-  async addLink(addLinkForm: LinksCategory){
+  async addLink(addLinkForm){
     return this.http.post(environment.globalEndPoint + UrlPathConstants.addLinkEndPoint, addLinkForm).toPromise();
   }
 
@@ -136,6 +156,23 @@ export class SetupService {
   async uploadClientRating(clientRating, type, teamId):Promise<any>{
     return this.http
     .post<any>(environment.globalEndPoint + UrlPathConstants.uploadClientRatingEndPoint + type + '/' + teamId, {clientRating}).toPromise();
+  }
+
+  async getAggregationLinkTypes(): Promise<any>{
+    return this.http.get<any>(environment.globalEndPoint + UrlPathConstants.getAggregationLinksCategoryEndPoint).toPromise();
+  }
+
+  async deleteAggregationLink(aggregationLinkId:string):Promise<any>{
+    return this.http.delete<any>(
+      environment.globalEndPoint + UrlPathConstants.deleteAggregationLinkEndPoint + aggregationLinkId).toPromise();
+  }
+
+  async addAggregationLink(addAggregationLinkForm){
+    return this.http.post(environment.globalEndPoint + UrlPathConstants.addAggregationLinkEndPoint, addAggregationLinkForm).toPromise();
+  }
+
+   capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }
 

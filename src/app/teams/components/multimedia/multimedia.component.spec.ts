@@ -130,12 +130,12 @@ describe('MultimediaComponent', () => {
     component.getFilesFromFolder("", "").then(data =>{
       expect(data).toBeTruthy();
     }).catch(e => {
-      expect(e).toEqual('Cannot GET /v1/auth/home/');
+      expect(e).toEqual('Cannot GET /bapi/v1/auth/home/');
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/getAllFilesInFolder/");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/multimedia/getAllFilesInFolder/");
     req.flush("404 Not Found",{
       status : 404,
-      statusText : "Cannot GET /v1/auth/home/"
+      statusText : "Cannot GET /bapi/v1/auth/home/"
     });
   }) */
   it('should get files from folder',()=>{

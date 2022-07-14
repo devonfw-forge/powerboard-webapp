@@ -22,7 +22,7 @@ export class TeamService {
 
   /* async addTeam(team : TeamInfo):Promise<any>{
     return  this.http.post<any>(
-      'http://localhost:3000/v1/teams/team/addTeam',team ).toPromise();
+      'http://localhost:3000/bapi/v1/teams/team/addTeam',team ).toPromise();
   } */
 
   async addTeamWithLogo(formData : FormData):Promise<any>{

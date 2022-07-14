@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SetupService } from 'src/app/config/services/setup.service';
-import { LinksCategory } from 'src/app/shared/model/general.model';
+import { AggregationLinkType } from 'src/app/shared/model/general.model';
+
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
@@ -10,11 +11,10 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
   styleUrls: ['./add-aggregator-links.component.css']
 })
 export class AddAggregatorLinksComponent implements OnInit {
-  addLink: FormGroup;
-  linkTypes: LinksCategory[];
+  addAggregationLink: FormGroup;
+  linkTypes: AggregationLinkType[];
   selectedLinkType: string;
   error: boolean;
-  addedLink: any;
   receiveAddedLink: any;
   constructor(
     private fb: FormBuilder,
@@ -30,25 +30,26 @@ export class AddAggregatorLinksComponent implements OnInit {
     * set validators for link details
     */
   async ngOnInit(){
-    this.addLink = this.fb.group({
-      linkName: ['', [Validators.required]],
+    this.addAggregationLink = this.fb.group({
+      url: ['', [Validators.required]],
       linkType: ['', [Validators.required]],
-      links: ['', [Validators.required]],
+      aggregationFrequency: [''],
+      isActive: [''],
+      startDate: [''],
       teamId: [''],
     });
-    await this.getLinkTypes();
+    await this.getAggregationLinkTypes();
   }
 
-  async getLinkTypes() {
-    this.linkTypes = [];
-    let jiraLink:LinksCategory = new LinksCategory();
-    jiraLink.linkId= "jiraID";
-    jiraLink.linkTitle="jira_link";
-    this.linkTypes.push(jiraLink);
-    let sonarLink:LinksCategory = new LinksCategory();
-    sonarLink.linkId= "sonarID";
-    sonarLink.linkTitle="sonar_link";
-    this.linkTypes.push(sonarLink);
+  async getAggregationLinkTypes() {
+    try {
+      this.linkTypes = [];
+      const data = await this.setupService.getAggregationLinkTypes();
+      this.linkTypes = data;
+      console.log(this.linkTypes);
+    } catch (e) {
+      this.notifyService.showError(e.error.message, '');
+    }
   }
 
 
@@ -59,38 +60,43 @@ export class AddAggregatorLinksComponent implements OnInit {
    * If error while adding link, display error message
    */
   async onSubmit(){
-    if(this.addLink.valid){
+    console.log("inside onsubmit add aggregation links")
+    if(this.addAggregationLink.valid){
+      console.log("add aggregation link is valid");
       this.receiveAddedLink = [];
-      this.addedLink = null;
-      this.addLink.controls.teamId.setValue(
+      this.addAggregationLink.controls.aggregationFrequency.setValue(15);
+      let date = new Date();
+      this.addAggregationLink.controls.startDate.setValue(date);
+      this.addAggregationLink.controls.teamId.setValue(
         JSON.parse(localStorage.getItem('TeamDetailsResponse'))
           .powerboardResponse.team_id
       );
-      console.log(this.addLink.value);
+      this.addAggregationLink.controls.isActive.setValue(true);
+      console.log(this.addAggregationLink.value);
       try {
-        const data = await this.setupService.addLink(this.addLink.value);
+        const data = await this.setupService.addAggregationLink(this.addAggregationLink.value);
         this.receiveAddedLink = data;
-        this.addLink.reset();
+        this.addAggregationLink.reset();
         this.error = false;
         this.selectedLinkType = 'select Type';
-        this.notifyService.showSuccess('Link added successfully', '');
+        let name = this.setupService.capitalizeFirstLetter(this.receiveAddedLink.linkType.title);
+        this.notifyService.showSuccess(name+' link added successfully', '');
         console.log(data);
         return this.receiveAddedLink;
       } catch (e) {
-        this.notifyService.showError(e.error.message, '');
-      }
+        let message = this.setupService.capitalizeFirstLetter(e.error.message);
+        this.notifyService.showError(message, '');
+      } 
     } else {
       this.error = true;
     }
   }
 
   /**
-   * Update the link type in form using link id and title
+   * Update the aggregation link type in form using link id and title
    */
-  updateLinkType(link: LinksCategory){
-    const type=link.linkTitle.split('_');
-    const outcome= type[0]+' ' +type[1];
-    this.selectedLinkType=outcome;
-    this.addLink.controls['linkType'].setValue(link.linkId);
+  updateLinkType(link: AggregationLinkType){
+    this.selectedLinkType=link.linkTitle;
+    this.addAggregationLink.controls['linkType'].setValue(link.linkId);
   }
 }

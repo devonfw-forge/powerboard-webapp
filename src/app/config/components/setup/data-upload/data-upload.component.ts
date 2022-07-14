@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SetupService } from 'src/app/config/services/setup.service';
-import { Dashboard, TeamDetailResponse } from 'src/app/shared/model/general.model';
+import { TeamDetailResponse } from 'src/app/shared/model/general.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({

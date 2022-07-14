@@ -1,10 +1,10 @@
-<!-- <div>
-    <form [formGroup]="addLink" autocomplete="off" (ngSubmit)="onSubmit()" class="my-3">
+<div>
+    <form [formGroup]="addAggregationLink" autocomplete="off" (ngSubmit)="onSubmit()" class="my-3">
         <div class="row">
             <div class="col-md-7">
                 <div class="form-group required">
-                    <input type="url" class="form-control" formControlName="links" placeholder="Link URL">
-                    <label class="text-danger" *ngIf="addLink.get('links').touched && addLink.get('links').errors?.required">
+                    <input type="url" class="form-control" formControlName="url" placeholder="Link URL">
+                    <label class="text-danger" *ngIf="addAggregationLink.get('url').touched && addAggregationLink.get('url').errors?.required">
                         Required Field
                     </label>
                 </div>
@@ -15,17 +15,18 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{selectedLinkType | titlecase }}
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index: 1000;">
                         <a class="dropdown-item" *ngFor="let linkType of linkTypes"
-                            (click)="updateLinkType(linkType)">{{linkType.linkTitle | linkTypeFilter | titlecase}}</a>
+                            (click)="updateLinkType(linkType)">{{linkType.linkTitle | titlecase}}</a>
                     </div>
                 </div>
                 <label class="text-danger"
-                    *ngIf="addLink.get('linkType').touched && addLink.get('linktype').errors?.required">
+                    *ngIf="addAggregationLink.get('linkType').touched && addAggregationLink.get('linkType').errors?.required">
                     Required Field
                 </label>
             </div>
+
         </div>
        
     </form>
-  </div> -->
+  </div> 

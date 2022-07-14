@@ -126,10 +126,10 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/auth/home/");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/auth/home/");
     req.flush("404 Not Found",{
       status : 404,
-      statusText : "Cannot GET /v1/auth/home/"
+      statusText : "Cannot GET /bapi/v1/auth/home/"
     });
   });
 
@@ -140,7 +140,7 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/auth/home/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/auth/home/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -156,7 +156,7 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/user/team/loggedProject");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/user/team/loggedProject");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -170,10 +170,10 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/getAllFilesInFolder//");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/multimedia/getAllFilesInFolder//");
     req.flush("404 Not Found",{
       status : 404,
-      statusText : "Cannot GET /v1/auth/home/"
+      statusText : "Cannot GET /bapi/v1/auth/home/"
     });
   });
 
@@ -184,7 +184,7 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/getAllFilesInFolder/null/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/multimedia/getAllFilesInFolder/null/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -199,7 +199,7 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/getAllFilesForTeam/");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/multimedia/getAllFilesForTeam/");
     req.flush("400 Bad Request",{
       status : 400,
       statusText : "Invalid param id. Number expected"
@@ -213,7 +213,7 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/getAllFilesForTeam/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/multimedia/getAllFilesForTeam/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -227,7 +227,7 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/slideshow/");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/multimedia/slideshow/");
     req.flush("400 Bad Request",{
       status : 400,
       statusText : "Invalid param id. Number expected"
@@ -241,7 +241,7 @@ describe('GeneralService', () => {
     }).catch(error => {
       result = error;
     })
-    let req = httpTestingController.expectOne("http://localhost:3000/v1/multimedia/slideshow/null");
+    let req = httpTestingController.expectOne("http://localhost:3000/bapi/v1/multimedia/slideshow/null");
     req.flush("500 Internal Server Error",{
       status : 500,
       statusText : "Something went wrong, Please try again in some moment"
@@ -370,8 +370,4 @@ describe('GeneralService', () => {
     expect(service.isSettingsVisible).toEqual(true);
     expect(service.isLinksVisible).toEqual(true);
   })
-
-
-
-
 });
