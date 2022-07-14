@@ -97,7 +97,7 @@
         <tbody *ngIf="this.aggregationLinks">
           <tr *ngFor="let aggregationLink of aggregationLinks">
             <th class="row-text alignment text-weight col-2" id="title">
-              {{ aggregationLink.name | titlecase }}
+              {{ aggregationLink.linkType | titlecase }}
             </th>
             <td class="row-text alignment margin col-6">
               <a class="link" (click)="openAggregationLink(aggregationLink.url)">

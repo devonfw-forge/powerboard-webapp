@@ -4,10 +4,11 @@ import { AddAggregatorLinksComponent } from './add-aggregator-links.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SetupService } from 'src/app/config/services/setup.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { AggregationLinksCategory } from 'src/app/shared/model/general.model';
+
 
 import TeamDetailsResponse from 'src/app/teamDetailsResponse.json';
 import { LinkTypeFilterPipe } from 'src/app/config/pipes/link-type-filter.pipe';
+import { AggregationLinkType } from 'src/app/shared/model/general.model';
 
 describe('AddAggregatorLinksComponent', () => {
   let component: AddAggregatorLinksComponent;
@@ -89,23 +90,23 @@ describe('AddAggregatorLinksComponent', () => {
   });
 
   it('should update link', () => {
-    let link: AggregationLinksCategory = {
+    let link: AggregationLinkType = {
       linkId: '12233',
       linkTitle: 'dummylink',
     };
     component.updateLinkType(link);
-    expect(component.addAggregationLink.controls['name'].value).toEqual(link.linkId);
+    expect(component.addAggregationLink.controls['linkType'].value).toEqual(link.linkId);
   }); 
 
   it('should run onsubmit',()=>{
     let returnLink:any ={
       url:"dummy",
-      name:{
+      linkType:{
         title:"dummy titile"
       }
     }
     component.addAggregationLink.controls.url.setValue("dummyurl");
-    component.addAggregationLink.controls.name.setValue("dummyname");
+    component.addAggregationLink.controls.linkType.setValue("dummyname");
     spyOn(component.setupService,'addAggregationLink').and.returnValue(returnLink);
     component.onSubmit();
     expect(component.setupService.addAggregationLink).toHaveBeenCalled();

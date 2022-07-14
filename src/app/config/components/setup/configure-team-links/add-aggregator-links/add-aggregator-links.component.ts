@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SetupService } from 'src/app/config/services/setup.service';
-import { AggregationLinksCategory } from 'src/app/shared/model/general.model';
+import { AggregationLinkType } from 'src/app/shared/model/general.model';
+
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 })
 export class AddAggregatorLinksComponent implements OnInit {
   addAggregationLink: FormGroup;
-  linkTypes: AggregationLinksCategory[];
+  linkTypes: AggregationLinkType[];
   selectedLinkType: string;
   error: boolean;
   receiveAddedLink: any;
@@ -31,7 +32,7 @@ export class AddAggregatorLinksComponent implements OnInit {
   async ngOnInit(){
     this.addAggregationLink = this.fb.group({
       url: ['', [Validators.required]],
-      name: ['', [Validators.required]],
+      linkType: ['', [Validators.required]],
       aggregationFrequency: [''],
       isActive: [''],
       startDate: [''],
@@ -78,12 +79,13 @@ export class AddAggregatorLinksComponent implements OnInit {
         this.addAggregationLink.reset();
         this.error = false;
         this.selectedLinkType = 'select Type';
-        let name = this.receiveAddedLink.name.title;
+        let name = this.setupService.capitalizeFirstLetter(this.receiveAddedLink.linkType.title);
         this.notifyService.showSuccess(name+' link added successfully', '');
         console.log(data);
         return this.receiveAddedLink;
       } catch (e) {
-        this.notifyService.showError(e.error.message, '');
+        let message = this.setupService.capitalizeFirstLetter(e.error.message);
+        this.notifyService.showError(message, '');
       } 
     } else {
       this.error = true;
@@ -93,8 +95,8 @@ export class AddAggregatorLinksComponent implements OnInit {
   /**
    * Update the aggregation link type in form using link id and title
    */
-  updateLinkType(link: AggregationLinksCategory){
+  updateLinkType(link: AggregationLinkType){
     this.selectedLinkType=link.linkTitle;
-    this.addAggregationLink.controls['name'].setValue(link.linkId);
+    this.addAggregationLink.controls['linkType'].setValue(link.linkId);
   }
 }

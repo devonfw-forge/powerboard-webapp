@@ -79,7 +79,7 @@ export class AggregationLinkResponse{
   startDate: string;
   isActive: boolean;
   aggregationFrequency: number;
-  name: string;
+  linkType: string;
   teamId: string;
 }
 
@@ -88,7 +88,7 @@ export class LinksCategory {
   linkId: string;
   linkTitle: string;
 }
-export class AggregationLinksCategory {
+export class AggregationLinkType {
   linkId: string;
   linkTitle: string;
 }

@@ -171,7 +171,9 @@ export class SetupService {
     return this.http.post(environment.globalEndPoint + UrlPathConstants.addAggregationLinkEndPoint, addAggregationLinkForm).toPromise();
   }
 
-
+   capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 }
 
 

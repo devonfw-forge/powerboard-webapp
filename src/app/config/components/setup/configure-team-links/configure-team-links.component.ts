@@ -192,10 +192,11 @@ export class ConfigureTeamLinksComponent implements OnInit {
       let linkName:string = '';
       for(let link of this.aggregationLinks){
         if(link.id == this.selectedLinkId){
-          linkName = link.name;
+          linkName = link.linkType;
         }
       }
-      this.notifyService.showSuccess(linkName+' link deleted successfully', '');
+      let name = this.setupService.capitalizeFirstLetter(linkName);
+      this.notifyService.showSuccess(name +' link deleted successfully', '');
       console.log(data);
       this.aggregationLinks = this.aggregationLinks.filter(
         (link) => link.id != this.selectedLinkId
@@ -244,7 +245,7 @@ export class ConfigureTeamLinksComponent implements OnInit {
       id: data.id,
       url : data.url,
       teamId: data.team.id,
-      name: data.name.title,
+      linkType: data.linkType.title,
       aggregationFrequency: data.aggregationFrequency,
       startDate: data.startDate,
       isActive: data.isActive
