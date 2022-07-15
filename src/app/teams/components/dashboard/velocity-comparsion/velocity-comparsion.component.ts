@@ -30,8 +30,9 @@ export class VelocityComparsionComponent implements OnInit {
     this.workUnit =  JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.sprintWorkUnit;
     let links = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.aggregationLinks;
     for(let link of links){
-      let name : string  =  link.name;
-      if(name.toLowerCase() == UrlPathConstants.jiraLinkCategoryTitle){
+      let name : string  =  link.name.toLowerCase();
+      console.log(name);
+      if(name == UrlPathConstants.jiraLinkCategoryTitle){
         this.jiraLink = link.url;
       }
     }
