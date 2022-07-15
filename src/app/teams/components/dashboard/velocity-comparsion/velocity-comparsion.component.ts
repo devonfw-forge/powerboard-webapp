@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { SetupService } from 'src/app/config/services/setup.service';
-import { VelocityResponse } from 'src/app/shared/model/general.model';
+import { AggregationLinkResponse, VelocityResponse } from 'src/app/shared/model/general.model';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { UrlPathConstants } from 'src/app/UrlPaths';
 
@@ -28,10 +28,9 @@ export class VelocityComparsionComponent implements OnInit {
   ngOnInit(): void {
     this.velocity = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.velocity;
     this.workUnit =  JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard.sprintWorkUnit;
-    let links = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.aggregationLinks;
+    let links: AggregationLinkResponse[] = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.aggregationLinks;
     for(let link of links){
-      let name : string  =  link.name.toLowerCase();
-      console.log(name);
+      let name : string  =  link.linkType.toLowerCase();
       if(name == UrlPathConstants.jiraLinkCategoryTitle){
         this.jiraLink = link.url;
       }
