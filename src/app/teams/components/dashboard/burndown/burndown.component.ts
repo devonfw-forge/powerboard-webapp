@@ -21,10 +21,10 @@ export class BurndownComponent implements OnInit {
    * If the remaining work value is greater than 1 append 's' to the units
    */
   checkWorkUnit(){
-    if (this.burnDown.remainingWork > 1) {
+    if (this.burnDown?.remainingWork > 1) {
       this.unit = this.burnDown.workUnit + 's';
     } else {
-      this.unit = this.burnDown.workUnit;
+      this.unit = this.burnDown?.workUnit;
     }
   }
 
