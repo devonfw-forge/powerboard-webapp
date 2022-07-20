@@ -30,9 +30,7 @@ export class DataUploadComponent implements OnInit {
     this.teamId = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.team_id;
-
-
-    
+    this.selected =1;
   }
 
 
