@@ -55,7 +55,9 @@
       />
     </span>
 
-    <form style="margin-left: 100px;" class="col-md-8" [formGroup]="form" autocomplete="off" *ngIf="selected === 3" >
+    <form style="margin-left: 100px;" 
+    class="col-md-8" [formGroup]="form" autocomplete="off" *ngIf="selected === 3" >
+    
       <table class="table table-borderless">
         <caption></caption>
         <tbody>
@@ -80,6 +82,7 @@
                   >
                     Required Field
                   </label>
+
                   <label
                   class="text-danger"
                   *ngIf="
@@ -90,6 +93,14 @@
                   Client rating must be between 1 - 10
                 </label>
 
+
+
+                <div
+                class="text-danger" style="margin-bottom: 18px;">
+              <div *ngFor="let error of clientRatingError">{{error}}</div>
+              </div>
+
+
                 </div>
               </div>
             </td>
@@ -98,8 +109,8 @@
             <td colspan="2">
               <div style="display: flex; justify-content: center">
                 <div class="button">
+
                   <button
-                  [disabled] = "isClientRatingDisabled"
                     class="btn btn-outline btn-cg"
                     [ngClass]="{ disabled: !form.valid }"
                     (click)="uploadClientRating()"

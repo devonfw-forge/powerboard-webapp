@@ -15,7 +15,9 @@ export class DataUploadComponent implements OnInit {
   teamId: string;
   spinner: boolean;
   errors:string[]= [];
-  isClientRatingDisabled: boolean = false;
+  clientRatingError: string[] = [];
+  
+  
 
   constructor(public setupService: SetupService,  private notifyService: NotificationService, public fb: FormBuilder) {
    const maxNumber = 10;
@@ -96,6 +98,7 @@ async uploadJSONFile(event, type:string) {
   async changeSelected(num: number) {
   this.selected = num;
   this.errors = [];
+  this.clientRatingError = [];
   if(num == 3){
     await this.canUploadClientRating();
   }
@@ -107,11 +110,13 @@ async canUploadClientRating() {
     const data  =
      await this.setupService.canUploadClientRating(this.teamId);
     console.log(data);
-    this.isClientRatingDisabled = false;
+    this.form.enable()
+    
      } catch (e) {
-       this.isClientRatingDisabled = true;
+    this.form.disable();
+    this.clientRatingError = e.error.message.split(",");
     console.log(e.error.message);
-    this.notifyService.showError('', e.error.message);
+    this.notifyService.showError('', "Cannot upload client rating");
   }
 }
 
