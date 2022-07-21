@@ -15,6 +15,7 @@ export class DataUploadComponent implements OnInit {
   teamId: string;
   spinner: boolean;
   errors:string[]= [];
+  isClientRatingDisabled: boolean = false;
 
   constructor(public setupService: SetupService,  private notifyService: NotificationService, public fb: FormBuilder) {
    const maxNumber = 10;
@@ -106,7 +107,9 @@ async canUploadClientRating() {
     const data  =
      await this.setupService.canUploadClientRating(this.teamId);
     console.log(data);
+    this.isClientRatingDisabled = false;
      } catch (e) {
+       this.isClientRatingDisabled = true;
     console.log(e.error.message);
     this.notifyService.showError('', e.error.message);
   }

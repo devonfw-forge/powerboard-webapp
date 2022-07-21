@@ -99,6 +99,7 @@
               <div style="display: flex; justify-content: center">
                 <div class="button">
                   <button
+                  [disabled] = "isClientRatingDisabled"
                     class="btn btn-outline btn-cg"
                     [ngClass]="{ disabled: !form.valid }"
                     (click)="uploadClientRating()"
