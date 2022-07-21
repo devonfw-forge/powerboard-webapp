@@ -92,10 +92,26 @@ async uploadJSONFile(event, type:string) {
   }
 }
 
-changeSelected(num: number) {
+  async changeSelected(num: number) {
   this.selected = num;
   this.errors = [];
+  if(num == 3){
+    await this.canUploadClientRating();
+  }
 }
+
+
+async canUploadClientRating() {
+  try {
+    const data  =
+     await this.setupService.canUploadClientRating(this.teamId);
+    console.log(data);
+     } catch (e) {
+    console.log(e.error.message);
+    this.notifyService.showError('', e.error.message);
+  }
+}
+
 
 async uploadClientRating() {
   try {

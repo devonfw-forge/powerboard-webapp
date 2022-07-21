@@ -44,10 +44,14 @@
             <div *ngIf="teamSpirit?.teamSpiritRating > 6.5 && componentReady">
                 <div ><img class="emoji" alt="" [src]="aws_asset+'Images/green.jpeg' "></div>
             </div>
-              <div *ngIf="!componentReady">
-                <h3>Data unavailable</h3>
-              </div>
+            <div *ngIf="!componentReady" style=" margin-top: 41px;
+            margin-left: -74px;">
+              <span class="mr-4" style="font-size: 16px; 
+               color: gray">Data unavailable</span>
+            </div>
         </div>
+        
     </div>
   </div>
 </div>
+
