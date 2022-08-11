@@ -15,6 +15,9 @@ export class DataUploadComponent implements OnInit {
   teamId: string;
   spinner: boolean;
   errors:string[]= [];
+  clientRatingError: string[] = [];
+  
+  
 
   constructor(public setupService: SetupService,  private notifyService: NotificationService, public fb: FormBuilder) {
    const maxNumber = 10;
@@ -30,9 +33,7 @@ export class DataUploadComponent implements OnInit {
     this.teamId = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.team_id;
-
-
-    
+    this.selected =1;
   }
 
 
@@ -94,10 +95,31 @@ async uploadJSONFile(event, type:string) {
   }
 }
 
-changeSelected(num: number) {
+  async changeSelected(num: number) {
   this.selected = num;
   this.errors = [];
+  this.clientRatingError = [];
+  if(num == 3){
+    await this.canUploadClientRating();
+  }
 }
+
+
+async canUploadClientRating() {
+  try {
+    const data  =
+     await this.setupService.canUploadClientRating(this.teamId);
+    console.log(data);
+    this.form.enable()
+    
+     } catch (e) {
+    this.form.disable();
+    this.clientRatingError = e.error.message.split(",");
+    console.log(e.error.message);
+    this.notifyService.showError('', "Cannot upload client rating");
+  }
+}
+
 
 async uploadClientRating() {
   try {

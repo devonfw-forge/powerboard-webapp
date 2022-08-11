@@ -158,6 +158,13 @@ export class SetupService {
     .post<any>(environment.globalEndPoint + UrlPathConstants.uploadClientRatingEndPoint + type + '/' + teamId, {clientRating}).toPromise();
   }
 
+
+  async canUploadClientRating(teamId): Promise<any>{
+    return this.http.get<any>(environment.globalEndPoint + UrlPathConstants.canUploadCientRatingEndPoint + teamId).toPromise();
+  }
+
+
+
   async getAggregationLinkTypes(): Promise<any>{
     return this.http.get<any>(environment.globalEndPoint + UrlPathConstants.getAggregationLinksCategoryEndPoint).toPromise();
   }

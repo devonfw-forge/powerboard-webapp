@@ -93,4 +93,6 @@ export class UrlPathConstants{
     public static addAggregationLinkEndPoint = "team-links/aggregationLink/create";
 
     public static jiraLinkCategoryTitle ="jira";
+
+    public static canUploadCientRatingEndPoint = "teams/dataUpload/canUploadClientRating/"
 }
