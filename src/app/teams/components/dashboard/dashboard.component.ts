@@ -26,12 +26,13 @@ export class DashboardComponent implements OnInit {
     this.dashboard = JSON.parse(localStorage.getItem('TeamDetailsResponse')).powerboardResponse.dashboard;
     this.sprintDetails = this.dashboard.sprintDetail;
     this.teamStatus = this.dashboard.teamStatus;
-    if(this.dashboard.burndown || this.dashboard.codeQuality || this.dashboard.clientStatus || this.dashboard.velocity || this.dashboard.teamSpirit){
+    this.noData=false;
+    /**if(this.dashboard.burndown || this.dashboard.codeQuality || this.dashboard.clientStatus || this.dashboard.velocity || this.dashboard.teamSpirit){
       this.noData = false;
     }
     else{
       this.noData = true;
-    }
+    }*/
   }
   /**
    * If slideshow is running, set time interval and move to next screen

@@ -5,7 +5,7 @@
   <form [formGroup]="form">
     <div class="row">
       <div class="col-md-1"></div>
-      <table class="table table-borderless col-md-6">
+      <table class="table table-borderless col-md-7">
         <caption></caption>
         <tbody>
           <tr>
@@ -67,6 +67,33 @@
                 </span>
             </td>
           </tr>
+          <tr>
+            <th id="team_spirit_team_name">Team Spirit Name</th>
+
+            <td>
+              <div class="row">
+                <div *ngIf="teamSpiritTeamName=='' || teamSpiritTeamName==null" class="form-group input-field">
+                  <input
+                    class="form-control"
+                    placeholder="Enter Team Spirit Team Name"
+                    formControlName="teamSpiritTeamName"
+                  />
+                </div>
+                <div *ngIf="teamSpiritTeamName!='' && teamSpiritTeamName!=null" class="form-group input-field">
+                  <input
+                    class="form-control"
+                    placeholder="{{ teamSpiritTeamName}}"
+                    formControlName="teamSpiritTeamName"
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="material-icons-outlined mat-icon" >
+                mode
+                </span>
+            </td>
+          </tr>
 
           <tr *ngIf="setupService.isTeamConfigured">
             <td colspan="2">
@@ -81,7 +108,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="col-md-5 text-center row" style="justify-content: center">
+      <div class="col-md-4 text-center row" style="justify-content: center">
         <div>
           <div class="row" style="justify-content: center"> 
             <img

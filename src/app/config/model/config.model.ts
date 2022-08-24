@@ -17,6 +17,7 @@ export class UpdateTeam{
   projectKey: string;
   teamName : string;
   //ad_center: ADCenter;
+  teamSpiritTeamName : string;
 }
 export class ADCenter{
 id: string;
