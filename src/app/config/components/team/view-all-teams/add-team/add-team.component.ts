@@ -83,6 +83,7 @@ export class AddTeamComponent implements OnInit {
       return data;
     } catch (e) {
       console.log(e);
+      this.notifyService.showError('', e.error.message);
     }
   }
 /**
