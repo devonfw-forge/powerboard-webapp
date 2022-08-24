@@ -23,7 +23,7 @@ export class EditTeamComponent implements OnInit {
   ADCList: ADCListDetails[] = [];
   updateTeam: UpdateTeam = new UpdateTeam();
   logo: string;
-  
+  teamSpiritTeamName: string = "";
   newLogoPath : string;
   
   editLogoPath : string;
@@ -41,7 +41,8 @@ export class EditTeamComponent implements OnInit {
     this.form = this.fb.group({
       teamName: [''],
       projectKey: [''],
-      teamCode: ['']
+      teamCode: [''],
+      teamSpiritTeamName: ['']
     });
     this.spinner = false;
   }
@@ -69,6 +70,9 @@ export class EditTeamComponent implements OnInit {
     this.logo = JSON.parse(
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.logo;
+    this.teamSpiritTeamName = JSON.parse(
+      localStorage.getItem('TeamDetailsResponse')
+    ).powerboardResponse.dashboard?.teamSpirit?.teamName;
     if (this.logo) {
       this.isLogo = true;
     
@@ -90,6 +94,7 @@ if(JSON.parse(
     this.form.controls['teamName'].setValue(this.team.teamName);
     this.form.controls['teamCode'].setValue(this.team.teamCode);
     this.form.controls['projectKey'].setValue(this.team.projectKey);
+    this.form.controls['teamSpiritTeamName'].setValue(this.teamSpiritTeamName);
   }
   public changeADCenter(centerName: string) {
     this.team.adCenter = centerName;
@@ -155,13 +160,14 @@ if(JSON.parse(
     this.updateTeam.teamName = this.team.teamName;
     this.updateTeam.projectKey = this.form.get('projectKey').value;
     this.updateTeam.teamCode = this.form.get('teamCode').value;
-
+    this.updateTeam.teamSpiritTeamName = this.form.get('teamSpiritTeamName').value;
     try {
       
       const data = await this.setupService.updateTeam(this.updateTeam, this.team.teamId);
       this.teamDetail = JSON.parse(localStorage.getItem('TeamDetailsResponse'));
       this.teamDetail.powerboardResponse.project_key = this.updateTeam.projectKey;
       this.teamDetail.powerboardResponse.team_code = this.updateTeam.teamCode;
+      //this.teamDetail.powerboardResponse.dashboard.teamSpirit.teamName = this.updateTeam.teamSpiritTeamName;
       localStorage.setItem(
         'TeamDetailsResponse',
         JSON.stringify(this.teamDetail)
@@ -170,9 +176,26 @@ if(JSON.parse(
     
       console.log(data);
     } catch (e) {
-     
       console.log(e);
-      this.notifyService.showError("", e);
+      let errors= e.error.message.split(',');
+      console.log(errors);
+      if(errors.length==2){
+        if(errors[0] == ''){
+          console.log(errors[0]);
+          this.notifyService.showSuccess("", "Team updated successfully");
+        }
+        else{
+          this.notifyService.showError("", errors[0]);
+        }
+        if(errors[1] != ''){
+          console.log(errors[1]);
+          this.notifyService.showError("", errors[1]);
+        }
+      }
+      else{
+        this.notifyService.showError("", e.error.message);
+      }
+      
     }
   }
   skip(){

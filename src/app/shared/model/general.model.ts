@@ -44,7 +44,7 @@ export class ClientStatusResponse{
 }
 export class TeamSpiritResponse{
   teamSpiritRating: number;
-  sprintNumber: number;
+  teamName: string;
 }
 export class BurndownResponse{
   workUnit: string;
