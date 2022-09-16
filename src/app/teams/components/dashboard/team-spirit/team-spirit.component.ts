@@ -35,18 +35,24 @@ export class TeamSpiritComponent implements OnInit {
       localStorage.getItem('TeamDetailsResponse')
     ).powerboardResponse.dashboard.teamSpirit;
     if (this.teamSpirit) {
-      if (this.teamSpirit.teamSpiritRating < 3.3) {
-        this.colour = '#c40000';
-      } else if (
-        this.teamSpirit.teamSpiritRating > 3.3 &&
-        this.teamSpirit.teamSpiritRating < 6.7
-      ) {
-        this.colour = '#e09b3a';
-      } else {
-        this.colour = '#2ab02f';
+      if(this.teamSpirit?.teamSpiritRating){
+        if (this.teamSpirit.teamSpiritRating < 3.3) {
+          this.colour = '#c40000';
+        } else if (
+          this.teamSpirit.teamSpiritRating > 3.3 &&
+          this.teamSpirit.teamSpiritRating < 6.7
+        ) {
+          this.colour = '#e09b3a';
+        } else {
+          this.colour = '#2ab02f';
+        }
+        this.componentReady = true;
+        this.initChart();
       }
-      this.componentReady = true;
-      this.initChart();
+      else{
+        this.componentReady = false;
+      }
+      
     } else {
       this.componentReady = false;
     }

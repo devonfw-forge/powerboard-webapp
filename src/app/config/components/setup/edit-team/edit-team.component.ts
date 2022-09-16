@@ -180,16 +180,18 @@ if(JSON.parse(
       let errors= e.error.message.split(',');
       console.log(errors);
       if(errors.length==2){
-        if(errors[0] == ''){
-          console.log(errors[0]);
-          this.notifyService.showSuccess("", "Team updated successfully");
-        }
-        else{
-          this.notifyService.showError("", errors[0]);
-        }
         if(errors[1] != ''){
           console.log(errors[1]);
           this.notifyService.showError("", errors[1]);
+        }
+        else{
+          if(errors[0] == ''){
+            console.log(errors[0]);
+            this.notifyService.showSuccess("", "Team updated successfully");
+          }
+          else{
+            this.notifyService.showError("", errors[0]);
+          }
         }
       }
       else{
